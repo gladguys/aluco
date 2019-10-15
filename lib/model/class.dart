@@ -1,5 +1,5 @@
 class Class {
-  String name;
+  String name, subname;
 
-  Class({this.name});
+  Class({this.name, this.subname});
 }

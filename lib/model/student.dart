@@ -1,7 +1,9 @@
 class Student {
-  String name;
-  String photoUrl;
+  final int id;
+  final String name;
+  final String photoUrl;
+  bool called;
 
-  Student({this.name, this.photoUrl});
+  Student({this.id, this.name, this.photoUrl, this.called});
 
 }
