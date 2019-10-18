@@ -1,4 +1,4 @@
-package com.example.easyteach
+package com.example.aluco
 
 import android.os.Bundle
 

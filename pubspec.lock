@@ -53,6 +53,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  gg_flutter_components:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: master
+      resolved-ref: "702d8564fd4e383a42fe9eaaba6abea4cbeab3b3"
+      url: "git://github.com/rodrigobastosv/gg_flutter_components.git"
+    source: git
+    version: "0.0.1"
   matcher:
     dependency: transitive
     description:

@@ -10,10 +10,10 @@ class ETRouter {
   }
 
   static void _onBeforePush(Widget widget) {
-    print('------ Navigated to: ${widget.toString().toUpperCase()} ------');
+    print('------ Navigated to: ${widget.toString()} ------');
   }
 
   static void _onAfterPush(Widget widget) {
-    print('------ Navigated out of: ${widget.toString().toUpperCase()} ------');
+    print('------ Navigated out of: ${widget.toString()} ------');
   }
 }

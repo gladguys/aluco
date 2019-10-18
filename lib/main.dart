@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:easyteach/screen/classes_screen.dart';
+import 'package:aluco/screen/classes_screen.dart';
 
 void main() => runApp(MyApp());
 

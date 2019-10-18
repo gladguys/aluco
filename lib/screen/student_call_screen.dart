@@ -1,5 +1,5 @@
-import 'package:easyteach/model/class.dart';
-import 'package:easyteach/model/student.dart';
+import 'package:aluco/model/class.dart';
+import 'package:aluco/model/student.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 

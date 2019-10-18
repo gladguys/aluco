@@ -1,4 +1,4 @@
-name: easyteach
+name: aluco
 description: A new Flutter project.
 
 version: 1.0.0+1
@@ -12,6 +12,10 @@ dependencies:
 
   cupertino_icons: ^0.1.2
   flutter_icons: ^0.3.1
+  gg_flutter_components:
+    git:
+      url: git://github.com/rodrigobastosv/gg_flutter_components.git
+      ref: master
 
 dev_dependencies:
   flutter_test:

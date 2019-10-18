@@ -1,4 +1,4 @@
-# easyteach
+# aluco
 
 A new Flutter project.
 
