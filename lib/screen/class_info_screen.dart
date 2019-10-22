@@ -20,7 +20,7 @@ class ClassInfoScreen extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.white,
         title: Text(
-          '${classe.name} - ${classe.subname}',
+          '${classe.name}',
           style: TextStyle(color: Color(0xFF389952), fontSize: 20),
         ),
         actions: <Widget>[

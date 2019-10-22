@@ -1,6 +1,8 @@
+import 'package:aluco/screen/list_classes/list_classes_screen.dart';
 import 'package:aluco/utils/form_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
+import 'package:simple_router/simple_router.dart';
 
 import 'signin_form.dart';
 
@@ -20,8 +22,8 @@ class SigninFormButton extends StatelessWidget {
           child: GGRoundedButton(
             onPressed: () async {
               if (FormUtils.isValid(signinForm.getForm())) {
-                print(signinForm.data);
                 //await _bloc.tryToSigninUser(userData);
+                SimpleRouter.forward(ListClassesScreen());
               }
             },
             padding: EdgeInsets.all(14),
