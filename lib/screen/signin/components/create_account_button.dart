@@ -1,7 +1,7 @@
+import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/screen/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
-import 'package:simple_router/simple_router.dart';
 
 class CreateAccountButton extends StatelessWidget {
   @override
@@ -12,7 +12,7 @@ class CreateAccountButton extends StatelessWidget {
         Expanded(
           flex: 2,
           child: GGRoundedButton(
-            onPressed: () => SimpleRouter.forward(SignupScreen()),
+            onPressed: () => ALRouter.push(context, SignupScreen()),
             borderColoredOnly: true,
             borderColor: const Color(0xFF009688),
             borderWidth: 2,

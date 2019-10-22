@@ -1,5 +1,5 @@
+import 'package:aluco/routing/al_router.dart';
 import 'package:flutter/material.dart';
-import 'package:simple_router/simple_router.dart';
 
 class HaveAccountButton extends StatelessWidget {
   @override
@@ -10,7 +10,7 @@ class HaveAccountButton extends StatelessWidget {
         Expanded(
           flex: 3,
           child: FlatButton(
-            onPressed: () => SimpleRouter.back(),
+            onPressed: () => ALRouter.pop(context),
             padding: const EdgeInsets.all(14),
             child: Text(
               'Já tenho uma conta!',

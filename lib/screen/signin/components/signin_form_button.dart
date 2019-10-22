@@ -1,8 +1,8 @@
+import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/screen/list_classes/list_classes_screen.dart';
 import 'package:aluco/utils/form_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
-import 'package:simple_router/simple_router.dart';
 
 import 'signin_form.dart';
 
@@ -23,7 +23,7 @@ class SigninFormButton extends StatelessWidget {
             onPressed: () async {
               if (FormUtils.isValid(signinForm.getForm())) {
                 //await _bloc.tryToSigninUser(userData);
-                SimpleRouter.forward(ListClassesScreen());
+                ALRouter.pushAndReplace(context, ListClassesScreen());
               }
             },
             padding: const EdgeInsets.all(14),

@@ -1,6 +1,7 @@
 import 'package:aluco/model/class.dart';
 import 'package:aluco/service/class_service.dart';
-import 'package:aluco/widget/al_loading.dart';
+import 'package:aluco/widget/al_error.dart';
+import 'package:aluco/widget/al_waiting_indicator.dart';
 import 'package:flutter/material.dart';
 
 import 'list_class_tile.dart';
@@ -20,8 +21,10 @@ class ListClasses extends StatelessWidget {
               itemBuilder: (_, i) => ListClassTile(classList[i]),
               separatorBuilder: (_, i) => const Divider(),
           );
+        } else if (snapshot.hasError) {
+          return ALError();
         }
-        return AlLoading();
+        return ALWaitingIndicator();
       },
     );
   }

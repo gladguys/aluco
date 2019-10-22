@@ -5,6 +5,10 @@ class ClassService {
   final _repository = ClassRepository();
 
   Future<List<Class>> getAllClasses() async {
-    return await _repository.getAllClasses();
+    try {
+      return await _repository.getAllClasses();
+    } catch (e) {
+      throw Exception();
+    }
   }
 }

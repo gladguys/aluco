@@ -1,5 +1,5 @@
 import 'package:aluco/model/class.dart';
-import 'package:aluco/routing/et_router.dart';
+import 'package:aluco/routing/al_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
@@ -73,7 +73,7 @@ class ClassInfoScreen extends StatelessWidget {
                   flex: 1,
                   child: RaisedButton(
                     shape: Border.all(color: Colors.black),
-                    onPressed: () => ETRouter.push(
+                    onPressed: () => ALRouter.push(
                         context, StudentCallScreen(classe: classe)),
                     child: Text(
                       'FAZER CHAMADA',
