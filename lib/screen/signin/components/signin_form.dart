@@ -8,6 +8,10 @@ class SigninForm extends StatelessWidget with GGValidators {
   final _formKey = GlobalKey<FormState>();
   final _passwordFN = FocusNode();
 
+  // TODO(rodrigo): remove this
+  final _usernameController = TextEditingController(text: 'aluco@aluco.com');
+  final _passwordController = TextEditingController(text: '123456');
+
   Map<String, String> get data => _getData();
 
   @override
@@ -17,17 +21,19 @@ class SigninForm extends StatelessWidget with GGValidators {
       child: Column(
         children: <Widget>[
           TextFormField(
+            controller: _usernameController,
             decoration: InputDecoration(
-              labelText: 'Usuário',
+              labelText: 'E-mail',
               border: OutlineInputBorder(),
             ),
             textInputAction: TextInputAction.next,
             onFieldSubmitted: (value) => FocusScope.of(context).requestFocus(_passwordFN),
             validator: emptyValidator,
-            onSaved: (username) => userData['username'] = username,
+            onSaved: (email) => userData['email'] = email,
           ),
           FormVerticalSeparator,
           TextFormField(
+            controller: _passwordController,
             decoration: InputDecoration(
               labelText: 'Senha',
               border: OutlineInputBorder(),
@@ -45,8 +51,13 @@ class SigninForm extends StatelessWidget with GGValidators {
 
   Map<String, String> _getData() {
     return {
+      'email': 'aluco@aluco.com',
+      'password': '123456'
+    };
+    // TODO(rodrigo): remove this
+    /*return {
       'username': userData['username'],
       'password': userData['password']
-    };
+    };*/
   }
 }

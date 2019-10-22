@@ -4,12 +4,14 @@ import 'package:aluco/utils/form_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
 
+import '../signin_bloc.dart';
 import 'signin_form.dart';
 
 class SigninFormButton extends StatelessWidget {
 
-  const SigninFormButton({this.signinForm});
+  SigninFormButton({this.signinForm});
 
+  final SigninBloc _bloc = SigninBloc();
   final SigninForm signinForm;
 
   @override
@@ -22,7 +24,7 @@ class SigninFormButton extends StatelessWidget {
           child: GGRoundedButton(
             onPressed: () async {
               if (FormUtils.isValid(signinForm.getForm())) {
-                //await _bloc.tryToSigninUser(userData);
+                await _bloc.tryToSigninUser(signinForm.data);
                 ALRouter.pushAndReplace(context, HomeScreen());
               }
             },
