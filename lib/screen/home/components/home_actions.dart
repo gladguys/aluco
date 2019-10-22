@@ -29,13 +29,18 @@ class HomeActions extends StatelessWidget {
 
 final actions = [
   {
-    'icon': Icons.school,
-    'text': 'Alunos',
+    'icon': Icons.class_,
+    'text': 'Minhas Turmas',
+    'target': ListClassesScreen()
+  },
+  {
+    'icon': Icons.add_circle_outline,
+    'text': 'Criar Turma',
     'target': null
   },
   {
-    'icon': Icons.class_,
-    'text': 'Turmas',
-    'target': ListClassesScreen()
+    'icon': Icons.school,
+    'text': 'Criar Aluno',
+    'target': null
   },
 ];

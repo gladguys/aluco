@@ -15,9 +15,9 @@ class Home extends StatelessWidget {
         CircleAvatar(
           backgroundImage: NetworkImage(
               'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcToXffDWYU6rqNmwErhPEngsrP7FNP0c3RhJxLwLLI4gETXmBLq'),
-          radius: 60,
+          radius: 40,
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 8),
         HomeActions(),
       ],
     );
