@@ -13,6 +13,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _subscription =  Connectivity().onConnectivityChanged.listen((result) {
+    // TODO(rodrigo): create better way to notificate this
     if (result == ConnectivityResult.none) {
       print('sem net');
     } else {
