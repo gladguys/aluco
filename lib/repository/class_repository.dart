@@ -8,7 +8,7 @@ class ClassRepository {
 
   Future<List<Class>> getAllClasses() async {
     try {
-      final response = await _dio.get<dynamic>('$API_URL/$CLASS/q');
+      final response = await _dio.get<dynamic>('$API_URL/$CLASS');
       return List.generate(
         response.data.length,
             (int i) => Class.fromJson(
