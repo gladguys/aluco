@@ -15,7 +15,7 @@ class ClassInfoScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(
-          color: Color(0xFF389952), //change your color here
+          color: Color(0xFF389952),
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
