@@ -8,7 +8,7 @@ import 'signin_form.dart';
 
 class SigninFormButton extends StatelessWidget {
 
-  SigninFormButton({this.signinForm});
+  const SigninFormButton({this.signinForm});
 
   final SigninForm signinForm;
 
@@ -16,7 +16,7 @@ class SigninFormButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        Spacer(flex: 1),
+        const Spacer(flex: 1),
         Expanded(
           flex: 1,
           child: GGRoundedButton(
@@ -26,14 +26,14 @@ class SigninFormButton extends StatelessWidget {
                 SimpleRouter.forward(ListClassesScreen());
               }
             },
-            padding: EdgeInsets.all(14),
+            padding: const EdgeInsets.all(14),
             child: Text(
               'Entrar',
               style: TextStyle(color: Colors.white, fontSize: 18),
             ),
           ),
         ),
-        Spacer(flex: 1),
+        const Spacer(flex: 1),
       ],
     );
   }

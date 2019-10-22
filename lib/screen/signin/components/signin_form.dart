@@ -4,7 +4,7 @@ import 'package:gg_flutter_components/gg_flutter_components.dart';
 
 class SigninForm extends StatelessWidget with GGValidators {
 
-  final userData = {};
+  final userData = <String, dynamic>{};
   final _formKey = GlobalKey<FormState>();
   final _passwordFN = FocusNode();
 

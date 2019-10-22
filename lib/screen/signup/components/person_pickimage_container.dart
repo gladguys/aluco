@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PersonPickImageContainer extends StatefulWidget {
-  PersonPickImageContainer({this.onPickImage});
+  const PersonPickImageContainer({this.onPickImage});
 
   final Function onPickImage;
 
@@ -39,7 +39,7 @@ class IconContainer extends StatelessWidget {
 }
 
 class ImageContainer extends StatelessWidget {
-  ImageContainer(this.image);
+  const ImageContainer(this.image);
 
   final File image;
 

@@ -12,7 +12,7 @@ class ListClassesScreen extends StatelessWidget {
         centerTitle: true,
         title: Text(
           'Minhas Turmas',
-          style: TextStyle(color: Color(0xFF389952), fontSize: 28),
+          style: TextStyle(color: const Color(0xFF389952), fontSize: 28),
         ),
         actions: <Widget>[
           Padding(
@@ -20,7 +20,7 @@ class ListClassesScreen extends StatelessWidget {
             child: Icon(
               MaterialCommunityIcons.getIconData('face-profile'),
               size: 38,
-              color: Color(0xFF389952),
+              color: const Color(0xFF389952),
             ),
           ),
         ],

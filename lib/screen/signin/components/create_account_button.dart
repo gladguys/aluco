@@ -8,22 +8,22 @@ class CreateAccountButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        Spacer(flex: 1),
+        const Spacer(flex: 1),
         Expanded(
           flex: 2,
           child: GGRoundedButton(
             onPressed: () => SimpleRouter.forward(SignupScreen()),
             borderColoredOnly: true,
-            borderColor: Color(0xFF009688),
+            borderColor: const Color(0xFF009688),
             borderWidth: 2,
-            padding: EdgeInsets.all(14),
+            padding: const EdgeInsets.all(14),
             child: Text(
               'Criar Conta',
-              style: TextStyle(color: Color(0xFF009688), fontSize: 18),
+              style: TextStyle(color: const Color(0xFF009688), fontSize: 18),
             ),
           ),
         ),
-        Spacer(flex: 1),
+        const Spacer(flex: 1),
       ],
     );
   }

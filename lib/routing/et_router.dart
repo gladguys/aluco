@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 class ETRouter {
   static Future<dynamic> push(BuildContext context, Widget widget) async {
     _onBeforePush(widget);
-    dynamic navigationValue = await Navigator.of(context).push(CupertinoPageRoute(builder: (_) => widget));
+    final dynamic navigationValue = await Navigator.of(context)
+        .push<dynamic>(CupertinoPageRoute<dynamic>(builder: (_) => widget));
     _onAfterPush(widget);
     return navigationValue;
   }

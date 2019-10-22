@@ -1,4 +1,3 @@
-import 'package:aluco/screen/signin/components/signin_with_google_button.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
 
@@ -23,15 +22,15 @@ class _SignupScreenState extends State<SignupScreen> with GGValidators {
           child: Column(
             children: <Widget>[
               Text('Aluco', style: TextStyle(color: theme, fontSize: 48)),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               Text('Crie sua conta', style: TextStyle(color: Colors.black, fontSize: 22)),
               Padding(
                 padding: const EdgeInsets.all(18),
                 child: signupForm,
               ),
               SignupFormButton(signupForm: signupForm),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 16),
                 child: Divider(thickness: 2),
               ),
               HaveAccountButton()

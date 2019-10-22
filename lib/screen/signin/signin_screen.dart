@@ -31,12 +31,12 @@ class _SigninScreenState extends State<SigninScreen> with GGValidators {
                 child: signinForm,
               ),
               SigninFormButton(signinForm: signinForm),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 16),
                 child: Divider(thickness: 2),
               ),
               CreateAccountButton(),
-              SizedBox(height: 18),
+              const SizedBox(height: 18),
               SigninWithGoogleButton()
             ],
           ),

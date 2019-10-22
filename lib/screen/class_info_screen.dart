@@ -6,7 +6,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'student_call_screen.dart';
 
 class ClassInfoScreen extends StatelessWidget {
-  ClassInfoScreen({@required this.classe});
+  const ClassInfoScreen({@required this.classe});
 
   final Class classe;
 
@@ -14,14 +14,14 @@ class ClassInfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Color(0xFF389952), //change your color here
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
         title: Text(
           '${classe.name}',
-          style: TextStyle(color: Color(0xFF389952), fontSize: 20),
+          style: TextStyle(color: const Color(0xFF389952), fontSize: 20),
         ),
         actions: <Widget>[
           Padding(
@@ -29,7 +29,7 @@ class ClassInfoScreen extends StatelessWidget {
             child: Icon(
               MaterialCommunityIcons.getIconData('face-profile'),
               size: 38,
-              color: Color(0xFF389952),
+              color: const Color(0xFF389952),
             ),
           ),
         ],
@@ -44,20 +44,23 @@ class ClassInfoScreen extends StatelessWidget {
               Expanded(
                 flex: 5,
                 child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisSpacing: 32,
                       crossAxisSpacing: 32,
                       childAspectRatio: 1),
                   itemBuilder: (context, i) => Container(
                     decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xFF389952))),
+                        border: Border.all(color: const Color(0xFF389952))),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Icon(classActions[i]['icon'],
-                            color: Color(0xFF389952), size: 80),
-                        SizedBox(height: 12),
+                        Icon(
+                          classActions[i]['icon'],
+                          color: const Color(0xFF389952),
+                          size: 80,
+                        ),
+                        const SizedBox(height: 12),
                         Text(classActions[i]['label'])
                       ],
                     ),
@@ -65,12 +68,13 @@ class ClassInfoScreen extends StatelessWidget {
                   itemCount: classActions.length,
                 ),
               ),
-              Spacer(flex: 1),
+              const Spacer(flex: 1),
               Expanded(
                   flex: 1,
                   child: RaisedButton(
                     shape: Border.all(color: Colors.black),
-                    onPressed: () => ETRouter.push(context, StudentCallScreen(classe: classe)),
+                    onPressed: () => ETRouter.push(
+                        context, StudentCallScreen(classe: classe)),
                     child: Text(
                       'FAZER CHAMADA',
                       style: TextStyle(fontSize: 22, color: Colors.white),
@@ -86,24 +90,24 @@ class ClassInfoScreen extends StatelessWidget {
 }
 
 final classActions = [
-  {
+  <String, dynamic>{
     'label': 'Quadro de Notas',
     'icon': Octicons.getIconData('book'),
-    'onTap': () => {},
+    'onTap': () => <dynamic>{},
   },
-  {
+  <String, dynamic>{
     'label': 'Histórico de Chamadas',
     'icon': SimpleLineIcons.getIconData('clock'),
-    'onTap': () => {},
+    'onTap': () => <dynamic>{},
   },
-  {
+  <String, dynamic>{
     'label': 'Plano de Aula',
     'icon': Foundation.getIconData('clipboard-notes'),
-    'onTap': () => {},
+    'onTap': () => <dynamic>{},
   },
-  {
+  <String, dynamic>{
     'label': 'Dados do Aluno',
     'icon': Ionicons.getIconData('ios-person'),
-    'onTap': () => {},
+    'onTap': () => <dynamic>{},
   }
 ];

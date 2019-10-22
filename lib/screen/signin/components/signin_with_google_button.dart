@@ -6,22 +6,22 @@ class SigninWithGoogleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        Spacer(flex: 1),
+        const Spacer(flex: 1),
         Expanded(
           flex: 3,
           child: GGRoundedButton(
             onPressed: () {},
             borderColoredOnly: true,
-            borderColor: Color(0xFFF44336),
+            borderColor: const Color(0xFFF44336),
             borderWidth: 2,
-            padding: EdgeInsets.all(14),
+            padding: const EdgeInsets.all(14),
             child: Text(
               'Entrar com Google',
-              style: TextStyle(color: Color(0xFFF44336), fontSize: 18),
+              style: TextStyle(color: const Color(0xFFF44336), fontSize: 18),
             ),
           ),
         ),
-        Spacer(flex: 1),
+        const Spacer(flex: 1),
       ],
     );
   }

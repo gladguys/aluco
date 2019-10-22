@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 class StudentCallScreen extends StatefulWidget {
-  StudentCallScreen({this.classe});
+  const StudentCallScreen({this.classe});
 
   final Class classe;
 
@@ -18,14 +18,14 @@ class _StudentCallScreenState extends State<StudentCallScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Color(0xFF389952), //change your color here
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
         title: Text(
           'Chamada',
-          style: TextStyle(color: Color(0xFF389952), fontSize: 28),
+          style: TextStyle(color: const Color(0xFF389952), fontSize: 28),
         ),
         actions: <Widget>[
           Padding(
@@ -33,7 +33,7 @@ class _StudentCallScreenState extends State<StudentCallScreen> {
             child: Icon(
               MaterialCommunityIcons.getIconData('face-profile'),
               size: 38,
-              color: Color(0xFF389952),
+              color: const Color(0xFF389952),
             ),
           ),
         ],
@@ -47,7 +47,7 @@ class _StudentCallScreenState extends State<StudentCallScreen> {
             child: ListView.builder(
               shrinkWrap: true,
               itemBuilder: (_, i) => Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                   color: students[i].called == null ? null : students[i].called ? Colors.green[200] : Colors.red[200],
                   key: ValueKey(i),
                   child: Column(
@@ -63,7 +63,7 @@ class _StudentCallScreenState extends State<StudentCallScreen> {
                               NetworkImage(students[i].photoUrl),
                             ),
                           ),
-                          Spacer(flex: 1),
+                          const Spacer(flex: 1),
                           Expanded(
                             flex: 7,
                             child: Text(

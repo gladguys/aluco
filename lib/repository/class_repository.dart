@@ -7,7 +7,7 @@ class ClassRepository {
   final _dio = DioBuilder.getDio();
 
   Future<List<Class>> getAllClasses() async {
-    final response = await _dio.get('$API_URL/$CLASS');
+    final response = await _dio.get<dynamic>('$API_URL/$CLASS');
     return List.generate(
       response.data.length,
       (int i) => Class.fromJson(

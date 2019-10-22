@@ -6,7 +6,7 @@ import 'person_pickimage_container.dart';
 
 class SignupForm extends StatelessWidget with GGValidators {
 
-  static final _userData = {};
+  static final _userData = <String, dynamic>{};
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController(text: '');
   final _onPickImage = (String url) => _userData['photo_url'] = url;
@@ -62,7 +62,7 @@ class SignupForm extends StatelessWidget with GGValidators {
   }
 
   String validatePasswordConfirmation(String passwordConfirmation) {
-    String confirmMessage = emptyValidator(passwordConfirmation);
+    final String confirmMessage = emptyValidator(passwordConfirmation);
     if (confirmMessage != null) {
       return confirmMessage;
     } else if (passwordConfirmation != _passwordController.text) {

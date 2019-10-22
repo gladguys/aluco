@@ -18,7 +18,7 @@ class ListClasses extends StatelessWidget {
           return ListView.separated(
               itemCount: classList.length,
               itemBuilder: (_, i) => ListClassTile(classList[i]),
-              separatorBuilder: (_, i) => Divider(),
+              separatorBuilder: (_, i) => const Divider(),
           );
         }
         return AlLoading();
