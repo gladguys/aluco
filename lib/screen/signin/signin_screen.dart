@@ -6,15 +6,12 @@ import 'components/signin_form.dart';
 import 'components/signin_form_button.dart';
 import 'components/signin_with_google_button.dart';
 
-import 'signin_bloc.dart';
-
 class SigninScreen extends StatefulWidget {
   @override
   _SigninScreenState createState() => _SigninScreenState();
 }
 
 class _SigninScreenState extends State<SigninScreen> with GGValidators {
-  final _bloc = SigninBloc();
   final signinForm = SigninForm();
 
   @override

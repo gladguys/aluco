@@ -2,9 +2,19 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 
 import 'package:aluco/screen/signin/signin_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'theme/main_theme.dart';
 
-void main() => runApp(MyApp());
+SharedPreferences preferences;
+
+Future<void> main() async {
+  await initializePreferences();
+  runApp(MyApp());
+}
+
+Future<void> initializePreferences() async {
+  preferences = await SharedPreferences.getInstance();
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -12,7 +22,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _subscription =  Connectivity().onConnectivityChanged.listen((result) {
+  final _subscription = Connectivity().onConnectivityChanged.listen((result) {
     // TODO(rodrigo): create better way to notificate this
     if (result == ConnectivityResult.none) {
       print('sem net');

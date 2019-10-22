@@ -16,6 +16,7 @@ dependencies:
   dio: ^3.0.3
   connectivity: ^0.4.5+1
   flutter_spinkit: ^4.0.0
+  shared_preferences: ^0.5.4
   gg_flutter_components:
     git:
       url: git://github.com/rodrigobastosv/gg_flutter_components.git

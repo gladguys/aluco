@@ -1,13 +1,18 @@
 import 'package:aluco/repository/auth_repository.dart';
+import 'package:aluco/utils/jwt_utils.dart';
 
 class SigninBloc {
   final _repository = AuthRepository();
 
-  Future<bool> tryToSigninUser(Map<dynamic, String> userData) async {
+  Future<Map<String, dynamic>> tryToSigninUser(Map<dynamic, String> userData) async {
     try {
       return await _repository.tryToSigninUser(userData);
     } catch(e) {
       throw Exception();
     }
+  }
+
+  Future<void> storeJWTInfo(Map<String, dynamic> loggedUserData) async {
+    await JWTUtils.storeInfo(loggedUserData);
   }
 }

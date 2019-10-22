@@ -2,18 +2,20 @@ import 'dart:convert';
 
 import 'package:aluco/repository/API.dart';
 
-import 'dio_builder.dart';
+import 'dio/dio_builder.dart';
 
 class AuthRepository {
   final _dio = DioBuilder.getDio();
 
-  Future<bool> tryToSigninUser(Map<dynamic, String> userData) async {
+  Future<Map<String, dynamic>> tryToSigninUser(Map<dynamic, String> userData) async {
     try {
       final response = await _dio.post<dynamic>('$API_URL/$AUTH', data: jsonEncode(userData));
-      print(response);
-      return true;
+      return <String, dynamic>{
+        'token': response.data['token'],
+        'userId': response.data['user']['id']
+      };
     } catch(e) {
-      rethrow;
+      return null;
     }
   }
 }

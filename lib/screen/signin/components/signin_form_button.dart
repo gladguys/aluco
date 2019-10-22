@@ -24,8 +24,11 @@ class SigninFormButton extends StatelessWidget {
           child: GGRoundedButton(
             onPressed: () async {
               if (FormUtils.isValid(signinForm.getForm())) {
-                await _bloc.tryToSigninUser(signinForm.data);
-                ALRouter.pushAndReplace(context, HomeScreen());
+                final loggedUserData = await _bloc.tryToSigninUser(signinForm.data);
+                if (loggedUserData != null) {
+                  await _bloc.storeJWTInfo(loggedUserData);
+                  ALRouter.pushAndReplace(context, HomeScreen());
+                }
               }
             },
             padding: const EdgeInsets.all(14),

@@ -1,7 +1,7 @@
 import 'package:aluco/model/class.dart';
 
 import 'API.dart';
-import 'dio_builder.dart';
+import 'dio/dio_builder.dart';
 
 class ClassRepository {
   final _dio = DioBuilder.getDio();
