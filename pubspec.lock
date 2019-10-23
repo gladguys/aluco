@@ -9,7 +9,7 @@ packages:
     source: hosted
     version: "2.3.0"
   avataaar_image:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: avataaar_image
       url: "https://pub.dartlang.org"
@@ -116,12 +116,19 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  gender_selector:
+    dependency: "direct main"
+    description:
+      name: gender_selector
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.6"
   gg_flutter_components:
     dependency: "direct main"
     description:
       path: "."
       ref: master
-      resolved-ref: caed4b77661711cc1307d9f3ab8b5a096b4312b3
+      resolved-ref: f6419864bf7dff811fbbb0e36e6bf096149320cd
       url: "git://github.com/rodrigobastosv/gg_flutter_components.git"
     source: git
     version: "0.0.1"

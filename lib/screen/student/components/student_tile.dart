@@ -19,6 +19,7 @@ class StudentTile extends StatelessWidget {
       ),
       title: Text(student.name),
       subtitle: Text(student?.email ?? ''),
+      trailing: IconButton(icon: Icon(Icons.delete), onPressed: () {}),
     );
   }
 }
