@@ -1,5 +1,6 @@
 import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/screen/list_classes/list_classes_screen.dart';
+import 'package:aluco/screen/student/list_students_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
 
@@ -30,17 +31,12 @@ class HomeActions extends StatelessWidget {
 final actions = [
   {
     'icon': Icons.class_,
-    'text': 'Minhas Turmas',
+    'text': 'Turmas',
     'target': ListClassesScreen()
   },
   {
-    'icon': Icons.add_circle_outline,
-    'text': 'Criar Turma',
-    'target': null
-  },
-  {
     'icon': Icons.school,
-    'text': 'Criar Aluno',
-    'target': null
+    'text': 'Alunos',
+    'target': ListStudentsScreen()
   },
 ];

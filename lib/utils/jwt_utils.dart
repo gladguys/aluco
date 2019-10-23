@@ -11,6 +11,10 @@ class JWTUtils {
     return preferences.getString('token');
   }
 
+  static int getTeacherId() {
+    return preferences.getInt('userId');
+  }
+
   // TODO(rodrigo): do this logic
   static Future<bool> isTokenValid() async {
     return true;

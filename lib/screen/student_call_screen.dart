@@ -38,7 +38,7 @@ class _StudentCallScreenState extends State<StudentCallScreen> {
           ),
         ],
       ),
-      body: Column(
+      /*body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -115,12 +115,12 @@ class _StudentCallScreenState extends State<StudentCallScreen> {
             ),
           ),
         ],
-      ),
+      ),*/
     );
   }
 }
 
-final students = [
+/*final students = [
   Student(
     id: 1,
     name: 'Aline Queiroz Peireira',
@@ -163,4 +163,4 @@ final students = [
     photoUrl:
         'https://images.pexels.com/photos/1912868/pexels-photo-1912868.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
   ),
-];
+];*/

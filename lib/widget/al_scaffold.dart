@@ -4,12 +4,14 @@ class ALScaffold extends StatelessWidget {
   const ALScaffold({
     this.title,
     this.actions,
+    this.floatingActionButton,
     @required this.body,
   }) : assert(body != null);
 
   final String title;
   final List<Widget> actions;
   final Widget body;
+  final Widget floatingActionButton;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class ALScaffold extends StatelessWidget {
         elevation: 1,
       ),
       body: body,
+      floatingActionButton: floatingActionButton,
     );
   }
 }

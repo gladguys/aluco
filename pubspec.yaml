@@ -12,6 +12,9 @@ dependencies:
 
   cupertino_icons: ^0.1.2
   flutter_icons: ^0.3.1
+  avataaar_image: ^1.0.6
+  bloc_provider: ^0.6.2+2
+  intl: ^0.15.8
   image_picker: ^0.6.1+8
   dio: ^3.0.3
   connectivity: ^0.4.5+1
