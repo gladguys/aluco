@@ -29,4 +29,13 @@ class StudentRepository {
       rethrow;
     }
   }
+
+  Future<void> deleteStudent(int id) async {
+    try {
+      await _dio.delete<dynamic>('$API_URL/$STUDENT/$id');
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
 }

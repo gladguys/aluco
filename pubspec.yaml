@@ -17,6 +17,8 @@ dependencies:
   image_picker: ^0.6.1+8
   gender_selector: ^1.0.6
   dio: ^3.0.3
+  rxdart: ^0.22.4
+  ndialog: ^2.0.2
   connectivity: ^0.4.5+1
   flutter_spinkit: ^4.0.0
   shared_preferences: ^0.5.4
