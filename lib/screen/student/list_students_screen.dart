@@ -6,8 +6,8 @@ import 'package:aluco/widget/al_waiting_indicator.dart';
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:flutter/material.dart';
 
-import 'save_student_screen.dart';
 import 'components/list_students.dart';
+import 'save_student_screen.dart';
 import 'student_bloc.dart';
 
 class ListStudentsScreen extends StatefulWidget {
