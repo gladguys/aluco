@@ -8,7 +8,6 @@ import '../signin_bloc.dart';
 import 'signin_form.dart';
 
 class SigninFormButton extends StatelessWidget {
-
   SigninFormButton({this.signinForm});
 
   final SigninBloc _bloc = SigninBloc();
@@ -22,20 +21,26 @@ class SigninFormButton extends StatelessWidget {
         Expanded(
           flex: 1,
           child: GGRoundedButton(
+            padding: const EdgeInsets.all(14),
+            color: Colors.white,
+            borderRadius: 24,
+            child: Text(
+              'Entrar',
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontSize: 18,
+              ),
+            ),
             onPressed: () async {
               if (FormUtils.isValid(signinForm.getForm())) {
-                final loggedUserData = await _bloc.tryToSigninUser(signinForm.data);
+                final loggedUserData =
+                    await _bloc.tryToSigninUser(signinForm.data);
                 if (loggedUserData != null) {
                   await _bloc.storeJWTInfo(loggedUserData);
                   ALRouter.pushAndReplace(context, HomeScreen());
                 }
               }
             },
-            padding: const EdgeInsets.all(14),
-            child: Text(
-              'Entrar',
-              style: TextStyle(color: Colors.white, fontSize: 18),
-            ),
           ),
         ),
         const Spacer(flex: 1),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 final theme = ThemeData(
-  primaryColor: const Color(0xFFFF9800),
-  scaffoldBackgroundColor: Colors.white
+  primaryColor: Colors.orange[600],
+  accentColor: Colors.indigo[900],
+  scaffoldBackgroundColor: Colors.white,
+  fontFamily: 'Ubuntu',
 );

@@ -16,25 +16,35 @@ class _SigninScreenState extends State<SigninScreen> with GGValidators {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).primaryColor;
+    final primaryColor = Theme.of(context).primaryColor;
+    final accentColor = Theme.of(context).accentColor;
     return Scaffold(
+      backgroundColor: primaryColor,
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              Text('Aluco', style: TextStyle(color: theme, fontSize: 48)),
+              Text(
+                'Aluco',
+                style: TextStyle(
+                  fontFamily: 'OleoScriptSwashCaps',
+                  fontSize: 56,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(18),
                 child: signinForm,
               ),
               SigninFormButton(signinForm: signinForm),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 16),
-                child: Divider(thickness: 2),
-              ),
-              CreateAccountButton(),
-              const SizedBox(height: 18),
-              SigninWithGoogleButton()
+              // const Padding(
+              //   padding: EdgeInsets.symmetric(vertical: 16),
+              //   child: Divider(thickness: 2),
+              // ),
+              // CreateAccountButton(),
+              // const SizedBox(height: 18),
+              // SigninWithGoogleButton()
             ],
           ),
         ),
