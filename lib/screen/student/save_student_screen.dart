@@ -54,7 +54,7 @@ class _SaveStudentScreen extends State<SaveStudentScreen> {
   Future<void> _onPressedSaveButton(BuildContext context) async {
     final _bloc = BlocProvider.of<StudentBloc>(widget.blocContext);
     if (FormUtils.isValid(_saveStudentForm.form)) {
-      await _bloc.saveStudent(_saveStudentForm.student);
+      await _bloc.saveStudent(_saveStudentForm.studentForm);
       ALRouter.pop(context);
     }
   }
