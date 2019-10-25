@@ -9,6 +9,7 @@ final headers = <String, dynamic>{
 Function(RequestOptions) onRequest = (RequestOptions options) async {
   debugPrint('${options.method}: ${options.path}');
   debugPrint('Headers: ${options.headers}');
+  debugPrint('Body: ${options.data}');
   return options;
 };
 

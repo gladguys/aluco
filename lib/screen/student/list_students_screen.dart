@@ -6,7 +6,7 @@ import 'package:aluco/widget/al_waiting_indicator.dart';
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:flutter/material.dart';
 
-import 'add_student_screen.dart';
+import 'save_student_screen.dart';
 import 'components/list_students.dart';
 import 'student_bloc.dart';
 
@@ -45,7 +45,7 @@ class _ListStudentsScreenState extends State<ListStudentsScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => ALRouter.push(context, AddStudentScreen()),
+        onPressed: () => ALRouter.push(context, SaveStudentScreen(blocContext: context)),
         child: Icon(Icons.add),
       ),
     );

@@ -23,7 +23,11 @@ class StudentRepository {
 
   Future<void> saveStudent(Student student) async {
     try {
-      await _dio.post<dynamic>('$API_URL/$STUDENT', data: student.toJson());
+      if (student.id == null) {
+        await _dio.post<dynamic>('$API_URL/$STUDENT', data: student.toJson());
+      } else {
+        await _dio.put<dynamic>('$API_URL/$STUDENT', data: student.toJson());
+      }
     } catch (e) {
       print(e);
       rethrow;

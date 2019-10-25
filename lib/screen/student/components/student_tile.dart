@@ -6,6 +6,8 @@ import 'package:bloc_provider/bloc_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:ndialog/ndialog.dart';
 
+import '../save_student_screen.dart';
+
 class StudentTile extends StatelessWidget {
   const StudentTile(this._student);
 
@@ -21,6 +23,7 @@ class StudentTile extends StatelessWidget {
         placeholder: const CircularProgressIndicator(),
         width: 128,
       ),
+      onTap: () => navigateToEdit(context, _student),
       title: Text(_student.name),
       subtitle: Text(_student?.email ?? ''),
       trailing: IconButton(
@@ -29,6 +32,10 @@ class StudentTile extends StatelessWidget {
       ),
       //onPressed: ,
     );
+  }
+
+  void navigateToEdit(BuildContext context, Student student) {
+    ALRouter.push(context, SaveStudentScreen(blocContext: context, student: student));
   }
 
   // TODO(rodrigo): transform in components on ggfc (and more)

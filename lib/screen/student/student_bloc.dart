@@ -14,14 +14,24 @@ class StudentBloc extends Bloc {
     try {
       _studentsController.add(await _repository.getAllStudents());
     } catch (e) {
+      print(e);
       throw Exception();
     }
   }
 
   Future<void> saveStudent(Student student) async {
     try {
-      return await _repository.saveStudent(student);
+      await _repository.saveStudent(student);
+      if (student.id == null) {
+        studentList.add(student);
+        _studentsController.add(studentList);
+      } else {
+        studentList.removeWhere((s) => s.id == student.id);
+        studentList.add(student);
+        _studentsController.add(studentList);
+      }
     } catch (e) {
+      print(e);
       throw Exception();
     }
   }
@@ -32,6 +42,7 @@ class StudentBloc extends Bloc {
       studentList.removeWhere((student) => student.id == id);
       _studentsController.add(studentList);
     } catch (e) {
+      print(e);
       throw Exception();
     }
   }
