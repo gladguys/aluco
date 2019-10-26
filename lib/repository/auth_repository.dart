@@ -9,7 +9,7 @@ class AuthRepository {
 
   Future<Map<String, dynamic>> tryToSigninUser(Map<dynamic, String> userData) async {
     try {
-      final response = await _dio.post<dynamic>('$API_URL/$AUTH', data: jsonEncode(userData));
+      final response = await _dio.post<dynamic>(AUTH, data: jsonEncode(userData));
       return <String, dynamic>{
         'token': response.data['token'],
         'userId': response.data['user']['id']

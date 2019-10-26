@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 
+import '../API.dart';
 import 'dio_config.dart' as config;
 
 class DioBuilder {
@@ -10,8 +11,7 @@ class DioBuilder {
   static final _singleton = DioBuilder();
 
   static final Dio _dio = Dio()
-    // TODO(rodrigo): replace for the api when more stable
-    //..options.baseUrl = ''
+    ..options.baseUrl = API_URL
     ..options.headers = config.headers
     ..interceptors.add(InterceptorsWrapper(
         onRequest: config.onRequest,

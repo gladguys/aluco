@@ -4,7 +4,7 @@ import 'package:aluco/screen/student/student_bloc.dart';
 import 'package:avataaar_image/avataaar_image.dart';
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:ndialog/ndialog.dart';
+import 'package:gg_flutter_components/dialog/gg_basic_yn_dialog.dart';
 
 import '../save_student_screen.dart';
 
@@ -34,33 +34,23 @@ class StudentTile extends StatelessWidget {
     );
   }
 
-  void navigateToEdit(BuildContext context, Student student) {
-    ALRouter.push(context, SaveStudentScreen(blocContext: context, student: student));
+  Future<void> navigateToEdit(BuildContext context, Student student) async {
+    final _bloc = BlocProvider.of<StudentBloc>(context);
+    final Student studentToSave =
+        await ALRouter.push(context, SaveStudentScreen(student));
+    if (studentToSave != null) {
+      await _bloc.saveStudent(studentToSave);
+    }
   }
 
-  // TODO(rodrigo): transform in components on ggfc (and more)
   void showConfirmationDialog(BuildContext context) {
     final _bloc = BlocProvider.of<StudentBloc>(context);
-    showDialog<NAlertDialog>(
+    showDialog<GGBasicYNDialog>(
       context: context,
-      builder: (BuildContext context) => NAlertDialog(
-        dialogStyle: DialogStyle(titleDivider: true),
-        title: const Text('Remover estudante?'),
-        content:
-        const Text('Esta ação é irreversível. Você tem certeza?'),
-        actions: <Widget>[
-          FlatButton(
-            child: const Text('Não'),
-            onPressed: () => ALRouter.pop(context),
-          ),
-          FlatButton(
-            child: const Text('Sim'),
-            onPressed: () async {
-              await _bloc.deleteStudent(_student.id);
-              ALRouter.pop(context);
-            },
-          )
-        ],
+      builder: (BuildContext context) => GGBasicYNDialog(
+        title: 'Remover estudante?',
+        text: 'Esta ação é irreversível. Você tem certeza?',
+        onClickYes: () async => await _bloc.deleteStudent(_student.id),
       ),
     );
   }

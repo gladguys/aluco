@@ -45,7 +45,12 @@ class _ListStudentsScreenState extends State<ListStudentsScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => ALRouter.push(context, SaveStudentScreen(blocContext: context)),
+        onPressed: () async {
+          final Student studentToSave = await ALRouter.push(context, const SaveStudentScreen());
+          if (studentToSave != null) {
+            await _bloc.saveStudent(studentToSave);
+          }
+        },
         child: Icon(Icons.add),
       ),
     );

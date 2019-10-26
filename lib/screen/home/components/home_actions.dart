@@ -17,7 +17,7 @@ class HomeActions extends StatelessWidget {
           crossAxisSpacing: 20,
           mainAxisSpacing: 20,
         ),
-        itemBuilder: (_, i) => GGIconContainer(
+        itemBuilder: (_, i) => GGIconLabelContainer(
           icon: Icon(actions[i]['icon'], size: 60),
           text: Text(actions[i]['text'], style: TextStyle(fontSize: 22),),
           onTap: () => ALRouter.push(context, actions[i]['target']),
