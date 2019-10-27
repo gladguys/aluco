@@ -25,6 +25,16 @@ class SaveStudentForm extends StatefulWidget {
 class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
   final _formKey = GlobalKey<FormState>();
   final dateFormat = DateFormat('dd-MM-yyyy');
+
+  final dataNascimentoFN = FocusNode();
+  final phoneFN = FocusNode();
+  final emailFN = FocusNode();
+  final responsibleNameFN = FocusNode();
+  final responsiblePhoneFN = FocusNode();
+  final addressFN = FocusNode();
+  final previousSchooleFN = FocusNode();
+  final observationFN = FocusNode();
+
   Student _student;
 
   @override
@@ -68,35 +78,53 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
               GGOutlinedTextFormField(
                 labelText: 'Nome Completo *',
                 initialValue: _student.name,
+                textInputAction: TextInputAction.done,
                 onSaved: (name) => _student.name = name,
                 validator: emptyValidator,
               ),
               FormVerticalSeparator,
               GGFormDatePicker(
-                labelText: 'Data de Nascimento',
-                format: dateFormat,
-                onSaved: (birthdayDate) {
-                  if (birthdayDate != null) {
-                    _student.dateBirth = dateFormat?.format(birthdayDate);
-                  }
-                }
-              ),
+                  labelText: 'Data de Nascimento',
+                  format: dateFormat,
+                  focusNode: dataNascimentoFN,
+                  onEditingComplete: () =>
+                      FocusScope.of(context).requestFocus(phoneFN),
+                  onSaved: (birthdayDate) {
+                    if (birthdayDate != null) {
+                      _student.dateBirth = dateFormat?.format(birthdayDate);
+                    }
+                  }),
               FormVerticalSeparator,
               GGOutlinedTextFormField(
                 labelText: 'Telefone',
                 initialValue: _student.phone,
+                focusNode: phoneFN,
+                onEditingComplete: () =>
+                    FocusScope.of(context).requestFocus(emailFN),
+                textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.phone,
                 onSaved: (phone) => _student.phone = phone,
               ),
               FormVerticalSeparator,
               GGOutlinedTextFormField(
                 labelText: 'E-mail',
                 initialValue: _student.email,
+                focusNode: emailFN,
+                onEditingComplete: () =>
+                    FocusScope.of(context).requestFocus(responsibleNameFN),
+                textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.emailAddress,
+                validator: emailValidator,
                 onSaved: (email) => _student.email = email,
               ),
               FormVerticalSeparator,
               GGOutlinedTextFormField(
                 labelText: 'Nome do Responsável',
                 initialValue: _student.responsibleName,
+                focusNode: responsibleNameFN,
+                onEditingComplete: () =>
+                    FocusScope.of(context).requestFocus(responsiblePhoneFN),
+                textInputAction: TextInputAction.next,
                 onSaved: (responsibleName) =>
                     _student.responsibleName = responsibleName,
               ),
@@ -104,6 +132,10 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
               GGOutlinedTextFormField(
                 labelText: 'Telefone do Responsável',
                 initialValue: _student.responsiblePhone,
+                focusNode: responsiblePhoneFN,
+                onEditingComplete: () =>
+                    FocusScope.of(context).requestFocus(addressFN),
+                textInputAction: TextInputAction.next,
                 onSaved: (responsiblePhone) =>
                     _student.responsiblePhone = responsiblePhone,
               ),
@@ -111,12 +143,20 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
               GGOutlinedTextFormField(
                 labelText: 'Endereço Completo',
                 initialValue: _student.address,
+                focusNode: addressFN,
+                onEditingComplete: () =>
+                    FocusScope.of(context).requestFocus(previousSchooleFN),
+                textInputAction: TextInputAction.next,
                 onSaved: (address) => _student.address = address,
               ),
               FormVerticalSeparator,
               GGOutlinedTextFormField(
                 labelText: 'Escola Anterior',
                 initialValue: _student.previousSchool,
+                focusNode: previousSchooleFN,
+                onEditingComplete: () =>
+                    FocusScope.of(context).requestFocus(observationFN),
+                textInputAction: TextInputAction.next,
                 onSaved: (previousSchool) =>
                     _student.previousSchool = previousSchool,
               ),
@@ -124,6 +164,8 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
               GGOutlinedTextFormField(
                 labelText: 'Observação',
                 initialValue: _student.observation,
+                focusNode: observationFN,
+                textInputAction: TextInputAction.done,
                 onSaved: (observation) => _student.observation = observation,
                 minLines: 3,
                 maxLines: 3,

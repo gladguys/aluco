@@ -92,6 +92,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.3"
+  email_validator:
+    dependency: transitive
+    description:
+      name: email_validator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -140,7 +147,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: a78f011468d6fb62cfa3e3518c382898ccabc59a
+      resolved-ref: f42bd53db119c28e5c97f51699496b04d5f14e9f
       url: "git://github.com/rodrigobastosv/gg_flutter_components.git"
     source: git
     version: "0.0.1"
