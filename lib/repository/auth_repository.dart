@@ -9,13 +9,26 @@ class AuthRepository {
 
   Future<Map<String, dynamic>> tryToSigninUser(Map<dynamic, String> userData) async {
     try {
-      final response = await _dio.post<dynamic>('$API_URL/$AUTH', data: jsonEncode(userData));
+      final response = await _dio.post<dynamic>(AUTH, data: jsonEncode(userData));
       return <String, dynamic>{
         'token': response.data['token'],
         'userId': response.data['user']['id']
       };
     } catch(e) {
       return null;
+    }
+  }
+
+  Future<void> signUpUser(Map<dynamic, String> userData) async {
+    print(userData);
+    try {
+      await _dio.post<dynamic>(TEACHER, data: jsonEncode(userData));
+      return <String, dynamic>{
+        'email': userData['email'],
+        'password': userData['password']
+      };
+    } catch(e) {
+      rethrow;
     }
   }
 }

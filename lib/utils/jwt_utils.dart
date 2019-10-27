@@ -14,14 +14,4 @@ class JWTUtils {
   static int getTeacherId() {
     return preferences.getInt('userId');
   }
-
-  // TODO(rodrigo): do this logic
-  static Future<bool> isTokenValid() async {
-    return true;
-  }
-
-  // TODO(rodrigo): do this logic
-  static Future<bool> isTokenExpired() async {
-    return true;
-  }
 }

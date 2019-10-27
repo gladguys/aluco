@@ -1,14 +1,17 @@
+import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/utils/form_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
 
+import '../signup_bloc.dart';
 import 'signup_form.dart';
 
 class SignupFormButton extends StatelessWidget {
 
-  const SignupFormButton({this.signupForm});
+  SignupFormButton({this.signupForm});
 
   final SignupForm signupForm;
+  final _bloc = SignUpBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +23,8 @@ class SignupFormButton extends StatelessWidget {
           child: GGRoundedButton(
             onPressed: () async {
               if (FormUtils.isValid(signupForm.getForm())) {
-                print(signupForm.data);
-                //await _bloc.tryToSigninUser(userData);
+                await _bloc.signUpUser(signupForm.data);
+                ALRouter.pop(context);
               }
             },
             padding: const EdgeInsets.all(14),

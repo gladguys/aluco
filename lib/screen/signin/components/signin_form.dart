@@ -23,7 +23,7 @@ class SigninForm extends StatelessWidget with GGValidators {
           TextFormField(
             controller: _usernameController,
             decoration: InputDecoration(
-              labelText: 'E-mail',
+              labelText: 'E-mail *',
               border: OutlineInputBorder(),
             ),
             textInputAction: TextInputAction.next,
@@ -35,7 +35,7 @@ class SigninForm extends StatelessWidget with GGValidators {
           TextFormField(
             controller: _passwordController,
             decoration: InputDecoration(
-              labelText: 'Senha',
+              labelText: 'Senha *',
               border: OutlineInputBorder(),
             ),
             focusNode: _passwordFN,

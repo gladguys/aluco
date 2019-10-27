@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:gg_flutter_components/container/gg_icon_container.dart';
+import 'package:gg_flutter_components/container/gg_image_container.dart';
 
 class PersonPickImageContainer extends StatefulWidget {
   const PersonPickImageContainer({this.onPickImage});
@@ -9,7 +11,8 @@ class PersonPickImageContainer extends StatefulWidget {
   final Function onPickImage;
 
   @override
-  _PersonPickImageContainerState createState() => _PersonPickImageContainerState();
+  _PersonPickImageContainerState createState() =>
+      _PersonPickImageContainerState();
 }
 
 class _PersonPickImageContainerState extends State<PersonPickImageContainer> {
@@ -24,30 +27,9 @@ class _PersonPickImageContainerState extends State<PersonPickImageContainer> {
           setState(() => widget.onPickImage(_pickedImage.path));
         }
       },
-      child: _pickedImage != null ? ImageContainer(_pickedImage) : IconContainer()
-    );
-  }
-}
-
-class IconContainer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Icon(Icons.person, size: 60),
-    );
-  }
-}
-
-class ImageContainer extends StatelessWidget {
-  const ImageContainer(this.image);
-
-  final File image;
-
-  @override
-  Widget build(BuildContext context) {
-    return CircleAvatar(
-      radius: 60,
-      backgroundImage: FileImage(image),
+      child: _pickedImage != null
+          ? GGImageContainer(image: _pickedImage)
+          : GGIconContainer(),
     );
   }
 }

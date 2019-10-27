@@ -9,14 +9,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   cupertino_icons: ^0.1.2
   flutter_icons: ^0.3.1
+  datetime_picker_formfield: ^0.4.3
   bloc_provider: ^0.6.2+2
   intl: ^0.15.8
   image_picker: ^0.6.1+8
   gender_selector: ^1.0.6
   dio: ^3.0.3
+  rxdart: ^0.22.4
   connectivity: ^0.4.5+1
   flutter_spinkit: ^4.0.0
   shared_preferences: ^0.5.4
