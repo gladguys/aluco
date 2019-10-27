@@ -1,5 +1,6 @@
-import 'package:aluco/repository/auth_repository.dart';
+import 'package:aluco/repository/api/auth_repository.dart';
 import 'package:aluco/repository/dio/dio_builder.dart';
+
 import 'package:aluco/utils/jwt_utils.dart';
 
 class SigninBloc {

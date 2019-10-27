@@ -12,7 +12,7 @@ class ListClasses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Class>>(
-      future: _bloc.getAllClasses(),
+      future: _bloc.getAll(),
       builder: (_, snapshot) {
         if (snapshot.hasData) {
           final classList = snapshot.data;

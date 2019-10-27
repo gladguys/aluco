@@ -1,5 +1,5 @@
 import 'package:aluco/model/student.dart';
-import 'package:aluco/repository/student_repository.dart';
+import 'package:aluco/repository/api/student_repository.dart';
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -12,7 +12,7 @@ class StudentBloc extends Bloc {
 
   Future<void> getAllStudents() async {
     try {
-      _studentsController.add(await _repository.getAllStudents());
+      _studentsController.add(await _repository.getAll());
     } catch (e) {
       print(e);
       throw Exception();
@@ -21,7 +21,7 @@ class StudentBloc extends Bloc {
 
   Future<void> saveStudent(Student student) async {
     try {
-      await _repository.saveStudent(student);
+      await _repository.save(student);
       if (student.id == null) {
         studentList.add(student);
         _studentsController.add(studentList);
@@ -38,7 +38,7 @@ class StudentBloc extends Bloc {
 
   Future<void> deleteStudent(int id) async {
     try {
-      await _repository.deleteStudent(id);
+      await _repository.delete(id);
       studentList.removeWhere((student) => student.id == id);
       _studentsController.add(studentList);
     } catch (e) {

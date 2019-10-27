@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../API.dart';
+import 'package:aluco/repository/api/API.dart';
 import 'dio_config.dart' as config;
 
 class DioBuilder {
@@ -16,7 +16,7 @@ class DioBuilder {
         onRequest: config.onRequest,
         onResponse: config.onResponse,
         onError: config.onError
-    ));
+    ),);
 
   static void setAuthorizationHeader() {
     getDio().options.headers = config.headers;

@@ -1,4 +1,4 @@
-import 'package:aluco/repository/auth_repository.dart';
+import 'package:aluco/repository/api/auth_repository.dart';
 
 class SignUpBloc {
   final _repository = AuthRepository();
