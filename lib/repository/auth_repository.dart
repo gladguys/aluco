@@ -18,4 +18,17 @@ class AuthRepository {
       return null;
     }
   }
+
+  Future<void> signUpUser(Map<dynamic, String> userData) async {
+    print(userData);
+    try {
+      await _dio.post<dynamic>(TEACHER, data: jsonEncode(userData));
+      return <String, dynamic>{
+        'email': userData['email'],
+        'password': userData['password']
+      };
+    } catch(e) {
+      rethrow;
+    }
+  }
 }

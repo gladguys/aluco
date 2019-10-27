@@ -5,7 +5,6 @@ import 'package:gg_flutter_components/gg_flutter_components.dart';
 import 'person_pickimage_container.dart';
 
 class SignupForm extends StatelessWidget with GGValidators {
-
   static final _userData = <String, dynamic>{};
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController(text: '');
@@ -25,13 +24,14 @@ class SignupForm extends StatelessWidget with GGValidators {
           FormVerticalSeparator,
           TextFormField(
             decoration: InputDecoration(
-              labelText: 'Usuário *',
+              labelText: 'E-mail *',
               border: OutlineInputBorder(),
             ),
             textInputAction: TextInputAction.next,
-            onFieldSubmitted: (value) => FocusScope.of(context).requestFocus(_passwordFN),
+            onFieldSubmitted: (value) =>
+                FocusScope.of(context).requestFocus(_passwordFN),
             validator: emptyValidator,
-            onSaved: (username) => _userData['username'] = username,
+            onSaved: (email) => _userData['email'] = email,
           ),
           FormVerticalSeparator,
           TextFormField(
@@ -39,8 +39,10 @@ class SignupForm extends StatelessWidget with GGValidators {
               labelText: 'Senha *',
               border: OutlineInputBorder(),
             ),
+            obscureText: true,
             textInputAction: TextInputAction.next,
-            onFieldSubmitted: (value) => FocusScope.of(context).requestFocus(_passwordConfirmationFN),
+            onFieldSubmitted: (value) =>
+                FocusScope.of(context).requestFocus(_passwordConfirmationFN),
             focusNode: _passwordFN,
             controller: _passwordController,
             validator: emptyValidator,
@@ -52,6 +54,7 @@ class SignupForm extends StatelessWidget with GGValidators {
               labelText: 'Confirme a senha *',
               border: OutlineInputBorder(),
             ),
+            obscureText: true,
             focusNode: _passwordConfirmationFN,
             validator: validatePasswordConfirmation,
             onSaved: (password) => _userData['password'] = password,
@@ -75,9 +78,8 @@ class SignupForm extends StatelessWidget with GGValidators {
 
   Map<String, String> _getData() {
     return {
-      'username': _userData['username'],
-      'password': _userData['password'],
-      'photo_url': _userData['photo_url'],
+      'email': _userData['email'],
+      'password': _userData['password']
     };
   }
 }

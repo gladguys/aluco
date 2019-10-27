@@ -28,7 +28,7 @@ class _SaveStudentScreen extends State<SaveStudentScreen> {
   @override
   Widget build(BuildContext context) {
     return ALScaffold(
-      title: 'Adicionar Aluno',
+      title: 'Salvar Aluno',
       actions: <Widget>[
         IconButton(
           icon: Icon(Icons.save),
