@@ -27,6 +27,7 @@ class SigninFormButton extends StatelessWidget {
                 final loggedUserData = await _bloc.tryToSigninUser(signinForm.data);
                 if (loggedUserData != null) {
                   await _bloc.storeJWTInfo(loggedUserData);
+                  _bloc.setAuthorizationHeader();
                   ALRouter.pushAndReplace(context, HomeScreen());
                 }
               }

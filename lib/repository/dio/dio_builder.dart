@@ -12,13 +12,15 @@ class DioBuilder {
 
   static final Dio _dio = Dio()
     ..options.baseUrl = API_URL
-    ..options.headers = config.headers
-    ..interceptors.add(
-      InterceptorsWrapper(
-          onRequest: config.onRequest,
-          onResponse: config.onResponse,
-          onError: config.onError),
-    );
+    ..interceptors.add(InterceptorsWrapper(
+        onRequest: config.onRequest,
+        onResponse: config.onResponse,
+        onError: config.onError
+    ),);
+
+  static void setAuthorizationHeader() {
+    getDio().options.headers = config.headers;
+  }
 
   static Dio getDio() {
     return _dio;
