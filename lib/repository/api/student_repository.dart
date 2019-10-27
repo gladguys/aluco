@@ -1,12 +1,14 @@
 import 'package:aluco/model/student.dart';
 
-import 'API.dart';
-import 'dio/dio_builder.dart';
+import 'package:aluco/repository/api/API.dart';
+import 'package:aluco/repository/core/abstract_student_repository.dart';
+import 'package:aluco/repository/dio/dio_builder.dart';
 
-class StudentRepository {
+class StudentRepository implements AbstractStudentRepository {
   final _dio = DioBuilder.getDio();
 
-  Future<List<Student>> getAllStudents() async {
+  @override
+  Future<List<Student>> getAll() async {
     try {
       final response = await _dio.get<dynamic>(STUDENT);
       return List.generate(
@@ -21,7 +23,8 @@ class StudentRepository {
     }
   }
 
-  Future<void> saveStudent(Student student) async {
+  @override
+  Future<void> save(Student student) async {
     try {
       if (student.id == null) {
         await _dio.post<dynamic>(STUDENT, data: student.toJson());
@@ -34,7 +37,8 @@ class StudentRepository {
     }
   }
 
-  Future<void> deleteStudent(int id) async {
+  @override
+  Future<void> delete(int id) async {
     try {
       await _dio.delete<dynamic>('$STUDENT/$id');
     } catch (e) {

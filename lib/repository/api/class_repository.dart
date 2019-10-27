@@ -1,12 +1,14 @@
 import 'package:aluco/model/class.dart';
 
-import 'API.dart';
-import 'dio/dio_builder.dart';
+import 'package:aluco/repository/api/API.dart';
+import 'package:aluco/repository/core/abstract_class_repository.dart';
+import 'package:aluco/repository/dio/dio_builder.dart';
 
-class ClassRepository {
+class ClassRepository implements AbstractClassRepository {
   final _dio = DioBuilder.getDio();
 
-  Future<List<Class>> getAllClasses() async {
+  @override
+  Future<List<Class>> getAll() async {
     try {
       final response = await _dio.get<dynamic>(CLASS);
       return List.generate(

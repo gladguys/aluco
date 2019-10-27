@@ -1,12 +1,14 @@
 import 'dart:convert';
 
-import 'package:aluco/repository/API.dart';
+import 'package:aluco/repository/api/API.dart';
 
-import 'dio/dio_builder.dart';
+import 'package:aluco/repository/core/abstract_auth_repository.dart';
+import 'package:aluco/repository/dio/dio_builder.dart';
 
-class AuthRepository {
+class AuthRepository implements AbstractAuthRepository {
   final _dio = DioBuilder.getDio();
 
+  @override
   Future<Map<String, dynamic>> tryToSigninUser(Map<dynamic, String> userData) async {
     try {
       final response = await _dio.post<dynamic>(AUTH, data: jsonEncode(userData));
@@ -19,6 +21,7 @@ class AuthRepository {
     }
   }
 
+  @override
   Future<void> signUpUser(Map<dynamic, String> userData) async {
     print(userData);
     try {
