@@ -3,7 +3,6 @@ import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/utils/form_utils.dart';
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:gg_flutter_components/gg_random_circle_avatar.dart';
 
 import 'components/save_student_form.dart';
 
@@ -38,7 +37,6 @@ class _SaveStudentScreen extends State<SaveStudentScreen> {
       body: ListView(
         children: <Widget>[
           const SizedBox(height: 18),
-          GGRandomCircleAvatar(radius: 50),
           _saveStudentForm
         ],
       ),

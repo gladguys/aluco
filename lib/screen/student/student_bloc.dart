@@ -10,7 +10,7 @@ class StudentBloc extends Bloc {
   Stream<List<Student>> get studentStream => _studentsController.stream;
   List<Student> get studentList => _studentsController.value;
 
-  Future<void> getAllStudents() async {
+  Future<void> getAll() async {
     try {
       _studentsController.add(await _repository.getAll());
     } catch (e) {
@@ -19,7 +19,7 @@ class StudentBloc extends Bloc {
     }
   }
 
-  Future<void> saveStudent(Student student) async {
+  Future<void> save(Student student) async {
     try {
       await _repository.save(student);
       if (student.id == null) {
@@ -36,7 +36,7 @@ class StudentBloc extends Bloc {
     }
   }
 
-  Future<void> deleteStudent(int id) async {
+  Future<void> delete(int id) async {
     try {
       await _repository.delete(id);
       studentList.removeWhere((student) => student.id == id);
