@@ -1,5 +1,5 @@
 import 'package:aluco/routing/al_router.dart';
-import 'package:aluco/screen/list_classes/list_classes_screen.dart';
+import 'package:aluco/screen/classes/list_classes_connected_screen.dart';
 import 'package:aluco/screen/student/list_students_connected_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
@@ -32,7 +32,7 @@ final actions = [
   {
     'icon': Icons.class_,
     'text': 'Turmas',
-    'target': ListClassesScreen()
+    'target': ListClassesConnectedScreen()
   },
   {
     'icon': Icons.school,

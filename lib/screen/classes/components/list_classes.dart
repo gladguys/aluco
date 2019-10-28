@@ -5,7 +5,7 @@ import 'package:bloc_provider/bloc_provider.dart';
 import 'package:flutter/material.dart';
 
 import '../class_bloc.dart';
-import 'list_class_tile.dart';
+import 'class_tile.dart';
 
 class ListClasses extends StatefulWidget {
   @override
@@ -36,7 +36,7 @@ class _ListClassesState extends State<ListClasses> {
           final classList = snapshot.data;
           return ListView.separated(
               itemCount: classList.length,
-              itemBuilder: (_, i) => ListClassTile(classList[i]),
+              itemBuilder: (_, i) => ClassTile(classList[i]),
               separatorBuilder: (_, i) => const Divider(),
           );
         } else if (snapshot.hasError) {

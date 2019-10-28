@@ -12,6 +12,14 @@ class Class {
         ..description = json['description'];
   }
 
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'id': id,
+      'name': name,
+      'description': description
+    };
+  }
+
   @override
   String toString() {
     return 'Class{name: $name, description: $description}';
