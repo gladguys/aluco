@@ -10,4 +10,5 @@ class FormUtils {
   }
 }
 
-const FormVerticalSeparator = SizedBox(height: 18);
+const FormVerticalSeparator = SizedBox(height: 16.0);
+const FormVerticalSeparatorMedium = SizedBox(height: 24.0);
