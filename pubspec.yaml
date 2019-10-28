@@ -23,6 +23,7 @@ dependencies:
   rxdart: ^0.22.4
   connectivity: ^0.4.5+1
   flutter_spinkit: ^4.0.0
+  line_icons: ^0.2.0
   shared_preferences: ^0.5.4
   gg_flutter_components:
     git:
