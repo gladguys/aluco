@@ -2,7 +2,9 @@ import 'package:aluco/model/student.dart';
 import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/widget/al_error.dart';
 import 'package:aluco/widget/al_scaffold.dart';
+import 'package:aluco/widget/al_search_delegate_icon.dart';
 import 'package:aluco/widget/al_waiting_indicator.dart';
+import 'package:aluco/widget/delegate/student_search_delegate.dart';
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -33,6 +35,11 @@ class _ListStudentsScreenState extends State<ListStudentsScreen> {
   Widget build(BuildContext context) {
     return ALScaffold(
       title: 'Alunos',
+      actions: <Widget>[
+        ALSearchDelegateIcon<Student>(
+          StudentSearchDelegate(context),
+        ),
+      ],
       body: StreamBuilder<List<Student>>(
         stream: _bloc.studentStream,
         builder: (_, snapshot) {
@@ -46,7 +53,8 @@ class _ListStudentsScreenState extends State<ListStudentsScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final Student studentToSave = await ALRouter.push(context, const SaveStudentScreen());
+          final Student studentToSave =
+              await ALRouter.push(context, const SaveStudentScreen());
           if (studentToSave != null) {
             await _bloc.saveStudent(studentToSave);
           }
