@@ -1,6 +1,6 @@
 import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/screen/list_classes/list_classes_screen.dart';
-import 'package:aluco/screen/student/list_students_screen.dart';
+import 'package:aluco/screen/student/list_students_connected_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
 
@@ -17,7 +17,7 @@ class HomeActions extends StatelessWidget {
           crossAxisSpacing: 20,
           mainAxisSpacing: 20,
         ),
-        itemBuilder: (_, i) => GGIconContainer(
+        itemBuilder: (_, i) => GGIconLabelContainer(
           icon: Icon(actions[i]['icon'], size: 60),
           text: Text(actions[i]['text'], style: TextStyle(fontSize: 22),),
           onTap: () => ALRouter.push(context, actions[i]['target']),
@@ -37,6 +37,6 @@ final actions = [
   {
     'icon': Icons.school,
     'text': 'Alunos',
-    'target': ListStudentsScreen()
+    'target': ListStudentsConnectedScreen()
   },
 ];

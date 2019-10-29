@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:gg_flutter_components/container/gg_icon_container.dart';
+import 'package:gg_flutter_components/container/gg_image_container.dart';
 
 class PersonPickImageContainer extends StatefulWidget {
   const PersonPickImageContainer({this.onPickImage});
@@ -32,37 +34,10 @@ class _PersonPickImageContainerState extends State<PersonPickImageContainer> {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: _pickedImage != null
-              ? ImageContainer(_pickedImage)
-              : IconContainer(),
+            ? GGImageContainer(image: _pickedImage)
+            : GGIconContainer(),
         ),
       ),
-    );
-  }
-}
-
-class IconContainer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Icon(
-        Icons.add_a_photo,
-        size: 48.0,
-        color: Theme.of(context).accentColor.withAlpha(200),
-      ),
-    );
-  }
-}
-
-class ImageContainer extends StatelessWidget {
-  const ImageContainer(this.image);
-
-  final File image;
-
-  @override
-  Widget build(BuildContext context) {
-    return CircleAvatar(
-      radius: 60,
-      backgroundImage: FileImage(image),
     );
   }
 }
