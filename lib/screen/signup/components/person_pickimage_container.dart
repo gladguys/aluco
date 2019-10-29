@@ -9,7 +9,8 @@ class PersonPickImageContainer extends StatefulWidget {
   final Function onPickImage;
 
   @override
-  _PersonPickImageContainerState createState() => _PersonPickImageContainerState();
+  _PersonPickImageContainerState createState() =>
+      _PersonPickImageContainerState();
 }
 
 class _PersonPickImageContainerState extends State<PersonPickImageContainer> {
@@ -24,7 +25,17 @@ class _PersonPickImageContainerState extends State<PersonPickImageContainer> {
           setState(() => widget.onPickImage(_pickedImage.path));
         }
       },
-      child: _pickedImage != null ? ImageContainer(_pickedImage) : IconContainer()
+      child: Material(
+        elevation: 2,
+        color: Colors.white.withAlpha(200),
+        borderRadius: BorderRadius.circular(100),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: _pickedImage != null
+              ? ImageContainer(_pickedImage)
+              : IconContainer(),
+        ),
+      ),
     );
   }
 }
@@ -33,7 +44,11 @@ class IconContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Icon(Icons.person, size: 60),
+      child: Icon(
+        Icons.add_a_photo,
+        size: 48.0,
+        color: Theme.of(context).accentColor.withAlpha(200),
+      ),
     );
   }
 }

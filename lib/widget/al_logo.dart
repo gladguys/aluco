@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SigninLogo extends StatelessWidget {
+class ALLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(

@@ -1,6 +1,6 @@
 import 'package:aluco/screen/signin/components/signin_bottom_buttons.dart';
-import 'package:aluco/screen/signin/components/signin_logo.dart';
 import 'package:aluco/utils/form_utils.dart';
+import 'package:aluco/widget/al_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
 
@@ -34,7 +34,7 @@ class _SigninScreenState extends State<SigninScreen> with GGValidators {
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                SigninLogo(),
+                ALLogo(),
                 FormVerticalSeparator,
                 signinForm,
                 FormVerticalSeparatorMedium,
