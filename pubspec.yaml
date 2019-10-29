@@ -34,5 +34,19 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
-
   uses-material-design: true
+  assets:
+    - assets/images/
+  fonts:
+    - family: OleoScriptSwashCaps
+      fonts:
+        - asset: assets/fonts/OleoScriptSwashCaps/OleoScriptSwashCaps-Regular.ttf
+        - asset: assets/fonts/OleoScriptSwashCaps/OleoScriptSwashCaps-Bold.ttf
+          weight: 700
+    - family: Ubuntu
+      fonts:
+        - asset: assets/fonts/Ubuntu/Ubuntu-Regular.ttf
+        - asset: assets/fonts/Ubuntu/Ubuntu-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Ubuntu/Ubuntu-Bold.ttf
+          weight: 700

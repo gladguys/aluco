@@ -1,4 +1,5 @@
 import 'package:aluco/utils/form_utils.dart';
+import 'package:aluco/widget/al_sign_textformfield.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
 
@@ -18,48 +19,44 @@ class SignupForm extends StatelessWidget with GGValidators {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Column(
-        children: <Widget>[
-          PersonPickImageContainer(onPickImage: _onPickImage),
-          FormVerticalSeparator,
-          TextFormField(
-            decoration: InputDecoration(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 2.0),
+        child: Column(
+          children: <Widget>[
+            PersonPickImageContainer(onPickImage: _onPickImage),
+            FormVerticalSeparator,
+            ALSignTextFormField(
               labelText: 'E-mail *',
-              border: OutlineInputBorder(),
+              prefixIconData: Icons.person,
+              validator: emptyValidator,
+              onFieldSubmitted: (String value) =>
+                  FocusScope.of(context).requestFocus(_passwordFN),
+              onSaved: (String email) => _userData['email'] = email,
             ),
-            textInputAction: TextInputAction.next,
-            onFieldSubmitted: (value) =>
-                FocusScope.of(context).requestFocus(_passwordFN),
-            validator: emptyValidator,
-            onSaved: (email) => _userData['email'] = email,
-          ),
-          FormVerticalSeparator,
-          TextFormField(
-            decoration: InputDecoration(
+            FormVerticalSeparator,
+            ALSignTextFormField(
               labelText: 'Senha *',
-              border: OutlineInputBorder(),
+              prefixIconData: Icons.vpn_key,
+              obscureText: true,
+              controller: _passwordController,
+              focusNode: _passwordFN,
+              validator: emptyValidator,
+              onFieldSubmitted: (String value) =>
+                  FocusScope.of(context).requestFocus(_passwordConfirmationFN),
+              onSaved: (String password) => _userData['password'] = password,
             ),
-            obscureText: true,
-            textInputAction: TextInputAction.next,
-            onFieldSubmitted: (value) =>
-                FocusScope.of(context).requestFocus(_passwordConfirmationFN),
-            focusNode: _passwordFN,
-            controller: _passwordController,
-            validator: emptyValidator,
-            onSaved: (password) => _userData['password'] = password,
-          ),
-          FormVerticalSeparator,
-          TextFormField(
-            decoration: InputDecoration(
+            FormVerticalSeparator,
+            ALSignTextFormField(
               labelText: 'Confirme a senha *',
-              border: OutlineInputBorder(),
+              prefixIconData: Icons.vpn_key,
+              obscureText: true,
+              textInputAction: TextInputAction.done,
+              focusNode: _passwordConfirmationFN,
+              validator: validatePasswordConfirmation,
+              onSaved: (String password) => _userData['password'] = password,
             ),
-            obscureText: true,
-            focusNode: _passwordConfirmationFN,
-            validator: validatePasswordConfirmation,
-            onSaved: (password) => _userData['password'] = password,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -69,7 +66,7 @@ class SignupForm extends StatelessWidget with GGValidators {
     if (confirmMessage != null) {
       return confirmMessage;
     } else if (passwordConfirmation != _passwordController.text) {
-      return 'As senhas devem ser idênticas';
+      return 'As senhas devem ser iguais.';
     }
     return null;
   }

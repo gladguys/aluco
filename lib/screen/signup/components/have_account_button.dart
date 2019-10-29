@@ -4,22 +4,16 @@ import 'package:flutter/material.dart';
 class HaveAccountButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        const Spacer(flex: 1),
-        Expanded(
-          flex: 3,
-          child: FlatButton(
-            onPressed: () => ALRouter.pop(context),
-            padding: const EdgeInsets.all(14),
-            child: Text(
-              'Já tenho uma conta!',
-              style: TextStyle(color: Colors.green, fontSize: 18),
-            ),
-          ),
+    return FlatButton(
+      padding: const EdgeInsets.all(12.0),
+      child: Text(
+        'Já tenho uma conta!',
+        style: TextStyle(
+          color: Theme.of(context).accentColor,
+          fontSize: 16.0,
         ),
-        const Spacer(flex: 1),
-      ],
+      ),
+      onPressed: () => ALRouter.pop(context),
     );
   }
 }

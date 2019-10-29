@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:gg_flutter_components/gg_flutter_components.dart';
 
 class SigninWithGoogleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        const Spacer(flex: 1),
-        Expanded(
-          flex: 3,
-          child: GGRoundedButton(
-            onPressed: () {},
-            borderColoredOnly: true,
-            borderColor: const Color(0xFFF44336),
-            borderWidth: 2,
-            padding: const EdgeInsets.all(14),
-            child: Text(
-              'Entrar com Google',
-              style: TextStyle(color: const Color(0xFFF44336), fontSize: 18),
-            ),
-          ),
+    final Color buttonColor = Colors.white;
+
+    return OutlineButton(
+      padding: const EdgeInsets.symmetric(
+        vertical: 12.0,
+        horizontal: 40.0,
+      ),
+      color: buttonColor,
+      textColor: buttonColor,
+      borderSide: BorderSide(color: buttonColor),
+      highlightedBorderColor: buttonColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: Text(
+        'Entrar com Google',
+        style: TextStyle(
+          fontSize: 16.0,
         ),
-        const Spacer(flex: 1),
-      ],
+      ),
+      onPressed: () {},
     );
   }
 }

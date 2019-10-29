@@ -27,9 +27,17 @@ class _PersonPickImageContainerState extends State<PersonPickImageContainer> {
           setState(() => widget.onPickImage(_pickedImage.path));
         }
       },
-      child: _pickedImage != null
-          ? GGImageContainer(image: _pickedImage)
-          : GGIconContainer(),
+      child: Material(
+        elevation: 2,
+        color: Colors.white.withAlpha(200),
+        borderRadius: BorderRadius.circular(100),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: _pickedImage != null
+            ? GGImageContainer(image: _pickedImage)
+            : GGIconContainer(),
+        ),
+      ),
     );
   }
 }
