@@ -39,12 +39,23 @@ class SigninForm extends StatelessWidget with GGValidators {
                       size: 24.0,
                     ),
                     isDense: true,
+                    fillColor: Colors.white,
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.transparent,
                       ),
                     ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                      ),
+                    ),
                     errorBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                      ),
+                    ),
+                    focusedErrorBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.transparent,
                       ),
@@ -75,12 +86,23 @@ class SigninForm extends StatelessWidget with GGValidators {
                       size: 24.0,
                     ),
                     isDense: true,
+                    fillColor: Colors.white,
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.transparent,
                       ),
                     ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                      ),
+                    ),
                     errorBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                      ),
+                    ),
+                    focusedErrorBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.transparent,
                       ),
