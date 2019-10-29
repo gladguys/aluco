@@ -22,8 +22,14 @@ class ClassBloc extends Bloc {
   Future<void> save(Class classe) async {
     try {
       await _repository.save(classe);
-      classList.add(classe);
-      _classesController.add(classList);
+      if (classe.id == null) {
+        classList.add(classe);
+        _classesController.add(classList);
+      } else {
+        classList.removeWhere((c) => c.id == classe.id);
+        classList.add(classe);
+        _classesController.add(classList);
+      }
     } catch(e) {
       throw Exception();
     }
