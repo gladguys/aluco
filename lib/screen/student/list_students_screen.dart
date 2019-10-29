@@ -28,7 +28,7 @@ class _ListStudentsScreenState extends State<ListStudentsScreen> {
   }
 
   Future<void> getAllStudents() async {
-    await _bloc.getAllStudents();
+    await _bloc.getAll();
   }
 
   @override
@@ -56,7 +56,7 @@ class _ListStudentsScreenState extends State<ListStudentsScreen> {
           final Student studentToSave =
               await ALRouter.push(context, const SaveStudentScreen());
           if (studentToSave != null) {
-            await _bloc.saveStudent(studentToSave);
+            await _bloc.save(studentToSave);
           }
         },
         child: Icon(Icons.add),

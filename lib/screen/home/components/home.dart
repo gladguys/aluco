@@ -1,4 +1,5 @@
 import 'package:aluco/screen/home/components/home_actions.dart';
+import 'package:aluco/utils/jwt_utils.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -7,8 +8,8 @@ class Home extends StatelessWidget {
     return Column(
       children: <Widget>[
         const SizedBox(height: 30),
-        const Text(
-          'Oi, fulano',
+        Text(
+          'Oi, ${JWTUtils.getUsername()?.toUpperCase()}',
           style: TextStyle(fontSize: 22),
         ),
         const SizedBox(height: 18),

@@ -13,10 +13,28 @@ class ClassRepository implements AbstractClassRepository {
       final response = await _dio.get<dynamic>(CLASS);
       return List.generate(
         response.data.length,
-            (int i) => Class.fromJson(
+        (int i) => Class.fromJson(
           response.data[i],
         ),
       );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> save(Class classe) async {
+    try {
+      await _dio.post<dynamic>(CLASS, data: classe.toJson());
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> delete(int id) async {
+    try {
+      await _dio.delete<dynamic>('$CLASS/$id');
     } catch (e) {
       rethrow;
     }
