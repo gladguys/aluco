@@ -1,9 +1,11 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 
 import 'package:aluco/screen/signin/signin_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'global_blocs.dart';
 import 'theme/main_theme.dart';
 
 SharedPreferences preferences;
@@ -34,17 +36,20 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: theme,
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: const <Locale>[
-        Locale('pt', 'BR'),
-      ],
-      home: SigninScreen(),
+    return BlocProvider(
+      blocs: globalBlocs,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: theme,
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: const <Locale>[
+          Locale('pt', 'BR'),
+        ],
+        home: SigninScreen(),
+      ),
     );
   }
 

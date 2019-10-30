@@ -1,9 +1,9 @@
 import 'package:aluco/model/student.dart';
 import 'package:aluco/repository/api/student_repository.dart';
-import 'package:bloc_provider/bloc_provider.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:rxdart/rxdart.dart';
 
-class StudentBloc extends Bloc {
+class StudentBloc extends BlocBase {
   final _repository = StudentRepository();
   final _studentsController = BehaviorSubject<List<Student>>.seeded([]);
 
@@ -50,5 +50,6 @@ class StudentBloc extends Bloc {
   @override
   void dispose() {
     _studentsController.close();
+    super.dispose();
   }
 }

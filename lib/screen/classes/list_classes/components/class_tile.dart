@@ -1,10 +1,9 @@
 import 'package:aluco/model/class.dart';
 import 'package:aluco/routing/al_router.dart';
-import 'package:aluco/screen/classes/class_home/class_home_connected_screen.dart';
 import 'package:aluco/screen/classes/class_home/class_home_screen.dart';
 import 'package:aluco/screen/classes/list_classes/list_classes_bloc.dart';
 import 'package:aluco/screen/classes/list_classes/save_class_screen.dart';
-import 'package:bloc_provider/bloc_provider.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/dialog/gg_confirm_delete_dialog.dart';
 import 'package:gg_flutter_components/dialog/gg_dialog.dart';
@@ -46,7 +45,7 @@ class ClassActions extends StatelessWidget {
             GGConfirmDeleteDialog(
               title: 'Remover estudante?',
               onClickYes: () async =>
-              await BlocProvider.of<ListClassesBloc>(context).delete(classe.id),
+              await BlocProvider.getBloc<ListClassesBloc>().delete(classe.id),
             ),
           ),
         )
@@ -55,11 +54,10 @@ class ClassActions extends StatelessWidget {
   }
 
   Future<void> navigateToEdit(BuildContext context, Class classe) async {
-    final _bloc = BlocProvider.of<ListClassesBloc>(context);
     final Class classToSave =
     await ALRouter.push(context, SaveClassScreen(classe));
     if (classToSave != null) {
-      await _bloc.save(classToSave);
+      await BlocProvider.getBloc<ListClassesBloc>().save(classToSave);
     }
   }
 }

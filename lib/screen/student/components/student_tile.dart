@@ -2,7 +2,7 @@ import 'package:aluco/enums/gender.dart';
 import 'package:aluco/model/student.dart';
 import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/screen/student/student_bloc.dart';
-import 'package:bloc_provider/bloc_provider.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/dialog/gg_confirm_delete_dialog.dart';
 import 'package:gg_flutter_components/dialog/gg_dialog.dart';
@@ -33,7 +33,7 @@ class StudentTile extends StatelessWidget {
           GGConfirmDeleteDialog(
             title: 'Remover estudante?',
             onClickYes: () async =>
-                await BlocProvider.of<StudentBloc>(context).delete(_student.id),
+                await BlocProvider.getBloc<StudentBloc>().delete(_student.id),
           ),
         ),
       ),
@@ -42,11 +42,10 @@ class StudentTile extends StatelessWidget {
   }
 
   Future<void> navigateToEdit(BuildContext context, Student student) async {
-    final _bloc = BlocProvider.of<StudentBloc>(context);
     final Student studentToSave =
         await ALRouter.push(context, SaveStudentScreen(student));
     if (studentToSave != null) {
-      await _bloc.save(studentToSave);
+      await BlocProvider.getBloc<StudentBloc>().save(studentToSave);
     }
   }
 }

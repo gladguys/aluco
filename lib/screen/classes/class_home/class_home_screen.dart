@@ -1,18 +1,35 @@
+import 'package:aluco/model/class.dart';
 import 'package:aluco/routing/al_router.dart';
-import 'package:aluco/screen/student/list_students_connected_screen.dart';
+import 'package:aluco/screen/student/list_students_screen.dart';
 import 'package:aluco/widget/al_scaffold.dart';
-import 'package:bloc_provider/bloc_provider.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
 
 import 'class_home_bloc.dart';
+import 'class_students/class_students_screen.dart';
 
-class ClassHomeScreen extends StatelessWidget {
+class ClassHomeScreen extends StatefulWidget {
+  const ClassHomeScreen(this._class);
+
+  final Class _class;
+
+  @override
+  _ClassHomeScreenState createState() => _ClassHomeScreenState();
+}
+
+class _ClassHomeScreenState extends State<ClassHomeScreen> {
+  ClassHomeBloc _bloc;
+
+  @override
+  void initState() {
+    _bloc = BlocProvider.getBloc<ClassHomeBloc>()..setClass(widget._class);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final _bloc = BlocProvider.of<ClassHomeBloc>(context);
-
     return ALScaffold(
       title: _bloc.pickedClass.name,
       body: ClassHomeActions(),
@@ -53,16 +70,16 @@ final homeActions = <Map<String, dynamic>>[
   <String, dynamic>{
     'icon': Foundation.getIconData('clipboard-notes'),
     'text': 'Histórico de Chamadas',
-    'target': ListStudentsConnectedScreen()
+    'target': ListStudentsScreen()
   },
   <String, dynamic>{
     'icon': MaterialIcons.getIconData('grade'),
     'text': 'Quadro de Notas',
-    'target': ListStudentsConnectedScreen()
+    'target': ListStudentsScreen()
   },
   <String, dynamic>{
     'icon': Entypo.getIconData('open-book'),
     'text': 'Planos de Aulas',
-    'target': ListStudentsConnectedScreen()
+    'target': ListStudentsScreen()
   },
 ];

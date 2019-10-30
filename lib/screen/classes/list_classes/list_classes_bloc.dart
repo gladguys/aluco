@@ -1,9 +1,9 @@
 import 'package:aluco/model/class.dart';
 import 'package:aluco/repository/api/class_repository.dart';
-import 'package:bloc_provider/bloc_provider.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:rxdart/rxdart.dart';
 
-class ListClassesBloc extends Bloc {
+class ListClassesBloc extends BlocBase {
   final _repository = ClassRepository();
   final _classesController = BehaviorSubject<List<Class>>.seeded([]);
 
@@ -48,5 +48,6 @@ class ListClassesBloc extends Bloc {
   @override
   void dispose() {
     _classesController.close();
+    super.dispose();
   }
 }

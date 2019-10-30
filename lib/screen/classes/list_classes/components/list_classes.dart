@@ -1,7 +1,7 @@
 import 'package:aluco/model/class.dart';
 import 'package:aluco/widget/al_error.dart';
 import 'package:aluco/widget/al_waiting_indicator.dart';
-import 'package:bloc_provider/bloc_provider.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
 import 'package:aluco/screen/classes/list_classes/list_classes_bloc.dart';
@@ -17,7 +17,7 @@ class _ListClassesState extends State<ListClasses> {
 
   @override
   void initState() {
-    _bloc = BlocProvider.of<ListClassesBloc>(context);
+    _bloc = BlocProvider.getBloc<ListClassesBloc>();
     getAllClasses();
     super.initState();
 
