@@ -1,10 +1,10 @@
 import 'package:aluco/model/class.dart';
 import 'package:aluco/widget/al_error.dart';
 import 'package:aluco/widget/al_waiting_indicator.dart';
-import 'package:bloc_provider/bloc_provider.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
-import '../class_bloc.dart';
+import 'package:aluco/screen/classes/list_classes/list_classes_bloc.dart';
 import 'class_tile.dart';
 
 class ListClasses extends StatefulWidget {
@@ -13,11 +13,11 @@ class ListClasses extends StatefulWidget {
 }
 
 class _ListClassesState extends State<ListClasses> {
-  ClassBloc _bloc;
+  ListClassesBloc _bloc;
 
   @override
   void initState() {
-    _bloc = BlocProvider.of<ClassBloc>(context);
+    _bloc = BlocProvider.getBloc<ListClassesBloc>();
     getAllClasses();
     super.initState();
 

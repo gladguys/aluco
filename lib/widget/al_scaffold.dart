@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class ALScaffold extends StatelessWidget {
   const ALScaffold({
-    this.title,
+    @required this.title,
     this.actions,
     this.floatingActionButton,
     @required this.body,
-  }) : assert(body != null);
+  }) : assert(title != null), assert(body != null);
 
   final String title;
   final List<Widget> actions;

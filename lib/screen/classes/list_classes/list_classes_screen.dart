@@ -1,12 +1,12 @@
 import 'package:aluco/model/class.dart';
 import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/widget/al_scaffold.dart';
-import 'package:bloc_provider/bloc_provider.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
-import 'class_bloc.dart';
 import 'components/list_classes.dart';
+import 'list_classes_bloc.dart';
 import 'save_class_screen.dart';
 
 class ListClassesScreen extends StatelessWidget {
@@ -27,10 +27,9 @@ class ListClassesScreen extends StatelessWidget {
       body: ListClasses(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final _bloc = BlocProvider.of<ClassBloc>(context);
-          final Class classe = await ALRouter.push(context, SaveClassScreen());
+          final Class classe = await ALRouter.push(context, const SaveClassScreen());
           if (classe != null) {
-            await _bloc.save(classe);
+            await BlocProvider.getBloc<ListClassesBloc>().save(classe);
           }
         },
         child: Icon(Icons.add),

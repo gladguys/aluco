@@ -5,7 +5,7 @@ import 'package:aluco/widget/al_scaffold.dart';
 import 'package:aluco/widget/al_search_delegate_icon.dart';
 import 'package:aluco/widget/al_waiting_indicator.dart';
 import 'package:aluco/widget/delegate/student_search_delegate.dart';
-import 'package:bloc_provider/bloc_provider.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
 import 'components/list_students.dart';
@@ -22,7 +22,7 @@ class _ListStudentsScreenState extends State<ListStudentsScreen> {
 
   @override
   void initState() {
-    _bloc = BlocProvider.of<StudentBloc>(context);
+    _bloc = BlocProvider.getBloc<StudentBloc>();
     getAllStudents();
     super.initState();
   }
@@ -62,5 +62,11 @@ class _ListStudentsScreenState extends State<ListStudentsScreen> {
         child: Icon(Icons.add),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _bloc.dispose();
+    super.dispose();
   }
 }
