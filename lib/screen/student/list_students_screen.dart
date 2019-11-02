@@ -37,7 +37,7 @@ class _ListStudentsScreenState extends State<ListStudentsScreen> {
       title: 'Alunos',
       actions: <Widget>[
         ALSearchDelegateIcon<Student>(
-          StudentSearchDelegate(context),
+          StudentSearchDelegate(),
         ),
       ],
       body: StreamBuilder<List<Student>>(
