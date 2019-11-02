@@ -17,6 +17,7 @@ dependencies:
   datetime_picker_formfield: ^0.4.3
   bloc_pattern: ^2.3.2
   intl: ^0.15.8
+  alice: ^0.0.17
   image_picker: ^0.6.1+8
   gender_selector: ^1.0.6
   dio: ^3.0.3
