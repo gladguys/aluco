@@ -5,7 +5,7 @@ import 'package:rxdart/rxdart.dart';
 
 class ListClassesBloc extends BlocBase {
   final _repository = ClassRepository();
-  final _classesController = BehaviorSubject<List<Class>>.seeded([]);
+  final _classesController = BehaviorSubject<List<Class>>();
 
   Stream<List<Class>> get classStream => _classesController.stream;
   List<Class> get classList => _classesController.value;
