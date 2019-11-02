@@ -28,7 +28,7 @@ packages:
       name: bloc_pattern
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.4.2+1"
+    version: "2.4.4"
   boolean_selector:
     dependency: transitive
     description:
@@ -98,7 +98,7 @@ packages:
       name: dio
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.3"
+    version: "3.0.4"
   email_validator:
     dependency: transitive
     description:
@@ -161,7 +161,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: "44aaa9988a752f504a2af3063fc0210d9ed325d1"
+      resolved-ref: "4fcbd235f72c9b3edc77418316491f220ec003e1"
       url: "git://github.com/rodrigobastosv/gg_flutter_components.git"
     source: git
     version: "0.0.1"
@@ -185,7 +185,7 @@ packages:
       name: image_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.1+8"
+    version: "0.6.1+10"
   intl:
     dependency: "direct main"
     description:
@@ -220,7 +220,7 @@ packages:
       name: ndialog
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.2"
+    version: "2.0.2+1"
   open_file:
     dependency: transitive
     description:
@@ -283,7 +283,7 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.22.4"
+    version: "0.22.5"
   sensors:
     dependency: transitive
     description:
@@ -304,7 +304,7 @@ packages:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.4+1"
+    version: "0.5.4+3"
   simple_animations:
     dependency: transitive
     description:
@@ -330,7 +330,7 @@ packages:
       name: sqflite
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.7+1"
+    version: "1.1.7+2"
   stack_trace:
     dependency: transitive
     description:

@@ -5,7 +5,7 @@ final theme = ThemeData(
   primaryColorDark: Colors.orange[800],
   accentColor: Colors.grey[850],
   cursorColor: Colors.orange[600],
-  scaffoldBackgroundColor: Colors.white,
+  scaffoldBackgroundColor: Colors.grey[50],
   textSelectionColor: Colors.orange[300],
   textSelectionHandleColor: Colors.orange[600],
   appBarTheme: AppBarTheme(
