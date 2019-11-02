@@ -7,60 +7,36 @@ import 'package:gg_flutter_components/gg_flutter_components.dart';
 class HomeActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Expanded(
-          child: Wrap(
-            spacing: 16,
-            runSpacing: 16,
-            runAlignment: WrapAlignment.center,
-            alignment: WrapAlignment.center,
-            children: <Widget>[
-              _buildButton(
-                icon: Icons.people,
-                text: 'Turmas',
-                route: ListClassesScreen(),
-                context: context,
-              ),
-              _buildButton(
-                icon: Icons.school,
-                text: 'Alunos',
-                route: ListStudentsScreen(),
-                context: context,
-              ),
-            ],
-          ),
+    return Padding(
+      padding: const EdgeInsets.all(14),
+      child: GridView.builder(
+        shrinkWrap: true,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 1,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
         ),
-      ],
-    );
-  }
-
-  Widget _buildButton({
-    IconData icon,
-    String text,
-    Widget route,
-    BuildContext context,
-  }) {
-    final ThemeData theme = Theme.of(context);
-    return GGIconLabelContainer(
-      icon: Icon(
-        icon,
-        size: 60,
-        color: theme.accentColor,
-      ),
-      text: Text(
-        text,
-        style: TextStyle(
-          fontSize: 18,
-          color: theme.accentColor,
+        itemBuilder: (_, i) => GGIconLabelContainer(
+          icon: Icon(actions[i]['icon'], size: 60),
+          text: Text(actions[i]['text'], style: TextStyle(fontSize: 22),),
+          onTap: () => ALRouter.push(context, actions[i]['target']),
         ),
+        itemCount: actions.length,
       ),
-      width: 140,
-      height: 120,
-      backgroundColor: Colors.white,
-      borderWidth: 1,
-      withShadow: true,
-      onTap: () => ALRouter.push(context, route),
     );
   }
 }
+
+final actions = [
+  {
+    'icon': Icons.class_,
+    'text': 'Turmas',
+    'target': ListClassesScreen()
+  },
+  {
+    'icon': Icons.school,
+    'text': 'Alunos',
+    'target': ListStudentsScreen()
+  },
+];
