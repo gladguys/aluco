@@ -27,15 +27,21 @@ class _SaveClassScreenState extends State<SaveClassScreen> {
   @override
   Widget build(BuildContext context) {
     return ALScaffold(
-      title: 'Salvar Turma',
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.save),
-          onPressed: () => _onPressedSaveButton(context),
-        ),
-      ],
+      title: widget.classe == null ? 'Adicionar Turma' : 'Editar Turma',
       body: Center(
         child: _saveClassForm,
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.check),
+        label: const Text(
+          'Confirmar',
+          style: TextStyle(
+            fontSize: 16,
+            letterSpacing: 0,
+          ),
+        ),
+        backgroundColor: Colors.green[600],
+        onPressed: () => _onPressedSaveButton(context),
       ),
     );
   }

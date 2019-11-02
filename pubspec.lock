@@ -147,7 +147,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: "4fcbd235f72c9b3edc77418316491f220ec003e1"
+      resolved-ref: "4f428308c0f32e42b09574dfe6210255ae733dff"
       url: "git://github.com/rodrigobastosv/gg_flutter_components.git"
     source: git
     version: "0.0.1"

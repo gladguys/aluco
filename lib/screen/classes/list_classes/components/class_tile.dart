@@ -5,6 +5,7 @@ import 'package:aluco/screen/classes/list_classes/list_classes_bloc.dart';
 import 'package:aluco/screen/classes/list_classes/save_class_screen.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:gg_flutter_components/button/gg_circle_button.dart';
 import 'package:gg_flutter_components/dialog/gg_confirm_delete_dialog.dart';
 import 'package:gg_flutter_components/dialog/gg_dialog.dart';
 
@@ -31,31 +32,36 @@ class ClassActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
+    return Wrap(
+      spacing: 8,
       children: <Widget>[
-        IconButton(
-          icon: Icon(Icons.edit),
-          onPressed: () => navigateToEdit(context, classe),
+        GGCircleButton(
+          icon: Icons.edit,
+          colorIcon: Colors.white,
+          colorButton: Colors.blue[600],
+          onTap: () => navigateToEdit(context, classe),
         ),
-        IconButton(
-          icon: Icon(Icons.delete),
-          onPressed: () => GGDialog.show(
+        GGCircleButton(
+          icon: Icons.delete,
+          colorIcon: Colors.white,
+          colorButton: Colors.red[600],
+          onTap: () => GGDialog.show(
             context,
             GGConfirmDeleteDialog(
-              title: 'Remover estudante?',
+              title: 'Remover turma?',
               onClickYes: () async =>
-              await BlocProvider.getBloc<ListClassesBloc>().delete(classe.id),
+                  await BlocProvider.getBloc<ListClassesBloc>()
+                      .delete(classe.id),
             ),
           ),
-        )
+        ),
       ],
     );
   }
 
   Future<void> navigateToEdit(BuildContext context, Class classe) async {
     final Class classToSave =
-    await ALRouter.push(context, SaveClassScreen(classe));
+        await ALRouter.push(context, SaveClassScreen(classe));
     if (classToSave != null) {
       await BlocProvider.getBloc<ListClassesBloc>().save(classToSave);
     }

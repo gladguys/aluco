@@ -1,5 +1,4 @@
 import 'package:aluco/screen/home/components/home_actions.dart';
-import 'package:aluco/utils/jwt_utils.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -12,7 +11,7 @@ class Home extends StatelessWidget {
           fit: BoxFit.contain,
           alignment: Alignment.bottomCenter,
           colorFilter: ColorFilter.mode(
-            Colors.grey[50],
+            Theme.of(context).scaffoldBackgroundColor,
             BlendMode.softLight,
           ),
         ),

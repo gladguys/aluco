@@ -20,7 +20,6 @@ class _ListClassesState extends State<ListClasses> {
     _bloc = BlocProvider.getBloc<ListClassesBloc>();
     getAllClasses();
     super.initState();
-
   }
 
   Future<void> getAllClasses() async {
@@ -35,9 +34,19 @@ class _ListClassesState extends State<ListClasses> {
         if (snapshot.hasData) {
           final classList = snapshot.data;
           return ListView.separated(
-              itemCount: classList.length,
-              itemBuilder: (_, i) => ClassTile(classList[i]),
-              separatorBuilder: (_, i) => const Divider(),
+            itemCount: classList.length,
+            itemBuilder: (_, i) {
+              if (i == classList.length-1) {
+                return Column(
+                  children: <Widget>[
+                    ClassTile(classList[i]),
+                    const SizedBox(height: 80),
+                  ],
+                );
+              }
+              return ClassTile(classList[i]);
+            },
+            separatorBuilder: (_, i) => const Divider(height: 1),
           );
         } else if (snapshot.hasError) {
           return ALError();
