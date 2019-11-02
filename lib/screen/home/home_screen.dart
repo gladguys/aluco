@@ -1,3 +1,4 @@
+import 'package:aluco/widget/al_logo.dart';
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,19 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ALScaffold(
-      title: 'Home',
+      titleWidget: ALLogo(
+        color: Theme.of(context).primaryColor,
+        fontSize: 40,
+        hasShadow: false,
+      ),
+      actions: <Widget>[
+        Image.asset(
+          'assets/images/user.png',
+          fit: BoxFit.scaleDown,
+          width: 34,
+        ),
+        const SizedBox(width: 12.0),
+      ],
       body: Home(),
     );
   }
