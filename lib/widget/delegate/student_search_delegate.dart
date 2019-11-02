@@ -6,10 +6,6 @@ import 'package:flutter/material.dart';
 import 'custom_search_delegate.dart';
 
 class StudentSearchDelegate extends CustomSearchDelegate<Student> {
-  StudentSearchDelegate(this.blocContext);
-
-  BuildContext blocContext;
-
   @override
   Widget buildSuggestions(BuildContext context) {
     final _bloc = BlocProvider.getBloc<StudentBloc>();

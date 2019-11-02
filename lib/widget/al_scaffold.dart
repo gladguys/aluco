@@ -1,4 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+
+import '../main.dart';
 
 class ALScaffold extends StatelessWidget {
   const ALScaffold({
@@ -27,6 +31,24 @@ class ALScaffold extends StatelessWidget {
       ),
       body: body,
       floatingActionButton: floatingActionButton,
+    );
+  }
+
+  List<Widget> _getActions() {
+    if (kReleaseMode) {
+      return actions;
+    }
+    return [...actions ?? [], DebugHttpButton()];
+  }
+}
+
+class DebugHttpButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      iconSize: 40,
+      icon: Icon(MaterialIcons.getIconData('http')),
+      onPressed: () => alice.showInspector(),
     );
   }
 }

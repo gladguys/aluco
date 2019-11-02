@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
 import 'package:aluco/repository/api/API.dart';
+import '../../main.dart';
 import 'dio_config.dart' as config;
 
 class DioBuilder {
@@ -13,10 +14,7 @@ class DioBuilder {
   static final Dio _dio = Dio()
     ..options.baseUrl = API_URL
     ..interceptors.add(
-      InterceptorsWrapper(
-          onRequest: config.onRequest,
-          onResponse: config.onResponse,
-          onError: config.onError),
+      alice.getDioInterceptor()
     );
 
   static void setAuthorizationHeader() {
