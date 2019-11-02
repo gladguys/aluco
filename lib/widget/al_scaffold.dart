@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 
 class ALScaffold extends StatelessWidget {
   const ALScaffold({
-    @required this.title,
+    this.title,
+    this.titleWidget,
     this.actions,
     this.floatingActionButton,
     @required this.body,
-  }) : assert(title != null), assert(body != null);
+  })  : assert(title != null || titleWidget != null),
+        assert(body != null);
 
   final String title;
+  final Widget titleWidget;
   final List<Widget> actions;
   final Widget body;
   final Widget floatingActionButton;
@@ -18,8 +21,9 @@ class ALScaffold extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(title),
+        title: titleWidget ?? Text(title),
         actions: actions,
+        elevation: 0.5,
       ),
       body: body,
       floatingActionButton: floatingActionButton,
