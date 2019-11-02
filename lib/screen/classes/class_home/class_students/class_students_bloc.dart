@@ -6,6 +6,7 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ClassStudentsBloc extends BlocBase {
+  
   final allStudentsStream = BehaviorSubject<List<Student>>.seeded([]);
   List<Student> get allStudents => allStudentsStream.value;
 
@@ -72,6 +73,10 @@ class ClassStudentsBloc extends BlocBase {
       await _classRepository.saveStudents(classId, studentsToAdd);
       studentsInClass.addAll(studentsToAdd);
       studentsInClassStream.add(studentsInClass);
+      allStudentsMarked.removeWhere((sm) => studentsToAdd.contains(sm.student));
+      allStudentsMarkedStream.add(allStudentsMarked);
+      _studentRepository.isListStudentsDirty = true;
+      
     } catch (e) {
       print(e);
       throw Exception();
