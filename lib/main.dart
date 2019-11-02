@@ -1,4 +1,3 @@
-import 'package:alice/alice.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +9,6 @@ import 'global_blocs.dart';
 import 'theme/main_theme.dart';
 
 SharedPreferences preferences;
-
-Alice alice = Alice(navigatorKey: GlobalKey<NavigatorState>());
 
 Future<void> main() async {
   await initializePreferences();
@@ -42,7 +39,6 @@ class _MyAppState extends State<MyApp> {
     return BlocProvider(
       blocs: globalBlocs,
       child: MaterialApp(
-        navigatorKey: alice.getNavigatorKey(),
         debugShowCheckedModeBanner: false,
         theme: theme,
         localizationsDelegates: [
