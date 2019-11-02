@@ -14,25 +14,25 @@ class ListClassesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ALScaffold(
       title: 'Minhas Turmas',
-      actions: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Icon(
-            MaterialCommunityIcons.getIconData('face-profile'),
-            size: 38,
-            color: const Color(0xFF389952),
+      body: ListClasses(),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.add),
+        label: const Text(
+          'Adicionar',
+          style: TextStyle(
+            fontSize: 16,
+            letterSpacing: 0,
           ),
         ),
-      ],
-      body: ListClasses(),
-      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Theme.of(context).accentColor,
         onPressed: () async {
-          final Class classe = await ALRouter.push(context, const SaveClassScreen());
+          final Class classe =
+              await ALRouter.push(context, const SaveClassScreen());
           if (classe != null) {
             await BlocProvider.getBloc<ListClassesBloc>().save(classe);
           }
         },
-        child: Icon(Icons.add),
       ),
     );
   }

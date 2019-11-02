@@ -5,7 +5,7 @@ final theme = ThemeData(
   primaryColorDark: Colors.orange[800],
   accentColor: Colors.grey[850],
   cursorColor: Colors.orange[600],
-  scaffoldBackgroundColor: Colors.white,
+  scaffoldBackgroundColor: Colors.grey[200],
   textSelectionColor: Colors.orange[300],
   textSelectionHandleColor: Colors.orange[600],
   appBarTheme: AppBarTheme(
@@ -23,54 +23,37 @@ final theme = ThemeData(
   inputDecorationTheme: InputDecorationTheme(
     labelStyle: TextStyle(color: Colors.orange[800]),
     filled: true,
-    fillColor: Colors.grey[100],
+    fillColor: Colors.white,
     border: UnderlineInputBorder(
-      borderRadius: const BorderRadius.vertical(
-        top: Radius.circular(12),
-      ),
       borderSide: BorderSide(
         color: Colors.orange[600],
       ),
     ),
     enabledBorder: UnderlineInputBorder(
-      borderRadius: const BorderRadius.vertical(
-        top: Radius.circular(12),
-      ),
       borderSide: BorderSide(
         color: Colors.orange[600],
       ),
     ),
     disabledBorder: UnderlineInputBorder(
-      borderRadius: const BorderRadius.vertical(
-        top: Radius.circular(12),
-      ),
       borderSide: BorderSide(
         color: Colors.grey[300],
       ),
     ),
     focusedBorder: UnderlineInputBorder(
-      borderRadius: const BorderRadius.vertical(
-        top: Radius.circular(12),
-      ),
       borderSide: BorderSide(
+        width: 2,
         color: Colors.orange[600],
       ),
     ),
     errorBorder: UnderlineInputBorder(
-      borderRadius: const BorderRadius.vertical(
-        top: Radius.circular(12),
-      ),
       borderSide: BorderSide(
         color: Colors.red[600],
       ),
     ),
     focusedErrorBorder: UnderlineInputBorder(
-      borderRadius: const BorderRadius.vertical(
-        top: Radius.circular(12),
-      ),
       borderSide: BorderSide(
-        width: 2.0,
-        color: Colors.red[700],
+        width: 2,
+        color: Colors.red[600],
       ),
     ),
   ),
