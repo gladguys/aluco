@@ -29,6 +29,7 @@ class StudentBloc extends BlocBase {
         studentList.removeWhere((s) => s.id == student.id);
         studentList.add(student);
         _studentsController.add(studentList);
+        _repository.isListStudentsDirty = true;
       }
     } catch (e) {
       print(e);

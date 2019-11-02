@@ -6,11 +6,23 @@ import 'package:aluco/repository/dio/dio_builder.dart';
 
 class StudentRepository implements AbstractStudentRepository {
   final _dio = DioBuilder.getDio();
+  bool isListStudentsDirty = true;
+  List<dynamic> students;
 
   @override
   Future<List<Student>> getAll() async {
+    if (!isListStudentsDirty) {
+      return List.generate(
+        students.length,
+        (i) => Student.fromJson(
+          students[i],
+        ),
+      );
+    }
     try {
       final response = await _dio.get<dynamic>(STUDENT);
+      isListStudentsDirty = false;
+      students = response.data;
       return List.generate(
         response.data.length,
         (i) => Student.fromJson(
