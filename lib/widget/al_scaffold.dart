@@ -24,8 +24,16 @@ class ALScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.5,
         centerTitle: true,
-        title: Text(title),
+        title: titleWidget ??
+            Text(
+              title,
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                letterSpacing: -0.4,
+              ),
+            ),
         actions: _getActions(),
       ),
       body: body,
