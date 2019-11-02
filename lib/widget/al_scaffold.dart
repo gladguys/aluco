@@ -6,16 +6,14 @@ import '../main.dart';
 
 class ALScaffold extends StatelessWidget {
   const ALScaffold({
-    this.title,
-    this.titleWidget,
+    @required this.title,
     this.actions,
     this.floatingActionButton,
     @required this.body,
-  })  : assert(title != null || titleWidget != null),
+  })  : assert(title != null),
         assert(body != null);
 
   final String title;
-  final Widget titleWidget;
   final List<Widget> actions;
   final Widget body;
   final Widget floatingActionButton;
@@ -25,9 +23,8 @@ class ALScaffold extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: titleWidget ?? Text(title),
-        actions: actions,
-        elevation: 0.5,
+        title: Text(title),
+        actions: _getActions(),
       ),
       body: body,
       floatingActionButton: floatingActionButton,
