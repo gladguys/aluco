@@ -75,8 +75,7 @@ class ClassStudentsBloc extends BlocBase {
       studentsInClassStream.add(studentsInClass);
       allStudentsMarked.removeWhere((sm) => studentsToAdd.contains(sm.student));
       allStudentsMarkedStream.add(allStudentsMarked);
-      _studentRepository.isListStudentsDirty = true;
-      
+
     } catch (e) {
       print(e);
       throw Exception();
