@@ -9,7 +9,7 @@ class ALIconTextVerticalButton extends StatelessWidget {
     this.text,
     this.route,
   });
-  
+
   final IconData icon;
   final String text;
   final Widget route;
@@ -17,22 +17,27 @@ class ALIconTextVerticalButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    
+
     return GGIconLabelContainer(
       icon: Icon(
         icon,
-        size: 60,
+        size: 48,
         color: theme.accentColor,
       ),
-      text: Text(
-        text,
-        style: TextStyle(
-          fontSize: 18,
-          color: theme.accentColor,
+      text: Padding(
+        padding: const EdgeInsets.only(top: 2),
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 16,
+            color: theme.accentColor,
+          ),
         ),
       ),
       width: 140,
       height: 120,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       backgroundColor: Colors.white,
       borderWidth: 1,
       withShadow: true,

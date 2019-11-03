@@ -51,7 +51,17 @@ class _ListStudentsScreenState extends State<ListStudentsScreen> {
           return ALWaitingIndicator();
         },
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.add),
+        label: const Text(
+          'Adicionar',
+          style: TextStyle(
+            fontSize: 16,
+            letterSpacing: 0,
+          ),
+        ),
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Theme.of(context).accentColor,
         onPressed: () async {
           final Student studentToSave =
               await ALRouter.push(context, const SaveStudentScreen());
@@ -59,7 +69,6 @@ class _ListStudentsScreenState extends State<ListStudentsScreen> {
             await _bloc.save(studentToSave);
           }
         },
-        child: Icon(Icons.add),
       ),
     );
   }

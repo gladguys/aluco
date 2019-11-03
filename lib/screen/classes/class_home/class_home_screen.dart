@@ -27,8 +27,12 @@ class _ClassHomeScreenState extends State<ClassHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return ALScaffold(
-      title: _bloc.pickedClass.name,
-      body: ClassHomeActions(),
+      title: 'Turma',
+      subtitle: _bloc.pickedClass.name,
+      body: Padding(
+        padding: const EdgeInsets.only(top: 24.0),
+        child: ClassHomeActions(),
+      ),
     );
   }
 }

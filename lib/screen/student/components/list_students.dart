@@ -11,9 +11,19 @@ class ListStudents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-        itemBuilder: (_, i) => StudentTile(students[i]),
-        separatorBuilder: (_, i) => const Divider(),
-        itemCount: students.length,
+      itemCount: students.length,
+      itemBuilder: (_, i) {
+        if (i == students.length - 1) {
+          return Column(
+            children: <Widget>[
+              StudentTile(students[i]),
+              const SizedBox(height: 80),
+            ],
+          );
+        }
+        return StudentTile(students[i]);
+      },
+      separatorBuilder: (_, i) => const Divider(height: 1),
     );
   }
 }

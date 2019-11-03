@@ -4,6 +4,7 @@ import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/screen/student/student_bloc.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:gg_flutter_components/button/gg_circle_button.dart';
 import 'package:gg_flutter_components/dialog/gg_confirm_delete_dialog.dart';
 import 'package:gg_flutter_components/dialog/gg_dialog.dart';
 import 'package:line_icons/line_icons.dart';
@@ -21,17 +22,19 @@ class StudentTile extends StatelessWidget {
       key: ValueKey(_student.id),
       leading: Icon(
         _student.gender == Gender.male ? LineIcons.male : LineIcons.female,
-        size: 42,
+        size: 40,
       ),
       onTap: () => navigateToEdit(context, _student),
       title: Text(_student.name),
-      subtitle: Text(_student?.email ?? ''),
-      trailing: IconButton(
-        icon: Icon(Icons.delete),
-        onPressed: () => GGDialog.show(
+      subtitle: _student?.email != '' ? Text(_student.email) : null,
+      trailing: GGCircleButton(
+        icon: Icons.delete,
+        colorIcon: Colors.white,
+        colorButton: Colors.red[600],
+        onTap: () => GGDialog.show(
           context,
           GGConfirmDeleteDialog(
-            title: 'Remover estudante?',
+            title: 'Remover aluno?',
             onClickYes: () async =>
                 await BlocProvider.getBloc<StudentBloc>().delete(_student.id),
           ),

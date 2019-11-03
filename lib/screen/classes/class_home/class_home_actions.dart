@@ -17,22 +17,34 @@ class ClassHomeActions extends StatelessWidget {
             alignment: WrapAlignment.center,
             children: <Widget>[
               ALIconTextVerticalButton(
-                icon: Ionicons.getIconData('ios-people'),
+                icon: FontAwesome5.getIconData(
+                  'users',
+                  weight: IconWeight.Solid,
+                ),
                 text: 'Alunos da Turma',
                 route: ClassStudentsScreen(),
               ),
               ALIconTextVerticalButton(
-                icon: Foundation.getIconData('clipboard-notes'),
+                icon: FontAwesome5.getIconData(
+                  'history',
+                  weight: IconWeight.Solid,
+                ),
                 text: 'Histórico de Chamadas',
                 route: ListStudentsScreen(),
               ),
               ALIconTextVerticalButton(
-                icon: MaterialIcons.getIconData('grade'),
+                icon: FontAwesome5.getIconData(
+                  'clipboard-list',
+                  weight: IconWeight.Solid,
+                ),
                 text: 'Quadro de Notas',
                 route: ListStudentsScreen(),
               ),
               ALIconTextVerticalButton(
-                icon: Entypo.getIconData('open-book'),
+                icon: FontAwesome5.getIconData(
+                  'book',
+                  weight: IconWeight.Solid,
+                ),
                 text: 'Planos de Aulas',
                 route: ListStudentsScreen(),
               ),
