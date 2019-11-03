@@ -1,6 +1,8 @@
 import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/screen/home/home_screen.dart';
 import 'package:aluco/utils/form_utils.dart';
+import 'package:aluco/widget/al_waiting_indicator.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
 import '../signin_bloc.dart';
@@ -9,7 +11,7 @@ import 'signin_form.dart';
 class SigninFormButton extends StatelessWidget {
   SigninFormButton({this.signinForm});
 
-  final SigninBloc _bloc = SigninBloc();
+  final SigninBloc _bloc = BlocProvider.getBloc<SigninBloc>();
   final SigninForm signinForm;
 
   @override
@@ -24,11 +26,25 @@ class SigninFormButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
       ),
-      child: Text(
-        'Entrar',
-        style: TextStyle(
-          fontSize: 16.0,
-        ),
+      child: StreamBuilder(
+        stream: _bloc.signinStateController,
+        builder: (_, snapshot) {
+          print(snapshot.data);
+          if (snapshot.data == SigninState.idle) {
+            return Text(
+              'Entrar',
+              style: TextStyle(
+                fontSize: 16.0,
+              ),
+            );
+          } else {
+            return const SizedBox(
+              height: 18,
+              width: 48,
+              child: ALWaitingIndicator(size: 20),
+            );
+          }
+        },
       ),
       onPressed: () async {
         if (FormUtils.isValid(signinForm.getForm())) {
