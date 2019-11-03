@@ -1,5 +1,6 @@
 import 'package:aluco/model/student.dart';
 import 'package:flutter/material.dart';
+import 'package:gg_flutter_components/button/gg_circle_button.dart';
 import 'package:gg_flutter_components/dialog/gg_confirm_delete_dialog.dart';
 import 'package:gg_flutter_components/dialog/gg_dialog.dart';
 
@@ -12,8 +13,10 @@ class ListClassStudentTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(student.name),
-      trailing: GestureDetector(
-        child: Icon(Icons.delete),
+      trailing: GGCircleButton(
+        icon: Icons.delete,
+        colorIcon: Colors.white,
+        colorButton: Colors.red[600],
         onTap: () => GGDialog.show(
           context,
           GGConfirmDeleteDialog(

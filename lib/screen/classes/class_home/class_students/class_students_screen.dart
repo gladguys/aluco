@@ -16,7 +16,6 @@ class ClassStudentsScreen extends StatefulWidget {
 }
 
 class _ClassStudentsScreenState extends State<ClassStudentsScreen> {
-
   final _classStudentsBloc = BlocProvider.getBloc<ClassStudentsBloc>();
   final _classHomeBloc = BlocProvider.getBloc<ClassHomeBloc>();
 
@@ -39,13 +38,23 @@ class _ClassStudentsScreenState extends State<ClassStudentsScreen> {
             return ALError();
           }
           return ALWaitingIndicator();
-        }
+        },
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            await showSearch(context: context, delegate: AddStudentClassSearchDelegate());
-          },
-          child: Icon(Icons.add),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.add),
+        label: const Text(
+          'Adicionar',
+          style: TextStyle(
+            fontSize: 16,
+            letterSpacing: 0,
+          ),
+        ),
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Theme.of(context).accentColor,
+        onPressed: () async {
+          await showSearch(
+              context: context, delegate: AddStudentClassSearchDelegate());
+        },
       ),
     );
   }

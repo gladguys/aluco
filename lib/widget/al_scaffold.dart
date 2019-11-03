@@ -8,6 +8,7 @@ class ALScaffold extends StatelessWidget {
   const ALScaffold({
     this.title,
     this.titleWidget,
+    this.subtitle,
     this.actions,
     this.floatingActionButton,
     @required this.body,
@@ -16,6 +17,7 @@ class ALScaffold extends StatelessWidget {
 
   final String title;
   final Widget titleWidget;
+  final String subtitle;
   final List<Widget> actions;
   final Widget body;
   final Widget floatingActionButton;
@@ -34,6 +36,19 @@ class ALScaffold extends StatelessWidget {
                 letterSpacing: -0.4,
               ),
             ),
+        bottom: subtitle != null
+            ? PreferredSize(
+                preferredSize: const Size(300, 16),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(12, 0, 12, 4),
+                  child: Text(
+                    subtitle,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              )
+            : null,
         actions: _getActions(),
       ),
       body: body,

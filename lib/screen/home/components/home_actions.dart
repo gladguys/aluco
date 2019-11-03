@@ -1,8 +1,8 @@
-import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/screen/classes/list_classes/list_classes_screen.dart';
 import 'package:aluco/screen/student/list_students_screen.dart';
+import 'package:aluco/widget/al_icon_text_vertical_button.dart';
 import 'package:flutter/material.dart';
-import 'package:gg_flutter_components/gg_flutter_components.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 class HomeActions extends StatelessWidget {
   @override
@@ -16,51 +16,26 @@ class HomeActions extends StatelessWidget {
             runAlignment: WrapAlignment.center,
             alignment: WrapAlignment.center,
             children: <Widget>[
-              _buildButton(
-                icon: Icons.people,
+              ALIconTextVerticalButton(
+                icon: FontAwesome5.getIconData(
+                  'chalkboard-teacher',
+                  weight: IconWeight.Solid,
+                ),
                 text: 'Turmas',
                 route: ListClassesScreen(),
-                context: context,
               ),
-              _buildButton(
-                icon: Icons.school,
+              ALIconTextVerticalButton(
+                icon: FontAwesome5.getIconData(
+                  'users',
+                  weight: IconWeight.Solid,
+                ),
                 text: 'Alunos',
                 route: ListStudentsScreen(),
-                context: context,
               ),
             ],
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildButton({
-    IconData icon,
-    String text,
-    Widget route,
-    BuildContext context,
-  }) {
-    final ThemeData theme = Theme.of(context);
-    return GGIconLabelContainer(
-      icon: Icon(
-        icon,
-        size: 60,
-        color: theme.accentColor,
-      ),
-      text: Text(
-        text,
-        style: TextStyle(
-          fontSize: 18,
-          color: theme.accentColor,
-        ),
-      ),
-      width: 140,
-      height: 120,
-      backgroundColor: Colors.white,
-      borderWidth: 1,
-      withShadow: true,
-      onTap: () => ALRouter.push(context, route),
     );
   }
 }

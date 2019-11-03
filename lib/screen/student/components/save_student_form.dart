@@ -2,7 +2,6 @@ import 'package:aluco/enums/gender.dart' as our_gender;
 import 'package:aluco/model/student.dart';
 import 'package:aluco/utils/form_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:gender_selector/gender_selector.dart';
 import 'package:gg_flutter_components/form/gg_form_datepicker.dart';
 import 'package:gg_flutter_components/form/gg_outlined_text_form_field.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
@@ -53,28 +52,21 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
       child: Form(
         key: _formKey,
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              GenderSelector(
-                margin: const EdgeInsets.all(10),
-                maletxt: '',
-                femaletxt: '',
-                selectedGender: _student.gender == our_gender.Gender.male
-                    ? Gender.MALE
-                    : Gender.FEMALE,
-                onChanged: (gender) {
-                  setState(
-                    () {
-                      if (gender == Gender.MALE) {
-                        _student.gender = our_gender.Gender.male;
-                      } else {
-                        _student.gender = our_gender.Gender.female;
-                      }
-                    },
-                  );
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset(
+                    'assets/images/user120.png',
+                    fit: BoxFit.cover,
+                    width: 120,
+                  ),
+                ],
               ),
+              FormVerticalSeparatorMedium,
               GGOutlinedTextFormField(
                 labelText: 'Nome Completo *',
                 initialValue: _student.name,
@@ -84,16 +76,56 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
               ),
               FormVerticalSeparator,
               GGFormDatePicker(
-                  labelText: 'Data de Nascimento',
-                  format: dateFormat,
-                  focusNode: dataNascimentoFN,
-                  onEditingComplete: () =>
-                      FocusScope.of(context).requestFocus(phoneFN),
-                  onSaved: (birthdayDate) {
-                    if (birthdayDate != null) {
-                      _student.dateBirth = dateFormat?.format(birthdayDate);
-                    }
-                  }),
+                labelText: 'Data de Nascimento',
+                format: dateFormat,
+                focusNode: dataNascimentoFN,
+                onEditingComplete: () =>
+                    FocusScope.of(context).requestFocus(phoneFN),
+                onSaved: (birthdayDate) {
+                  if (birthdayDate != null) {
+                    _student.dateBirth = dateFormat?.format(birthdayDate);
+                  }
+                },
+              ),
+              FormVerticalSeparator,
+              // const Text('Sexo'),
+              Wrap(
+                children: <Widget>[
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Radio(
+                        groupValue: _student.gender,
+                        value: our_gender.Gender.male,
+                        activeColor: Theme.of(context).primaryColor,
+                        onChanged: (Object object) {
+                          setState(() {
+                            _student.gender = our_gender.Gender.male;
+                          });
+                        },
+                      ),
+                      const Text('Masculino'),
+                    ],
+                  ),
+                  const SizedBox(width: 8),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Radio(
+                        groupValue: _student.gender,
+                        value: our_gender.Gender.female,
+                        activeColor: Theme.of(context).primaryColor,
+                        onChanged: (Object object) {
+                          setState(() {
+                            _student.gender = our_gender.Gender.female;
+                          });
+                        },
+                      ),
+                      const Text('Feminino'),
+                    ],
+                  ),
+                ],
+              ),
               FormVerticalSeparator,
               GGOutlinedTextFormField(
                 labelText: 'Telefone',
@@ -170,6 +202,7 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
                 minLines: 3,
                 maxLines: 3,
               ),
+              const SizedBox(height: 80),
             ],
           ),
         ),
