@@ -52,7 +52,7 @@ class SigninForm extends StatelessWidget with GGValidators {
 
   Map<String, String> _getData() {
     return {
-      'username': userData['email'],
+      'email': userData['email'],
       'password': userData['password']
     };
   }
