@@ -5,22 +5,22 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ClassHomeBloc extends BlocBase {
-  final classStudentsStream = BehaviorSubject<List<Student>>.seeded([]);
+  final classStudentsController = BehaviorSubject<List<Student>>.seeded([]);
   final _repository = StudentRepository();
   Class _class;
 
   Class get pickedClass => _class;
-  List<Student> get classStudents => classStudentsStream.value;
+  List<Student> get classStudents => classStudentsController.value;
 
   void setClass(Class classe) {
     _class = classe;
   }
 
   Future<void> initializeClassStudents() async {
-    classStudentsStream.add(await _repository.getAll());
+    classStudentsController.add(await _repository.getAll());
   }
 
   void cleanBloc() {
-    classStudentsStream.add([]);
+    classStudentsController.add([]);
   }
 }
