@@ -11,8 +11,8 @@ class AddStudentClassSearchDelegate
   Widget buildSuggestions(BuildContext context) {
     final _bloc = BlocProvider.getBloc<ClassStudentsBloc>();
     final List<StudentMarked> studentsList = query == ''
-        ? _bloc.allStudentsMarkedStream.value
-        : _bloc.allStudentsMarkedStream.value
+        ? _bloc.allStudentsMarkedController.value
+        : _bloc.allStudentsMarkedController.value
             .where((studentMarked) => studentMarked.student.name
                 .toLowerCase()
                 .contains(query.toLowerCase()))

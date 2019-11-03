@@ -52,7 +52,7 @@ class ClassHomeActions extends StatelessWidget {
         ),
         itemBuilder: (_, i) => GGIconLabelContainer(
           icon: Icon(homeActions[i]['icon'], size: 60),
-          text: Text(homeActions[i]['text'], style: TextStyle(fontSize: 22),),
+          text: Text(homeActions[i]['text'], style: const TextStyle(fontSize: 22),),
           onTap: () => ALRouter.push(context, homeActions[i]['target']),
         ),
         itemCount: homeActions.length,

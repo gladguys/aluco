@@ -6,21 +6,23 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ClassStudentsBloc extends BlocBase {
-  
-  final allStudentsStream = BehaviorSubject<List<Student>>.seeded([]);
-  List<Student> get allStudents => allStudentsStream.value;
+  final allStudentsController = BehaviorSubject<List<Student>>.seeded([]);
+  List<Student> get allStudents => allStudentsController.value;
 
-  final allStudentsMarkedStream = BehaviorSubject<List<StudentMarked>>.seeded([]);
-  List<StudentMarked> get allStudentsMarked => allStudentsMarkedStream.value;
+  final allStudentsMarkedController =
+      BehaviorSubject<List<StudentMarked>>.seeded([]);
+  List<StudentMarked> get allStudentsMarked => allStudentsMarkedController.value;
 
-  final studentsToAddStream = BehaviorSubject<List<Student>>.seeded([]);
-  List<Student> get studentsToAdd => studentsToAddStream.value;
+  final allStudentsMarkedListController = <BehaviorSubject<StudentMarked>>[];
 
-  final studentsInClassStream = BehaviorSubject<List<Student>>.seeded([]);
-  List<Student> get studentsInClass => studentsInClassStream.value;
+  final studentsToAddController = BehaviorSubject<List<Student>>.seeded([]);
+  List<Student> get studentsToAdd => studentsToAddController.value;
 
-  final studentsNotInClassStream = BehaviorSubject<List<Student>>.seeded([]);
-  List<Student> get studentsNotInClass => studentsNotInClassStream.value;
+  final studentsInClassController = BehaviorSubject<List<Student>>.seeded([]);
+  List<Student> get studentsInClass => studentsInClassController.value;
+
+  final studentsNotInClassController = BehaviorSubject<List<Student>>.seeded([]);
+  List<Student> get studentsNotInClass => studentsNotInClassController.value;
 
   int classId;
   final _classRepository = ClassRepository();
@@ -30,52 +32,61 @@ class ClassStudentsBloc extends BlocBase {
     this.classId = classId;
     allStudents.addAll(await _studentRepository.getAll());
     studentsInClass.addAll(await _classRepository.getStudents(classId));
-    studentsNotInClass.addAll([...allStudents]
-      ..removeWhere((student) => studentsInClass.indexWhere((s) => s.id == student.id) != -1));
+    studentsNotInClass.addAll([...allStudents]..removeWhere((student) =>
+        studentsInClass.indexWhere((s) => s.id == student.id) != -1));
 
-    allStudentsStream.add(allStudents);
-    studentsInClassStream.add(studentsInClass);
-    studentsNotInClassStream.add(studentsNotInClass);
+    allStudentsController.add(allStudents);
+    studentsInClassController.add(studentsInClass);
+    studentsNotInClassController.add(studentsNotInClass);
     markAllNotInCLassStudents();
   }
 
   void markAllNotInCLassStudents() {
-    final studentsNotInClass = studentsNotInClassStream.value;
+    final studentsNotInClass = studentsNotInClassController.value;
     final markedStudents = studentsNotInClass
         .map((student) => StudentMarked(student: student))
         .toList();
 
-    allStudentsMarkedStream.add(markedStudents);
+    allStudentsMarkedController.add(markedStudents);
+    for (StudentMarked markedStudent in markedStudents) {
+      allStudentsMarkedListController
+          .add(BehaviorSubject<StudentMarked>()..add(markedStudent));
+    }
   }
 
   void markStudent(Student student, bool marked) {
-    final allStudentsMarked = allStudentsMarkedStream.value;
-    final studentsInClass = studentsInClassStream.value;
-    final index = allStudentsMarked.indexWhere((markedStudent) => markedStudent.student.id == student.id);
+    final allStudentsMarked = allStudentsMarkedController.value;
+    final studentsInClass = studentsInClassController.value;
+    final index = allStudentsMarked
+        .indexWhere((markedStudent) => markedStudent.student.id == student.id);
     if (index != -1) {
       allStudentsMarked[index].marked = marked;
 
+      allStudentsMarkedListController[index].add(allStudentsMarked[index]);
+
       if (marked) {
         studentsToAdd.add(student);
-        studentsNotInClass.removeWhere((notInClassStudent) => notInClassStudent.id == student.id);
+        studentsNotInClass.removeWhere(
+            (notInClassStudent) => notInClassStudent.id == student.id);
       } else {
-        studentsToAdd.removeWhere((studentsInClass) => studentsInClass.id == student.id);
+        studentsToAdd
+            .removeWhere((studentsInClass) => studentsInClass.id == student.id);
         studentsNotInClass.add(student);
       }
     }
-    studentsInClassStream.add(studentsInClass);
-    studentsNotInClassStream.add(studentsNotInClass);
-    allStudentsMarkedStream.add(allStudentsMarked);
+    studentsInClassController.add(studentsInClass);
+    studentsNotInClassController.add(studentsNotInClass);
+    allStudentsMarkedController.add(allStudentsMarked);
   }
 
   Future<void> saveNewStudents() async {
     try {
       await _classRepository.saveStudents(classId, studentsToAdd);
       studentsInClass.addAll(studentsToAdd);
-      studentsInClassStream.add(studentsInClass);
+      studentsInClassController.add(studentsInClass);
       allStudentsMarked.removeWhere((sm) => studentsToAdd.contains(sm.student));
-      allStudentsMarkedStream.add(allStudentsMarked);
-
+      allStudentsMarkedController.add(allStudentsMarked);
+      studentsToAdd.clear();
     } catch (e) {
       print(e);
       throw Exception();
@@ -83,10 +94,10 @@ class ClassStudentsBloc extends BlocBase {
   }
 
   void cleanBloc() {
-    allStudentsStream.add([]);
-    allStudentsMarkedStream.add([]);
-    studentsToAddStream.add([]);
-    studentsInClassStream.add([]);
-    studentsNotInClassStream.add([]);
+    allStudentsController.add([]);
+    allStudentsMarkedController.add([]);
+    studentsToAddController.add([]);
+    studentsInClassController.add([]);
+    studentsNotInClassController.add([]);
   }
 }
