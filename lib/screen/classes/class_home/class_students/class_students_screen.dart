@@ -30,7 +30,7 @@ class _ClassStudentsScreenState extends State<ClassStudentsScreen> {
     return ALScaffold(
       title: 'Alunos da Turma',
       body: StreamBuilder<List<Student>>(
-        stream: _classStudentsBloc.studentsInClassStream.stream,
+        stream: _classStudentsBloc.studentsInClassController.stream,
         builder: (_, snapshot) {
           if (snapshot.hasData) {
             return ListClassStudents(snapshot.data);
@@ -54,7 +54,6 @@ class _ClassStudentsScreenState extends State<ClassStudentsScreen> {
         onPressed: () async {
           await showSearch(
               context: context, delegate: AddStudentClassSearchDelegate());
-          print(_classStudentsBloc.studentsInClassStream.value);
         },
       ),
     );

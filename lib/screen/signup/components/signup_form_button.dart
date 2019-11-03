@@ -23,7 +23,7 @@ class SignupFormButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
       ),
-      child: Text(
+      child: const Text(
         'Criar',
         style: TextStyle(
           fontSize: 16.0,
