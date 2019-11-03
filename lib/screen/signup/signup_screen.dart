@@ -34,7 +34,7 @@ class _SignupScreenState extends State<SignupScreen> with GGValidators {
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                ALLogo(),
+                const ALLogo(),
                 Text(
                   'Crie sua conta',
                   style: TextStyle(

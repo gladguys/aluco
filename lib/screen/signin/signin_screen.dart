@@ -34,7 +34,7 @@ class _SigninScreenState extends State<SigninScreen> with GGValidators {
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                ALLogo(),
+                const ALLogo(),
                 FormVerticalSeparator,
                 signinForm,
                 FormVerticalSeparatorMedium,
