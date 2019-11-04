@@ -1,7 +1,6 @@
 import 'package:aluco/model/student.dart';
-import 'package:aluco/widget/al_error.dart';
 import 'package:aluco/widget/al_scaffold.dart';
-import 'package:aluco/widget/al_waiting_indicator.dart';
+import 'package:aluco/widget/al_stream_builder.dart';
 import 'package:aluco/widget/delegate/add_student_class_search_delegate.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
@@ -29,16 +28,9 @@ class _ClassStudentsScreenState extends State<ClassStudentsScreen> {
   Widget build(BuildContext context) {
     return ALScaffold(
       title: 'Alunos da Turma',
-      body: StreamBuilder<List<Student>>(
+      body: ALStreamBuilder<List<Student>>(
         stream: _classStudentsBloc.studentsInClassController.stream,
-        builder: (_, snapshot) {
-          if (snapshot.hasData) {
-            return ListClassStudents(snapshot.data);
-          } else if (snapshot.hasError) {
-            return ALError();
-          }
-          return const ALWaitingIndicator();
-        },
+        mainWidget: (dynamic students) => ListClassStudents(students),
       ),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.add),

@@ -30,7 +30,7 @@ class SigninFormButton extends StatelessWidget {
         stream: _bloc.signinStateController,
         builder: (_, snapshot) {
           if (snapshot.data == SigninState.idle) {
-            return Text(
+            return const Text(
               'Entrar',
               style: TextStyle(
                 fontSize: 16.0,
