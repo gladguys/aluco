@@ -54,6 +54,16 @@ class Student {
   }
 
   @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is Student &&
+              runtimeType == other.runtimeType &&
+              id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
+
+  @override
   String toString() {
     return 'Student{id: $id, teacherId: $teacherId, name: $name, email: $email, photoUrl: $photoUrl, dateBirth: $dateBirth, phone: $phone, responsibleName: $responsibleName, responsiblePhone: $responsiblePhone, address: $address, previousSchool: $previousSchool, observation: $observation, gender: $gender}';
   }

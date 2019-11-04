@@ -31,6 +31,7 @@ class ListClassesBloc extends BlocBase {
         _classesController.add(classList);
       }
     } catch(e) {
+      print(e);
       throw Exception();
     }
   }
@@ -41,6 +42,7 @@ class ListClassesBloc extends BlocBase {
       classList.removeWhere((classe) => classe.id == id);
       _classesController.add(classList);
     } catch(e) {
+      print(e);
       throw Exception();
     }
   }

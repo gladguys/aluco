@@ -18,7 +18,6 @@ class StudentRepository implements AbstractStudentRepository {
         ),
       );
     } catch (e) {
-      print(e);
       rethrow;
     }
   }
@@ -32,7 +31,6 @@ class StudentRepository implements AbstractStudentRepository {
         await _dio.put<dynamic>(STUDENT, data: student.toJson());
       }
     } catch (e) {
-      print(e);
       rethrow;
     }
   }
@@ -42,7 +40,6 @@ class StudentRepository implements AbstractStudentRepository {
     try {
       await _dio.delete<dynamic>('$STUDENT/$id');
     } catch (e) {
-      print(e);
       rethrow;
     }
   }

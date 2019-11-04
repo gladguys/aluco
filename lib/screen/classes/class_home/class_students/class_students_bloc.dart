@@ -11,7 +11,8 @@ class ClassStudentsBloc extends BlocBase {
 
   final allStudentsMarkedController =
       BehaviorSubject<List<StudentMarked>>.seeded([]);
-  List<StudentMarked> get allStudentsMarked => allStudentsMarkedController.value;
+  List<StudentMarked> get allStudentsMarked =>
+      allStudentsMarkedController.value;
 
   final allStudentsMarkedListController = <BehaviorSubject<StudentMarked>>[];
 
@@ -21,7 +22,8 @@ class ClassStudentsBloc extends BlocBase {
   final studentsInClassController = BehaviorSubject<List<Student>>.seeded([]);
   List<Student> get studentsInClass => studentsInClassController.value;
 
-  final studentsNotInClassController = BehaviorSubject<List<Student>>.seeded([]);
+  final studentsNotInClassController =
+      BehaviorSubject<List<Student>>.seeded([]);
   List<Student> get studentsNotInClass => studentsNotInClassController.value;
 
   int classId;
@@ -87,6 +89,24 @@ class ClassStudentsBloc extends BlocBase {
       allStudentsMarked.removeWhere((sm) => studentsToAdd.contains(sm.student));
       allStudentsMarkedController.add(allStudentsMarked);
       studentsToAdd.clear();
+    } catch (e) {
+      print(e);
+      throw Exception();
+    }
+  }
+
+  Future<void> unlinkStudentFromClass(Student student) async {
+    try {
+      await _classRepository.unlinkStudentFromClass(classId, student.id);
+      studentsInClass.remove(student);
+      studentsNotInClass.add(student);
+      studentsInClassController.add(studentsInClass);
+      studentsNotInClassController.add(studentsNotInClass);
+      final newStudentMarked = StudentMarked(student: student);
+      allStudentsMarked.add(newStudentMarked);
+      allStudentsMarkedController.add(allStudentsMarked);
+      allStudentsMarkedListController
+          .add(BehaviorSubject<StudentMarked>.seeded(newStudentMarked));
     } catch (e) {
       print(e);
       throw Exception();

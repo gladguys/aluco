@@ -17,7 +17,7 @@ class ListAddStudentClass extends StatelessWidget {
       body: ListView.separated(
         itemCount: markedStudents.length,
         itemBuilder: (_, i) {
-          if (i == markedStudents.length - 1) {
+          if (isLastFromList(i, markedStudents.length)) {
             return Column(
               children: <Widget>[
                 StudentInClassTile(markedStudents[i]),
@@ -43,6 +43,10 @@ class ListAddStudentClass extends StatelessWidget {
             markedStudents.isNotEmpty ? _saveNewStudants(context) : null,
       ),
     );
+  }
+
+  bool isLastFromList(int index, int listSize) {
+    return index == listSize - 1;
   }
 
   Future<void> _saveNewStudants(BuildContext context) async {

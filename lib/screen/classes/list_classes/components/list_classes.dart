@@ -51,7 +51,7 @@ class _ListClassesState extends State<ListClasses> {
         } else if (snapshot.hasError) {
           return ALError();
         }
-        return ALWaitingIndicator();
+        return const ALWaitingIndicator();
       },
     );
   }

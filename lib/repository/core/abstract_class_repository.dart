@@ -6,5 +6,6 @@ abstract class AbstractClassRepository {
   Future<List<Student>> getStudents(int classId);
   Future<void> save(Class classe);
   Future<void> saveStudents(int classId, List<Student> students);
+  Future<void> unlinkStudentFromClass(int classId, int studentId);
   Future<void> delete(int id);
 }

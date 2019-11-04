@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 
-import '../main.dart';
+import 'al_debug_http_button.dart';
 
 class ALScaffold extends StatelessWidget {
   const ALScaffold({
@@ -60,17 +59,6 @@ class ALScaffold extends StatelessWidget {
     if (kReleaseMode) {
       return actions;
     }
-    return [...actions ?? [], DebugHttpButton()];
-  }
-}
-
-class DebugHttpButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      iconSize: 40,
-      icon: Icon(MaterialIcons.getIconData('http')),
-      onPressed: () => alice.showInspector(),
-    );
+    return [...actions ?? [], ALDebugHttpButton()];
   }
 }

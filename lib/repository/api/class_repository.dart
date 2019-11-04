@@ -63,6 +63,15 @@ class ClassRepository implements AbstractClassRepository {
   }
 
   @override
+  Future<void> unlinkStudentFromClass(int classId, int studentId) async {
+    try {
+      await _dio.delete<dynamic>('$CLASS/$classId/$STUDENT/$studentId');
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<void> delete(int id) async {
     try {
       await _dio.delete<dynamic>('$CLASS/$id');

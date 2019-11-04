@@ -37,7 +37,7 @@ class _ClassStudentsScreenState extends State<ClassStudentsScreen> {
           } else if (snapshot.hasError) {
             return ALError();
           }
-          return ALWaitingIndicator();
+          return const ALWaitingIndicator();
         },
       ),
       floatingActionButton: FloatingActionButton.extended(

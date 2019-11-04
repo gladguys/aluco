@@ -29,7 +29,6 @@ class SigninFormButton extends StatelessWidget {
       child: StreamBuilder(
         stream: _bloc.signinStateController,
         builder: (_, snapshot) {
-          print(snapshot.data);
           if (snapshot.data == SigninState.idle) {
             return Text(
               'Entrar',

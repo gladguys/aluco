@@ -32,7 +32,7 @@ class StudentInClassTile extends StatelessWidget {
               },
             );
           }
-          return ALWaitingIndicator();
+          return const ALWaitingIndicator();
         });
   }
 }

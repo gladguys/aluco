@@ -5,4 +5,9 @@ class StudentMarked {
   bool marked;
 
   StudentMarked({this.student, this.marked = false});
+
+  @override
+  String toString() {
+    return 'StudentMarked{student: $student, marked: $marked}';
+  }
 }
