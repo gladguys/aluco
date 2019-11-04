@@ -1,6 +1,5 @@
 import 'package:aluco/model/class.dart';
-import 'package:aluco/widget/al_error.dart';
-import 'package:aluco/widget/al_waiting_indicator.dart';
+import 'package:aluco/widget/al_stream_builder.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
@@ -28,31 +27,23 @@ class _ListClassesState extends State<ListClasses> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<Class>>(
+    return ALStreamBuilder<List<Class>>(
       stream: _bloc.classStream,
-      builder: (_, snapshot) {
-        if (snapshot.hasData) {
-          final classList = snapshot.data;
-          return ListView.separated(
-            itemCount: classList.length,
-            itemBuilder: (_, i) {
-              if (i == classList.length-1) {
-                return Column(
-                  children: <Widget>[
-                    ClassTile(classList[i]),
-                    const SizedBox(height: 80),
-                  ],
-                );
-              }
-              return ClassTile(classList[i]);
-            },
-            separatorBuilder: (_, i) => const Divider(height: 1),
-          );
-        } else if (snapshot.hasError) {
-          return ALError();
-        }
-        return const ALWaitingIndicator();
-      },
+      mainWidget: (dynamic classes) => ListView.separated(
+        itemCount: classes.length,
+        itemBuilder: (_, i) {
+          if (i == classes.length-1) {
+            return Column(
+              children: <Widget>[
+                ClassTile(classes[i]),
+                const SizedBox(height: 80),
+              ],
+            );
+          }
+          return ClassTile(classes[i]);
+        },
+        separatorBuilder: (_, i) => const Divider(height: 1),
+      ),
     );
   }
 }

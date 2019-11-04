@@ -22,9 +22,9 @@ class _StudentCallScreenState extends State<StudentCallScreen> {
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
-        title: Text(
+        title: const Text(
           'Chamada',
-          style: TextStyle(color: const Color(0xFF389952), fontSize: 28),
+          style: TextStyle(color: Color(0xFF389952), fontSize: 28),
         ),
         actions: <Widget>[
           Padding(

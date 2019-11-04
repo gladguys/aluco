@@ -21,7 +21,7 @@ class ClassInfoScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         title: Text(
           '${classe.name}',
-          style: TextStyle(color: const Color(0xFF389952), fontSize: 20),
+          style: const TextStyle(color: Color(0xFF389952), fontSize: 20),
         ),
         actions: <Widget>[
           Padding(

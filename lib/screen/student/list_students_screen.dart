@@ -1,9 +1,8 @@
 import 'package:aluco/model/student.dart';
 import 'package:aluco/routing/al_router.dart';
-import 'package:aluco/widget/al_error.dart';
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:aluco/widget/al_search_delegate_icon.dart';
-import 'package:aluco/widget/al_waiting_indicator.dart';
+import 'package:aluco/widget/al_stream_builder.dart';
 import 'package:aluco/widget/delegate/student_search_delegate.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
@@ -40,16 +39,9 @@ class _ListStudentsScreenState extends State<ListStudentsScreen> {
           StudentSearchDelegate(),
         ),
       ],
-      body: StreamBuilder<List<Student>>(
+      body: ALStreamBuilder<List<Student>>(
         stream: _bloc.studentStream,
-        builder: (_, snapshot) {
-          if (snapshot.hasData) {
-            return ListStudents(snapshot.data);
-          } else if (snapshot.hasError) {
-            return ALError();
-          }
-          return const ALWaitingIndicator();
-        },
+        mainWidget:(dynamic students) => ListStudents(students),
       ),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.add),
