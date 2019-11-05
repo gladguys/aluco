@@ -1,4 +1,4 @@
-const API_URL = 'http://int-aluco.herokuapp.com/api/';
+const API_URL = 'http://aluco-int.herokuapp.com/api/';
 const AUTH = 'auth';
 const CLASS = 'classes';
 const STUDENT = 'students';
