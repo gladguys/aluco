@@ -64,10 +64,4 @@ class _ListStudentsScreenState extends State<ListStudentsScreen> {
       ),
     );
   }
-
-  @override
-  void dispose() {
-    _bloc.dispose();
-    super.dispose();
-  }
 }

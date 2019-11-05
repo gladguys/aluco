@@ -21,13 +21,13 @@ class StudentBloc extends BlocBase {
 
   Future<void> save(Student student) async {
     try {
-      await _repository.save(student);
+      final studentSaved = await _repository.save(student);
       if (student.id == null) {
-        studentList.add(student);
+        studentList.add(studentSaved);
         _studentsController.add(studentList);
       } else {
-        studentList.removeWhere((s) => s.id == student.id);
-        studentList.add(student);
+        studentList.remove(student);
+        studentList.add(studentSaved);
         _studentsController.add(studentList);
       }
     } catch (e) {
@@ -36,10 +36,10 @@ class StudentBloc extends BlocBase {
     }
   }
 
-  Future<void> delete(int id) async {
+  Future<void> delete(Student student) async {
     try {
-      await _repository.delete(id);
-      studentList.removeWhere((student) => student.id == id);
+      await _repository.delete(student.id);
+      studentList.remove(student);
       _studentsController.add(studentList);
     } catch (e) {
       print(e);

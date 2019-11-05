@@ -26,7 +26,7 @@ class StudentTile extends StatelessWidget {
       ),
       onTap: () => navigateToEdit(context, _student),
       title: Text(_student.name),
-      subtitle: _student?.email != '' ? Text(_student.email) : null,
+      subtitle: Text(_student.email ?? ''),
       trailing: GGCircleButton(
         icon: Icons.delete,
         colorIcon: Colors.white,
@@ -36,7 +36,7 @@ class StudentTile extends StatelessWidget {
           GGConfirmDeleteDialog(
             title: 'Remover aluno?',
             onClickYes: () async =>
-                await BlocProvider.getBloc<StudentBloc>().delete(_student.id),
+                await BlocProvider.getBloc<StudentBloc>().delete(_student),
           ),
         ),
       ),
