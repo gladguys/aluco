@@ -106,6 +106,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  flushbar:
+    dependency: transitive
+    description:
+      name: flushbar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.9.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -161,7 +168,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: afbb0db4e1ea184fd3d53b2199d11f3e12030d22
+      resolved-ref: "661919610d9567a560f62710bebcbc76c491a3cc"
       url: "git://github.com/rodrigobastosv/gg_flutter_components.git"
     source: git
     version: "0.0.1"
