@@ -12,7 +12,6 @@ class AuthRepository implements AbstractAuthRepository {
   Future<Map<String, dynamic>> tryToSigninUser(Map<dynamic, String> userData) async {
     try {
       final response = await _dio.post<dynamic>(AUTH, data: jsonEncode(userData));
-      print(response);
       return <String, dynamic>{
         'token': response.data['token'],
         'userId': response.data['user']['id'],
