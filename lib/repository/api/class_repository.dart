@@ -6,6 +6,7 @@ import 'package:aluco/model/student.dart';
 import 'package:aluco/repository/api/API.dart';
 import 'package:aluco/repository/core/abstract_class_repository.dart';
 import 'package:aluco/repository/dio/dio_builder.dart';
+import 'package:dio/dio.dart';
 
 class ClassRepository implements AbstractClassRepository {
   final _dio = DioBuilder.getDio();
@@ -41,9 +42,11 @@ class ClassRepository implements AbstractClassRepository {
   }
 
   @override
-  Future<void> save(Class classe) async {
+  Future<Class> save(Class classe) async {
+    Response response;
     try {
-      await _dio.post<dynamic>(CLASS, data: classe.toJson());
+      response = await _dio.post<dynamic>(CLASS, data: classe.toJson());
+      return Class.fromJson(response.data);
     } catch (e) {
       rethrow;
     }
