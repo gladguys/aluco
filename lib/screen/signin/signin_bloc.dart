@@ -3,9 +3,10 @@ import 'package:aluco/repository/dio/dio_builder.dart';
 
 import 'package:aluco/utils/jwt_utils.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:dio/dio.dart';
 import 'package:rxdart/rxdart.dart';
 
-enum SigninState { idle, onGoing, succeeded, failed }
+enum SigninState { idle, onGoing, succeeded, failed, wrongCredentials }
 
 class SigninBloc extends BlocBase {
   final _repository = AuthRepository();
@@ -22,7 +23,11 @@ class SigninBloc extends BlocBase {
       return signinResult;
     } catch (e) {
       print(e);
-      signinStateController.add(SigninState.failed);
+      if (e is DioError) {
+        signinStateController.add(SigninState.wrongCredentials);
+      } else {
+        signinStateController.add(SigninState.failed);
+      }
       throw Exception();
     }
   }
