@@ -1,5 +1,4 @@
 import 'package:aluco/repository/api/auth_repository.dart';
-import 'package:dio/dio.dart';
 import 'package:rxdart/rxdart.dart';
 
 enum SignupState { idle, onGoing, succeeded, failed, emailAlreadyTaken }
@@ -14,8 +13,7 @@ class SignUpBloc {
       await _repository.signUpUser(userData);
       signupStateController.add(SignupState.succeeded);
     } catch(e) {
-      print(e);
-      if (e is DioError) {
+      if (e.response.statusCode == 422) {
         signupStateController.add(SignupState.emailAlreadyTaken);
       } else {
         signupStateController.add(SignupState.failed);
