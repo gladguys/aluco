@@ -3,7 +3,6 @@ import 'package:aluco/screen/home/home_screen.dart';
 import 'package:aluco/utils/form_utils.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
-import 'package:gg_flutter_components/loading/gg_loading_barrier.dart';
 import 'package:gg_flutter_components/loading/gg_loading_double_bounce.dart';
 
 import '../signin_bloc.dart';
@@ -44,12 +43,10 @@ class SigninFormButton extends StatelessWidget {
       ),
       onPressed: () async {
         if (FormUtils.isValid(signinForm.getForm())) {
-          GGLoadingBarrier.show(context);
           final loggedUserData = await _bloc.tryToSigninUser(signinForm.data);
           if (loggedUserData != null) {
             await _bloc.storeJWTInfo(loggedUserData);
             _bloc.setAuthorizationHeader();
-            GGLoadingBarrier.hide(context);
             ALRouter.pushAndReplace(context, HomeScreen());
           }
         }
