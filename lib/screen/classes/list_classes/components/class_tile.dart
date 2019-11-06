@@ -51,7 +51,7 @@ class ClassActions extends StatelessWidget {
               title: 'Remover turma?',
               onClickYes: () async =>
                   await BlocProvider.getBloc<ListClassesBloc>()
-                      .delete(classe.id),
+                      .delete(classe),
             ),
           ),
         ),
