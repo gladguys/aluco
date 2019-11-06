@@ -145,7 +145,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_spinkit:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_spinkit
       url: "https://pub.dartlang.org"
@@ -168,7 +168,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: "211d61c8ca5411a83178d2dd8b38731b40572c5c"
+      resolved-ref: "4fb7286a5b5025f1c179f4ee731ad060a3c19e66"
       url: "git://github.com/rodrigobastosv/gg_flutter_components.git"
     source: git
     version: "0.0.1"
