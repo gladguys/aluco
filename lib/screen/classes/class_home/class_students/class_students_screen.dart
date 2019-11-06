@@ -21,8 +21,12 @@ class _ClassStudentsScreenState extends State<ClassStudentsScreen> {
 
   @override
   void initState() {
-    _classStudentsBloc.initStudents(_classHomeBloc.pickedClass.id);
+    initStudents();
     super.initState();
+  }
+
+  Future<void> initStudents() async {
+    await _classStudentsBloc.initStudents(_classHomeBloc.pickedClass.id);
   }
 
   @override
