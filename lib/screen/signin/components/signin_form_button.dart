@@ -1,9 +1,9 @@
 import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/screen/home/home_screen.dart';
 import 'package:aluco/utils/form_utils.dart';
-import 'package:aluco/widget/al_waiting_indicator.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:gg_flutter_components/loading/gg_loading_double_bounce.dart';
 
 import '../signin_bloc.dart';
 import 'signin_form.dart';
@@ -37,11 +37,7 @@ class SigninFormButton extends StatelessWidget {
               ),
             );
           } else {
-            return const SizedBox(
-              height: 18,
-              width: 48,
-              child: ALWaitingIndicator(size: 20),
-            );
+            return const GGLoadingDoubleBounce(size: 20);
           }
         },
       ),
