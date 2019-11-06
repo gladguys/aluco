@@ -79,9 +79,8 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
                 labelText: 'Data de Nascimento',
                 format: dateFormat,
                 focusNode: dataNascimentoFN,
-                onEditingComplete: () =>
-                    FocusScope.of(context).requestFocus(phoneFN),
-                onSaved: (birthdayDate) {
+                initialDate: _student.dateBirth != null ? dateFormat.parse(_student.dateBirth) : null,
+                onChanged: (birthdayDate) {
                   if (birthdayDate != null) {
                     _student.dateBirth = dateFormat?.format(birthdayDate);
                   }
