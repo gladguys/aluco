@@ -1,5 +1,6 @@
 import 'package:aluco/model/student.dart';
 import 'package:aluco/widget/al_scaffold.dart';
+import 'package:aluco/widget/al_scaffold_slivered.dart';
 import 'package:aluco/widget/al_stream_builder.dart';
 import 'package:aluco/widget/empty_state/class_student_empty_state.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
@@ -38,12 +39,17 @@ class _ClassStudentsScreenState extends State<ClassStudentsScreen> {
   Widget build(BuildContext context) {
     return ALStreamBuilder<List<Student>>(
       stream: _classStudentsBloc.studentsInClassController.stream,
-      mainWidget: (dynamic students) => ALScaffold(
-        title: 'Alunos da Turma',
+      mainWidget: (dynamic students) => ALScaffoldSlivered(
+        title: const Text('Alunos da Turma', style: TextStyle(color: Colors.orange),),
         body: students.isNotEmpty
             ? ListClassStudents(students)
             : ClassStudentEmptyState(),
-        floatingActionButton: students.isNotEmpty ? AddStudentClassButton() : null,
+        floatingActionButton:
+            students.isNotEmpty ? AddStudentClassButton() : null,
+        background: Image.asset(
+          'assets/images/alunos_sliver.jpeg',
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }
