@@ -1,7 +1,7 @@
 import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/utils/form_utils.dart';
-import 'package:aluco/widget/al_waiting_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:gg_flutter_components/gg_snackbar.dart';
 import 'package:gg_flutter_components/loading/gg_loading_double_bounce.dart';
 
 import '../signup_bloc.dart';
