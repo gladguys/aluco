@@ -1,5 +1,6 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 
+import 'loading_bloc.dart';
 import 'screen/classes/class_home/class_home_bloc.dart';
 import 'screen/classes/class_home/class_students/class_students_bloc.dart';
 import 'screen/classes/list_classes/list_classes_bloc.dart';
@@ -12,4 +13,5 @@ final globalBlocs = [
   Bloc((i) => ClassStudentsBloc()),
   Bloc((i) => ListClassesBloc()),
   Bloc((i) => StudentBloc()),
+  Bloc((i) => LoadingBloc()),
 ];
