@@ -9,7 +9,7 @@ class ALStreamBuilder<T> extends StatelessWidget {
     Key key,
     @required this.stream,
     @required this.mainWidget,
-    this.loadingIndicator = const GGLoadingDoubleBounce(),
+    this.loadingIndicator = const GGLoadingDoubleBounce(size: 20),
     this.errorIndicator = const ALError(),
   })  : assert(stream != null),
         assert(mainWidget != null),

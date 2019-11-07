@@ -1,37 +1,43 @@
 import 'package:aluco/model/class.dart';
-import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/widget/al_scaffold.dart';
+import 'package:aluco/widget/al_stream_builder.dart';
+import 'package:aluco/widget/empty_state/class_empty_state.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
 import 'components/list_classes.dart';
+import 'components/save_class_button.dart';
 import 'list_classes_bloc.dart';
-import 'save_class_screen.dart';
 
-class ListClassesScreen extends StatelessWidget {
+class ListClassesScreen extends StatefulWidget {
+  @override
+  _ListClassesScreenState createState() => _ListClassesScreenState();
+}
+
+class _ListClassesScreenState extends State<ListClassesScreen> {
+  final _bloc = BlocProvider.getBloc<ListClassesBloc>();
+
+  @override
+  void initState() {
+    getAllClasses();
+    super.initState();
+  }
+
+  Future<void> getAllClasses() async {
+    await _bloc.getAll();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ALScaffold(
-      title: 'Minhas Turmas',
-      body: ListClasses(),
-      floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.add),
-        label: const Text(
-          'Adicionar',
-          style: TextStyle(
-            fontSize: 16,
-            letterSpacing: 0,
-          ),
-        ),
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).accentColor,
-        onPressed: () async {
-          final Class classe =
-              await ALRouter.push(context, const SaveClassScreen());
-          if (classe != null) {
-            await BlocProvider.getBloc<ListClassesBloc>().save(classe);
-          }
-        },
+    return ALStreamBuilder<List<Class>>(
+      stream: _bloc.classStream,
+      mainWidget: (dynamic classes) => ALScaffold(
+        title: 'Minhas Turmas',
+        body: _bloc.classList.isNotEmpty
+            ? ListClasses(_bloc.classList)
+            : ClassEmptyState(),
+        floatingActionButton:
+            _bloc.classList.isNotEmpty ? SaveClassButton() : null,
       ),
     );
   }

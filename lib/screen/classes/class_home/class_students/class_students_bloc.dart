@@ -119,5 +119,6 @@ class ClassStudentsBloc extends BlocBase {
     studentsToAddController.add([]);
     studentsInClassController.add([]);
     studentsNotInClassController.add([]);
+    allStudentsMarkedListController.clear();
   }
 }

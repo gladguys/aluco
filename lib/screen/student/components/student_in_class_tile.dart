@@ -17,7 +17,6 @@ class StudentInClassTile extends StatelessWidget {
             studentController.value.student.id == markedStudent.student.id);
 
     return ALStreamBuilder<StudentMarked>(
-      key: ValueKey(markedStudent.student.id),
       stream: BlocProvider.getBloc<ClassStudentsBloc>()
           .allStudentsMarkedListController[index],
       mainWidget: (dynamic studentMarked) => CheckboxListTile(
@@ -29,6 +28,7 @@ class StudentInClassTile extends StatelessWidget {
               .markStudent(studentMarked.student, marked);
         },
       ),
+      loadingIndicator: Container(color: Colors.transparent),
     );
   }
 }

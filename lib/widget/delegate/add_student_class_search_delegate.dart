@@ -1,6 +1,7 @@
 import 'package:aluco/model/student_marked.dart';
 import 'package:aluco/screen/classes/class_home/class_students/class_students_bloc.dart';
 import 'package:aluco/screen/classes/class_home/class_students/components/list_add_student_class.dart';
+import 'package:aluco/widget/empty_state/list_empty_state.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'custom_search_delegate.dart';
@@ -18,6 +19,8 @@ class AddStudentClassSearchDelegate
                 .contains(query.toLowerCase()))
             .toList();
 
-    return ListAddStudentClass(studentsList);
+    return studentsList.isNotEmpty
+        ? ListAddStudentClass(studentsList)
+        : ListEmptyState();
   }
 }
