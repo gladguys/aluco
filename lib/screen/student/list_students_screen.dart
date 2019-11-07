@@ -1,14 +1,14 @@
 import 'package:aluco/model/student.dart';
-import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:aluco/widget/al_search_delegate_icon.dart';
 import 'package:aluco/widget/al_stream_builder.dart';
 import 'package:aluco/widget/delegate/student_search_delegate.dart';
+import 'package:aluco/widget/empty_state/student_empty_state.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
 import 'components/list_students.dart';
-import 'save_student_screen.dart';
+import 'components/save_student_button.dart';
 import 'student_bloc.dart';
 
 class ListStudentsScreen extends StatefulWidget {
@@ -32,35 +32,17 @@ class _ListStudentsScreenState extends State<ListStudentsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ALScaffold(
-      title: 'Alunos',
-      actions: <Widget>[
-        ALSearchDelegateIcon<Student>(
-          StudentSearchDelegate(),
-        ),
-      ],
-      body: ALStreamBuilder<List<Student>>(
-        stream: _bloc.studentStream,
-        mainWidget:(dynamic students) => ListStudents(students),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.add),
-        label: const Text(
-          'Adicionar',
-          style: TextStyle(
-            fontSize: 16,
-            letterSpacing: 0,
+    return ALStreamBuilder<List<Student>>(
+      stream: _bloc.studentStream,
+      mainWidget: (dynamic students) => ALScaffold(
+        title: 'Alunos',
+        actions: <Widget>[
+          ALSearchDelegateIcon<Student>(
+            StudentSearchDelegate(),
           ),
-        ),
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).accentColor,
-        onPressed: () async {
-          final Student studentToSave =
-              await ALRouter.push(context, const SaveStudentScreen());
-          if (studentToSave != null) {
-            await _bloc.save(studentToSave);
-          }
-        },
+        ],
+        body: students.isNotEmpty ? ListStudents(students) : StudentEmptyState(),
+        floatingActionButton: students.isNotEmpty ? SaveStudentButton() : null,
       ),
     );
   }

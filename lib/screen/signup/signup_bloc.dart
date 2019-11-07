@@ -5,14 +5,15 @@ enum SignupState { idle, onGoing, succeeded, failed, emailAlreadyTaken }
 
 class SignUpBloc {
   final _repository = AuthRepository();
-  final signupStateController = BehaviorSubject<SignupState>.seeded(SignupState.idle);
+  final signupStateController = BehaviorSubject<SignupState>.seeded(
+      SignupState.idle);
 
   Future<void> signUpUser(Map<dynamic, String> userData) async {
     try {
       signupStateController.add(SignupState.onGoing);
       await _repository.signUpUser(userData);
       signupStateController.add(SignupState.succeeded);
-    } catch(e) {
+    } catch (e) {
       if (e.response.statusCode == 422) {
         signupStateController.add(SignupState.emailAlreadyTaken);
       } else {
