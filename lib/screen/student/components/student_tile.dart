@@ -20,9 +20,12 @@ class StudentTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       key: ValueKey(_student.id),
-      leading: Icon(
-        _student.gender == Gender.male ? LineIcons.male : LineIcons.female,
-        size: 40,
+      leading: Hero(
+        tag: _student.id,
+        child: Icon(
+          _student.gender == Gender.male ? LineIcons.male : LineIcons.female,
+          size: 40,
+        ),
       ),
       onTap: () => navigateToEdit(context, _student),
       title: Text(_student.name),

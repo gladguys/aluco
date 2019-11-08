@@ -1,4 +1,5 @@
 import 'package:aluco/enums/gender.dart' as our_gender;
+import 'package:aluco/enums/gender.dart';
 import 'package:aluco/model/student.dart';
 import 'package:aluco/utils/form_utils.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:gg_flutter_components/form/gg_form_datepicker.dart';
 import 'package:gg_flutter_components/form/gg_outlined_text_form_field.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
 import 'package:intl/intl.dart';
+import 'package:line_icons/line_icons.dart';
 
 class SaveStudentForm extends StatefulWidget {
   SaveStudentForm(this.student);
@@ -59,11 +61,15 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Image.asset(
-                    'assets/images/user120.png',
-                    fit: BoxFit.cover,
-                    width: 120,
-                  ),
+                  Hero(
+                    tag: _student.id,
+                    child: Icon(
+                      _student.gender == Gender.male
+                          ? LineIcons.male
+                          : LineIcons.female,
+                      size: 80,
+                    ),
+                  )
                 ],
               ),
               FormVerticalSeparatorMedium,
@@ -79,7 +85,9 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
                 labelText: 'Data de Nascimento',
                 format: dateFormat,
                 focusNode: dataNascimentoFN,
-                initialDate: _student.dateBirth != null ? dateFormat.parse(_student.dateBirth) : null,
+                initialDate: _student.dateBirth != null
+                    ? dateFormat.parse(_student.dateBirth)
+                    : null,
                 onChanged: (birthdayDate) {
                   if (birthdayDate != null) {
                     _student.dateBirth = dateFormat?.format(birthdayDate);
