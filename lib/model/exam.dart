@@ -1,6 +1,7 @@
 class Exam {
   int id;
   int weight;
+  int classId;
   String name;
   String description;
   String creationDate;
@@ -12,6 +13,7 @@ class Exam {
     return Exam()
       ..id = json['id']
       ..weight = json['weight']
+      ..classId = json['classId']
       ..name = json['name']
       ..description = json['description']
       ..creationDate = json['creationDate']
@@ -22,6 +24,7 @@ class Exam {
     return <String, dynamic>{
       'id': id,
       'weight': weight,
+      'classId': classId,
       'name': name,
       'description': description,
       'creationDate': creationDate,
