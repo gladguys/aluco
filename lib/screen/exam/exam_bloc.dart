@@ -19,8 +19,9 @@ class ExamBloc extends BlocBase {
     }
   }
 
-  Future<void> save(Exam exam) async {
+  Future<void> save(Exam exam, int classId) async {
     try {
+      exam.classId = classId;
       final examSaved = await _repository.save(exam);
       if (exam.id == null) {
         examsList.add(examSaved);
@@ -30,6 +31,17 @@ class ExamBloc extends BlocBase {
         examsList.add(examSaved);
         _examsController.add(examsList);
       }
+    } catch (e) {
+      print(e);
+      throw Exception();
+    }
+  }
+
+  Future<void> delete(Exam exam) async {
+    try {
+      await _repository.delete(exam.id);
+      examsList.remove(exam);
+    _examsController.add(examsList);
     } catch (e) {
       print(e);
       throw Exception();

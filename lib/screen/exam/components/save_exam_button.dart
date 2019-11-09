@@ -1,5 +1,6 @@
 import 'package:aluco/model/exam.dart';
 import 'package:aluco/routing/al_router.dart';
+import 'package:aluco/screen/classes/class_home/class_home_bloc.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,8 @@ import '../exam_bloc.dart';
 import '../save_exam_screen.dart';
 
 class SaveExamButton extends StatelessWidget {
+  final _classBloc = BlocProvider.getBloc<ClassHomeBloc>();
+
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
@@ -21,10 +24,10 @@ class SaveExamButton extends StatelessWidget {
       backgroundColor: Theme.of(context).primaryColor,
       foregroundColor: Theme.of(context).accentColor,
       onPressed: () async {
-        final Exam exam =
-        await ALRouter.push(context, const SaveExamScreen());
+        final Exam exam = await ALRouter.push(context, const SaveExamScreen());
         if (exam != null) {
-          await BlocProvider.getBloc<ExamBloc>().save(exam);
+          await BlocProvider.getBloc<ExamBloc>()
+              .save(exam, _classBloc.pickedClass.id);
         }
       },
     );

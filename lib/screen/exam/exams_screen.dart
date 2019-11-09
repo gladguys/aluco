@@ -5,6 +5,7 @@ import 'package:aluco/widget/empty_state/exam_empty_state.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
+import 'components/exam_list.dart';
 import 'components/save_exam_button.dart';
 import 'exam_bloc.dart';
 
@@ -33,7 +34,7 @@ class _ExamsScreenState extends State<ExamsScreen> {
       mainWidget: (dynamic exams) => ALScaffold(
         title: 'Minhas Provas',
         body: _bloc.examsList.isNotEmpty
-            ? const Text('a')
+            ? ExamList(exams)
             : ExamEmptyState(),
         floatingActionButton:
         _bloc.examsList.isNotEmpty ? SaveExamButton() : null,
