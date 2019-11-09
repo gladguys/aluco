@@ -37,4 +37,13 @@ class ExamRepository implements AbstractExamRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<void> delete(int id) async {
+    try {
+      await _dio.delete<dynamic>('$EXAM/$id');
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
