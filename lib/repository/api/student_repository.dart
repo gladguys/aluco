@@ -3,6 +3,7 @@ import 'package:aluco/model/student.dart';
 import 'package:aluco/repository/api/API.dart';
 import 'package:aluco/repository/core/abstract_student_repository.dart';
 import 'package:aluco/repository/dio/dio_builder.dart';
+import 'package:dio/dio.dart';
 
 class StudentRepository implements AbstractStudentRepository {
   final _dio = DioBuilder.getDio();
@@ -18,21 +19,31 @@ class StudentRepository implements AbstractStudentRepository {
         ),
       );
     } catch (e) {
-      print(e);
       rethrow;
     }
   }
 
   @override
-  Future<void> save(Student student) async {
+  Future<Student> getById(int id) async {
+    try {
+      final response = await _dio.get<dynamic>('$STUDENT/$id');
+      return Student.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<Student> save(Student student) async {
+    Response response;
     try {
       if (student.id == null) {
-        await _dio.post<dynamic>(STUDENT, data: student.toJson());
+        response = await _dio.post<dynamic>(STUDENT, data: student.toJson());
       } else {
-        await _dio.put<dynamic>(STUDENT, data: student.toJson());
+        response = await _dio.put<dynamic>(STUDENT, data: student.toJson());
       }
+      return Student.fromJson(response.data);
     } catch (e) {
-      print(e);
       rethrow;
     }
   }
@@ -42,7 +53,6 @@ class StudentRepository implements AbstractStudentRepository {
     try {
       await _dio.delete<dynamic>('$STUDENT/$id');
     } catch (e) {
-      print(e);
       rethrow;
     }
   }

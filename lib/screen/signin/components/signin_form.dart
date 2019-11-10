@@ -9,8 +9,8 @@ class SigninForm extends StatelessWidget with GGValidators {
   final _passwordFN = FocusNode();
 
   // TODO(rodrigo): remove this
-  final _usernameController = TextEditingController(text: 'aluco@aluco.com');
-  final _passwordController = TextEditingController(text: '123456');
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   Map<String, String> get data => _getData();
 
@@ -51,11 +51,9 @@ class SigninForm extends StatelessWidget with GGValidators {
   FormState getForm() => _formKey.currentState;
 
   Map<String, String> _getData() {
-    return {'email': 'aluco@aluco.com', 'password': '123456'};
-    // TODO(rodrigo): remove this
-    /*return {
-      'username': userData['username'],
+    return {
+      'email': userData['email'],
       'password': userData['password']
-    };*/
+    };
   }
 }

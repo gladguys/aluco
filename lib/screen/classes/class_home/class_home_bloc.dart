@@ -5,25 +5,22 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ClassHomeBloc extends BlocBase {
-  final _classStudentsController = BehaviorSubject<List<Student>>.seeded([]);
+  final classStudentsController = BehaviorSubject<List<Student>>.seeded([]);
   final _repository = StudentRepository();
   Class _class;
 
   Class get pickedClass => _class;
-  List<Student> get classStudents => _classStudentsController.value;
+  List<Student> get classStudents => classStudentsController.value;
 
   void setClass(Class classe) {
     _class = classe;
   }
 
   Future<void> initializeClassStudents() async {
-    _classStudentsController.add(await _repository.getAll());
+    classStudentsController.add(await _repository.getAll());
   }
 
-  @override
-  void dispose() {
-    _classStudentsController.add([]);
-    _classStudentsController.close();
-    super.dispose();
+  void cleanBloc() {
+    classStudentsController.add([]);
   }
 }

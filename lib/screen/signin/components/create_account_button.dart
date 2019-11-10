@@ -8,7 +8,7 @@ class CreateAccountButton extends StatelessWidget {
     return FlatButton(
       padding: const EdgeInsets.all(12.0),
       textColor: Theme.of(context).accentColor,
-      child: Text(
+      child: const Text(
         'Não tem conta? Crie aqui!',
         style: TextStyle(
           fontSize: 16.0,

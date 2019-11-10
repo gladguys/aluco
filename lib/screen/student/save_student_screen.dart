@@ -27,18 +27,24 @@ class _SaveStudentScreen extends State<SaveStudentScreen> {
   @override
   Widget build(BuildContext context) {
     return ALScaffold(
-      title: 'Salvar Aluno',
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.save),
-          onPressed: () => _onPressedSaveButton(context),
-        ),
-      ],
+      title: 'Adicionar Aluno',
       body: ListView(
         children: <Widget>[
           const SizedBox(height: 18),
           _saveStudentForm
         ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.done),
+        label: const Text(
+          'Confirmar',
+          style: TextStyle(
+            fontSize: 16,
+            letterSpacing: 0,
+          ),
+        ),
+        backgroundColor: Colors.green[600],
+        onPressed: () => _onPressedSaveButton(context),
       ),
     );
   }

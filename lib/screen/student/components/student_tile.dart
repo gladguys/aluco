@@ -4,6 +4,7 @@ import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/screen/student/student_bloc.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:gg_flutter_components/button/gg_circle_button.dart';
 import 'package:gg_flutter_components/dialog/gg_confirm_delete_dialog.dart';
 import 'package:gg_flutter_components/dialog/gg_dialog.dart';
 import 'package:line_icons/line_icons.dart';
@@ -11,8 +12,9 @@ import 'package:line_icons/line_icons.dart';
 import '../save_student_screen.dart';
 
 class StudentTile extends StatelessWidget {
-  const StudentTile(this._student);
+  StudentTile(this._student);
 
+  final _bloc = BlocProvider.getBloc<StudentBloc>();
   final Student _student;
 
   @override
@@ -21,19 +23,20 @@ class StudentTile extends StatelessWidget {
       key: ValueKey(_student.id),
       leading: Icon(
         _student.gender == Gender.male ? LineIcons.male : LineIcons.female,
-        size: 42,
+        size: 40,
       ),
-      onTap: () => navigateToEdit(context, _student),
+      onTap: () => navigateToEdit(context, _student.id),
       title: Text(_student.name),
-      subtitle: Text(_student?.email ?? ''),
-      trailing: IconButton(
-        icon: Icon(Icons.delete),
-        onPressed: () => GGDialog.show(
+      subtitle: Text(_student.email ?? ''),
+      trailing: GGCircleButton(
+        icon: Icons.delete,
+        colorIcon: Colors.white,
+        colorButton: Colors.red[600],
+        onTap: () => GGDialog.show(
           context,
           GGConfirmDeleteDialog(
-            title: 'Remover estudante?',
-            onClickYes: () async =>
-                await BlocProvider.getBloc<StudentBloc>().delete(_student.id),
+            title: 'Remover aluno?',
+            onClickYes: () async => await _bloc.delete(_student),
           ),
         ),
       ),
@@ -41,11 +44,12 @@ class StudentTile extends StatelessWidget {
     );
   }
 
-  Future<void> navigateToEdit(BuildContext context, Student student) async {
+  Future<void> navigateToEdit(BuildContext context, int id) async {
+    final student = await _bloc.getById(id);
     final Student studentToSave =
         await ALRouter.push(context, SaveStudentScreen(student));
     if (studentToSave != null) {
-      await BlocProvider.getBloc<StudentBloc>().save(studentToSave);
+      await _bloc.save(studentToSave);
     }
   }
 }

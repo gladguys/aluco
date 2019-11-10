@@ -5,7 +5,7 @@ import 'package:rxdart/rxdart.dart';
 
 class StudentBloc extends BlocBase {
   final _repository = StudentRepository();
-  final _studentsController = BehaviorSubject<List<Student>>.seeded([]);
+  final _studentsController = BehaviorSubject<List<Student>>();
 
   Stream<List<Student>> get studentStream => _studentsController.stream;
   List<Student> get studentList => _studentsController.value;
@@ -19,15 +19,24 @@ class StudentBloc extends BlocBase {
     }
   }
 
+  Future<Student> getById(int id) async {
+    try {
+      return _repository.getById(id);
+    } catch (e) {
+      print(e);
+      throw Exception();
+    }
+  }
+
   Future<void> save(Student student) async {
     try {
-      await _repository.save(student);
+      final studentSaved = await _repository.save(student);
       if (student.id == null) {
-        studentList.add(student);
+        studentList.add(studentSaved);
         _studentsController.add(studentList);
       } else {
-        studentList.removeWhere((s) => s.id == student.id);
-        studentList.add(student);
+        studentList.remove(student);
+        studentList.add(studentSaved);
         _studentsController.add(studentList);
       }
     } catch (e) {
@@ -36,10 +45,10 @@ class StudentBloc extends BlocBase {
     }
   }
 
-  Future<void> delete(int id) async {
+  Future<void> delete(Student student) async {
     try {
-      await _repository.delete(id);
-      studentList.removeWhere((student) => student.id == id);
+      await _repository.delete(student.id);
+      studentList.remove(student);
       _studentsController.add(studentList);
     } catch (e) {
       print(e);

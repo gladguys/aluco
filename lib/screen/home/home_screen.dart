@@ -1,5 +1,6 @@
 import 'package:aluco/widget/al_logo.dart';
 import 'package:aluco/widget/al_scaffold.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'components/home.dart';
@@ -13,14 +14,14 @@ class HomeScreen extends StatelessWidget {
         fontSize: 40,
         hasShadow: false,
       ),
-      actions: <Widget>[
+      actions: kReleaseMode ? <Widget>[
         Image.asset(
           'assets/images/user.png',
           fit: BoxFit.scaleDown,
           width: 34,
         ),
         const SizedBox(width: 12.0),
-      ],
+      ] : null,
       body: Home(),
     );
   }

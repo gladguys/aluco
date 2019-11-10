@@ -1,15 +1,15 @@
 import 'package:aluco/model/student.dart';
-import 'package:aluco/routing/al_router.dart';
-import 'package:aluco/widget/al_error.dart';
 import 'package:aluco/widget/al_scaffold.dart';
+import 'package:aluco/widget/al_scaffold_slivered.dart';
 import 'package:aluco/widget/al_search_delegate_icon.dart';
-import 'package:aluco/widget/al_waiting_indicator.dart';
+import 'package:aluco/widget/al_stream_builder.dart';
 import 'package:aluco/widget/delegate/student_search_delegate.dart';
+import 'package:aluco/widget/empty_state/student_empty_state.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
 import 'components/list_students.dart';
-import 'save_student_screen.dart';
+import 'components/save_student_button.dart';
 import 'student_bloc.dart';
 
 class ListStudentsScreen extends StatefulWidget {
@@ -33,40 +33,22 @@ class _ListStudentsScreenState extends State<ListStudentsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ALScaffold(
-      title: 'Alunos',
-      actions: <Widget>[
-        ALSearchDelegateIcon<Student>(
-          StudentSearchDelegate(context),
+    return ALStreamBuilder<List<Student>>(
+      stream: _bloc.studentStream,
+      mainWidget: (dynamic students) => ALScaffoldSlivered(
+        title: const Text('Alunos', style: TextStyle(color: Colors.orange),),
+        actions: <Widget>[
+          ALSearchDelegateIcon<Student>(
+            StudentSearchDelegate(),
+          ),
+        ],
+        body: students.isNotEmpty ? ListStudents(students) : StudentEmptyState(),
+        floatingActionButton: students.isNotEmpty ? SaveStudentButton() : null,
+        background: Image.asset(
+          'assets/images/alunos_chairs_sliver.jpeg',
+          fit: BoxFit.cover,
         ),
-      ],
-      body: StreamBuilder<List<Student>>(
-        stream: _bloc.studentStream,
-        builder: (_, snapshot) {
-          if (snapshot.hasData) {
-            return ListStudents(snapshot.data);
-          } else if (snapshot.hasError) {
-            return ALError();
-          }
-          return ALWaitingIndicator();
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final Student studentToSave =
-              await ALRouter.push(context, const SaveStudentScreen());
-          if (studentToSave != null) {
-            await _bloc.save(studentToSave);
-          }
-        },
-        child: Icon(Icons.add),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _bloc.dispose();
-    super.dispose();
   }
 }

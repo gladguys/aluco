@@ -18,13 +18,12 @@ class AuthRepository implements AbstractAuthRepository {
         'username': response.data['user']['username'],
       };
     } catch(e) {
-      return null;
+      rethrow;
     }
   }
 
   @override
   Future<void> signUpUser(Map<dynamic, String> userData) async {
-    print(userData);
     try {
       await _dio.post<dynamic>(TEACHER, data: jsonEncode(userData));
       return <String, dynamic>{

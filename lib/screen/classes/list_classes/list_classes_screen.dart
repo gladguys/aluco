@@ -1,38 +1,51 @@
 import 'package:aluco/model/class.dart';
-import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/widget/al_scaffold.dart';
+import 'package:aluco/widget/al_scaffold_slivered.dart';
+import 'package:aluco/widget/al_stream_builder.dart';
+import 'package:aluco/widget/empty_state/class_empty_state.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 
 import 'components/list_classes.dart';
+import 'components/save_class_button.dart';
 import 'list_classes_bloc.dart';
-import 'save_class_screen.dart';
 
-class ListClassesScreen extends StatelessWidget {
+class ListClassesScreen extends StatefulWidget {
+  @override
+  _ListClassesScreenState createState() => _ListClassesScreenState();
+}
+
+class _ListClassesScreenState extends State<ListClassesScreen> {
+  final _bloc = BlocProvider.getBloc<ListClassesBloc>();
+
+  @override
+  void initState() {
+    getAllClasses();
+    super.initState();
+  }
+
+  Future<void> getAllClasses() async {
+    await _bloc.getAll();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ALScaffold(
-      title: 'Minhas Turmas',
-      actions: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Icon(
-            MaterialCommunityIcons.getIconData('face-profile'),
-            size: 38,
-            color: const Color(0xFF389952),
-          ),
+    return ALStreamBuilder<List<Class>>(
+      stream: _bloc.classStream,
+      mainWidget: (dynamic classes) => ALScaffoldSlivered(
+        title: const Text(
+          'Minhas Turmas',
+          style: TextStyle(color: Colors.orange),
         ),
-      ],
-      body: ListClasses(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final Class classe = await ALRouter.push(context, const SaveClassScreen());
-          if (classe != null) {
-            await BlocProvider.getBloc<ListClassesBloc>().save(classe);
-          }
-        },
-        child: Icon(Icons.add),
+        background: Image.asset(
+          'assets/images/turma_sliver.jpeg',
+          fit: BoxFit.cover,
+        ),
+        body: _bloc.classList.isNotEmpty
+            ? ListClasses(_bloc.classList)
+            : ClassEmptyState(),
+        floatingActionButton:
+            _bloc.classList.isNotEmpty ? SaveClassButton() : null,
       ),
     );
   }
