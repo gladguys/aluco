@@ -7,7 +7,7 @@ packages:
       name: alice
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.17"
+    version: "0.0.18"
   async:
     dependency: transitive
     description:
@@ -28,7 +28,7 @@ packages:
       name: bloc_pattern
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.4.4"
+    version: "2.5.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -63,7 +63,7 @@ packages:
       name: connectivity
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.5+2"
+    version: "0.4.5+3"
   convert:
     dependency: transitive
     description:
@@ -199,7 +199,7 @@ packages:
       name: image_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.1+10"
+    version: "0.6.1+11"
   intl:
     dependency: "direct main"
     description:
@@ -241,7 +241,7 @@ packages:
       name: open_file
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.3"
+    version: "2.1.1"
   package_info:
     dependency: transitive
     description:
@@ -276,7 +276,7 @@ packages:
       name: permission_handler
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.3.0"
+    version: "4.0.0"
   platform:
     dependency: transitive
     description:
@@ -312,6 +312,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.0"
+  share:
+    dependency: transitive
+    description:
+      name: share
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.3+1"
   shared_preferences:
     dependency: "direct main"
     description:

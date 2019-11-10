@@ -25,9 +25,10 @@ class StudentTile extends StatelessWidget {
         _student.gender == Gender.male ? LineIcons.male : LineIcons.female,
         size: 40,
       ),
-      onTap: () => navigateToEdit(context, _student.id),
       title: Text(_student.name),
-      subtitle: Text(_student.email ?? ''),
+      subtitle: _student.email != null
+          ? (_student.email.isNotEmpty ? Text(_student.email) : null)
+          : null,
       trailing: GGCircleButton(
         icon: Icons.delete,
         colorIcon: Colors.white,
@@ -40,7 +41,7 @@ class StudentTile extends StatelessWidget {
           ),
         ),
       ),
-      //onPressed: ,
+      onTap: () => navigateToEdit(context, _student.id),
     );
   }
 

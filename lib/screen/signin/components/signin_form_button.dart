@@ -65,7 +65,7 @@ class _SigninFormButtonState extends State<SigninFormButton> {
               return const SizedBox(
                 height: 18,
                 width: 48,
-                child: const GGLoadingDoubleBounce(size: 20),
+                child: GGLoadingDoubleBounce(size: 20),
               );
           }
         },

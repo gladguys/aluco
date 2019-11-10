@@ -4,27 +4,32 @@ import 'package:flutter/material.dart';
 import 'class_tile.dart';
 
 class ListClasses extends StatelessWidget {
-
   const ListClasses(this.classes);
 
   final List<Class> classes;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: classes.length,
-      itemBuilder: (_, i) {
-        if (i == classes.length-1) {
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (BuildContext context, int index) {
+          if (index == classes.length - 1) {
+            return Column(
+              children: <Widget>[
+                ClassTile(classes[index]),
+                const SizedBox(height: 80),
+              ],
+            );
+          }
           return Column(
             children: <Widget>[
-              ClassTile(classes[i]),
-              const SizedBox(height: 80),
+              ClassTile(classes[index]),
+              const Divider(height: 1),
             ],
           );
-        }
-        return ClassTile(classes[i]);
-      },
-      separatorBuilder: (_, i) => const Divider(height: 1),
+        },
+        childCount: classes.length,
+      ),
     );
   }
 }

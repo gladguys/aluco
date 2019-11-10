@@ -10,20 +10,26 @@ class ListClassStudents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: students.length,
-      itemBuilder: (_, i) {
-        if (i == students.length - 1) {
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (BuildContext context, int index) {
+          if (index == students.length - 1) {
+            return Column(
+              children: <Widget>[
+                ListClassStudentTile(students[index]),
+                const SizedBox(height: 80),
+              ],
+            );
+          }
           return Column(
             children: <Widget>[
-              ListClassStudentTile(students[i]),
-              const SizedBox(height: 80),
+              ListClassStudentTile(students[index]),
+              const Divider(height: 1),
             ],
           );
-        }
-        return ListClassStudentTile(students[i]);
-      },
-      separatorBuilder: (_, i) => const Divider(height: 1),
+        },
+        childCount: students.length,
+      ),
     );
   }
 }
