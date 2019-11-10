@@ -1,5 +1,6 @@
 import 'package:aluco/model/student.dart';
 import 'package:aluco/widget/al_scaffold.dart';
+import 'package:aluco/widget/al_scaffold_slivered.dart';
 import 'package:aluco/widget/al_search_delegate_icon.dart';
 import 'package:aluco/widget/al_stream_builder.dart';
 import 'package:aluco/widget/delegate/student_search_delegate.dart';
@@ -34,8 +35,8 @@ class _ListStudentsScreenState extends State<ListStudentsScreen> {
   Widget build(BuildContext context) {
     return ALStreamBuilder<List<Student>>(
       stream: _bloc.studentStream,
-      mainWidget: (dynamic students) => ALScaffold(
-        title: 'Alunos',
+      mainWidget: (dynamic students) => ALScaffoldSlivered(
+        title: const Text('Alunos', style: TextStyle(color: Colors.orange),),
         actions: <Widget>[
           ALSearchDelegateIcon<Student>(
             StudentSearchDelegate(),
@@ -43,6 +44,10 @@ class _ListStudentsScreenState extends State<ListStudentsScreen> {
         ],
         body: students.isNotEmpty ? ListStudents(students) : StudentEmptyState(),
         floatingActionButton: students.isNotEmpty ? SaveStudentButton() : null,
+        background: Image.asset(
+          'assets/images/alunos_chairs_sliver.jpeg',
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }
