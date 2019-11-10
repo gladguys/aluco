@@ -40,16 +40,16 @@ class _ClassStudentsScreenState extends State<ClassStudentsScreen> {
     return ALStreamBuilder<List<Student>>(
       stream: _classStudentsBloc.studentsInClassController.stream,
       mainWidget: (dynamic students) => ALScaffoldSlivered(
-        title: const Text('Alunos da Turma', style: TextStyle(color: Colors.orange),),
+        title: 'Alunos da Turma',
+        background: Image.asset(
+          'assets/images/alunos_sliver.jpeg',
+          fit: BoxFit.cover,
+        ),
         body: students.isNotEmpty
             ? ListClassStudents(students)
             : ClassStudentEmptyState(),
         floatingActionButton:
             students.isNotEmpty ? AddStudentClassButton() : null,
-        background: Image.asset(
-          'assets/images/alunos_sliver.jpeg',
-          fit: BoxFit.cover,
-        ),
       ),
     );
   }
