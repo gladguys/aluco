@@ -1,10 +1,11 @@
 import 'package:aluco/model/class.dart';
+import 'package:aluco/repository/api/API.dart';
 import 'package:aluco/repository/api/class_repository.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ListClassesBloc extends BlocBase {
-  final _repository = ClassRepository();
+  final _repository = ClassRepository(CLASS, Class());
   final _classesController = BehaviorSubject<List<Class>>();
 
   Stream<List<Class>> get classStream => _classesController.stream;

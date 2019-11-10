@@ -1,5 +1,7 @@
+import 'package:aluco/model/class.dart';
 import 'package:aluco/model/student.dart';
 import 'package:aluco/model/student_marked.dart';
+import 'package:aluco/repository/api/API.dart';
 import 'package:aluco/repository/api/class_repository.dart';
 import 'package:aluco/repository/api/student_repository.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
@@ -27,13 +29,13 @@ class ClassStudentsBloc extends BlocBase {
   List<Student> get studentsNotInClass => studentsNotInClassController.value;
 
   int classId;
-  final _classRepository = ClassRepository();
-  final _studentRepository = StudentRepository();
+  final _classRepository = ClassRepository(CLASS, Class());
+  final _studentRepository = StudentRepository(STUDENT, Student());
 
   Future<void> initStudents(int classId) async {
     this.classId = classId;
     allStudents.addAll(await _studentRepository.getAll());
-    studentsInClass.addAll(await _classRepository.getStudents(classId));
+    studentsInClass.addAll(await _classRepository.getStudentsByClass(classId));
     studentsNotInClass.addAll([...allStudents]..removeWhere((student) =>
         studentsInClass.indexWhere((s) => s.id == student.id) != -1));
 
@@ -83,7 +85,7 @@ class ClassStudentsBloc extends BlocBase {
 
   Future<void> saveNewStudents() async {
     try {
-      await _classRepository.saveStudents(classId, studentsToAdd);
+      await _classRepository.saveClassStudents(classId, studentsToAdd);
       studentsInClass.addAll(studentsToAdd);
       studentsInClassController.add(studentsInClass);
       allStudentsMarked.removeWhere((sm) => studentsToAdd.contains(sm.student));

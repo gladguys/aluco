@@ -21,6 +21,7 @@ dependencies:
   image_picker: ^0.6.1+8
   gender_selector: ^1.0.6
   dio: ^3.0.3
+  flutter_sujian_select: ^1.0.1
   rxdart: ^0.22.4
   connectivity: ^0.4.5+1
   line_icons: ^0.2.0

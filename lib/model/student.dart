@@ -1,7 +1,9 @@
 import 'package:aluco/enums/gender.dart';
 import 'package:aluco/utils/jwt_utils.dart';
 
-class Student {
+import 'base_model.dart';
+
+class Student implements BaseModel<Student> {
   int id;
   int teacherId;
   String name;
@@ -18,7 +20,11 @@ class Student {
 
   Student();
 
-  factory Student.fromJson(Map<String, dynamic> json) {
+  @override
+  int getId() => id;
+
+  @override
+  Student fromJson(Map<String, dynamic> json) {
     return Student()
       ..id = json['id']
       ..teacherId = JWTUtils.getTeacherId()
@@ -35,6 +41,7 @@ class Student {
       ..gender = json['gender'] == 0 ? Gender.male : Gender.female;
   }
 
+  @override
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'id': id,
