@@ -20,6 +20,15 @@ class StudentBloc extends BlocBase {
     }
   }
 
+  Future<Student> getById(int id) async {
+    try {
+      return _repository.getById(id);
+    } catch (e) {
+      print(e);
+      throw Exception();
+    }
+  }
+
   Future<void> save(Student student) async {
     try {
       final studentSaved = await _repository.save(student);

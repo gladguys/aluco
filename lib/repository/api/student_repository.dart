@@ -5,7 +5,6 @@ import 'package:aluco/repository/core/base_repository.dart';
 
 class StudentRepository extends BaseRepository<Student>
     implements AbstractStudentRepository {
-
   StudentRepository(String basePath, Student instance)
       : super(basePath, instance);
 }

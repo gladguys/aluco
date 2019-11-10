@@ -1,5 +1,6 @@
 import 'package:aluco/model/class.dart';
 import 'package:aluco/widget/al_scaffold.dart';
+import 'package:aluco/widget/al_scaffold_slivered.dart';
 import 'package:aluco/widget/al_stream_builder.dart';
 import 'package:aluco/widget/empty_state/class_empty_state.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
@@ -31,8 +32,15 @@ class _ListClassesScreenState extends State<ListClassesScreen> {
   Widget build(BuildContext context) {
     return ALStreamBuilder<List<Class>>(
       stream: _bloc.classStream,
-      mainWidget: (dynamic classes) => ALScaffold(
-        title: 'Minhas Turmas',
+      mainWidget: (dynamic classes) => ALScaffoldSlivered(
+        title: const Text(
+          'Minhas Turmas',
+          style: TextStyle(color: Colors.orange),
+        ),
+        background: Image.asset(
+          'assets/images/turma_sliver.jpeg',
+          fit: BoxFit.cover,
+        ),
         body: _bloc.classList.isNotEmpty
             ? ListClasses(_bloc.classList)
             : ClassEmptyState(),
