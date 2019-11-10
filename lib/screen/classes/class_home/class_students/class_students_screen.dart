@@ -49,7 +49,7 @@ class _ClassStudentsScreenState extends State<ClassStudentsScreen> {
             ? ListClassStudents(students)
             : ClassStudentEmptyState(),
         floatingActionButton:
-            students.isNotEmpty ? AddStudentClassButton() : null,
+            students.isNotEmpty ? const AddStudentClassButton() : null,
       ),
     );
   }

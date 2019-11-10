@@ -41,7 +41,7 @@ class _ListClassesScreenState extends State<ListClassesScreen> {
             ? ListClasses(_bloc.classList)
             : ClassEmptyState(),
         floatingActionButton:
-            _bloc.classList.isNotEmpty ? SaveClassButton() : null,
+            _bloc.classList.isNotEmpty ? const SaveClassButton() : null,
       ),
     );
   }
