@@ -24,6 +24,16 @@ class StudentRepository implements AbstractStudentRepository {
   }
 
   @override
+  Future<Student> getById(int id) async {
+    try {
+      final response = await _dio.get<dynamic>('$STUDENT/$id');
+      return Student.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<Student> save(Student student) async {
     Response response;
     try {
