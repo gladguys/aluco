@@ -48,7 +48,8 @@ class _ListStudentsScreenState extends State<ListStudentsScreen> {
         ],
         body:
             students.isNotEmpty ? ListStudents(students) : StudentEmptyState(),
-        floatingActionButton: students.isNotEmpty ? SaveStudentButton() : null,
+        floatingActionButton:
+            students.isNotEmpty ? const SaveStudentButton() : null,
       ),
     );
   }
