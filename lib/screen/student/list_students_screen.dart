@@ -36,18 +36,19 @@ class _ListStudentsScreenState extends State<ListStudentsScreen> {
     return ALStreamBuilder<List<Student>>(
       stream: _bloc.studentStream,
       mainWidget: (dynamic students) => ALScaffoldSlivered(
-        title: const Text('Alunos', style: TextStyle(color: Colors.orange),),
+        title: 'Alunos',
+        background: Image.asset(
+          'assets/images/alunos_chairs_sliver.jpeg',
+          fit: BoxFit.cover,
+        ),
         actions: <Widget>[
           ALSearchDelegateIcon<Student>(
             StudentSearchDelegate(),
           ),
         ],
-        body: students.isNotEmpty ? ListStudents(students) : StudentEmptyState(),
+        body:
+            students.isNotEmpty ? ListStudents(students) : StudentEmptyState(),
         floatingActionButton: students.isNotEmpty ? SaveStudentButton() : null,
-        background: Image.asset(
-          'assets/images/alunos_chairs_sliver.jpeg',
-          fit: BoxFit.cover,
-        ),
       ),
     );
   }
