@@ -1,17 +1,24 @@
-class Class {
+import 'base_model.dart';
+
+class Class implements BaseModel<Class> {
   int id;
   String name;
   String description;
 
   Class();
 
-  factory Class.fromJson(Map<String, dynamic> json) {
+  @override
+  int getId() => id;
+
+  @override
+  Class fromJson(Map<String, dynamic> json) {
     return Class()
         ..id = json['id']
         ..name = json['name']
         ..description = json['description'];
   }
 
+  @override
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'id': id,

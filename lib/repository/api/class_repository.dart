@@ -5,21 +5,25 @@ import 'package:aluco/model/student.dart';
 
 import 'package:aluco/repository/api/API.dart';
 import 'package:aluco/repository/core/abstract_class_repository.dart';
+import 'package:aluco/repository/core/base_repository.dart';
 import 'package:aluco/repository/dio/dio_builder.dart';
-import 'package:dio/dio.dart';
 
-class ClassRepository implements AbstractClassRepository {
+class ClassRepository extends BaseRepository<Class>
+    implements AbstractClassRepository {
   final _dio = DioBuilder.getDio();
 
+  ClassRepository(String basePath, Class instance) : super(basePath, instance);
+
   @override
-  Future<List<Class>> getAll() async {
+  Future<List<Student>> getStudentsByClass(int classId) async {
     try {
-      final response = await _dio.get<dynamic>(CLASS);
+      final response = await _dio.get<dynamic>('$basePath/$classId/$STUDENT');
       return List.generate(
         response.data.length,
-        (int i) => Class.fromJson(
-          response.data[i],
-        ),
+        (int i) => Student()
+          ..fromJson(
+            response.data[i],
+          ),
       );
     } catch (e) {
       rethrow;
@@ -27,38 +31,12 @@ class ClassRepository implements AbstractClassRepository {
   }
 
   @override
-  Future<List<Student>> getStudents(int classId) async {
-    try {
-      final response = await _dio.get<dynamic>('$CLASS/$classId/$STUDENT');
-      return List.generate(
-        response.data.length,
-        (int i) => Student.fromJson(
-          response.data[i],
-        ),
-      );
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<Class> save(Class classe) async {
-    Response response;
-    try {
-      response = await _dio.post<dynamic>(CLASS, data: classe.toJson());
-      return Class.fromJson(response.data);
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<void> saveStudents(int classId, List<Student> students) async {
+  Future<void> saveClassStudents(int classId, List<Student> students) async {
     try {
       final List<Object> objects =
           students.map((student) => student.toJson()).toList();
       final map = <String, dynamic>{'studentDTOS': objects};
-      await _dio.post<dynamic>('$CLASS/$classId/$STUDENT',
+      await _dio.post<dynamic>('$basePath/$classId/$STUDENT',
           data: jsonEncode(map));
     } catch (e) {
       rethrow;
@@ -68,16 +46,7 @@ class ClassRepository implements AbstractClassRepository {
   @override
   Future<void> unlinkStudentFromClass(int classId, int studentId) async {
     try {
-      await _dio.delete<dynamic>('$CLASS/$classId/$STUDENT/$studentId');
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<void> delete(int id) async {
-    try {
-      await _dio.delete<dynamic>('$CLASS/$id');
+      await _dio.delete<dynamic>('$basePath/$classId/$STUDENT/$studentId');
     } catch (e) {
       rethrow;
     }

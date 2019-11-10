@@ -1,10 +1,11 @@
 import 'package:aluco/model/exam.dart';
+import 'package:aluco/repository/api/API.dart';
 import 'package:aluco/repository/api/exam_repository.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ExamBloc extends BlocBase {
-  final _repository = ExamRepository();
+  final _repository = ExamRepository(EXAM, Exam());
   final _examsController = BehaviorSubject<List<Exam>>();
 
   Stream<List<Exam>> get examStream => _examsController.stream;

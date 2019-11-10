@@ -1,4 +1,6 @@
-class Exam {
+import 'base_model.dart';
+
+class Exam implements BaseModel<Exam> {
   int id;
   int weight;
   int classId;
@@ -9,7 +11,11 @@ class Exam {
 
   Exam();
 
-  factory Exam.fromJson(Map<String, dynamic> json) {
+  @override
+  int getId() => id;
+
+  @override
+  Exam fromJson(Map<String, dynamic> json) {
     return Exam()
       ..id = json['id']
       ..weight = json['weight']
@@ -20,6 +26,7 @@ class Exam {
       ..examDate = json['examDate'];
   }
 
+  @override
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'id': id,
