@@ -1,5 +1,4 @@
 import 'package:aluco/model/student.dart';
-import 'package:aluco/widget/al_scaffold.dart';
 import 'package:aluco/widget/al_scaffold_slivered.dart';
 import 'package:aluco/widget/al_search_delegate_icon.dart';
 import 'package:aluco/widget/al_stream_builder.dart';
@@ -8,8 +7,8 @@ import 'package:aluco/widget/empty_state/student_empty_state.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
-import 'components/list_students.dart';
 import 'components/save_student_button.dart';
+import 'components/sliver_list_students.dart';
 import 'student_bloc.dart';
 
 class ListStudentsScreen extends StatefulWidget {
@@ -47,7 +46,7 @@ class _ListStudentsScreenState extends State<ListStudentsScreen> {
           ),
         ],
         body:
-            students.isNotEmpty ? ListStudents(students) : StudentEmptyState(),
+            students.isNotEmpty ? SliverListStudents(students) : StudentEmptyState(),
         floatingActionButton:
             students.isNotEmpty ? const SaveStudentButton() : null,
       ),
