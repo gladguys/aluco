@@ -19,4 +19,8 @@ class JWTUtils {
   static int getTeacherId() {
     return preferences.getInt('userId');
   }
+
+  static Future<void> clearInfo() async {
+    await preferences.clear();
+  }
 }

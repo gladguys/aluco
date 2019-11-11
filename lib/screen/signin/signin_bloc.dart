@@ -36,6 +36,10 @@ class SigninBloc extends BlocBase {
     await JWTUtils.storeInfo(loggedUserData);
   }
 
+  Future<void> clearInfo() async {
+    await JWTUtils.clearInfo();
+  }
+
   void setAuthorizationHeader() {
     DioBuilder.setAuthorizationHeader();
   }
