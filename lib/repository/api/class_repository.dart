@@ -20,10 +20,10 @@ class ClassRepository extends BaseRepository<Class>
       final response = await _dio.get<dynamic>('$basePath/$classId/$STUDENT');
       return List.generate(
         response.data.length,
-        (int i) => Student()
-          ..fromJson(
-            response.data[i],
-          ),
+        (int i) {
+          final student = Student();
+          return student.fromJson(response.data[i]);
+        }
       );
     } catch (e) {
       rethrow;

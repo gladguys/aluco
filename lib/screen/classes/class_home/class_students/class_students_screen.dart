@@ -1,5 +1,4 @@
 import 'package:aluco/model/student.dart';
-import 'package:aluco/widget/al_scaffold.dart';
 import 'package:aluco/widget/al_scaffold_slivered.dart';
 import 'package:aluco/widget/al_stream_builder.dart';
 import 'package:aluco/widget/empty_state/class_student_empty_state.dart';
