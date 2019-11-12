@@ -36,5 +36,13 @@ class StudentGrade {
     return 'StudentGrade{examId: $examId, studentId: $studentId, studentName: $studentName, grade: $grade}';
   }
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is StudentGrade &&
+              runtimeType == other.runtimeType &&
+              studentId == other.studentId;
 
+  @override
+  int get hashCode => studentId.hashCode;
 }
