@@ -16,6 +16,5 @@ class ExamRepository extends BaseRepository<Exam>
   Future<void> saveInitialGrades(int examId, List<StudentGrade> studentsGrades) async {
     final wrapper = GradesWrapper(studentsGrades);
     await _dio.post<dynamic>('$EXAM/$examId/$GRADE', data: wrapper.toJson());
-
   }
 }
