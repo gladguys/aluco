@@ -92,18 +92,15 @@ class ExamBloc extends BlocBase {
 
   Future<void> saveInitialGrades(int examId) async {
     _repository.saveInitialGrades(examId, studentsGradesList);
+    _studentsGradesController.add(studentsGradesList);
   }
 
-  void updateStudentGrade(int studentId, String grade) {
-    final studentIndex = studentsGradesList.indexWhere((student) => student.studentId == studentId);
-    print(studentIndex);
+  void updateStudentGrade(StudentGrade studentGrade, String grade) {
+    final studentIndex =
+        studentsGradesList.indexWhere((student) => student == studentGrade);
     if (studentIndex != -1) {
-      final student = studentsGradesList[studentIndex];
-      print(grade);
-      student.grade = (grade != null && grade != '') ? double.parse(grade) : null;
-      studentsGradesList.removeAt(studentIndex);
-      print(student);
-      studentsGradesList.add(student);
+      studentsGradesList[studentIndex].grade =
+          (grade != null && grade != '') ? double.parse(grade) : null;
       _studentsGradesController.add(studentsGradesList);
     }
   }

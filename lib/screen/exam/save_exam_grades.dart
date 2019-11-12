@@ -59,7 +59,7 @@ class _SaveExamGradesState extends State<SaveExamGrades> {
                   initialValue:
                       _examBloc.studentsGradesList[i].grade?.toString() ?? '',
                   onChanged: (grade) => _examBloc.updateStudentGrade(
-                      _examBloc.studentsGradesList[i].studentId, grade),
+                      _examBloc.studentsGradesList[i], grade),
                 ),
               ),
             ),
@@ -69,11 +69,5 @@ class _SaveExamGradesState extends State<SaveExamGrades> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _examBloc.cleanStudentesGrades();
   }
 }
