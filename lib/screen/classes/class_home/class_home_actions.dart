@@ -1,4 +1,5 @@
 import 'package:aluco/screen/classes/class_home/class_students/class_students_screen.dart';
+import 'package:aluco/screen/classes/grade_board/grade_board_screen.dart';
 import 'package:aluco/screen/exam/exams_screen.dart';
 import 'package:aluco/screen/student/list_students_screen.dart';
 import 'package:aluco/widget/al_icon_text_vertical_button.dart';
@@ -39,7 +40,7 @@ class ClassHomeActions extends StatelessWidget {
                   weight: IconWeight.Solid,
                 ),
                 text: 'Quadro de Notas',
-                route: ListStudentsScreen(),
+                route: GradeBoardScreen(),
               ),
               ALIconTextVerticalButton(
                 icon: FontAwesome5.getIconData(

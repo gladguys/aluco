@@ -25,9 +25,8 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
     getGradesByExam(widget.exam.id);
   }
 
-  Future<void> getGradesByExam(int examId) async {
-    await _examBloc.getGradesByExam(examId);
-  }
+  Future<void> getGradesByExam(int examId) async =>
+      await _examBloc.getGradesByExam(examId);
 
   @override
   Widget build(BuildContext context) {
@@ -84,9 +83,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await _examBloc.saveExamGrades();
-        },
+        onPressed: () async => await _examBloc.saveExamGrades(),
         child: Icon(Icons.save),
       ),
     );
