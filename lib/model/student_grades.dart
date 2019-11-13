@@ -25,4 +25,9 @@ class StudentGrades {
     data['studentName'] = studentName;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'StudentGrades{exams: $exams, average: $average, studentName: $studentName}';
+  }
 }
