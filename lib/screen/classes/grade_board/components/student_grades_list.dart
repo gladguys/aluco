@@ -13,7 +13,7 @@ class StudentGradesList extends StatelessWidget {
       shrinkWrap: true,
       itemBuilder: (_, i) => Row(
         children: <Widget>[
-          Text(exams[i].examId.toString()),
+          Text(exams[i].examName),
           const SizedBox(width: 12),
           Text(exams[i].grade != null ? exams[i].grade.toString() : 'Sem Nota'),
         ],
