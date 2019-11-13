@@ -17,39 +17,30 @@ class ListStudentsScreen extends StatefulWidget {
 }
 
 class _ListStudentsScreenState extends State<ListStudentsScreen> {
-  StudentBloc _bloc;
-
-  @override
-  void initState() {
-    _bloc = BlocProvider.getBloc<StudentBloc>();
-    getAllStudents();
-    super.initState();
-  }
-
-  Future<void> getAllStudents() async {
-    await _bloc.getAll();
-  }
+  final StudentBloc _bloc = BlocProvider.getBloc<StudentBloc>();
 
   @override
   Widget build(BuildContext context) {
     return ALStreamBuilder<List<Student>>(
       stream: _bloc.studentStream,
-      mainWidget: (dynamic students) => ALScaffoldSlivered(
-        title: 'Alunos',
-        background: Image.asset(
-          'assets/images/alunos_chairs_sliver.jpeg',
-          fit: BoxFit.cover,
-        ),
-        actions: <Widget>[
-          ALSearchDelegateIcon<Student>(
-            StudentSearchDelegate(),
+      mainWidget: (dynamic students) {
+        return ALScaffoldSlivered(
+          title: 'Alunos',
+          background: Image.asset(
+            'assets/images/alunos_chairs_sliver.jpeg',
+            fit: BoxFit.cover,
           ),
-        ],
-        body:
-            students.isNotEmpty ? SliverListStudents(students) : StudentEmptyState(),
-        floatingActionButton:
-            students.isNotEmpty ? const SaveStudentButton() : null,
-      ),
+          actions: <Widget>[
+            ALSearchDelegateIcon<Student>(
+              StudentSearchDelegate(),
+            ),
+          ],
+          body:
+          students.isNotEmpty ? SliverListStudents(students) : StudentEmptyState(),
+          floatingActionButton:
+          students.isNotEmpty ? const SaveStudentButton() : null,
+        );
+      }
     );
   }
 }

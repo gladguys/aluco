@@ -4,7 +4,6 @@ import 'package:aluco/utils/form_utils.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/gg_snackbar.dart';
-import 'package:gg_flutter_components/loading/gg_loading_double_bounce.dart';
 
 import '../signin_bloc.dart';
 import 'signin_form.dart';
@@ -49,25 +48,12 @@ class _SigninFormButtonState extends State<SigninFormButton> {
       child: StreamBuilder(
         stream: _bloc.signinStateController,
         builder: (_, snapshot) {
-          switch (snapshot.data) {
-            case SigninState.idle:
-            case SigninState.failed:
-            case SigninState.succeeded:
-            case SigninState.wrongCredentials:
-              return const Text(
-                'Entrar',
-                style: TextStyle(
-                  fontSize: 16.0,
-                ),
-              );
-            case SigninState.onGoing:
-            default:
-              return const SizedBox(
-                height: 18,
-                width: 48,
-                child: GGLoadingDoubleBounce(size: 20),
-              );
-          }
+          return const Text(
+            'Entrar',
+            style: TextStyle(
+              fontSize: 16.0,
+            ),
+          );
         },
       ),
       onPressed: () async {
