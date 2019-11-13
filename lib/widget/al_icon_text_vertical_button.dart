@@ -8,11 +8,13 @@ class ALIconTextVerticalButton extends StatelessWidget {
     this.icon,
     this.text,
     this.route,
+    this.resolver,
   });
 
   final IconData icon;
   final String text;
   final Widget route;
+  final Function resolver;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class ALIconTextVerticalButton extends StatelessWidget {
       backgroundColor: Colors.white,
       borderWidth: 1,
       withShadow: true,
-      onTap: () => ALRouter.push(context, route),
+      onTap: () async => ALRouter.pushWithResolver(context, route, resolver),
     );
   }
 }
