@@ -8,7 +8,6 @@ class StudentGradesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(exams);
     return ListView.separated(
       shrinkWrap: true,
       itemBuilder: (_, i) => Row(
