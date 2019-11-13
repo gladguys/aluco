@@ -1,14 +1,14 @@
-import 'student_grade.dart';
+import 'exam_grade_dto.dart';
 
 class GradesWrapper {
-  List<StudentGrade> studentsGrades;
+  List<ExamGradeDTO> studentsGrades;
 
   GradesWrapper(this.studentsGrades);
 
   GradesWrapper.fromJson(Map<String, dynamic> json) {
     final dynamic grades = json['grades'];
     studentsGrades =
-        List.generate(grades, (i) => StudentGrade.fromJson(grades[i]));
+        List.generate(grades, (i) => ExamGradeDTO.fromJson(grades[i]));
   }
 
   Map<String, dynamic> toJson() {

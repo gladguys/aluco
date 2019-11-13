@@ -1,7 +1,7 @@
 import 'package:aluco/model/class.dart';
 import 'package:aluco/model/exam.dart';
+import 'package:aluco/model/exam_grade_dto.dart';
 import 'package:aluco/model/student.dart';
-import 'package:aluco/model/student_grade.dart';
 import 'package:aluco/repository/api/API.dart';
 import 'package:aluco/repository/api/class_repository.dart';
 import 'package:aluco/repository/api/exam_repository.dart';
@@ -20,10 +20,10 @@ class ExamBloc extends BlocBase {
   Exam get pickedExam => _pickedExamController.value;
 
   final _studentsGradesController =
-      BehaviorSubject<List<StudentGrade>>.seeded([]);
-  Stream<List<StudentGrade>> get studentsGradesStream =>
+      BehaviorSubject<List<ExamGradeDTO>>.seeded([]);
+  Stream<List<ExamGradeDTO>> get studentsGradesStream =>
       _studentsGradesController.stream;
-  List<StudentGrade> get studentsGradesList => _studentsGradesController.value;
+  List<ExamGradeDTO> get studentsGradesList => _studentsGradesController.value;
 
   Future<void> getAll() async {
     try {
@@ -71,12 +71,31 @@ class ExamBloc extends BlocBase {
     }
   }
 
-  Future<void> initStudentsGrades(int classId, int examId) async {
+  Future<void> getGradesByExam(int examId) async {
     try {
-      final students = await _classRepository.getStudentsByClass(classId);
-      final studentsGrades = List.generate(students.length,
-          (i) => StudentGrade.fromStudentAndExam(students[i], examId));
-      _studentsGradesController.add(studentsGrades);
+      final examGrades = await _repository.getGradesByExam(examId);
+      _studentsGradesController.add(examGrades);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> saveExamGrades() async {
+    try {
+      await _repository.saveExamGrades(pickedExam.id, studentsGradesList);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> updateGrade(ExamGradeDTO examGrade, double grade) async {
+    print(grade);
+    try {
+      final index = studentsGradesList.indexWhere((exam) => exam == examGrade);
+      if (index != -1) {
+        studentsGradesList[index].grade = grade;
+        _studentsGradesController.add(studentsGradesList);
+      }
     } catch (e) {
       rethrow;
     }
@@ -88,20 +107,5 @@ class ExamBloc extends BlocBase {
 
   void pickExam(Exam exam) {
     _pickedExamController.add(exam);
-  }
-
-  Future<void> saveInitialGrades(int examId) async {
-    _repository.saveInitialGrades(examId, studentsGradesList);
-    _studentsGradesController.add(studentsGradesList);
-  }
-
-  void updateStudentGrade(StudentGrade studentGrade, String grade) {
-    final studentIndex =
-        studentsGradesList.indexWhere((student) => student == studentGrade);
-    if (studentIndex != -1) {
-      studentsGradesList[studentIndex].grade =
-          (grade != null && grade != '') ? double.parse(grade) : null;
-      _studentsGradesController.add(studentsGradesList);
-    }
   }
 }

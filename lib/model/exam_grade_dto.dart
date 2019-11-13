@@ -1,14 +1,21 @@
-import 'package:aluco/model/student.dart';
+import 'student.dart';
 
-class StudentGrade {
+class ExamGradeDTO {
   int examId;
   int studentId;
   String studentName;
   double grade;
 
-  StudentGrade({this.examId, this.studentId, this.studentName, this.grade});
+  ExamGradeDTO({this.examId, this.studentId, this.studentName, this.grade});
 
-  StudentGrade.fromJson(Map<String, dynamic> json) {
+  ExamGradeDTO.fromStudent(Student student, int examId) {
+    examId = examId;
+    studentId = student.id;
+    studentName = student.name;
+    grade = null;
+  }
+
+  ExamGradeDTO.fromJson(Map<String, dynamic> json) {
     examId = json['examId'];
     studentId = json['studentId'];
     studentName = json['studentName'];
@@ -24,25 +31,21 @@ class StudentGrade {
     return data;
   }
 
-  factory StudentGrade.fromStudentAndExam(Student student, int idExam) {
-    return StudentGrade()
-      ..studentId = student.id
-      ..studentName = student.name
-      ..examId = idExam;
-  }
-
-  @override
-  String toString() {
-    return 'StudentGrade{examId: $examId, studentId: $studentId, studentName: $studentName, grade: $grade}';
-  }
-
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is StudentGrade &&
+          other is ExamGradeDTO &&
               runtimeType == other.runtimeType &&
+              examId == other.examId &&
               studentId == other.studentId;
 
   @override
-  int get hashCode => studentId.hashCode;
+  int get hashCode =>
+      examId.hashCode ^
+      studentId.hashCode;
+
+  @override
+  String toString() {
+    return 'ExamGradeDTO{examId: $examId, studentId: $studentId, studentName: $studentName, grade: $grade}';
+  }
 }
