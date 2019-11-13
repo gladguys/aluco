@@ -37,7 +37,7 @@ class _GradeBoardScreenState extends State<GradeBoardScreen> {
               itemCount: studentsGrades.length,
               itemBuilder: (_, i) {
                 return ExpansionTile(
-                  title: Text(studentsGrades[i].studentName),
+                  title: Text('${studentsGrades[i].studentName}: ${studentsGrades[i].average}'),
                   children: <Widget>[
                     StudentGradesList(studentsGrades[i].exams),
                   ],
