@@ -57,8 +57,6 @@ class ClassRepository extends BaseRepository<Class>
   Future<List<StudentGrades>> getGradesBoard(int classId) async {
     try {
       final response = await _dio.get<dynamic>('$basePath/$classId/$GRADE');
-      print('a');
-      print(response);
       return List.generate(
         response.data.length,
         (int i) => StudentGrades.fromJson(response.data[i]),
