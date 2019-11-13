@@ -20,7 +20,7 @@ class ExamTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(exam.name ?? ''),
-      subtitle: Text(exam.description ?? ''),
+      subtitle: Text(exam.examDate?.toString() ?? ''),
       onTap: ()  {
         BlocProvider.getBloc<ExamBloc>().pickExam(exam);
         ALRouter.push(context, ExamDetailScreen(exam));
