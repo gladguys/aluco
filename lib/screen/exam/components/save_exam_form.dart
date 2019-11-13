@@ -31,7 +31,6 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
     super.initState();
     if (widget._exam != null) {
       _exam = widget._exam;
-      print(_exam);
     } else {
       _exam = Exam()..weight = 1;
     }
