@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class ALRouter {
   static Future<dynamic> push(BuildContext context, Widget widget) async {
-    await pushWithResolver(context, widget, null);
+    return await pushWithResolver(context, widget, null);
   }
 
   static Future<dynamic> pushWithResolver(
@@ -17,7 +17,7 @@ class ALRouter {
 
   static Future<dynamic> pushAndReplace(
       BuildContext context, Widget widget) async {
-    await pushAndReplaceWithResolver(context, widget, null);
+    return await pushAndReplaceWithResolver(context, widget, null);
   }
 
   static Future<dynamic> pushAndReplaceWithResolver(
