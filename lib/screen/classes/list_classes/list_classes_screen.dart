@@ -9,23 +9,8 @@ import 'components/list_classes.dart';
 import 'components/save_class_button.dart';
 import 'list_classes_bloc.dart';
 
-class ListClassesScreen extends StatefulWidget {
-  @override
-  _ListClassesScreenState createState() => _ListClassesScreenState();
-}
-
-class _ListClassesScreenState extends State<ListClassesScreen> {
+class ListClassesScreen extends StatelessWidget {
   final _bloc = BlocProvider.getBloc<ListClassesBloc>();
-
-  @override
-  void initState() {
-    getAllClasses();
-    super.initState();
-  }
-
-  Future<void> getAllClasses() async {
-    await _bloc.getAll();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +26,9 @@ class _ListClassesScreenState extends State<ListClassesScreen> {
             ? ListClasses(_bloc.classList)
             : ClassEmptyState(),
         floatingActionButton:
-            _bloc.classList.isNotEmpty ? const SaveClassButton() : null,
+        _bloc.classList.isNotEmpty ? const SaveClassButton() : null,
       ),
     );
   }
 }
+
