@@ -1,3 +1,4 @@
+import 'package:aluco/screen/classes/list_classes/list_classes_bloc.dart';
 import 'package:aluco/screen/classes/list_classes/list_classes_screen.dart';
 import 'package:aluco/screen/student/list_students_screen.dart';
 import 'package:aluco/screen/student/student_bloc.dart';
@@ -25,6 +26,8 @@ class HomeActions extends StatelessWidget {
                 ),
                 text: 'Turmas',
                 route: ListClassesScreen(),
+                resolver: () async =>
+                    BlocProvider.getBloc<ListClassesBloc>().getAll(),
               ),
               ALIconTextVerticalButton(
                 icon: FontAwesome5.getIconData(
