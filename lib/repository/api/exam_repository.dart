@@ -4,8 +4,6 @@ import 'package:aluco/repository/core/abstract_exam_repository.dart';
 import 'package:aluco/repository/core/base_repository.dart';
 import 'package:aluco/repository/dio/dio_builder.dart';
 
-import 'API.dart';
-
 class ExamRepository extends BaseRepository<Exam>
     implements AbstractExamRepository {
   ExamRepository(String basePath, Exam instance) : super(basePath, instance);
