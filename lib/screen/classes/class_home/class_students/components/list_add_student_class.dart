@@ -14,20 +14,24 @@ class ListAddStudentClass extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.separated(
-        itemCount: markedStudents.length,
-        itemBuilder: (_, i) {
-          if (isLastFromList(i, markedStudents.length)) {
-            return Column(
-              children: <Widget>[
-                StudentInClassTile(markedStudents[i]),
-                const SizedBox(height: 80),
-              ],
-            );
-          }
-          return StudentInClassTile(markedStudents[i]);
-        },
-        separatorBuilder: (_, i) => const Divider(height: 1),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+        child: ListView.separated(
+          separatorBuilder: (BuildContext context, int i) =>
+              const SizedBox(height: 4),
+          itemCount: markedStudents.length,
+          itemBuilder: (_, i) {
+            if (isLastFromList(i, markedStudents.length)) {
+              return Column(
+                children: <Widget>[
+                  StudentInClassTile(markedStudents[i]),
+                  const SizedBox(height: 80),
+                ],
+              );
+            }
+            return StudentInClassTile(markedStudents[i]);
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.done),
