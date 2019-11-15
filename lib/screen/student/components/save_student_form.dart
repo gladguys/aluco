@@ -25,7 +25,8 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
   final _formKey = GlobalKey<FormState>();
   final dateFormat = DateFormat('dd-MM-yyyy');
 
-  final dataNascimentoFN = FocusNode();
+  final registrationNumberFN = FocusNode();
+  final birthDateFN = FocusNode();
   final phoneFN = FocusNode();
   final emailFN = FocusNode();
   final responsibleNameFN = FocusNode();
@@ -68,6 +69,15 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
               ),
               FormVerticalSeparatorMedium,
               GGOutlinedTextFormField(
+                labelText: 'Matrícula *',
+                initialValue: _student.registrationNumber,
+                textInputAction: TextInputAction.done,
+                onSaved: (registrationNumber) =>
+                    _student.registrationNumber = registrationNumber,
+                validator: emptyValidator,
+              ),
+              FormVerticalSeparator,
+              GGOutlinedTextFormField(
                 labelText: 'Nome Completo *',
                 initialValue: _student.name,
                 textInputAction: TextInputAction.done,
@@ -78,8 +88,10 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
               GGFormDatePicker(
                 labelText: 'Data de Nascimento',
                 format: dateFormat,
-                focusNode: dataNascimentoFN,
-                initialDate: _student.dateBirth != null ? dateFormat.parse(_student.dateBirth) : null,
+                focusNode: birthDateFN,
+                initialDate: _student.dateBirth != null
+                    ? dateFormat.parse(_student.dateBirth)
+                    : null,
                 onChanged: (birthdayDate) {
                   if (birthdayDate != null) {
                     _student.dateBirth = dateFormat?.format(birthdayDate);

@@ -6,6 +6,7 @@ import 'base_model.dart';
 class Student implements BaseModel<Student> {
   int id;
   int teacherId;
+  String registrationNumber;
   String name;
   String email;
   String photoUrl;
@@ -28,6 +29,7 @@ class Student implements BaseModel<Student> {
     return Student()
       ..id = json['id']
       ..teacherId = JWTUtils.getTeacherId()
+      ..registrationNumber = json['registrationNumber']
       ..name = json['name']
       ..email = json['email']
       ..photoUrl = json['photo_url']
@@ -46,6 +48,7 @@ class Student implements BaseModel<Student> {
     return <String, dynamic>{
       'id': id,
       'teacherId': JWTUtils.getTeacherId(),
+      'registrationNumber': registrationNumber,
       'name': name,
       'email': email,
       'photoUrl': photoUrl,
@@ -72,6 +75,6 @@ class Student implements BaseModel<Student> {
 
   @override
   String toString() {
-    return 'Student{id: $id, teacherId: $teacherId, name: $name, email: $email, photoUrl: $photoUrl, dateBirth: $dateBirth, phone: $phone, responsibleName: $responsibleName, responsiblePhone: $responsiblePhone, address: $address, previousSchool: $previousSchool, observation: $observation, gender: $gender}';
+    return 'Student{id: $id, teacherId: $teacherId, registrationNumber: $registrationNumber, name: $name, email: $email, photoUrl: $photoUrl, dateBirth: $dateBirth, phone: $phone, responsibleName: $responsibleName, responsiblePhone: $responsiblePhone, address: $address, previousSchool: $previousSchool, observation: $observation, gender: $gender}';
   }
 }
