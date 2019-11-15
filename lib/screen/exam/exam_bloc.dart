@@ -34,6 +34,15 @@ class ExamBloc extends BlocBase {
     }
   }
 
+  Future<void> getExamsByClass(int classId) async {
+    try {
+      _examsController.add(await _repository.getByClass(classId));
+    } catch (e) {
+      print(e);
+      throw Exception();
+    }
+  }
+
   Future<void> save(Exam exam, int classId) async {
     try {
       exam.classId = classId;

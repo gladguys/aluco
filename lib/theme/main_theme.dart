@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 final theme = ThemeData(
   primaryColor: Colors.orange[600],
+  primaryColorLight: Colors.orange[200],
   primaryColorDark: Colors.orange[800],
   accentColor: Colors.grey[850],
   cursorColor: Colors.orange[600],

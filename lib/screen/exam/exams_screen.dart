@@ -1,4 +1,5 @@
 import 'package:aluco/model/exam.dart';
+import 'package:aluco/screen/classes/class_home/class_home_bloc.dart';
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:aluco/widget/al_stream_builder.dart';
 import 'package:aluco/widget/empty_state/exam_empty_state.dart';
@@ -16,15 +17,16 @@ class ExamsScreen extends StatefulWidget {
 
 class _ExamsScreenState extends State<ExamsScreen> {
   final _bloc = BlocProvider.getBloc<ExamBloc>();
+  final _classBloc = BlocProvider.getBloc<ClassHomeBloc>();
 
   @override
   void initState() {
-    getAllExams();
+    getAllExamsByClass();
     super.initState();
   }
 
-  Future<void> getAllExams() async {
-    await _bloc.getAll();
+  Future<void> getAllExamsByClass() async {
+    await _bloc.getExamsByClass(_classBloc.pickedClass.id);
   }
 
   @override
