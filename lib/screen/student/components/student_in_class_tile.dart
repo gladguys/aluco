@@ -1,6 +1,7 @@
 import 'package:aluco/enums/gender.dart';
 import 'package:aluco/model/student_marked.dart';
 import 'package:aluco/screen/classes/class_home/class_students/class_students_bloc.dart';
+import 'package:aluco/theme/main_theme.dart';
 import 'package:aluco/widget/al_stream_builder.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:circular_check_box/circular_check_box.dart';
@@ -23,21 +24,26 @@ class StudentInClassTile extends StatelessWidget {
       stream: BlocProvider.getBloc<ClassStudentsBloc>()
           .allStudentsMarkedListController[index],
       mainWidget: (dynamic studentMarked) {
-        return Container(
-          margin: const EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-          ),
+        return Material(
+          color: Colors.white,
+          elevation: 1,
+          clipBehavior: Clip.antiAlias,
+          borderRadius: BorderRadius.circular(8),
           child: ListTile(
+            contentPadding: const EdgeInsets.only(left: 16),
             leading: Icon(
-              studentMarked.student.gender == Gender.male ? LineIcons.male : LineIcons.female,
-              color: studentMarked.marked ? Colors.black : Colors.grey,
+              studentMarked.student.gender == Gender.male
+                  ? LineIcons.male
+                  : LineIcons.female,
+              color:
+                  studentMarked.marked ? theme.primaryColor : theme.accentColor,
               size: 40,
             ),
             trailing: CircularCheckBox(
               value: studentMarked.marked,
               materialTapTargetSize: MaterialTapTargetSize.padded,
+              activeColor: theme.primaryColor,
+              inactiveColor: theme.accentColor,
               onChanged: (marked) {
                 BlocProvider.getBloc<ClassStudentsBloc>()
                     .markStudent(studentMarked.student, marked);
@@ -46,7 +52,9 @@ class StudentInClassTile extends StatelessWidget {
             title: Text(
               studentMarked.student.name,
               style: TextStyle(
-                  color: studentMarked.marked ? Colors.black : Colors.grey),
+                  color: studentMarked.marked
+                      ? theme.primaryColor
+                      : theme.accentColor),
             ),
             onTap: () => BlocProvider.getBloc<ClassStudentsBloc>()
                 .markStudent(studentMarked.student, !studentMarked.marked),
