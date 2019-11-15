@@ -35,11 +35,9 @@ class _ExamsScreenState extends State<ExamsScreen> {
       stream: _bloc.examStream,
       mainWidget: (dynamic exams) => ALScaffold(
         title: 'Minhas Provas',
-        body: _bloc.examsList.isNotEmpty
-            ? ExamList(exams)
-            : ExamEmptyState(),
+        body: _bloc.examsList.isNotEmpty ? ExamList(exams) : ExamEmptyState(),
         floatingActionButton:
-        _bloc.examsList.isNotEmpty ? SaveExamButton() : null,
+            _bloc.examsList.isNotEmpty ? const SaveExamButton() : null,
       ),
     );
   }
