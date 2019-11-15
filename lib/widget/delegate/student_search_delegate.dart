@@ -1,6 +1,5 @@
 import 'package:aluco/model/student.dart';
 import 'package:aluco/screen/student/components/list_students.dart';
-import 'package:aluco/screen/student/components/sliver_list_students.dart';
 import 'package:aluco/screen/student/student_bloc.dart';
 import 'package:aluco/widget/empty_state/list_empty_state.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
