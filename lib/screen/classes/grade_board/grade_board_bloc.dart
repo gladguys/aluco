@@ -10,6 +10,7 @@ class GradeBoardBloc {
     try {
       return await _classRepository.getGradesBoard(classId);
     } catch (e) {
+      print(e);
       rethrow;
     }
   }
