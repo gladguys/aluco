@@ -12,7 +12,7 @@ class StudentGrades {
       exams = <ExamGradeDTO>[];
       json['exams'].forEach((dynamic v) => exams.add(ExamGradeDTO.fromJson(v)));
     }
-    average = json['average'];
+    average = json['average']?.toString();
     studentName = json['studentName'];
   }
 
