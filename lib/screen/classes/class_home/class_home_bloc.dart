@@ -1,27 +1,96 @@
 import 'package:aluco/model/class.dart';
+import 'package:aluco/model/lesson_plan.dart';
 import 'package:aluco/model/student.dart';
 import 'package:aluco/repository/api/API.dart';
+import 'package:aluco/repository/api/lesson_repository.dart';
 import 'package:aluco/repository/api/student_repository.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ClassHomeBloc extends BlocBase {
   final classStudentsController = BehaviorSubject<List<Student>>.seeded([]);
-  final _repository = StudentRepository(STUDENT, Student());
+  final classPlannedLessonsController =
+      BehaviorSubject<List<LessonPlan>>.seeded([]);
+  final _lessonRepository = LessonRepository(LESSON, LessonPlan());
+  final _studentRepository = StudentRepository(STUDENT, Student());
+  final dateFormat = DateFormat('dd-MM-yyyy');
   Class _class;
 
   Class get pickedClass => _class;
   List<Student> get classStudents => classStudentsController.value;
+  List<LessonPlan> get classPlannedLessons =>
+      classPlannedLessonsController.value;
 
   void setClass(Class classe) {
     _class = classe;
   }
 
   Future<void> initializeClassStudents() async {
-    classStudentsController.add(await _repository.getAll());
+    try {
+      classStudentsController.add(await _studentRepository.getAll());
+    } catch (e) {
+      print(e);
+      throw Exception();
+    }
+  }
+
+  Future<void> initializeClassPlannedLessons() async {
+    try {
+      classPlannedLessonsController.add(
+          await _lessonRepository.getPlannedLessonsByClass(pickedClass.id));
+    } catch (e) {
+      print(e);
+      throw Exception();
+    }
+  }
+
+  Future<void> saveLessonPlan(LessonPlan lessonPlan) async {
+    try {
+      lessonPlan.classId = pickedClass.id;
+      final lessonPlanSaved = await _lessonRepository.save(lessonPlan);
+      if (lessonPlan.id == null) {
+        classPlannedLessons.add(lessonPlanSaved);
+        classPlannedLessonsController.add(classPlannedLessons);
+      } else {
+        classPlannedLessons.remove(lessonPlan);
+        classPlannedLessons.add(lessonPlanSaved);
+        classPlannedLessonsController.add(classPlannedLessons);
+      }
+    } catch (e) {
+      print(e);
+      throw Exception();
+    }
+  }
+
+  Future<void> deleteLessonPlan(LessonPlan lessonPlan) async {
+    try {
+      await _lessonRepository.delete(lessonPlan.id);
+      classPlannedLessons.remove(lessonPlan);
+      classPlannedLessonsController.add(classPlannedLessons);
+    } catch (e) {
+      print(e);
+      throw Exception();
+    }
+  }
+
+  Future<LessonPlan> getLessonPlanById(int id) async {
+    try {
+      return _lessonRepository.getById(id);
+    } catch (e) {
+      print(e);
+      throw Exception();
+    }
+  }
+
+  LessonPlan getLessonPlanFromDate(DateTime date) {
+    return classPlannedLessons.firstWhere(
+        (lesson) => lesson.lessonDate == dateFormat.format(date),
+        orElse: () => null);
   }
 
   void cleanBloc() {
     classStudentsController.add([]);
+    classPlannedLessonsController.add([]);
   }
 }

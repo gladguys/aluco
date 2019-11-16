@@ -1,9 +1,13 @@
 import 'package:aluco/screen/classes/class_home/class_students/class_students_screen.dart';
+import 'package:aluco/screen/classes/lesson_plan/list_lesson_plan_screen.dart';
 import 'package:aluco/screen/exam/exams_screen.dart';
 import 'package:aluco/screen/student/list_students_screen.dart';
 import 'package:aluco/widget/al_icon_text_vertical_button.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+
+import 'class_home_bloc.dart';
 
 class ClassHomeActions extends StatelessWidget {
   @override
@@ -47,7 +51,9 @@ class ClassHomeActions extends StatelessWidget {
                   weight: IconWeight.Solid,
                 ),
                 text: 'Planos de Aulas',
-                route: ListStudentsScreen(),
+                route: ListLessonPlanScreen(),
+                resolver: () => BlocProvider.getBloc<ClassHomeBloc>()
+                    .initializeClassPlannedLessons(),
               ),
               ALIconTextVerticalButton(
                 icon: FontAwesome5.getIconData(
