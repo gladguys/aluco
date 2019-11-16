@@ -3,4 +3,5 @@ const AUTH = 'auth';
 const CLASS = 'classes';
 const EXAM = 'exams';
 const STUDENT = 'students';
+const LESSON = 'lessons';
 const TEACHER = 'teachers';
