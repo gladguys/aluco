@@ -75,14 +75,13 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
               FormVerticalSeparator,
               Row(
                 children: <Widget>[
-                  const Text('Peso da Prova'),
-                  const SizedBox(width: 32),
+                  const Text('Peso da Prova: '),
                   SelectGroup<int>(
                     index: _exam.weight - 1,
                     selectColor: Theme.of(context).primaryColor,
-                    borderColor: Colors.white,
-                    padding: const EdgeInsets.all(14),
-                    space: const EdgeInsets.all(8),
+                    borderColor: Theme.of(context).primaryColor,
+                    padding: const EdgeInsets.all(16),
+                    space: const EdgeInsets.symmetric(horizontal: 4),
                     items: <SelectItem<int>>[
                       SelectItem(label: '1',value: 1),
                       SelectItem(label: '2',value: 2),

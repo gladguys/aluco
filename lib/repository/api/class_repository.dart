@@ -23,7 +23,7 @@ class ClassRepository extends BaseRepository<Class>
         (int i) {
           final student = Student();
           return student.fromJson(response.data[i]);
-        }
+        },
       );
     } catch (e) {
       rethrow;
