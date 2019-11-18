@@ -1,4 +1,4 @@
-import 'package:aluco/utils/form_utils.dart';
+import 'package:aluco/core/utils/form_utils.dart';
 import 'package:aluco/widget/al_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';

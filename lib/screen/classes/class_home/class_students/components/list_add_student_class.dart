@@ -1,5 +1,5 @@
+import 'package:aluco/core/routing/al_router.dart';
 import 'package:aluco/model/student_marked.dart';
-import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/screen/student/components/student_in_class_tile.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';

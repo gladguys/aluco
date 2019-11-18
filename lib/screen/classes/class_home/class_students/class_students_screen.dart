@@ -5,7 +5,7 @@ import 'package:aluco/widget/empty_state/class_student_empty_state.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../loading_bloc.dart';
+import '../../../../core/bloc/loading_bloc.dart';
 import '../class_home_bloc.dart';
 import 'class_students_bloc.dart';
 import 'components/add_student_class_button.dart';

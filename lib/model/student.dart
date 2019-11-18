@@ -1,5 +1,5 @@
+import 'package:aluco/core/utils/jwt_utils.dart';
 import 'package:aluco/enums/gender.dart';
-import 'package:aluco/utils/jwt_utils.dart';
 
 import 'base_model.dart';
 

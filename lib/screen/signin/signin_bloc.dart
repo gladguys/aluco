@@ -1,7 +1,7 @@
+import 'package:aluco/core/utils/jwt_utils.dart';
 import 'package:aluco/repository/api/auth_repository.dart';
 import 'package:aluco/repository/dio/dio_builder.dart';
 
-import 'package:aluco/utils/jwt_utils.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:dio/dio.dart';
 import 'package:rxdart/rxdart.dart';

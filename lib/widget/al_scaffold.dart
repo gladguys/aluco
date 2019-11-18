@@ -3,8 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/loading/gg_loading_double_bounce.dart';
 
-import '../loading_bloc.dart';
-import '../test_bloc.dart';
+import '../core/bloc/linear_loading_bloc.dart';
+import '../core/bloc/loading_bloc.dart';
 import 'al_debug_http_button.dart';
 
 class ALScaffold extends StatelessWidget {
@@ -57,7 +57,7 @@ class ALScaffold extends StatelessWidget {
       body: Column(
         children: <Widget>[
           StreamBuilder<bool>(
-            stream: BlocProvider.getBloc<TestBloc>().loadingController.stream,
+            stream: BlocProvider.getBloc<LinearLoadingBloc>().loadingStream,
             initialData: false,
             builder: (_, snapshot) {
               return snapshot.data ? const LinearProgressIndicator() : Container();

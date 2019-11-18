@@ -1,5 +1,5 @@
+import 'package:aluco/core/utils/form_utils.dart';
 import 'package:aluco/screen/signin/components/signin_bottom_buttons.dart';
-import 'package:aluco/utils/form_utils.dart';
 import 'package:aluco/widget/al_logo.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
