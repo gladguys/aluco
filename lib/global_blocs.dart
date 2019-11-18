@@ -7,6 +7,7 @@ import 'screen/classes/list_classes/list_classes_bloc.dart';
 import 'screen/exam/exam_bloc.dart';
 import 'screen/signin/signin_bloc.dart';
 import 'screen/student/student_bloc.dart';
+import 'test_bloc.dart';
 
 final globalBlocs = [
   Bloc((i) => SigninBloc()),
@@ -16,4 +17,5 @@ final globalBlocs = [
   Bloc((i) => StudentBloc()),
   Bloc((i) => ExamBloc()),
   Bloc((i) => LoadingBloc()),
+  Bloc((i) => TestBloc()),
 ];

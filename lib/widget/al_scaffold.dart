@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/loading/gg_loading_double_bounce.dart';
 
 import '../loading_bloc.dart';
+import '../test_bloc.dart';
 import 'al_debug_http_button.dart';
 
 class ALScaffold extends StatelessWidget {
@@ -53,14 +54,25 @@ class ALScaffold extends StatelessWidget {
             : null,
         actions: _getActions(),
       ),
-      body: StreamBuilder<LoadingState>(
-        stream: BlocProvider.getBloc<LoadingBloc>().loadingState,
-        builder: (_, snapshot) {
-          if (snapshot.data == LoadingState.loading) {
-            return const GGLoadingDoubleBounce(size: 20);
-          }
-          return body;
-        },
+      body: Column(
+        children: <Widget>[
+          StreamBuilder<bool>(
+            stream: BlocProvider.getBloc<TestBloc>().loadingController.stream,
+            initialData: false,
+            builder: (_, snapshot) {
+              return snapshot.data ? const LinearProgressIndicator() : Container();
+            },
+          ),
+          StreamBuilder<LoadingState>(
+            stream: BlocProvider.getBloc<LoadingBloc>().loadingState,
+            builder: (_, snapshot) {
+              if (snapshot.data == LoadingState.loading) {
+                return const GGLoadingDoubleBounce(size: 20);
+              }
+              return body;
+            },
+          )
+        ],
       ),
       floatingActionButton: floatingActionButton,
     );
