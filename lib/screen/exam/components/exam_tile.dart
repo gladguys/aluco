@@ -8,6 +8,7 @@ import 'package:gg_flutter_components/dialog/gg_confirm_delete_dialog.dart';
 import 'package:gg_flutter_components/dialog/gg_dialog.dart';
 
 import '../exam_bloc.dart';
+import '../exam_detail_screen.dart';
 import '../save_exam_screen.dart';
 
 class ExamTile extends StatelessWidget {
@@ -19,8 +20,11 @@ class ExamTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(exam.name ?? ''),
-      subtitle: Text(exam.description ?? ''),
-      //onTap: () => NAVIGATE TO DETAILS,
+      subtitle: Text(exam.examDate?.toString() ?? ''),
+      onTap: ()  {
+        BlocProvider.getBloc<ExamBloc>().pickExam(exam);
+        ALRouter.push(context, ExamDetailScreen(exam));
+      },
       trailing: ExamActions(exam),
     );
   }
@@ -49,7 +53,7 @@ class ExamActions extends StatelessWidget {
           onTap: () => GGDialog.show(
             context,
             GGConfirmDeleteDialog(
-              title: 'Remover turma?',
+              title: 'Remover prova?',
               onClickYes: () async => BlocProvider.getBloc<ExamBloc>().delete(exam),
             ),
           ),

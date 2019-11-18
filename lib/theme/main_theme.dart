@@ -9,6 +9,11 @@ final theme = ThemeData(
   scaffoldBackgroundColor: Colors.grey[200],
   textSelectionColor: Colors.orange[300],
   textSelectionHandleColor: Colors.orange[600],
+  buttonTheme: ButtonThemeData(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(8),
+    ),
+  ),
   appBarTheme: AppBarTheme(
     elevation: 0,
     color: Colors.white,

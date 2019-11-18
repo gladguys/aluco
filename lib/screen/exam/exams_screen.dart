@@ -22,7 +22,7 @@ class ExamsScreen extends StatelessWidget {
             ? ExamList(exams)
             : ExamEmptyState(),
         floatingActionButton:
-        _bloc.examsList.isNotEmpty ? SaveExamButton() : null,
+            _bloc.examsList.isNotEmpty ? const SaveExamButton() : null,
       ),
     );
   }
