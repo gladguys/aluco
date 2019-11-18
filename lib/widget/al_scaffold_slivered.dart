@@ -65,7 +65,7 @@ class ALScaffoldSlivered extends StatelessWidget {
                   ? null
                   : Text(
                       title,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.w500,
                       ),
                     ),
