@@ -8,37 +8,53 @@ class DetailsExam extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: Colors.grey[300]),
+        borderRadius: BorderRadius.circular(8),
+      ),
       child: Column(
         children: <Widget>[
-          Row(
+          Wrap(
+            runAlignment: WrapAlignment.center,
             children: <Widget>[
-              const Text('Prova: '),
-              const SizedBox(width: 12),
-              Text(exam.name ?? ''),
+              Text(
+                exam.name ?? '',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ],
           ),
-          Row(
+          const SizedBox(height: 8),
+          Wrap(
+            runAlignment: WrapAlignment.center,
             children: <Widget>[
-              const Text('Descrição: '),
-              const SizedBox(width: 12),
-              Text(exam.description ?? ''),
+              Text(
+                exam.description ?? '',
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
+          const SizedBox(height: 16),
           Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text('Peso: '),
-              const SizedBox(width: 12),
+              const Text(
+                'Peso: ',
+                style: TextStyle(fontWeight: FontWeight.w500),
+              ),
               Text(exam.weight?.toString() ?? ''),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              Icon(Icons.calendar_today),
-              const SizedBox(width: 8),
-              const Text('Data de Aplicação: '),
-              const SizedBox(width: 12),
+              const SizedBox(width: 16),
+              const Text(
+                'Data de Aplicação: ',
+                style: TextStyle(fontWeight: FontWeight.w500),
+              ),
               Text(exam.examDate?.toString() ?? ''),
             ],
           ),

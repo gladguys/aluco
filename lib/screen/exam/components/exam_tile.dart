@@ -53,7 +53,7 @@ class ExamActions extends StatelessWidget {
           onTap: () => GGDialog.show(
             context,
             GGConfirmDeleteDialog(
-              title: 'Remover turma?',
+              title: 'Remover prova?',
               onClickYes: () async => BlocProvider.getBloc<ExamBloc>().delete(exam),
             ),
           ),

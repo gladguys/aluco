@@ -1,12 +1,18 @@
 import 'package:aluco/screen/classes/class_home/class_students/class_students_screen.dart';
 import 'package:aluco/screen/classes/grade_board/grade_board_screen.dart';
+import 'package:aluco/screen/exam/exam_bloc.dart';
 import 'package:aluco/screen/exam/exams_screen.dart';
 import 'package:aluco/screen/student/list_students_screen.dart';
 import 'package:aluco/widget/al_icon_text_vertical_button.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
+import 'class_home_bloc.dart';
+
 class ClassHomeActions extends StatelessWidget {
+  final _classBloc = BlocProvider.getBloc<ClassHomeBloc>();
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -57,6 +63,8 @@ class ClassHomeActions extends StatelessWidget {
                 ),
                 text: 'Provas',
                 route: ExamsScreen(),
+                resolver: () => BlocProvider.getBloc<ExamBloc>()
+                    .getExamsByClass(_classBloc.pickedClass.id),
               ),
             ],
           ),

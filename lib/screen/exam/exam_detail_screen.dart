@@ -25,6 +25,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
     getGradesByExam(widget.exam.id);
   }
 
+
   Future<void> getGradesByExam(int examId) async =>
       await _examBloc.getGradesByExam(examId);
 
@@ -32,60 +33,122 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
   Widget build(BuildContext context) {
     return ALScaffold(
       title: 'Prova',
-      subtitle: widget.exam.name,
-      body: Column(
-        children: <Widget>[
-          Flexible(
-            flex: 3,
-            child: DetailsExam(widget.exam),
-          ),
-          const Text(
-            'Notas por aluno',
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 12),
-          Flexible(
-            flex: 7,
-            child: StreamBuilder<List<ExamGradeDTO>>(
-              stream: _examBloc.studentsGradesStream,
-              builder: (_, snapshot) {
-                if (snapshot.hasData) {
-                  final studentsGrades = snapshot.data;
-                  return ListView.builder(
-                      itemCount: studentsGrades.length,
-                      itemBuilder: (_, i) {
-                        return ListTile(
-                          title: Text(studentsGrades[i].studentName),
-                          trailing: SizedBox(
-                            width: 80,
-                            child: TextFormField(
-                              initialValue: studentsGrades[i].grade != null
-                                  ? studentsGrades[i].grade.toStringAsFixed(2)
-                                  : 'S/N',
-                              onChanged: (grade) => _examBloc.updateGrade(
-                                studentsGrades[i],
-                                (grade != null && grade != '')
-                                    ? double.parse(grade)
-                                    : null,
-                              ),
-                            ),
-                          ),
-                        );
-                      });
-                }
-                return Center(
-                  child: const Text('Carregando Notas...'),
-                );
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            const SizedBox(height: 8),
+            DetailsExam(widget.exam),
+            const SizedBox(height: 12),
+            const Text(
+              'Notas por aluno',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 12),
+                decoration: BoxDecoration(
+                  color: Colors.grey[50],
+                  border: Border.all(color: Colors.grey[300]),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Column(
+                  children: <Widget>[
+                    _list(),
+                    const SizedBox(height: 8),
+                    _buttonConfirm(),
+                    const SizedBox(height: 8),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _list() {
+    return Expanded(
+      child: StreamBuilder<List<ExamGradeDTO>>(
+        stream: _examBloc.studentsGradesStream,
+        builder: (_, snapshot) {
+          if (snapshot.hasData) {
+            final studentsGrades = snapshot.data;
+            return ListView.separated(
+              separatorBuilder: (BuildContext context, int i) =>
+                  const Divider(height: 1),
+              itemCount: studentsGrades.length,
+              itemBuilder: (_, i) {
+                return _listTile(studentsGrades[i]);
               },
+            );
+          }
+          return Center(
+            child: const Text('Carregando Notas...'),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _listTile(ExamGradeDTO studentGrade) {
+    return ListTile(
+      title: Text(studentGrade.studentName),
+      trailing: Container(
+        width: 65,
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        child: Material(
+          elevation: 1,
+          clipBehavior: Clip.antiAlias,
+          borderRadius: BorderRadius.circular(8),
+          child: TextFormField(
+            textAlign: TextAlign.center,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              enabledBorder: UnderlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide.none,
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide.none,
+              ),
+              fillColor: Colors.grey[200],
+            ),
+            initialValue: studentGrade.grade != null
+                ? studentGrade.grade.toStringAsFixed(2)
+                : '',
+            onChanged: (grade) => _examBloc.updateGrade(
+              studentGrade,
+              (grade != null && grade != '') ? double.parse(grade) : null,
             ),
           ),
-          const SizedBox(height: 80),
-        ],
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async => await _examBloc.saveExamGrades(),
-        child: Icon(Icons.save),
+    );
+  }
+
+  Widget _buttonConfirm() {
+    return RaisedButton.icon(
+      icon: Icon(Icons.done),
+      label: const Text(
+        'Confirmar Notas',
+        style: TextStyle(
+          fontSize: 16,
+          letterSpacing: 0,
+        ),
       ),
+      color: Colors.green[600],
+      textColor: Colors.white,
+      onPressed: () async {
+        await _examBloc.saveExamGrades();
+      },
     );
   }
 

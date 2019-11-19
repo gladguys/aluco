@@ -33,7 +33,7 @@ class ALScaffold extends StatelessWidget {
         title: titleWidget ??
             Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.w500,
                 letterSpacing: -0.4,
               ),
