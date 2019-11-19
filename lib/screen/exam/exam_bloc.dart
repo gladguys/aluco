@@ -19,8 +19,7 @@ class ExamBloc extends BlocBase {
 
   Exam get pickedExam => _pickedExamController.value;
 
-  final _studentsGradesController =
-      BehaviorSubject<List<ExamGradeDTO>>.seeded([]);
+  final _studentsGradesController = BehaviorSubject<List<ExamGradeDTO>>();
   Stream<List<ExamGradeDTO>> get studentsGradesStream =>
       _studentsGradesController.stream;
   List<ExamGradeDTO> get studentsGradesList => _studentsGradesController.value;
@@ -98,7 +97,6 @@ class ExamBloc extends BlocBase {
   }
 
   Future<void> updateGrade(ExamGradeDTO examGrade, double grade) async {
-    print(grade);
     try {
       final index = studentsGradesList.indexWhere((exam) => exam == examGrade);
       if (index != -1) {
@@ -111,7 +109,7 @@ class ExamBloc extends BlocBase {
   }
 
   void cleanStudentesGrades() {
-    _studentsGradesController.add([]);
+    _studentsGradesController.add(null);
   }
 
   void pickExam(Exam exam) {

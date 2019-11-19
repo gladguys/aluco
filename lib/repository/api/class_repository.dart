@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:aluco/model/class.dart';
 import 'package:aluco/model/student.dart';
+import 'package:aluco/model/student_grades.dart';
 
 import 'package:aluco/repository/api/API.dart';
 import 'package:aluco/repository/core/abstract_class_repository.dart';
@@ -47,6 +48,19 @@ class ClassRepository extends BaseRepository<Class>
   Future<void> unlinkStudentFromClass(int classId, int studentId) async {
     try {
       await _dio.delete<dynamic>('$basePath/$classId/$STUDENT/$studentId');
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<StudentGrades>> getGradesBoard(int classId) async {
+    try {
+      final response = await _dio.get<dynamic>('$basePath/$classId/$GRADE');
+      return List.generate(
+        response.data.length,
+        (int i) => StudentGrades.fromJson(response.data[i]),
+      );
     } catch (e) {
       rethrow;
     }

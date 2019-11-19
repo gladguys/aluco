@@ -4,6 +4,7 @@ class ExamGradeDTO {
   int examId;
   int studentId;
   String studentName;
+  String examName;
   double grade;
 
   ExamGradeDTO({this.examId, this.studentId, this.studentName, this.grade});
@@ -19,6 +20,7 @@ class ExamGradeDTO {
     examId = json['examId'];
     studentId = json['studentId'];
     studentName = json['studentName'];
+    examName = json['examName'];
     grade = json['grade'];
   }
 
@@ -27,6 +29,7 @@ class ExamGradeDTO {
     data['examId'] = examId;
     data['studentId'] = studentId;
     data['studentName'] = studentName;
+    data['examName'] = examName;
     data['grade'] = grade;
     return data;
   }
@@ -46,6 +49,6 @@ class ExamGradeDTO {
 
   @override
   String toString() {
-    return 'ExamGradeDTO{examId: $examId, studentId: $studentId, studentName: $studentName, grade: $grade}';
+    return 'ExamGradeDTO{examId: $examId, studentId: $studentId, studentName: $studentName, examName: $examName, grade: $grade}';
   }
 }
