@@ -4,14 +4,17 @@ import 'package:dio/dio.dart';
 
 class LoadingInterceptor implements InterceptorsWrapper {
   @override
-  Future onError(DioError err) async =>
-      BlocProvider.getBloc<LinearLoadingBloc>().finishLoading();
+  Future onError(DioError err) async {
+    BlocProvider.getBloc<LinearLoadingBloc>().finishLoading();
+  }
 
   @override
-  Future onRequest(RequestOptions options) async =>
-      BlocProvider.getBloc<LinearLoadingBloc>().startLoading();
+  Future onRequest(RequestOptions options) async {
+    BlocProvider.getBloc<LinearLoadingBloc>().startLoading();
+  }
 
   @override
-  Future onResponse(Response response) async =>
-      BlocProvider.getBloc<LinearLoadingBloc>().finishLoading;
+  Future onResponse(Response response) async {
+    BlocProvider.getBloc<LinearLoadingBloc>().finishLoading();
+  }
 }

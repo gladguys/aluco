@@ -5,6 +5,11 @@ class LinearLoadingBloc extends BlocBase {
   final _loadingController = BehaviorSubject<bool>.seeded(false);
   Stream<bool> get loadingStream =>  _loadingController.stream;
 
-  void startLoading() => _loadingController.add(true);
-  void finishLoading() => _loadingController.add(false);
+  void startLoading() {
+    _loadingController.add(true);
+  }
+
+  void finishLoading() {
+    _loadingController.add(false);
+  }
 }
