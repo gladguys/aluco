@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'components/details_exam.dart';
 import 'exam_bloc.dart';
+import 'exam_detail_screen_bloc.dart';
 
 class ExamDetailScreen extends StatefulWidget {
   const ExamDetailScreen(this.exam);
@@ -18,13 +19,13 @@ class ExamDetailScreen extends StatefulWidget {
 
 class _ExamDetailScreenState extends State<ExamDetailScreen> {
   final _examBloc = BlocProvider.getBloc<ExamBloc>();
+  final _screenBloc = ExamDetailScreenBloc();
 
   @override
   void initState() {
     super.initState();
     getGradesByExam(widget.exam.id);
   }
-
 
   Future<void> getGradesByExam(int examId) async =>
       await _examBloc.getGradesByExam(examId);
@@ -59,7 +60,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
                 ),
                 child: Column(
                   children: <Widget>[
-                    _list(),
+                    _getListGrades(),
                     const SizedBox(height: 8),
                     _buttonConfirm(),
                     const SizedBox(height: 8),
@@ -73,7 +74,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
     );
   }
 
-  Widget _list() {
+  Widget _getListGrades() {
     return Expanded(
       child: StreamBuilder<List<ExamGradeDTO>>(
         stream: _examBloc.studentsGradesStream,
@@ -124,10 +125,13 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
             initialValue: studentGrade.grade != null
                 ? studentGrade.grade.toStringAsFixed(2)
                 : '',
-            onChanged: (grade) => _examBloc.updateGrade(
-              studentGrade,
-              (grade != null && grade != '') ? double.parse(grade) : null,
-            ),
+            onChanged: (grade) {
+              _examBloc.updateGrade(
+                studentGrade,
+                (grade != null && grade != '') ? double.parse(grade) : null,
+              );
+              _screenBloc.setIsDirty();
+            },
           ),
         ),
       ),
@@ -135,26 +139,30 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
   }
 
   Widget _buttonConfirm() {
-    return RaisedButton.icon(
-      icon: Icon(Icons.done),
-      label: const Text(
-        'Confirmar Notas',
-        style: TextStyle(
-          fontSize: 16,
-          letterSpacing: 0,
+    return StreamBuilder<ScreenState>(
+      stream: _screenBloc.stateStream,
+      builder: (_, snapshot) => RaisedButton.icon(
+        icon: Icon(Icons.done),
+        label: const Text(
+          'Confirmar Notas',
+          style: TextStyle(
+            fontSize: 16,
+            letterSpacing: 0,
+          ),
         ),
+        color: Colors.green[600],
+        textColor: Colors.white,
+        onPressed: snapshot.data == ScreenState.pristine
+            ? null
+            : () async => await _examBloc.saveExamGrades(),
       ),
-      color: Colors.green[600],
-      textColor: Colors.white,
-      onPressed: () async {
-        await _examBloc.saveExamGrades();
-      },
     );
   }
 
   @override
   void dispose() {
     _examBloc.cleanStudentesGrades();
+    _screenBloc.dispose();
     super.dispose();
   }
 }
