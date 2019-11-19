@@ -28,6 +28,7 @@ dependencies:
   circular_check_box: ^1.0.1
   line_icons: ^0.2.0
   shared_preferences: ^0.5.4
+  flutter_masked_text: ^0.8.0
   gg_flutter_components:
     git:
       url: git://github.com/rodrigobastosv/gg_flutter_components.git
