@@ -54,15 +54,8 @@ class ALScaffold extends StatelessWidget {
             : null,
         actions: _getActions(),
       ),
-      body: Column(
+      body: Stack(
         children: <Widget>[
-          StreamBuilder<bool>(
-            stream: BlocProvider.getBloc<LinearLoadingBloc>().loadingStream,
-            initialData: false,
-            builder: (_, snapshot) {
-              return snapshot.data ? const LinearProgressIndicator() : Container();
-            },
-          ),
           StreamBuilder<LoadingState>(
             stream: BlocProvider.getBloc<LoadingBloc>().loadingState,
             builder: (_, snapshot) {
@@ -71,7 +64,33 @@ class ALScaffold extends StatelessWidget {
               }
               return body;
             },
-          )
+          ),
+          StreamBuilder<bool>(
+            stream: BlocProvider.getBloc<LinearLoadingBloc>().loadingStream,
+            initialData: false,
+            builder: (_, snapshot) {
+              return snapshot.data
+                  ? Positioned.fill(
+                      child: Container(
+                        color: Colors.white70,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const <Widget>[
+                            GGLoadingDoubleBounce(size: 48),
+                            SizedBox(height: 12),
+                            Text(
+                              'Carregando...',
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  : Container();
+            },
+          ),
         ],
       ),
       floatingActionButton: floatingActionButton,
