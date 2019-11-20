@@ -1,5 +1,5 @@
+import 'package:aluco/core/routing/al_router.dart';
 import 'package:aluco/model/class.dart';
-import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/screen/classes/class_home/class_home_screen.dart';
 import 'package:aluco/screen/classes/list_classes/list_classes_bloc.dart';
 import 'package:aluco/screen/classes/list_classes/save_class_screen.dart';

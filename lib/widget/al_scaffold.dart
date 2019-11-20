@@ -3,7 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/loading/gg_loading_double_bounce.dart';
 
-import '../loading_bloc.dart';
+import '../core/bloc/linear_loading_bloc.dart';
+import '../core/bloc/loading_bloc.dart';
 import 'al_debug_http_button.dart';
 
 class ALScaffold extends StatelessWidget {
@@ -53,14 +54,44 @@ class ALScaffold extends StatelessWidget {
             : null,
         actions: _getActions(),
       ),
-      body: StreamBuilder<LoadingState>(
-        stream: BlocProvider.getBloc<LoadingBloc>().loadingState,
-        builder: (_, snapshot) {
-          if (snapshot.data == LoadingState.loading) {
-            return const GGLoadingDoubleBounce(size: 20);
-          }
-          return body;
-        },
+      body: Stack(
+        children: <Widget>[
+          StreamBuilder<LoadingState>(
+            stream: BlocProvider.getBloc<LoadingBloc>().loadingState,
+            builder: (_, snapshot) {
+              if (snapshot.data == LoadingState.loading) {
+                return const GGLoadingDoubleBounce(size: 20);
+              }
+              return body;
+            },
+          ),
+          StreamBuilder<bool>(
+            stream: BlocProvider.getBloc<LinearLoadingBloc>().loadingStream,
+            initialData: false,
+            builder: (_, snapshot) {
+              return snapshot.data
+                  ? Positioned.fill(
+                      child: Container(
+                        color: Colors.white70,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const <Widget>[
+                            GGLoadingDoubleBounce(size: 48),
+                            SizedBox(height: 12),
+                            Text(
+                              'Carregando...',
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  : Container();
+            },
+          ),
+        ],
       ),
       floatingActionButton: floatingActionButton,
     );

@@ -1,6 +1,6 @@
-import 'package:aluco/routing/al_router.dart';
+import 'package:aluco/core/routing/al_router.dart';
+import 'package:aluco/core/utils/form_utils.dart';
 import 'package:aluco/screen/home/home_screen.dart';
-import 'package:aluco/utils/form_utils.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/gg_snackbar.dart';
