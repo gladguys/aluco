@@ -2,9 +2,10 @@ import 'package:aluco/model/exam.dart';
 import 'package:flutter/material.dart';
 
 class DetailsExam extends StatelessWidget {
-  const DetailsExam(this.exam);
+  const DetailsExam(this.exam, this.isSameDay);
 
   final Exam exam;
+  final bool isSameDay;
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +18,7 @@ class DetailsExam extends StatelessWidget {
       ),
       child: Column(
         children: <Widget>[
+          WarningGradesNotEditable(isSameDay),
           Wrap(
             runAlignment: WrapAlignment.center,
             children: <Widget>[
@@ -61,5 +63,19 @@ class DetailsExam extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class WarningGradesNotEditable extends StatelessWidget {
+  const WarningGradesNotEditable(this.isSameDay);
+
+  final bool isSameDay;
+
+  @override
+  Widget build(BuildContext context) {
+    return !isSameDay
+        ? const Text(
+            '* Notas não podem ser editadas pois o dia da prova não chegou ainda', style: TextStyle(color: Colors.red),)
+        : Container();
   }
 }

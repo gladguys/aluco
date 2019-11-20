@@ -3,6 +3,7 @@ import 'package:aluco/model/exam_grade_dto.dart';
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'components/details_exam.dart';
 import 'exam_bloc.dart';
@@ -20,6 +21,7 @@ class ExamDetailScreen extends StatefulWidget {
 class _ExamDetailScreenState extends State<ExamDetailScreen> {
   final _examBloc = BlocProvider.getBloc<ExamBloc>();
   final _screenBloc = ExamDetailScreenBloc();
+  final dateFormat = DateFormat('dd-MM-yyyy');
 
   @override
   void initState() {
@@ -32,6 +34,9 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final nowString = dateFormat.format(DateTime.now());
+    final isSameDay = dateFormat.parse(widget.exam.examDate).isAtSameMomentAs(dateFormat.parse(nowString));
+
     return ALScaffold(
       title: 'Prova',
       body: Padding(
@@ -40,7 +45,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const SizedBox(height: 8),
-            DetailsExam(widget.exam),
+            DetailsExam(widget.exam, isSameDay),
             const SizedBox(height: 12),
             const Text(
               'Notas por aluno',
@@ -60,7 +65,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
                 ),
                 child: Column(
                   children: <Widget>[
-                    _getListGrades(),
+                    _getListGrades(isSameDay),
                     const SizedBox(height: 8),
                     _buttonConfirm(),
                     const SizedBox(height: 8),
@@ -74,7 +79,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
     );
   }
 
-  Widget _getListGrades() {
+  Widget _getListGrades(bool isSameDay) {
     return Expanded(
       child: StreamBuilder<List<ExamGradeDTO>>(
         stream: _examBloc.studentsGradesStream,
@@ -86,7 +91,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
                   const Divider(height: 1),
               itemCount: studentsGrades.length,
               itemBuilder: (_, i) {
-                return _listTile(studentsGrades[i]);
+                return _listTile(studentsGrades[i], isSameDay);
               },
             );
           }
@@ -98,7 +103,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
     );
   }
 
-  Widget _listTile(ExamGradeDTO studentGrade) {
+  Widget _listTile(ExamGradeDTO studentGrade, bool isSameDay) {
     return ListTile(
       title: Text(studentGrade.studentName),
       trailing: Container(
@@ -109,6 +114,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
           clipBehavior: Clip.antiAlias,
           borderRadius: BorderRadius.circular(8),
           child: TextFormField(
+            enabled: isSameDay,
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
