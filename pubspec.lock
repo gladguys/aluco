@@ -105,7 +105,7 @@ packages:
       name: dio
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.4"
+    version: "3.0.5"
   email_validator:
     dependency: transitive
     description:
@@ -145,7 +145,7 @@ packages:
       name: flutter_local_notifications
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.4"
+    version: "0.8.4+3"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
@@ -189,7 +189,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: "05fdbfa658d35a846cb4dba7048effd446d4ccb1"
+      resolved-ref: "56c1b626a9ba293a2b36e47cb64562f4fe11e12d"
       url: "git://github.com/rodrigobastosv/gg_flutter_components.git"
     source: git
     version: "0.0.1"
@@ -213,7 +213,7 @@ packages:
       name: image_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.1+11"
+    version: "0.6.2"
   intl:
     dependency: "direct main"
     description:
@@ -283,7 +283,7 @@ packages:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.2"
+    version: "1.4.4"
   pedantic:
     dependency: transitive
     description:
