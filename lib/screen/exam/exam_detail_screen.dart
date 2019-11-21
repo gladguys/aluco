@@ -3,6 +3,7 @@ import 'package:aluco/model/exam_grade_dto.dart';
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:gg_flutter_components/gg_snackbar.dart';
 
 import 'components/details_exam.dart';
 import 'exam_bloc.dart';
@@ -154,7 +155,10 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
         textColor: Colors.white,
         onPressed: snapshot.data == ScreenState.pristine
             ? null
-            : () async => await _examBloc.saveExamGrades(),
+            : () async {
+          await _examBloc.saveExamGrades();
+          GGSnackbar.success(message: 'Notas salvas com sucesso!', context: context);
+        },
       ),
     );
   }
