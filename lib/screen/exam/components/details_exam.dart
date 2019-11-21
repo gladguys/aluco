@@ -1,10 +1,12 @@
 import 'package:aluco/model/exam.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DetailsExam extends StatelessWidget {
-  const DetailsExam(this.exam);
+  DetailsExam(this.exam);
 
   final Exam exam;
+  final dateFormat = DateFormat('dd/MM/yyyy');
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,7 @@ class DetailsExam extends StatelessWidget {
                 'Data de Aplicação: ',
                 style: TextStyle(fontWeight: FontWeight.w500),
               ),
-              Text(exam.examDate?.toString() ?? ''),
+              Text(DateFormat.yMMMMd('pt_br').format(dateFormat.parse(exam.examDate)) ?? ''),
             ],
           ),
         ],
