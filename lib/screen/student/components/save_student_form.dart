@@ -23,7 +23,7 @@ class SaveStudentForm extends StatefulWidget {
 
 class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
   final _formKey = GlobalKey<FormState>();
-  final dateFormat = DateFormat('dd-MM-yyyy');
+  final dateFormat = DateFormat('dd/MM/yyyy');
 
   final registrationNumberFN = FocusNode();
   final birthDateFN = FocusNode();
