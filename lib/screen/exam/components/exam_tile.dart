@@ -6,21 +6,23 @@ import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/button/gg_circle_button.dart';
 import 'package:gg_flutter_components/dialog/gg_confirm_delete_dialog.dart';
 import 'package:gg_flutter_components/dialog/gg_dialog.dart';
+import 'package:intl/intl.dart';
 
 import '../exam_bloc.dart';
 import '../exam_detail_screen.dart';
 import '../save_exam_screen.dart';
 
 class ExamTile extends StatelessWidget {
-  const ExamTile(this.exam);
+  ExamTile(this.exam);
 
   final Exam exam;
+  final dateFormat = DateFormat('dd/MM/yyyy');
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(exam.name ?? ''),
-      subtitle: Text(exam.examDate?.toString() ?? ''),
+      subtitle: Text(DateFormat.yMMMMd('pt_br').format(dateFormat.parse(exam.examDate)) ?? ''),
       onTap: ()  {
         BlocProvider.getBloc<ExamBloc>().pickExam(exam);
         ALRouter.push(context, ExamDetailScreen(exam));
