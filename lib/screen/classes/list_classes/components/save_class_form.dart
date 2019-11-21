@@ -43,7 +43,7 @@ class _SaveClassFormState extends State<SaveClassForm> with GGValidators {
               labelText: 'Nome',
               initialValue: _class.name,
               onSaved: (name) => _class.name = name,
-              validator: emptyValidator,
+              validator: (name) => emptyValidator(name.trim()),
             ),
             FormVerticalSeparator,
             GGOutlinedTextFormField(
