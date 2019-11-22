@@ -1,4 +1,4 @@
-import 'package:aluco/routing/al_router.dart';
+import 'package:aluco/core/routing/al_router.dart';
 import 'package:aluco/screen/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 

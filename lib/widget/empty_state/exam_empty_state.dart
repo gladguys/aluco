@@ -9,12 +9,21 @@ class ExamEmptyState extends StatelessWidget {
       child: Center(
         child: SingleChildScrollView(
           child: Column(
-            children: <Widget>[
-              Icon(Icons.not_interested, size: 120, color: Colors.grey[300],),
-              const SizedBox(height: 32),
-              const Text('Você ainda não cadastrou nenhuma prova', style: TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 32),
-              SaveExamButton(),
+            children: const <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40),
+                child: Text(
+                  'Você ainda não cadastrou nenhuma prova.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              SizedBox(height: 48),
+              SaveExamButton(isFloating: false),
+              SizedBox(height: 8),
             ],
           ),
         ),

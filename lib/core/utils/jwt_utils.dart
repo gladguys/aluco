@@ -1,4 +1,4 @@
-import '../main.dart';
+import '../../main.dart';
 
 class JWTUtils {
 

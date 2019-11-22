@@ -1,5 +1,5 @@
+import 'package:aluco/core/utils/form_utils.dart';
 import 'package:aluco/model/exam.dart';
-import 'package:aluco/utils/form_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sujian_select/select_group.dart';
 import 'package:flutter_sujian_select/select_item.dart';
@@ -22,7 +22,7 @@ class SaveExamForm extends StatefulWidget {
 
 class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
   final _formKey = GlobalKey<FormState>();
-  final dateFormat = DateFormat('dd-MM-yyyy');
+  final dateFormat = DateFormat('dd/MM/yyyy');
 
   Exam _exam;
 
@@ -75,14 +75,13 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
               FormVerticalSeparator,
               Row(
                 children: <Widget>[
-                  const Text('Peso da Prova'),
-                  const SizedBox(width: 32),
+                  const Text('Peso da Prova: '),
                   SelectGroup<int>(
                     index: _exam.weight - 1,
                     selectColor: Theme.of(context).primaryColor,
-                    borderColor: Colors.white,
-                    padding: const EdgeInsets.all(14),
-                    space: const EdgeInsets.all(8),
+                    borderColor: Theme.of(context).primaryColor,
+                    padding: const EdgeInsets.all(16),
+                    space: const EdgeInsets.symmetric(horizontal: 4),
                     items: <SelectItem<int>>[
                       SelectItem(label: '1',value: 1),
                       SelectItem(label: '2',value: 2),

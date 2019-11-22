@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:aluco/screen/signin/signin_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'global_blocs.dart';
+import 'core/bloc/global_blocs.dart';
 import 'theme/main_theme.dart';
 
 SharedPreferences preferences;

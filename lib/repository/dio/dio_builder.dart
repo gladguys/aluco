@@ -1,3 +1,4 @@
+import 'package:aluco/core/interceptor/loading_interceptor.dart';
 import 'package:dio/dio.dart';
 
 import 'package:aluco/repository/api/API.dart';
@@ -13,9 +14,8 @@ class DioBuilder {
 
   static final Dio _dio = Dio()
     ..options.baseUrl = API_URL
-    ..interceptors.add(
-      alice.getDioInterceptor()
-    );
+    ..interceptors.add(alice.getDioInterceptor())
+    ..interceptors.add(LoadingInterceptor());
 
   static void setAuthorizationHeader() {
     getDio().options.headers = config.headers;

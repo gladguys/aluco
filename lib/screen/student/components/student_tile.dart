@@ -1,6 +1,6 @@
+import 'package:aluco/core/routing/al_router.dart';
 import 'package:aluco/enums/gender.dart';
 import 'package:aluco/model/student.dart';
-import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/screen/student/student_bloc.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';

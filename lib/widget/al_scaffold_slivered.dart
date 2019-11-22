@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:gg_flutter_components/loading/gg_loading_double_bounce.dart';
 
-import '../loading_bloc.dart';
+import '../core/bloc/loading_bloc.dart';
 
 class ALScaffoldSlivered extends StatelessWidget {
   const ALScaffoldSlivered({
@@ -65,7 +65,7 @@ class ALScaffoldSlivered extends StatelessWidget {
                   ? null
                   : Text(
                       title,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.w500,
                       ),
                     ),

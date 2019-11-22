@@ -1,5 +1,5 @@
+import 'package:aluco/core/utils/form_utils.dart';
 import 'package:aluco/model/lesson_plan.dart';
-import 'package:aluco/utils/form_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
 import 'package:intl/intl.dart';
@@ -21,7 +21,7 @@ class SaveLessonPlanForm extends StatefulWidget {
 
 class _SaveLessonPlanFormState extends State<SaveLessonPlanForm> with GGValidators {
   final _formKey = GlobalKey<FormState>();
-  final dateFormat = DateFormat('dd-MM-yyyy');
+  final dateFormat = DateFormat('dd/MM/yyyy');
 
   LessonPlan _lessonPlan;
 
