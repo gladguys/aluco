@@ -66,7 +66,7 @@ class _LessonsPlansCalendarState extends State<LessonsPlansCalendar> {
         calendarStyle: CalendarStyle(
           todayColor: theme.primaryColorLight,
           selectedColor: theme.primaryColor,
-          markersColor: theme.accentColor,
+          markersColor: Colors.grey[600],
           markersAlignment: Alignment.bottomRight,
           markersPositionRight: 8,
           outsideStyle: TextStyle(color: Colors.grey[300]),
