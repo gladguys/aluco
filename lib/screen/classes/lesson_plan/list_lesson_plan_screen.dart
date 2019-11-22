@@ -16,25 +16,15 @@ class ListLessonPlanScreen extends StatelessWidget {
       stream: _bloc.classPlannedLessonsController.stream,
       mainWidget: (dynamic lessonsPlans) => ALScaffold(
         title: 'Planos de Aula',
-        body: Column(
-          children: <Widget>[
-            LessonsPlansCalendar(lessonsPlans),
-            const SizedBox(height: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
-                Text(
-                  '* pressione um dia para adicionar ou modificar um plano de aula',
-                  style: TextStyle(fontSize: 18),
-                ),
-                SizedBox(height: 16),
-                Text(
-                  '* pressione um dia por mais tempo para deletar um plano de aula',
-                  style: TextStyle(fontSize: 18),
-                ),
-              ],
-            )
-          ],
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Column(
+            children: <Widget>[
+              const SizedBox(height: 8),
+              LessonsPlansCalendar(lessonsPlans),
+              const SizedBox(height: 8),
+            ],
+          ),
         ),
       ),
     );

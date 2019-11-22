@@ -28,12 +28,9 @@ class _SaveLessonPlanScreenState extends State<SaveLessonPlanScreen> {
   @override
   Widget build(BuildContext context) {
     return ALScaffold(
-      title: 'Adicionar Plano de Aula',
+      title: 'Adicionar Plano',
       body: ListView(
-        children: <Widget>[
-          const SizedBox(height: 18),
-          _saveLessonPlanForm
-        ],
+        children: <Widget>[const SizedBox(height: 18), _saveLessonPlanForm],
       ),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.done),

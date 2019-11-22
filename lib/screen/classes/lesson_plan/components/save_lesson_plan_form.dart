@@ -19,7 +19,8 @@ class SaveLessonPlanForm extends StatefulWidget {
   _SaveLessonPlanFormState createState() => _saveLessonPlanState;
 }
 
-class _SaveLessonPlanFormState extends State<SaveLessonPlanForm> with GGValidators {
+class _SaveLessonPlanFormState extends State<SaveLessonPlanForm>
+    with GGValidators {
   final _formKey = GlobalKey<FormState>();
   final dateFormat = DateFormat('dd/MM/yyyy');
 
@@ -45,7 +46,16 @@ class _SaveLessonPlanFormState extends State<SaveLessonPlanForm> with GGValidato
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('Data: ${_lessonPlan.lessonDate}'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'Data: ',
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                  Text('${_lessonPlan.lessonDate}'),
+                ],
+              ),
               FormVerticalSeparator,
               GGOutlinedTextFormField(
                 labelText: 'Conteúdo',
@@ -86,6 +96,7 @@ class _SaveLessonPlanFormState extends State<SaveLessonPlanForm> with GGValidato
                 onSaved: (notes) => _lessonPlan.notes = notes,
                 minLines: 3,
               ),
+              const SizedBox(height: 80),
             ],
           ),
         ),

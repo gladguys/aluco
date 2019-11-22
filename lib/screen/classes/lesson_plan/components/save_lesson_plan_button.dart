@@ -1,6 +1,5 @@
-import 'package:aluco/model/exam.dart';
+import 'package:aluco/core/routing/al_router.dart';
 import 'package:aluco/model/lesson_plan.dart';
-import 'package:aluco/routing/al_router.dart';
 import 'package:aluco/screen/classes/class_home/class_home_bloc.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';

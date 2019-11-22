@@ -1,6 +1,7 @@
 import 'package:aluco/core/routing/al_router.dart';
 import 'package:aluco/model/lesson_plan.dart';
 import 'package:aluco/screen/classes/class_home/class_home_bloc.dart';
+import 'package:aluco/theme/main_theme.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/dialog/gg_confirm_delete_dialog.dart';
@@ -20,7 +21,6 @@ class LessonsPlansCalendar extends StatefulWidget {
 }
 
 class _LessonsPlansCalendarState extends State<LessonsPlansCalendar> {
-
   final _bloc = BlocProvider.getBloc<ClassHomeBloc>();
   final dateFormat = DateFormat('dd/MM/yyyy');
   CalendarController _calendarController;
@@ -33,16 +33,49 @@ class _LessonsPlansCalendarState extends State<LessonsPlansCalendar> {
 
   @override
   Widget build(BuildContext context) {
-    return TableCalendar(
-      calendarController: _calendarController,
-      locale: 'pt_BR',
-      events: _buildLessonsMap(widget.lessonsPlans),
-      availableCalendarFormats: const {
-        CalendarFormat.month: 'Month',
-      },
-      headerStyle: const HeaderStyle(centerHeaderTitle: true),
-      onDayLongPressed: (date, _) => _onDayLongPressed(date, _),
-      onDaySelected: (date, _) => _onDaySelected(date, _)
+    return Material(
+      color: Colors.white,
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: BorderSide(color: Colors.grey[300]),
+      ),
+      child: TableCalendar(
+        calendarController: _calendarController,
+        locale: 'pt_BR',
+        events: _buildLessonsMap(widget.lessonsPlans),
+        availableCalendarFormats: const {
+          CalendarFormat.week: 'Semana',
+          CalendarFormat.month: 'Mês',
+        },
+        headerStyle: HeaderStyle(
+          headerPadding: null,
+          formatButtonTextStyle: TextStyle(color: Colors.grey[600]),
+          formatButtonDecoration: BoxDecoration(
+            border: Border(
+              top: BorderSide(color: Colors.grey),
+              bottom: BorderSide(color: Colors.grey),
+              left: BorderSide(color: Colors.grey),
+              right: BorderSide(color: Colors.grey),
+            ),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          titleTextBuilder: (DateTime date, dynamic locale) =>
+              DateFormat.yMMM(locale).format(date),
+        ),
+        calendarStyle: CalendarStyle(
+          todayColor: theme.primaryColorLight,
+          selectedColor: theme.primaryColor,
+          markersColor: theme.accentColor,
+          markersAlignment: Alignment.bottomRight,
+          markersPositionRight: 8,
+          outsideStyle: TextStyle(color: Colors.grey[300]),
+          outsideWeekendStyle: TextStyle(color: Colors.red[100]),
+          outsideHolidayStyle: TextStyle(color: Colors.red[100]),
+        ),
+        onDayLongPressed: (date, _) => _onDayLongPressed(date, _),
+        onDaySelected: (date, _) => _onDaySelected(date, _),
+      ),
     );
   }
 
@@ -64,7 +97,8 @@ class _LessonsPlansCalendarState extends State<LessonsPlansCalendar> {
         context,
         GGConfirmDeleteDialog(
           title: 'Remover plano de aula?',
-          onClickYes: () async => await _bloc.deleteLessonPlan(lessonPlanDelete),
+          onClickYes: () async =>
+              await _bloc.deleteLessonPlan(lessonPlanDelete),
         ),
       );
     }
