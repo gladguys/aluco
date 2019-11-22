@@ -27,7 +27,9 @@ class StudentTile extends StatelessWidget {
       ),
       title: Text(_student.name),
       subtitle: _student.email != null
-          ? (_student.email.isNotEmpty ? Text(_student.email) : null)
+          ? (_student.registrationNumber.isNotEmpty
+              ? Text('Matrícula: ${_student.registrationNumber}')
+              : null)
           : null,
       trailing: GGCircleButton(
         icon: Icons.delete,
