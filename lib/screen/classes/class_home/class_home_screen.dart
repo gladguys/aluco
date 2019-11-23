@@ -29,9 +29,11 @@ class _ClassHomeScreenState extends State<ClassHomeScreen> {
     return ALScaffold(
       title: 'Turma',
       subtitle: _bloc.pickedClass.name,
-      body: Padding(
-        padding: const EdgeInsets.only(top: 24.0),
-        child: ClassHomeActions(),
+      body: Column(
+        children: <Widget>[
+          const SizedBox(height: 24),
+          ClassHomeActions(),
+        ],
       ),
     );
   }
