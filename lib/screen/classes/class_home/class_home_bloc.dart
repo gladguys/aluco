@@ -14,7 +14,7 @@ class ClassHomeBloc extends BlocBase {
       BehaviorSubject<List<LessonPlan>>.seeded([]);
   final _lessonRepository = LessonRepository(LESSON, LessonPlan());
   final _studentRepository = StudentRepository(STUDENT, Student());
-  final dateFormat = DateFormat('dd-MM-yyyy');
+  final dateFormat = DateFormat('dd/MM/yyyy');
   Class _class;
 
   Class get pickedClass => _class;
