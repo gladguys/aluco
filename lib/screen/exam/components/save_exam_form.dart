@@ -63,9 +63,10 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
               ),
               FormVerticalSeparator,
               GGFormDatePicker(
-                labelText: 'Data da Prova',
+                labelText: 'Data da Prova *',
                 format: dateFormat,
                 initialDate: _exam.examDate != null ? dateFormat.parse(_exam.examDate) : null,
+                validator: emptyDateTimeValidator,
                 onChanged: (examDate) {
                   if (examDate != null) {
                     _exam.examDate = dateFormat?.format(examDate);
