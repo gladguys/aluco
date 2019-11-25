@@ -19,13 +19,10 @@ class ClassRepository extends BaseRepository<Class>
   Future<List<Student>> getStudentsByClass(int classId) async {
     try {
       final response = await _dio.get<dynamic>('$basePath/$classId/$STUDENT');
-      return List.generate(
-        response.data.length,
-        (int i) {
-          final student = Student();
-          return student.fromJson(response.data[i]);
-        },
-      );
+      return List.generate(response.data.length, (int i) {
+        final student = Student();
+        return student.fromJson(response.data[i]);
+      });
     } catch (e) {
       rethrow;
     }
