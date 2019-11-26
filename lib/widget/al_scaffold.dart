@@ -1,4 +1,5 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/loading/gg_loading_double_bounce.dart';
@@ -6,6 +7,7 @@ import 'package:gg_flutter_components/loading/gg_loading_double_bounce.dart';
 import '../core/bloc/linear_loading_bloc.dart';
 import '../core/bloc/loading_bloc.dart';
 import 'al_debug_http_button.dart';
+import 'al_logout_button.dart';
 
 class ALScaffold extends StatelessWidget {
   const ALScaffold({
@@ -101,6 +103,6 @@ class ALScaffold extends StatelessWidget {
     if (kReleaseMode) {
       return actions;
     }
-    return [...actions ?? [], ALDebugHttpButton()];
+    return [...actions ?? [], ALDebugHttpButton(), ALLogoutButton()];
   }
 }
