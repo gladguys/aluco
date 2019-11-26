@@ -4,4 +4,5 @@ const CLASS = 'classes';
 const EXAM = 'exams';
 const GRADE = 'grades';
 const STUDENT = 'students';
+const LESSON = 'lessons';
 const TEACHER = 'teachers';

@@ -26,6 +26,7 @@ dependencies:
   rxdart: ^0.22.4
   connectivity: ^0.4.5+1
   circular_check_box: ^1.0.1
+  table_calendar: ^2.2.1
   line_icons: ^0.2.0
   shared_preferences: ^0.5.4
   flutter_masked_text: ^0.8.0

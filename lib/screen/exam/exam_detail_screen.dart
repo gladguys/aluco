@@ -180,7 +180,10 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
         textColor: Colors.white,
         onPressed: snapshot.data == ScreenState.pristine
             ? null
-            : () async => await _examBloc.saveExamGrades(),
+            : () async {
+          await _examBloc.saveExamGrades();
+          GGSnackbar.success(message: 'Notas salvas com sucesso!', context: context);
+        },
       ),
     );
   }
