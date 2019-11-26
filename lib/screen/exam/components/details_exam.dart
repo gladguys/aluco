@@ -54,10 +54,10 @@ class DetailsExam extends StatelessWidget {
               Text(exam.weight?.toString() ?? ''),
               const SizedBox(width: 16),
               const Text(
-                'Data de Aplicação: ',
+                'Aplicação: ',
                 style: TextStyle(fontWeight: FontWeight.w500),
               ),
-              Text(DateFormat.yMMMMd('pt_br').format(dateFormat.parse(exam.examDate)) ?? ''),
+              Text(DateFormat('d MMM y', 'pt_br').format(dateFormat.parse(exam.examDate)) ?? ''),
             ],
           ),
         ],

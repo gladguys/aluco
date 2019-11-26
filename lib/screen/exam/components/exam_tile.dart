@@ -22,7 +22,7 @@ class ExamTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(exam.name ?? ''),
-      subtitle: Text(DateFormat.yMMMMd('pt_br').format(dateFormat.parse(exam.examDate)) ?? ''),
+      subtitle: Text(DateFormat('d MMM y', 'pt_br').format(dateFormat.parse(exam.examDate)) ?? ''),
       onTap: ()  {
         BlocProvider.getBloc<ExamBloc>().pickExam(exam);
         ALRouter.push(context, ExamDetailScreen(exam));
