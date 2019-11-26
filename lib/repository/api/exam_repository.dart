@@ -24,11 +24,15 @@ class ExamRepository extends BaseRepository<Exam>
 
   @override
   Future<List<ExamGradeDTO>> getGradesByExam(int examId) async {
-    final Response response = await _dio.get<dynamic>('$EXAM/$examId/$GRADE');
-    return List.generate(
-      response.data.length,
-      (i) => ExamGradeDTO.fromJson(response.data[i]),
-    );
+    try {
+      final Response response = await _dio.get<dynamic>('$EXAM/$examId/$GRADE');
+      return List.generate(
+        response.data.length,
+            (i) => ExamGradeDTO.fromJson(response.data[i]),
+      );
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
