@@ -6,3 +6,4 @@ const GRADE = 'grades';
 const STUDENT = 'students';
 const LESSON = 'lessons';
 const TEACHER = 'teachers';
+const PROFILES = 'profiles';
