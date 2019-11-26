@@ -1,8 +1,10 @@
 import 'package:aluco/model/exam.dart';
 import 'package:aluco/model/exam_grade_dto.dart';
+import 'package:aluco/utils/al_number_format.dart';
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:gg_flutter_components/gg_snackbar.dart';
 
 import 'components/details_exam.dart';
@@ -21,10 +23,31 @@ class ExamDetailScreen extends StatefulWidget {
 class _ExamDetailScreenState extends State<ExamDetailScreen> {
   final _examBloc = BlocProvider.getBloc<ExamBloc>();
   final _screenBloc = ExamDetailScreenBloc();
+  MaskedTextController _gradeController;
 
   @override
   void initState() {
     super.initState();
+
+    _gradeController = MaskedTextController(mask: '0,00');
+
+    _gradeController.beforeChange = (String previous, String next) {
+      if (next.length == 4) {
+        _gradeController.updateMask('0,00');
+      } else if (next.length == 5) {
+        _gradeController.updateMask('00,00');
+
+        final double nextNumber =
+            double.parse(ALNumberFormat.convertToDefaultDecimal(next));
+        if (nextNumber < 0 || nextNumber > 10) {
+          _gradeController.updateText(previous);
+          return false;
+        }
+      }
+
+      return true;
+    };
+
     getGradesByExam(widget.exam.id);
   }
 
@@ -110,6 +133,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
           clipBehavior: Clip.antiAlias,
           borderRadius: BorderRadius.circular(8),
           child: TextFormField(
+            controller: _gradeController,
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
@@ -123,9 +147,9 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
               ),
               fillColor: Colors.grey[200],
             ),
-            initialValue: studentGrade.grade != null
-                ? studentGrade.grade.toStringAsFixed(2)
-                : '',
+            // initialValue: studentGrade.grade != null
+            //     ? studentGrade.grade.toStringAsFixed(2)
+            //     : '',
             onChanged: (grade) {
               _examBloc.updateGrade(
                 studentGrade,
@@ -156,15 +180,19 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
         onPressed: snapshot.data == ScreenState.pristine
             ? null
             : () async {
-          await _examBloc.saveExamGrades();
-          GGSnackbar.success(message: 'Notas salvas com sucesso!', context: context);
-        },
+                await _examBloc.saveExamGrades();
+                GGSnackbar.success(
+                  message: 'Notas salvas com sucesso!',
+                  context: context,
+                );
+              },
       ),
     );
   }
 
   @override
   void dispose() {
+    _gradeController.dispose();
     _examBloc.cleanStudentesGrades();
     _screenBloc.dispose();
     super.dispose();
