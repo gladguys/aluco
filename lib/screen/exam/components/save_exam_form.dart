@@ -22,7 +22,7 @@ class SaveExamForm extends StatefulWidget {
 
 class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
   final _formKey = GlobalKey<FormState>();
-  final dateFormat = DateFormat('dd-MM-yyyy');
+  final dateFormat = DateFormat('dd/MM/yyyy');
 
   Exam _exam;
 
