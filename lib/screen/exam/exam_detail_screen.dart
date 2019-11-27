@@ -5,10 +5,12 @@ import 'package:aluco/utils/al_number_format.dart';
 import 'package:aluco/screen/classes/class_home/class_home_bloc.dart';
 import 'package:aluco/screen/exam/save_exam_screen.dart';
 import 'package:aluco/widget/al_scaffold.dart';
+import 'package:aluco/widget/empty_state/exam_grade_student_empty_state.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:gg_flutter_components/gg_snackbar.dart';
+import 'package:gg_flutter_components/loading/gg_loading_double_bounce.dart';
 import 'package:intl/intl.dart';
 
 import 'components/details_exam.dart';
@@ -75,14 +77,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
                   border: Border.all(color: Colors.grey[300]),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Column(
-                  children: <Widget>[
-                    _getListGrades(isSameDay),
-                    const SizedBox(height: 8),
-                    _buttonConfirm(),
-                    const SizedBox(height: 8),
-                  ],
-                ),
+                child: _getListGrades(isSameDay),
               ),
             ),
           ],
@@ -92,52 +87,77 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
   }
 
   Widget _getListGrades(bool isSameDay) {
-    return Expanded(
-      child: StreamBuilder<List<ExamGradeDTO>>(
-        stream: _examBloc.studentsGradesStream,
-        builder: (_, snapshot) {
-          if (snapshot.hasData) {
-            final studentsGrades = snapshot.data;
+    return StreamBuilder<List<ExamGradeDTO>>(
+      stream: _examBloc.studentsGradesStream,
+      builder: (_, snapshot) {
+        if (snapshot.hasData) {
+          final studentsGrades = snapshot.data;
+          return studentsGrades.isNotEmpty
+              ? _listAndButton(studentsGrades, isSameDay)
+              : ExamGradeStudentEmptyState();
+        }
+        return const GGLoadingDoubleBounce();
+      },
+    );
+  }
 
-            for (ExamGradeDTO examGrade in studentsGrades) {
-              final gradeController = MaskedTextController(
-                  mask: '0,00',
-                  text: ALNumberFormat.convertToDefaultDecimal(
-                      examGrade.grade.toStringAsFixed(2)));
+  Widget _listAndButton(List<ExamGradeDTO> studentsGrades, bool isSameDay) {
+    return Column(
+      children: <Widget>[
+        Expanded(
+          child: StreamBuilder<List<ExamGradeDTO>>(
+            stream: _examBloc.studentsGradesStream,
+            builder: (_, snapshot) {
+              if (snapshot.hasData) {
+                final studentsGrades = snapshot.data;
 
-              gradeController.beforeChange = (String previous, String next) {
-                if (next.length == 4) {
-                  gradeController.updateMask('0,00');
-                } else if (next.length == 5) {
-                  gradeController.updateMask('00,00');
+                for (ExamGradeDTO examGrade in studentsGrades) {
+                  final gradeController = MaskedTextController(
+                    mask: '0,00',
+                    text: ALNumberFormat.convertToDefaultDecimal(
+                      examGrade.grade?.toStringAsFixed(2),
+                    ),
+                  );
 
-                  final double nextNumber = double.parse(
-                      ALNumberFormat.convertToDefaultDecimal(next));
-                  if (nextNumber < 0 || nextNumber > 10) {
-                    gradeController.updateText(previous);
-                    return false;
-                  }
+                  gradeController.beforeChange =
+                      (String previous, String next) {
+                    if (next.length == 4) {
+                      gradeController.updateMask('0,00');
+                    } else if (next.length == 5) {
+                      gradeController.updateMask('00,00');
+
+                      final double nextNumber = double.parse(
+                          ALNumberFormat.convertToDefaultDecimal(next));
+                      if (nextNumber < 0 || nextNumber > 10) {
+                        gradeController.updateText(previous);
+                        return false;
+                      }
+                    }
+
+                    return true;
+                  };
+
+                  _gradeControllerList.add(gradeController);
                 }
 
-                return true;
-              };
-
-              _gradeControllerList.add(gradeController);
-            }
-
-            return ListView.separated(
-              separatorBuilder: (BuildContext context, int i) =>
-                  const Divider(height: 1),
-              itemCount: studentsGrades.length,
-              itemBuilder: (_, i) =>
-                return _listTile(studentsGrades[i], i, isSameDay),
-            );
-          }
-          return Center(
-            child: const Text('Carregando Notas...'),
-          );
-        },
-      ),
+                return ListView.separated(
+                  separatorBuilder: (BuildContext context, int i) =>
+                      const Divider(height: 1),
+                  itemCount: studentsGrades.length,
+                  itemBuilder: (_, i) =>
+                      _listTile(studentsGrades[i], i, isSameDay),
+                );
+              }
+              return Center(
+                child: const Text('Carregando Notas...'),
+              );
+            },
+          ),
+        ),
+        const SizedBox(height: 8),
+        _buttonConfirm(),
+        const SizedBox(height: 8),
+      ],
     );
   }
 
