@@ -1,9 +1,11 @@
 import 'package:aluco/model/exam.dart';
 import 'package:aluco/model/exam_grade_dto.dart';
 import 'package:aluco/widget/al_scaffold.dart';
+import 'package:aluco/widget/empty_state/exam_grade_student_empty_state.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/gg_snackbar.dart';
+import 'package:gg_flutter_components/loading/gg_loading_double_bounce.dart';
 
 import 'components/details_exam.dart';
 import 'exam_bloc.dart';
@@ -59,14 +61,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
                   border: Border.all(color: Colors.grey[300]),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Column(
-                  children: <Widget>[
-                    _getListGrades(),
-                    const SizedBox(height: 8),
-                    _buttonConfirm(),
-                    const SizedBox(height: 8),
-                  ],
-                ),
+                child: _getListGrades(),
               ),
             ),
           ],
@@ -76,26 +71,37 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
   }
 
   Widget _getListGrades() {
-    return Expanded(
-      child: StreamBuilder<List<ExamGradeDTO>>(
-        stream: _examBloc.studentsGradesStream,
-        builder: (_, snapshot) {
-          if (snapshot.hasData) {
-            final studentsGrades = snapshot.data;
-            return ListView.separated(
-              separatorBuilder: (BuildContext context, int i) =>
-                  const Divider(height: 1),
-              itemCount: studentsGrades.length,
-              itemBuilder: (_, i) {
-                return _listTile(studentsGrades[i]);
-              },
-            );
-          }
-          return Center(
-            child: const Text('Carregando Notas...'),
-          );
-        },
-      ),
+    return StreamBuilder<List<ExamGradeDTO>>(
+      stream: _examBloc.studentsGradesStream,
+      builder: (_, snapshot) {
+        if (snapshot.hasData) {
+          final studentsGrades = snapshot.data;
+          return studentsGrades.isNotEmpty
+              ? _listAndButton(studentsGrades)
+              : ExamGradeStudentEmptyState();
+        }
+        return const GGLoadingDoubleBounce();
+      },
+    );
+  }
+
+  Widget _listAndButton(List<ExamGradeDTO> studentsGrades) {
+    return Column(
+      children: <Widget>[
+        Expanded(
+          child: ListView.separated(
+            separatorBuilder: (BuildContext context, int i) =>
+                const Divider(height: 1),
+            itemCount: studentsGrades.length,
+            itemBuilder: (_, i) {
+              return _listTile(studentsGrades[i]);
+            },
+          ),
+        ),
+        const SizedBox(height: 8),
+        _buttonConfirm(),
+        const SizedBox(height: 8),
+      ],
     );
   }
 
@@ -156,9 +162,12 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
         onPressed: snapshot.data == ScreenState.pristine
             ? null
             : () async {
-          await _examBloc.saveExamGrades();
-          GGSnackbar.success(message: 'Notas salvas com sucesso!', context: context);
-        },
+                await _examBloc.saveExamGrades();
+                GGSnackbar.success(
+                  message: 'Notas salvas com sucesso!',
+                  context: context,
+                );
+              },
       ),
     );
   }
