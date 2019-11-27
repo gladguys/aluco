@@ -7,8 +7,8 @@ import '../../screen/exam/exam_bloc.dart';
 import '../../screen/signin/signin_bloc.dart';
 import '../../screen/student/student_bloc.dart';
 
-import 'loading_bloc.dart';
 import 'linear_loading_bloc.dart';
+import 'loading_bloc.dart';
 
 final globalBlocs = [
   Bloc((i) => SigninBloc()),
