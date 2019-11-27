@@ -4,11 +4,10 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'profile_image_picker.dart';
 
 final initialPage = PageViewModel(
-  decoration: PageDecoration(
-      pageColor: Colors.grey[100]
-  ),
+  decoration: PageDecoration(pageColor: Colors.grey[100]),
   title: '',
-  bodyWidget: const Text('Aluco é um aplicativo blah blah blah pra fazer bluh blub bluh com os cru cru cru'),
+  bodyWidget: const Text(
+      'Aluco é um aplicativo blah blah blah pra fazer bluh blub bluh com os cru cru cru'),
   image: Image.asset('assets/images/owl.png'),
 );
 
@@ -18,7 +17,8 @@ final profilePhotoPage = PageViewModel(
     children: <Widget>[
       ProfileImagePicker(),
       const SizedBox(height: 80),
-      const Text('Você deseja adicionar uma foto sua? Adicionar uma foto sua pode tornar a experiência de uso mais pessoal.'),
+      const Text(
+          'Você deseja adicionar uma foto sua? Adicionar uma foto sua pode tornar a experiência de uso mais pessoal.'),
     ],
   ),
 );
@@ -34,8 +34,4 @@ final helperPage = PageViewModel(
   image: const Center(child: Icon(Icons.android)),
 );
 
-final pages = [
-  initialPage,
-  profilePhotoPage,
-  helperPage
-];
+final pages = [initialPage, profilePhotoPage, helperPage];
