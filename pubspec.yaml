@@ -31,6 +31,7 @@ dependencies:
   shared_preferences: ^0.5.4
   flutter_masked_text: ^0.8.0
   introduction_screen: ^1.0.7
+  connectivity_alert_widget: ^1.0.0
   gg_flutter_components:
     git:
       url: git://github.com/rodrigobastosv/gg_flutter_components.git
