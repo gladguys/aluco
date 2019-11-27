@@ -1,4 +1,6 @@
 import 'package:alice/alice.dart';
+import 'package:aluco/core/utils/jwt_utils.dart';
+import 'package:aluco/screen/home/home_screen.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +54,7 @@ class _MyAppState extends State<MyApp> {
         supportedLocales: const <Locale>[
           Locale('pt', 'BR'),
         ],
-        home: SigninScreen(),
+        home: JWTUtils.userAlreadySignedIn() ? HomeScreen() : SigninScreen(),
       ),
     );
   }
