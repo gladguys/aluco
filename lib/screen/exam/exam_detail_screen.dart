@@ -1,11 +1,13 @@
 import 'package:aluco/core/routing/al_router.dart';
 import 'package:aluco/model/exam.dart';
 import 'package:aluco/model/exam_grade_dto.dart';
+import 'package:aluco/utils/al_number_format.dart';
 import 'package:aluco/screen/classes/class_home/class_home_bloc.dart';
 import 'package:aluco/screen/exam/save_exam_screen.dart';
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:gg_flutter_components/gg_snackbar.dart';
 import 'package:intl/intl.dart';
 
@@ -26,10 +28,14 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
   final _examBloc = BlocProvider.getBloc<ExamBloc>();
   final _screenBloc = ExamDetailScreenBloc();
   final dateFormat = DateFormat('dd/MM/yyyy');
+  List<MaskedTextController> _gradeControllerList;
 
   @override
   void initState() {
     super.initState();
+
+    _gradeControllerList = [];
+
     getGradesByExam(widget.exam.id);
   }
 
@@ -92,13 +98,39 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
         builder: (_, snapshot) {
           if (snapshot.hasData) {
             final studentsGrades = snapshot.data;
+
+            for (ExamGradeDTO examGrade in studentsGrades) {
+              final gradeController = MaskedTextController(
+                  mask: '0,00',
+                  text: ALNumberFormat.convertToDefaultDecimal(
+                      examGrade.grade.toStringAsFixed(2)));
+
+              gradeController.beforeChange = (String previous, String next) {
+                if (next.length == 4) {
+                  gradeController.updateMask('0,00');
+                } else if (next.length == 5) {
+                  gradeController.updateMask('00,00');
+
+                  final double nextNumber = double.parse(
+                      ALNumberFormat.convertToDefaultDecimal(next));
+                  if (nextNumber < 0 || nextNumber > 10) {
+                    gradeController.updateText(previous);
+                    return false;
+                  }
+                }
+
+                return true;
+              };
+
+              _gradeControllerList.add(gradeController);
+            }
+
             return ListView.separated(
               separatorBuilder: (BuildContext context, int i) =>
                   const Divider(height: 1),
               itemCount: studentsGrades.length,
-              itemBuilder: (_, i) {
-                return _listTile(studentsGrades[i], isSameDay);
-              },
+              itemBuilder: (_, i) =>
+                return _listTile(studentsGrades[i], i, isSameDay),
             );
           }
           return Center(
@@ -109,7 +141,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
     );
   }
 
-  Widget _listTile(ExamGradeDTO studentGrade, bool isSameDay) {
+  Widget _listTile(ExamGradeDTO studentGrade, int i, bool isSameDay) {
     return ListTile(
       title: Text(studentGrade.studentName),
       trailing: Container(
@@ -120,6 +152,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
           clipBehavior: Clip.antiAlias,
           borderRadius: BorderRadius.circular(8),
           child: TextFormField(
+            controller: _gradeControllerList[i],
             readOnly: !isSameDay,
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,
@@ -134,13 +167,14 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
               ),
               fillColor: Colors.grey[200],
             ),
-            initialValue: studentGrade.grade != null
-                ? studentGrade.grade.toStringAsFixed(2)
-                : '',
             onChanged: (grade) {
+              final gradeText = _gradeControllerList[i].text;
               _examBloc.updateGrade(
                 studentGrade,
-                (grade != null && grade != '') ? double.parse(grade) : null,
+                (gradeText != null && gradeText != '')
+                    ? double.parse(
+                        ALNumberFormat.convertToDefaultDecimal(gradeText))
+                    : null,
               );
               _screenBloc.setIsDirty();
             },
@@ -181,9 +215,12 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
         onPressed: snapshot.data == ScreenState.pristine
             ? null
             : () async {
-          await _examBloc.saveExamGrades();
-          GGSnackbar.success(message: 'Notas salvas com sucesso!', context: context);
-        },
+                await _examBloc.saveExamGrades();
+                GGSnackbar.success(
+                  message: 'Notas salvas com sucesso!',
+                  context: context,
+                );
+              },
       ),
     );
   }
@@ -198,6 +235,9 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
 
   @override
   void dispose() {
+    for (MaskedTextController gradeController in _gradeControllerList) {
+      gradeController.dispose();
+    }
     _examBloc.cleanStudentesGrades();
     _screenBloc.dispose();
     super.dispose();
