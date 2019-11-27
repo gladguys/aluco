@@ -2,7 +2,6 @@ import 'package:alice/alice.dart';
 import 'package:aluco/core/utils/jwt_utils.dart';
 import 'package:aluco/screen/home/home_screen.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 
 import 'package:aluco/screen/signin/signin_screen.dart';
@@ -24,21 +23,7 @@ Future<void> initializePreferences() async {
   preferences = await SharedPreferences.getInstance();
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  final _subscription = Connectivity().onConnectivityChanged.listen((result) {
-    // TODO(rodrigo): create better way to notificate this
-    if (result == ConnectivityResult.none) {
-      print('sem net');
-    } else {
-      print('com net');
-    }
-  });
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -57,11 +42,5 @@ class _MyAppState extends State<MyApp> {
         home: JWTUtils.userAlreadySignedIn() ? HomeScreen() : SigninScreen(),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _subscription.cancel();
   }
 }
