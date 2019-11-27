@@ -8,6 +8,10 @@ class JWTUtils {
     await preferences.setString('username', loggedUserData['username']);
   }
 
+  static bool userAlreadySignedIn() {
+    return getToken != null;
+  }
+
   static String getToken() {
     return preferences.getString('token');
   }
