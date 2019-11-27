@@ -1,4 +1,5 @@
 import 'package:aluco/core/utils/jwt_utils.dart';
+import 'package:aluco/core/utils/pref_utils.dart';
 import 'package:aluco/repository/api/auth_repository.dart';
 
 import 'package:bloc_pattern/bloc_pattern.dart';
@@ -33,6 +34,10 @@ class SigninBloc extends BlocBase {
 
   Future<void> storeJWTInfo(Map<String, dynamic> loggedUserData) async {
     await JWTUtils.storeInfo(loggedUserData);
+  }
+
+  Future<void> markFirstLoginDone() async {
+    await PrefUtils.setIsFirstLoginDone(true);
   }
 
   @override

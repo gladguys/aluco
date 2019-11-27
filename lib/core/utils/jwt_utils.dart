@@ -1,26 +1,26 @@
-import '../../main.dart';
+import 'pref_utils.dart';
 
 class JWTUtils {
 
   static Future<void> storeInfo(Map<String, dynamic> loggedUserData) async {
-    await preferences.setInt('userId', loggedUserData['userId']);
-    await preferences.setString('token', loggedUserData['token']);
-    await preferences.setString('username', loggedUserData['username']);
+    await PrefUtils.setUserId(loggedUserData['userId']);
+    await PrefUtils.setUsername(loggedUserData['username']);
+    await PrefUtils.setToken(loggedUserData['token']);
   }
 
   static bool userAlreadySignedIn() {
-    return getToken != null;
+    return getToken() != null;
   }
 
   static String getToken() {
-    return preferences.getString('token');
+    return PrefUtils.getToken();
   }
 
   static String getUsername() {
-    return preferences.getString('username');
+    return PrefUtils.getUsername();
   }
 
   static int getTeacherId() {
-    return preferences.getInt('userId');
+    return PrefUtils.getTeacherId();
   }
 }
