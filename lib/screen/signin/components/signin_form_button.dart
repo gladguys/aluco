@@ -1,6 +1,8 @@
 import 'package:aluco/core/routing/al_router.dart';
 import 'package:aluco/core/utils/form_utils.dart';
+import 'package:aluco/core/utils/pref_utils.dart';
 import 'package:aluco/screen/home/home_screen.dart';
+import 'package:aluco/screen/intro/into_screen.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/gg_snackbar.dart';
@@ -62,7 +64,11 @@ class _SigninFormButtonState extends State<SigninFormButton> {
               await _bloc.tryToSigninUser(widget.signinForm.data);
           if (loggedUserData != null) {
             await _bloc.storeJWTInfo(loggedUserData);
-            ALRouter.pushAndReplace(context, HomeScreen());
+            if (PrefUtils.isFirstLoginDone()) {
+              ALRouter.pushAndReplace(context, HomeScreen());
+            } else {
+              ALRouter.pushAndReplace(context, IntroScreen());
+            }
           }
         }
       },

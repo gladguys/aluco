@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         supportedLocales: const <Locale>[
           Locale('pt', 'BR'),
         ],
-        home: JWTUtils.userAlreadySignedIn() ? HomeScreen() : SigninScreen(),
+        home:  JWTUtils.userAlreadySignedIn() ? HomeScreen() : SigninScreen(),
       ),
     );
   }
