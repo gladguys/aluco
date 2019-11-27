@@ -20,7 +20,7 @@ dependencies:
   alice: ^0.0.17
   image_picker: ^0.6.1+8
   gender_selector: ^1.0.6
-  dio: ^3.0.7
+  dio: 3.0.3
   flutter_sujian_select: ^1.0.1
   mask_text_input_formatter: ^1.0.5
   rxdart: ^0.22.4
