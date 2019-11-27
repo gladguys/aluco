@@ -5,6 +5,7 @@ import 'package:gg_flutter_components/loading/gg_loading_double_bounce.dart';
 
 import '../core/bloc/linear_loading_bloc.dart';
 import '../core/bloc/loading_bloc.dart';
+import 'al_connectivity_alert.dart';
 import 'al_debug_http_button.dart';
 
 class ALScaffold extends StatelessWidget {
@@ -99,8 +100,8 @@ class ALScaffold extends StatelessWidget {
 
   List<Widget> _getActions() {
     if (kReleaseMode) {
-      return actions;
+      return [...actions ?? [], ALConnectivityAlert()];
     }
-    return [...actions ?? [], ALDebugHttpButton()];
+    return [...actions ?? [], ALDebugHttpButton(), ALConnectivityAlert()];
   }
 }
