@@ -1,6 +1,5 @@
 import 'package:aluco/core/utils/jwt_utils.dart';
 import 'package:aluco/repository/api/auth_repository.dart';
-import 'package:aluco/repository/dio/dio_builder.dart';
 
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:dio/dio.dart';
@@ -34,10 +33,6 @@ class SigninBloc extends BlocBase {
 
   Future<void> storeJWTInfo(Map<String, dynamic> loggedUserData) async {
     await JWTUtils.storeInfo(loggedUserData);
-  }
-
-  void setAuthorizationHeader() {
-    DioBuilder.setAuthorizationHeader();
   }
 
   @override

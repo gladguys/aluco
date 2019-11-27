@@ -33,6 +33,6 @@ class ALNumberFormat {
   }
 
   static String convertToDefaultDecimal(String number) {
-    return number.replaceAll(',', '.');
+    return number?.replaceAll(',', '.') ?? '';
   }
 }

@@ -1,11 +1,17 @@
+import 'package:aluco/core/routing/al_router.dart';
 import 'package:aluco/model/exam.dart';
 import 'package:aluco/model/exam_grade_dto.dart';
+import 'package:aluco/utils/al_number_format.dart';
+import 'package:aluco/screen/classes/class_home/class_home_bloc.dart';
+import 'package:aluco/screen/exam/save_exam_screen.dart';
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:aluco/widget/empty_state/exam_grade_student_empty_state.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:gg_flutter_components/gg_snackbar.dart';
 import 'package:gg_flutter_components/loading/gg_loading_double_bounce.dart';
+import 'package:intl/intl.dart';
 
 import 'components/details_exam.dart';
 import 'exam_bloc.dart';
@@ -23,10 +29,15 @@ class ExamDetailScreen extends StatefulWidget {
 class _ExamDetailScreenState extends State<ExamDetailScreen> {
   final _examBloc = BlocProvider.getBloc<ExamBloc>();
   final _screenBloc = ExamDetailScreenBloc();
+  final dateFormat = DateFormat('dd/MM/yyyy');
+  List<MaskedTextController> _gradeControllerList;
 
   @override
   void initState() {
     super.initState();
+
+    _gradeControllerList = [];
+
     getGradesByExam(widget.exam.id);
   }
 
@@ -35,6 +46,11 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final nowString = dateFormat.format(DateTime.now());
+    final isSameDay = dateFormat
+        .parse(widget.exam.examDate)
+        .isAtSameMomentAs(dateFormat.parse(nowString));
+
     return ALScaffold(
       title: 'Prova',
       body: Padding(
@@ -61,7 +77,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
                   border: Border.all(color: Colors.grey[300]),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: _getListGrades(),
+                child: _getListGrades(isSameDay),
               ),
             ),
           ],
@@ -70,14 +86,14 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
     );
   }
 
-  Widget _getListGrades() {
+  Widget _getListGrades(bool isSameDay) {
     return StreamBuilder<List<ExamGradeDTO>>(
       stream: _examBloc.studentsGradesStream,
       builder: (_, snapshot) {
         if (snapshot.hasData) {
           final studentsGrades = snapshot.data;
           return studentsGrades.isNotEmpty
-              ? _listAndButton(studentsGrades)
+              ? _listAndButton(studentsGrades, isSameDay)
               : ExamGradeStudentEmptyState();
         }
         return const GGLoadingDoubleBounce();
@@ -85,16 +101,56 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
     );
   }
 
-  Widget _listAndButton(List<ExamGradeDTO> studentsGrades) {
+  Widget _listAndButton(List<ExamGradeDTO> studentsGrades, bool isSameDay) {
     return Column(
       children: <Widget>[
         Expanded(
-          child: ListView.separated(
-            separatorBuilder: (BuildContext context, int i) =>
-                const Divider(height: 1),
-            itemCount: studentsGrades.length,
-            itemBuilder: (_, i) {
-              return _listTile(studentsGrades[i]);
+          child: StreamBuilder<List<ExamGradeDTO>>(
+            stream: _examBloc.studentsGradesStream,
+            builder: (_, snapshot) {
+              if (snapshot.hasData) {
+                final studentsGrades = snapshot.data;
+
+                for (ExamGradeDTO examGrade in studentsGrades) {
+                  final gradeController = MaskedTextController(
+                    mask: '0,00',
+                    text: ALNumberFormat.convertToDefaultDecimal(
+                      examGrade.grade?.toStringAsFixed(2),
+                    ),
+                  );
+
+                  gradeController.beforeChange =
+                      (String previous, String next) {
+                    if (next.length == 4) {
+                      gradeController.updateMask('0,00');
+                    } else if (next.length == 5) {
+                      gradeController.updateMask('00,00');
+
+                      final double nextNumber = double.parse(
+                          ALNumberFormat.convertToDefaultDecimal(next));
+                      if (nextNumber < 0 || nextNumber > 10) {
+                        gradeController.updateText(previous);
+                        return false;
+                      }
+                    }
+
+                    return true;
+                  };
+
+                  _gradeControllerList.add(gradeController);
+                }
+
+                return ListView.separated(
+                  separatorBuilder: (BuildContext context, int i) =>
+                      const Divider(height: 1),
+                  itemCount: studentsGrades.length,
+                  itemBuilder: (_, i) =>
+                      _listTile(studentsGrades[i], i, isSameDay),
+                );
+              }
+              return Center(
+                child: const Text('Carregando Notas...'),
+              );
             },
           ),
         ),
@@ -105,7 +161,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
     );
   }
 
-  Widget _listTile(ExamGradeDTO studentGrade) {
+  Widget _listTile(ExamGradeDTO studentGrade, int i, bool isSameDay) {
     return ListTile(
       title: Text(studentGrade.studentName),
       trailing: Container(
@@ -116,6 +172,8 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
           clipBehavior: Clip.antiAlias,
           borderRadius: BorderRadius.circular(8),
           child: TextFormField(
+            controller: _gradeControllerList[i],
+            readOnly: !isSameDay,
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
@@ -129,15 +187,30 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
               ),
               fillColor: Colors.grey[200],
             ),
-            initialValue: studentGrade.grade != null
-                ? studentGrade.grade.toStringAsFixed(2)
-                : '',
             onChanged: (grade) {
+              final gradeText = _gradeControllerList[i].text;
               _examBloc.updateGrade(
                 studentGrade,
-                (grade != null && grade != '') ? double.parse(grade) : null,
+                (gradeText != null && gradeText != '')
+                    ? double.parse(
+                        ALNumberFormat.convertToDefaultDecimal(gradeText))
+                    : null,
               );
               _screenBloc.setIsDirty();
+            },
+            onTap: () {
+              if (!isSameDay) {
+                GGSnackbar.warning(
+                  context: context,
+                  title: 'Atenção',
+                  message:
+                      'As notas só podem ser lançadas no dia ou após a data de aplicação da prova.',
+                  mainButtonText: 'ALTERAR\nDATA',
+                  mainButtonOnPressed: () {
+                    navigateToEdit(context, widget.exam);
+                  },
+                );
+              }
             },
           ),
         ),
@@ -172,8 +245,19 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
     );
   }
 
+  Future<void> navigateToEdit(BuildContext context, Exam exam) async {
+    final Exam examToSave = await ALRouter.push(context, SaveExamScreen(exam));
+    final classId = BlocProvider.getBloc<ClassHomeBloc>().pickedClass.id;
+    if (examToSave != null) {
+      await BlocProvider.getBloc<ExamBloc>().save(examToSave, classId);
+    }
+  }
+
   @override
   void dispose() {
+    for (MaskedTextController gradeController in _gradeControllerList) {
+      gradeController.dispose();
+    }
     _examBloc.cleanStudentesGrades();
     _screenBloc.dispose();
     super.dispose();
