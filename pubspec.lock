@@ -105,7 +105,7 @@ packages:
       name: dio
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.7"
+    version: "3.0.3"
   email_validator:
     dependency: transitive
     description:
@@ -189,7 +189,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: e5059f6a46b515fa752e12a62f5520cc5ae53e10
+      resolved-ref: eaece31a884dfa73c78656325a9c5386425463cc
       url: "git://github.com/rodrigobastosv/gg_flutter_components.git"
     source: git
     version: "0.0.1"

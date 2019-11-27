@@ -23,30 +23,13 @@ class ExamDetailScreen extends StatefulWidget {
 class _ExamDetailScreenState extends State<ExamDetailScreen> {
   final _examBloc = BlocProvider.getBloc<ExamBloc>();
   final _screenBloc = ExamDetailScreenBloc();
-  MaskedTextController _gradeController;
+  List<MaskedTextController> _gradeControllerList;
 
   @override
   void initState() {
     super.initState();
 
-    _gradeController = MaskedTextController(mask: '0,00');
-
-    _gradeController.beforeChange = (String previous, String next) {
-      if (next.length == 4) {
-        _gradeController.updateMask('0,00');
-      } else if (next.length == 5) {
-        _gradeController.updateMask('00,00');
-
-        final double nextNumber =
-            double.parse(ALNumberFormat.convertToDefaultDecimal(next));
-        if (nextNumber < 0 || nextNumber > 10) {
-          _gradeController.updateText(previous);
-          return false;
-        }
-      }
-
-      return true;
-    };
+    _gradeControllerList = [];
 
     getGradesByExam(widget.exam.id);
   }
@@ -105,12 +88,39 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
         builder: (_, snapshot) {
           if (snapshot.hasData) {
             final studentsGrades = snapshot.data;
+
+            for (ExamGradeDTO examGrade in studentsGrades) {
+              final gradeController = MaskedTextController(
+                  mask: '0,00',
+                  text: ALNumberFormat.convertToDefaultDecimal(
+                      examGrade.grade.toStringAsFixed(2)));
+
+              gradeController.beforeChange = (String previous, String next) {
+                if (next.length == 4) {
+                  gradeController.updateMask('0,00');
+                } else if (next.length == 5) {
+                  gradeController.updateMask('00,00');
+
+                  final double nextNumber = double.parse(
+                      ALNumberFormat.convertToDefaultDecimal(next));
+                  if (nextNumber < 0 || nextNumber > 10) {
+                    gradeController.updateText(previous);
+                    return false;
+                  }
+                }
+
+                return true;
+              };
+
+              _gradeControllerList.add(gradeController);
+            }
+
             return ListView.separated(
               separatorBuilder: (BuildContext context, int i) =>
                   const Divider(height: 1),
               itemCount: studentsGrades.length,
               itemBuilder: (_, i) {
-                return _listTile(studentsGrades[i]);
+                return _listTile(studentsGrades[i], i);
               },
             );
           }
@@ -122,7 +132,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
     );
   }
 
-  Widget _listTile(ExamGradeDTO studentGrade) {
+  Widget _listTile(ExamGradeDTO studentGrade, int i) {
     return ListTile(
       title: Text(studentGrade.studentName),
       trailing: Container(
@@ -133,7 +143,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
           clipBehavior: Clip.antiAlias,
           borderRadius: BorderRadius.circular(8),
           child: TextFormField(
-            controller: _gradeController,
+            controller: _gradeControllerList[i],
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
@@ -147,13 +157,14 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
               ),
               fillColor: Colors.grey[200],
             ),
-            // initialValue: studentGrade.grade != null
-            //     ? studentGrade.grade.toStringAsFixed(2)
-            //     : '',
             onChanged: (grade) {
+              final gradeText = _gradeControllerList[i].text;
               _examBloc.updateGrade(
                 studentGrade,
-                (grade != null && grade != '') ? double.parse(grade) : null,
+                (gradeText != null && gradeText != '')
+                    ? double.parse(
+                        ALNumberFormat.convertToDefaultDecimal(gradeText))
+                    : null,
               );
               _screenBloc.setIsDirty();
             },
@@ -192,7 +203,9 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
 
   @override
   void dispose() {
-    _gradeController.dispose();
+    for (MaskedTextController gradeController in _gradeControllerList) {
+      gradeController.dispose();
+    }
     _examBloc.cleanStudentesGrades();
     _screenBloc.dispose();
     super.dispose();
