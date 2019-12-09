@@ -96,7 +96,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
               ? _listAndButton(studentsGrades, isSameDay)
               : ExamGradeStudentEmptyState();
         }
-        return const GGLoadingDoubleBounce();
+        return const GGLoadingDoubleBounce(size: 20);
       },
     );
   }
