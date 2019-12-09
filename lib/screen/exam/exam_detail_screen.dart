@@ -174,6 +174,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
           child: TextFormField(
             controller: _gradeControllerList[i],
             readOnly: !isSameDay,
+            enableInteractiveSelection: false,
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
