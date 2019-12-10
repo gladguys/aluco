@@ -96,7 +96,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
               ? _listAndButton(studentsGrades, isSameDay)
               : ExamGradeStudentEmptyState();
         }
-        return const GGLoadingDoubleBounce();
+        return const GGLoadingDoubleBounce(size: 20);
       },
     );
   }
@@ -174,6 +174,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
           child: TextFormField(
             controller: _gradeControllerList[i],
             readOnly: !isSameDay,
+            enableInteractiveSelection: false,
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(

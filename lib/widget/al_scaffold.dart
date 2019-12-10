@@ -77,7 +77,7 @@ class ALScaffold extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const <Widget>[
-                            GGLoadingDoubleBounce(size: 48),
+                            GGLoadingDoubleBounce(size: 20),
                             SizedBox(height: 12),
                             Text(
                               'Carregando...',
