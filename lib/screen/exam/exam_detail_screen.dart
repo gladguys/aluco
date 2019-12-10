@@ -47,9 +47,12 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final nowString = dateFormat.format(DateTime.now());
-    final isSameDay = dateFormat
-        .parse(widget.exam.examDate)
-        .isAtSameMomentAs(dateFormat.parse(nowString));
+    final isEditable = dateFormat
+            .parse(widget.exam.examDate)
+            .isBefore(dateFormat.parse(nowString)) ||
+        dateFormat
+            .parse(widget.exam.examDate)
+            .isAtSameMomentAs(dateFormat.parse(nowString));
 
     return ALScaffold(
       title: 'Prova',
@@ -77,7 +80,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
                   border: Border.all(color: Colors.grey[300]),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: _getListGrades(isSameDay),
+                child: _getListGrades(isEditable),
               ),
             ),
           ],
@@ -86,14 +89,14 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
     );
   }
 
-  Widget _getListGrades(bool isSameDay) {
+  Widget _getListGrades(bool isEditable) {
     return StreamBuilder<List<ExamGradeDTO>>(
       stream: _examBloc.studentsGradesStream,
       builder: (_, snapshot) {
         if (snapshot.hasData) {
           final studentsGrades = snapshot.data;
           return studentsGrades.isNotEmpty
-              ? _listAndButton(studentsGrades, isSameDay)
+              ? _listAndButton(studentsGrades, isEditable)
               : ExamGradeStudentEmptyState();
         }
         return const GGLoadingDoubleBounce(size: 20);
@@ -101,7 +104,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
     );
   }
 
-  Widget _listAndButton(List<ExamGradeDTO> studentsGrades, bool isSameDay) {
+  Widget _listAndButton(List<ExamGradeDTO> studentsGrades, bool isEditable) {
     return Column(
       children: <Widget>[
         Expanded(
@@ -145,7 +148,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
                       const Divider(height: 1),
                   itemCount: studentsGrades.length,
                   itemBuilder: (_, i) =>
-                      _listTile(studentsGrades[i], i, isSameDay),
+                      _listTile(studentsGrades[i], i, isEditable),
                 );
               }
               return Center(
@@ -161,7 +164,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
     );
   }
 
-  Widget _listTile(ExamGradeDTO studentGrade, int i, bool isSameDay) {
+  Widget _listTile(ExamGradeDTO studentGrade, int i, bool isEditable) {
     return ListTile(
       title: Text(studentGrade.studentName),
       trailing: Container(
@@ -173,7 +176,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
           borderRadius: BorderRadius.circular(8),
           child: TextFormField(
             controller: _gradeControllerList[i],
-            readOnly: !isSameDay,
+            readOnly: !isEditable,
             enableInteractiveSelection: false,
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,
@@ -200,7 +203,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
               _screenBloc.setIsDirty();
             },
             onTap: () {
-              if (!isSameDay) {
+              if (!isEditable) {
                 GGSnackbar.warning(
                   context: context,
                   title: 'Atenção',
