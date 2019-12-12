@@ -1,10 +1,12 @@
 import 'package:aluco/core/utils/form_utils.dart';
 import 'package:aluco/model/exam.dart';
+import 'package:circular_check_box/circular_check_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sujian_select/select_group.dart';
 import 'package:flutter_sujian_select/select_item.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
 import 'package:intl/intl.dart';
+import 'package:numberpicker/numberpicker.dart';
 
 class SaveExamForm extends StatefulWidget {
   SaveExamForm(this._exam);
@@ -32,7 +34,10 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
     if (widget._exam != null) {
       _exam = widget._exam;
     } else {
-      _exam = Exam()..weight = 1;
+      _exam = Exam()
+        ..weight = 1
+        ..periodYear = 1
+        ..recExam = false;
     }
   }
 
@@ -65,7 +70,9 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
               GGFormDatePicker(
                 labelText: 'Data da Prova *',
                 format: dateFormat,
-                initialDate: _exam.examDate != null ? dateFormat.parse(_exam.examDate) : null,
+                initialDate: _exam.examDate != null
+                    ? dateFormat.parse(_exam.examDate)
+                    : null,
                 validator: emptyDateTimeValidator,
                 onChanged: (examDate) {
                   if (examDate != null) {
@@ -84,14 +91,41 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
                     padding: const EdgeInsets.all(16),
                     space: const EdgeInsets.symmetric(horizontal: 4),
                     items: <SelectItem<int>>[
-                      SelectItem(label: '1',value: 1),
-                      SelectItem(label: '2',value: 2),
-                      SelectItem(label: '3',value: 3),
+                      SelectItem(label: '1', value: 1),
+                      SelectItem(label: '2', value: 2),
+                      SelectItem(label: '3', value: 3),
                     ],
                     onSingleSelect: (int value) => _exam.weight = value,
                   ),
                 ],
-              )
+              ),
+              FormVerticalSeparator,
+              Row(
+                children: <Widget>[
+                  const Text('Bimestre: '),
+                  const SizedBox(width: 18),
+                  NumberPicker.integer(
+                    initialValue: _exam.periodYear,
+                    minValue: 1,
+                    maxValue: 4,
+                    onChanged: (periodYear) => _exam.periodYear = periodYear,
+                  ),
+                ],
+              ),
+              FormVerticalSeparator,
+              Row(
+                children: <Widget>[
+                  const Text('Recuperação? '),
+                  const SizedBox(width: 18),
+                  CircularCheckBox(
+                    value: _exam.recExam,
+                    onChanged: (isRecExam) {
+                      setState(() => _exam.recExam = isRecExam);
+                    },
+                    activeColor: Theme.of(context).primaryColor,
+                  ),
+                ],
+              ),
             ],
           ),
         ),

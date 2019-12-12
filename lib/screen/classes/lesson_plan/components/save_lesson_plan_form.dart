@@ -49,7 +49,7 @@ class _SaveLessonPlanFormState extends State<SaveLessonPlanForm>
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(
+                  const Text(
                     'Data: ',
                     style: TextStyle(fontWeight: FontWeight.w500),
                   ),

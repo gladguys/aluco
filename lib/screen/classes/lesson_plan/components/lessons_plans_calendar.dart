@@ -88,7 +88,7 @@ class _LessonsPlansCalendarState extends State<LessonsPlansCalendar> {
                 child: Center(
                   child: Text(
                     '${date.day}',
-                    style: TextStyle().copyWith(fontSize: 14),
+                    style: const TextStyle().copyWith(fontSize: 14),
                   ),
                 ),
               );
@@ -101,7 +101,7 @@ class _LessonsPlansCalendarState extends State<LessonsPlansCalendar> {
                 child: Center(
                   child: Text(
                     '${date.day}',
-                    style: TextStyle().copyWith(
+                    style: const TextStyle().copyWith(
                       fontSize: 14,
                       color: Colors.grey[300],
                     ),
@@ -117,7 +117,7 @@ class _LessonsPlansCalendarState extends State<LessonsPlansCalendar> {
                 child: Center(
                   child: Text(
                     '${date.day}',
-                    style: TextStyle().copyWith(
+                    style: const TextStyle().copyWith(
                       fontSize: 14,
                       color: Colors.red[100],
                     ),
@@ -152,11 +152,11 @@ class _LessonsPlansCalendarState extends State<LessonsPlansCalendar> {
                   child: Text(
                     '${date.day}',
                     style: (date.weekday == 6 || date.weekday == 7)
-                        ? TextStyle().copyWith(
+                        ? const TextStyle().copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                             color: Colors.red[300])
-                        : TextStyle().copyWith(
+                        : const TextStyle().copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
@@ -186,7 +186,7 @@ class _LessonsPlansCalendarState extends State<LessonsPlansCalendar> {
                 child: Center(
                   child: Text(
                     '${date.day}',
-                    style: TextStyle().copyWith(
+                    style: const TextStyle().copyWith(
                       fontSize: 14.0,
                       color: Colors.red[300],
                     ),
@@ -211,19 +211,19 @@ class _LessonsPlansCalendarState extends State<LessonsPlansCalendar> {
                     '${date.day}',
                     style: (date.weekday == 6 || date.weekday == 7) &&
                             _calendarController.isToday(date)
-                        ? TextStyle().copyWith(
+                        ? const TextStyle().copyWith(
                             fontSize: 14.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.red[300])
                         : (date.weekday == 6 || date.weekday == 7)
-                            ? TextStyle().copyWith(
+                            ? const TextStyle().copyWith(
                                 fontSize: 14.0, color: Colors.red[300])
                             : _calendarController.isToday(date)
-                                ? TextStyle().copyWith(
+                                ? const TextStyle().copyWith(
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.bold,
                                   )
-                                : TextStyle().copyWith(fontSize: 14.0),
+                                : const TextStyle().copyWith(fontSize: 14.0),
                   ),
                 ),
               );
@@ -279,11 +279,11 @@ class _LessonsPlansCalendarState extends State<LessonsPlansCalendar> {
           style: (_calendarController.isToday(date) ||
                       _calendarController.isSelected(date)) &&
                   (date.weekday == 6 || date.weekday == 7)
-              ? TextStyle().copyWith(
+              ? const TextStyle().copyWith(
                   fontSize: 14.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.red[300])
-              : TextStyle().copyWith(fontSize: 14.0),
+              : const TextStyle().copyWith(fontSize: 14.0),
         ),
       ),
     );

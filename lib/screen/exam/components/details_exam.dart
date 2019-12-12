@@ -60,6 +60,24 @@ class DetailsExam extends StatelessWidget {
               Text(DateFormat('d MMM y', 'pt_br').format(dateFormat.parse(exam.examDate)) ?? ''),
             ],
           ),
+          const SizedBox(height: 16),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text(
+                'Bimestre: ',
+                style: TextStyle(fontWeight: FontWeight.w500),
+              ),
+              Text(exam.periodYear?.toString() ?? ''),
+              const SizedBox(width: 16),
+              const Text(
+                'Recuperação: ',
+                style: TextStyle(fontWeight: FontWeight.w500),
+              ),
+              Text(exam.recExam ? 'Sim' : 'Não'),
+            ],
+          ),
         ],
       ),
     );
