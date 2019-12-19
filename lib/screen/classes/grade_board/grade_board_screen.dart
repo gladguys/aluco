@@ -80,7 +80,7 @@ class _GradeBoardScreenState extends State<GradeBoardScreen> {
                       ),
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        color: double.parse(studentsGrades[i].average) >= 6
+                        color: studentsGrades[i].average >= 6
                             ? Colors.green[600]
                             : Colors.red[600],
                       ),
@@ -92,7 +92,7 @@ class _GradeBoardScreenState extends State<GradeBoardScreen> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-                child: StudentGradesList(studentsGrades[i].exams),
+                child: StudentGradesList(studentsGrades[i].allPeriodsContent),
               ),
             ],
           ),

@@ -1,11 +1,10 @@
-import 'package:aluco/utils/al_number_format.dart';
+import 'package:aluco/model/period_content.dart';
 import 'package:flutter/material.dart';
-import 'package:aluco/model/exam_grade_dto.dart';
 
 class StudentGradesList extends StatelessWidget {
-  const StudentGradesList(this.exams);
+  const StudentGradesList(this.allPeriodsContent);
 
-  final List<ExamGradeDTO> exams;
+  final List<PeriodContent> allPeriodsContent;
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +14,11 @@ class StudentGradesList extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Expanded(
-            child: Text(exams[i].examName),
+            //child: Text(exams[i].examName),
+            child: Text(''),
           ),
           const SizedBox(width: 8),
-          if (exams[i].grade != null)
+          /*if (exams[i].grade != null)
             Text(
               ALNumberFormat.formatDoubleWithDecimal(
                 number: exams[i].grade.toString(),
@@ -36,11 +36,11 @@ class StudentGradesList extends StatelessWidget {
                 fontSize: 12,
                 color: Colors.grey,
               ),
-            ),
+            ),*/
         ],
       ),
       separatorBuilder: (_, i) => const Divider(),
-      itemCount: exams.length,
+      itemCount: 0,
     );
   }
 }
