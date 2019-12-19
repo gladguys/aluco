@@ -7,6 +7,7 @@ import '../core/bloc/linear_loading_bloc.dart';
 import '../core/bloc/loading_bloc.dart';
 import 'al_connectivity_alert.dart';
 import 'al_debug_http_button.dart';
+import 'al_logout_button.dart';
 
 class ALScaffold extends StatelessWidget {
   const ALScaffold({
@@ -100,8 +101,13 @@ class ALScaffold extends StatelessWidget {
 
   List<Widget> _getActions() {
     if (kReleaseMode) {
-      return [...actions ?? [], ALConnectivityAlert()];
+      return [...actions ?? [], ALConnectivityAlert(), ALLogoutButton()];
     }
-    return [...actions ?? [], ALDebugHttpButton(), ALConnectivityAlert()];
+    return [
+      ...actions ?? [],
+      ALDebugHttpButton(),
+      ALConnectivityAlert(),
+      ALLogoutButton()
+    ];
   }
 }
