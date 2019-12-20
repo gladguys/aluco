@@ -32,10 +32,10 @@ class StudentCall {
       identical(this, other) ||
       other is StudentCall &&
           runtimeType == other.runtimeType &&
-          studentId == other.studentId;
+          id == other.id;
 
   @override
-  int get hashCode => studentId.hashCode;
+  int get hashCode => id.hashCode;
 
   @override
   String toString() {

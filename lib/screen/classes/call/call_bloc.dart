@@ -37,6 +37,20 @@ class CallBloc extends BlocBase {
         }
       } else {
         studentsCalls.addAll(callsOnDate);
+        final studentCallIds =
+            studentsCalls.map((studentCall) => studentCall.studentId).toList();
+        final studentsWithNoCall = classStudents
+            .where((classStudent) => !studentCallIds.contains(classStudent.id));
+        for (Student student in studentsWithNoCall) {
+          studentsCalls.add(
+            StudentCall(
+              classId: classId,
+              date: date,
+              status: CallStatus.PRESENTE,
+              studentId: student.id,
+            ),
+          );
+        }
       }
       studentsCallController.add(studentsCalls);
     } catch (e) {
