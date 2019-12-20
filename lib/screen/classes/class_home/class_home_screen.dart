@@ -42,9 +42,9 @@ class _ClassHomeScreenState extends State<ClassHomeScreen> {
             borderColoredOnly: true,
             onPressed: () => ALRouter.pushWithResolver(
                 context,
-                ClassScreen(),
-                () =>
-                    BlocProvider.getBloc<CallBloc>().initializeClassStudents()),
+                CallScreen(),
+                () => BlocProvider.getBloc<CallBloc>()
+                    .initializeClassStudents(_bloc.pickedClass.id)),
             child: Text(
               'Fazer Chamada',
               style: TextStyle(

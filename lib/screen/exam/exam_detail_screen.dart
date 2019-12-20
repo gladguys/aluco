@@ -1,9 +1,9 @@
 import 'package:aluco/core/routing/al_router.dart';
 import 'package:aluco/model/exam.dart';
 import 'package:aluco/model/exam_grade_dto.dart';
-import 'package:aluco/utils/al_number_format.dart';
 import 'package:aluco/screen/classes/class_home/class_home_bloc.dart';
 import 'package:aluco/screen/exam/save_exam_screen.dart';
+import 'package:aluco/utils/al_number_format.dart';
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:aluco/widget/empty_state/exam_grade_student_empty_state.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
@@ -151,8 +151,8 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
                       _listTile(studentsGrades[i], i, isEditable),
                 );
               }
-              return Center(
-                child: const Text('Carregando Notas...'),
+              return const Center(
+                child: Text('Carregando Notas...'),
               );
             },
           ),

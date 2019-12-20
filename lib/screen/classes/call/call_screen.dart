@@ -1,4 +1,5 @@
-import 'package:aluco/model/student.dart';
+import 'package:aluco/enums/call_status.dart';
+import 'package:aluco/model/student_call.dart';
 import 'package:aluco/screen/classes/class_home/class_home_bloc.dart';
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
@@ -8,12 +9,12 @@ import 'package:toggle_switch/toggle_switch.dart';
 
 import 'call_bloc.dart';
 
-class ClassScreen extends StatefulWidget {
+class CallScreen extends StatefulWidget {
   @override
-  _ClassScreenState createState() => _ClassScreenState();
+  _CallScreenState createState() => _CallScreenState();
 }
 
-class _ClassScreenState extends State<ClassScreen> {
+class _CallScreenState extends State<CallScreen> {
   CallBloc _callBloc;
   ClassHomeBloc _classHomeBloc;
 
@@ -26,15 +27,10 @@ class _ClassScreenState extends State<ClassScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final students = _callBloc.classStudentsController.value;
+    final students = _callBloc.studentsCallController.value;
     return ALScaffold(
       title: 'Fazer Chamada',
       subtitle: _classHomeBloc.pickedClass.name,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async => _callBloc.saveCallDay(),
-        backgroundColor: Colors.green,
-        child: Icon(Icons.check),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(
@@ -62,20 +58,20 @@ class _ClassScreenState extends State<ClassScreen> {
 }
 
 class StudentCallItem extends StatelessWidget {
-  StudentCallItem(this.student);
+  StudentCallItem(this.studentCall);
 
-  final Student student;
+  final StudentCall studentCall;
   final CallBloc _callBloc = BlocProvider.getBloc<CallBloc>();
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Text(student.name),
+        Text(studentCall.studentId.toString()),
         const SizedBox(height: 12),
         ToggleSwitch(
           minWidth: 90.0,
-          initialLabelIndex: 1,
+          initialLabelIndex: getIntFromCallStatus(studentCall.status),
           activeColors: [
             Colors.green,
             Colors.red,
@@ -86,12 +82,11 @@ class StudentCallItem extends StatelessWidget {
           inactiveBgColor: Colors.grey[300],
           inactiveTextColor: Colors.grey[900],
           labels: const ['Presente', 'Faltou', 'Justificou'],
-          onToggle: (pickedIndex) {
-            _callBloc.handleStudentCallChanged(student, pickedIndex);
-          },
+          onToggle: (pickedIndex) async =>
+              _callBloc.handleStudentCallChanged(studentCall, pickedIndex),
         ),
         const SizedBox(height: 12),
-        const Text('Faltas: 10'),
+        const Text('Faltas: NOT DONE YET'),
       ],
     );
   }
