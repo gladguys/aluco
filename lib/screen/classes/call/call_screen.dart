@@ -38,10 +38,13 @@ class _CallScreenState extends State<CallScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              GGFormDatePicker(
-                format: _callBloc.dateFormat,
-                labelText: 'Data',
-                initialDate: DateTime.now(),
+              Container(
+                width: 210,
+                child: GGFormDatePicker(
+                  format: _callBloc.dateFormat,
+                  labelText: 'Data',
+                  initialDate: DateTime.now(),
+                ),
               ),
               const SizedBox(height: 16),
               ListView.separated(
