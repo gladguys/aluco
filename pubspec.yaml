@@ -43,6 +43,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+dependency_overrides:
+  intl: ^0.15.8
+
 flutter:
   uses-material-design: true
   assets:

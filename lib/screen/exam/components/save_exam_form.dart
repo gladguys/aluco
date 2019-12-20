@@ -83,6 +83,20 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
               FormVerticalSeparator,
               Row(
                 children: <Widget>[
+                  CircularCheckBox(
+                    value: _exam.recExam,
+                    onChanged: (isRecExam) {
+                      setState(() => _exam.recExam = isRecExam);
+                    },
+                    activeColor: Theme.of(context).primaryColor,
+                  ),
+                  const Text('Recuperação? '),
+                ],
+              ),
+              FormVerticalSeparator,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
                   const Text('Peso da Prova: '),
                   SelectGroup<int>(
                     index: _exam.weight - 1,
@@ -100,29 +114,23 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
                 ],
               ),
               FormVerticalSeparator,
-              Row(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const Text('Bimestre: '),
-                  const SizedBox(width: 18),
-                  NumberPicker.integer(
-                    initialValue: _exam.periodYear,
-                    minValue: 1,
-                    maxValue: 4,
-                    onChanged: (periodYear) => _exam.periodYear = periodYear,
-                  ),
-                ],
-              ),
-              FormVerticalSeparator,
-              Row(
-                children: <Widget>[
-                  const Text('Recuperação? '),
-                  const SizedBox(width: 18),
-                  CircularCheckBox(
-                    value: _exam.recExam,
-                    onChanged: (isRecExam) {
-                      setState(() => _exam.recExam = isRecExam);
-                    },
-                    activeColor: Theme.of(context).primaryColor,
+                  SelectGroup<int>(
+                    index: _exam.periodYear - 1,
+                    selectColor: Theme.of(context).primaryColor,
+                    borderColor: Theme.of(context).primaryColor,
+                    padding: const EdgeInsets.all(16),
+                    space: const EdgeInsets.symmetric(horizontal: 4),
+                    items: <SelectItem<int>>[
+                      SelectItem(label: '1', value: 1),
+                      SelectItem(label: '2', value: 2),
+                      SelectItem(label: '3', value: 3),
+                      SelectItem(label: '4', value: 4),
+                    ],
+                    onSingleSelect: (periodYear) => _exam.periodYear = periodYear,
                   ),
                 ],
               ),
