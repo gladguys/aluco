@@ -36,4 +36,9 @@ class StudentCall {
 
   @override
   int get hashCode => studentId.hashCode;
+
+  @override
+  String toString() {
+    return 'StudentCall{id: $id, studentId: $studentId, classId: $classId, status: $status, date: $date}';
+  }
 }

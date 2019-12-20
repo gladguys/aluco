@@ -22,9 +22,9 @@ class CallBloc extends BlocBase {
       final callsOnDate =
           await _callRepository.getClassStudentsCallOnDate(classId, date);
 
+      final classStudents = await _classRepository.getStudentsByClass(classId);
+
       if (callsOnDate == null || callsOnDate.isEmpty) {
-        final classStudents =
-            await _classRepository.getStudentsByClass(classId);
         for (Student student in classStudents) {
           studentsCalls.add(
             StudentCall(
@@ -35,8 +35,7 @@ class CallBloc extends BlocBase {
             ),
           );
         }
-      }
-
+      } else {}
       studentsCallController.add(studentsCalls);
     } catch (e) {
       print(e);
@@ -55,13 +54,15 @@ class CallBloc extends BlocBase {
       final index =
           studentsCalls.indexWhere((studentCall) => studentCall == student);
       final copyStudent = studentsCalls[index];
+
       final newStudentCall = StudentCall(
-          studentId: student.id,
+          studentId: copyStudent.studentId,
           status: getCallStatusFromInt(status),
           date: copyStudent.date,
           classId: copyStudent.classId,
           id: copyStudent.id);
       studentsCalls.insert(index, newStudentCall);
+
       await _callRepository.changeStudentCall(newStudentCall);
       studentsCallController.add(studentsCalls);
     } catch (e) {
