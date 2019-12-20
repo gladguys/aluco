@@ -65,7 +65,10 @@ class _GradeBoardScreenState extends State<GradeBoardScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Expanded(
-                  child: Text('${studentsGrades[i].studentName}'),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 4, bottom: 4),
+                    child: Text('${studentsGrades[i].studentName}'),
+                  ),
                 ),
                 const SizedBox(width: 8),
                 Column(
