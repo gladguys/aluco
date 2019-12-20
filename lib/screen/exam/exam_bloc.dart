@@ -27,7 +27,6 @@ class ExamBloc extends BlocBase {
     try {
       _examsController.add(await _repository.getAll());
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }
@@ -36,7 +35,6 @@ class ExamBloc extends BlocBase {
     try {
       _examsController.add(await _repository.getByClass(classId));
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }
@@ -54,7 +52,6 @@ class ExamBloc extends BlocBase {
         _examsController.add(examsList);
       }
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }
@@ -65,7 +62,6 @@ class ExamBloc extends BlocBase {
       examsList.remove(exam);
       _examsController.add(examsList);
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }

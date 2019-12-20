@@ -17,7 +17,7 @@ class BaseRepository<T extends BaseModel<T>> implements AbstractRepository<T> {
       final response = await _dio.get<dynamic>(basePath);
       return List.generate(
         response.data.length,
-            (i) => _instance.fromJson(response.data[i]),
+        (i) => _instance.fromJson(response.data[i]),
       );
     } catch (e) {
       rethrow;

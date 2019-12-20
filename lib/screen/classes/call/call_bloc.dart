@@ -54,7 +54,6 @@ class CallBloc extends BlocBase {
       }
       studentsCallController.add(studentsCalls);
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }

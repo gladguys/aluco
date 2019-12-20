@@ -16,7 +16,6 @@ class CallRepository implements AbstractCallRepository {
       return List.generate(response.data.length,
           (int i) => StudentCall.fromJson(response.data[i]));
     } catch (e) {
-      print(e);
       rethrow;
     }
   }
