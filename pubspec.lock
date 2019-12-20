@@ -65,7 +65,7 @@ packages:
     source: hosted
     version: "1.14.11"
   connectivity:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: connectivity
       url: "https://pub.dartlang.org"
@@ -249,13 +249,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
-  mask_text_input_formatter:
-    dependency: "direct main"
-    description:
-      name: mask_text_input_formatter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.5"
   matcher:
     dependency: transitive
     description:

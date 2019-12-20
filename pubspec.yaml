@@ -19,7 +19,6 @@ dependencies:
   alice: ^0.0.17
   dio: 3.0.3
   rxdart: ^0.22.4
-  connectivity: ^0.4.5+1
   shared_preferences: ^0.5.4
 
   # UI
@@ -29,7 +28,6 @@ dependencies:
   toggle_switch: ^0.1.4
   image_picker: ^0.6.1+8
   flutter_sujian_select: ^1.0.1
-  mask_text_input_formatter: ^1.0.5
   circular_check_box: ^1.0.1
   table_calendar: ^2.2.1
   line_icons: ^0.2.0
