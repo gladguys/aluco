@@ -1,5 +1,6 @@
 import 'package:aluco/model/exam.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 
 class DetailsExam extends StatelessWidget {
@@ -57,7 +58,44 @@ class DetailsExam extends StatelessWidget {
                 'Aplicação: ',
                 style: TextStyle(fontWeight: FontWeight.w500),
               ),
-              Text(DateFormat('d MMM y', 'pt_br').format(dateFormat.parse(exam.examDate)) ?? ''),
+              Text(DateFormat('d MMM y', 'pt_br')
+                      .format(dateFormat.parse(exam.examDate)) ??
+                  ''),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text(
+                'Bimestre: ',
+                style: TextStyle(fontWeight: FontWeight.w500),
+              ),
+              Text(exam.periodYear?.toString() ?? ''),
+              const SizedBox(width: 16),
+              const Text(
+                'Recuperação: ',
+                style: TextStyle(fontWeight: FontWeight.w500),
+              ),
+              if (exam.recExam)
+                Icon(
+                  FontAwesome5.getIconData(
+                    'check-circle',
+                    weight: IconWeight.Regular,
+                  ),
+                  color: Colors.green[600],
+                  size: 20,
+                ),
+              if (!exam.recExam)
+                Icon(
+                  FontAwesome5.getIconData(
+                    'times-circle',
+                    weight: IconWeight.Regular,
+                  ),
+                  color: Colors.red[600],
+                  size: 20,
+                ),
             ],
           ),
         ],

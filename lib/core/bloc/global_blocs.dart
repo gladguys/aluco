@@ -1,3 +1,4 @@
+import 'package:aluco/screen/classes/call/call_bloc.dart';
 import 'package:aluco/screen/classes/class_home/class_home_bloc.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 
@@ -6,7 +7,6 @@ import '../../screen/classes/list_classes/list_classes_bloc.dart';
 import '../../screen/exam/exam_bloc.dart';
 import '../../screen/signin/signin_bloc.dart';
 import '../../screen/student/student_bloc.dart';
-
 import 'file_upload_bloc.dart';
 import 'linear_loading_bloc.dart';
 import 'loading_bloc.dart';
@@ -18,6 +18,7 @@ final globalBlocs = [
   Bloc((i) => ListClassesBloc()),
   Bloc((i) => StudentBloc()),
   Bloc((i) => ExamBloc()),
+  Bloc((i) => CallBloc()),
   Bloc((i) => LoadingBloc()),
   Bloc((i) => LinearLoadingBloc()),
   Bloc((i) => FileUploadBloc()),

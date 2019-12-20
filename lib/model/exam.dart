@@ -4,10 +4,12 @@ class Exam implements BaseModel<Exam> {
   int id;
   int weight;
   int classId;
+  int periodYear;
   String name;
   String description;
   String creationDate;
   String examDate;
+  bool recExam;
 
   Exam();
 
@@ -20,10 +22,12 @@ class Exam implements BaseModel<Exam> {
       ..id = json['id']
       ..weight = json['weight']
       ..classId = json['classId']
+      ..periodYear = json['periodYear']
       ..name = json['name']
       ..description = json['description']
       ..creationDate = json['creationDate']
-      ..examDate = json['examDate'];
+      ..examDate = json['examDate']
+      ..recExam = json['recExam'];
   }
 
   @override
@@ -32,10 +36,12 @@ class Exam implements BaseModel<Exam> {
       'id': id,
       'weight': weight,
       'classId': classId,
+      'periodYear': periodYear,
       'name': name,
       'description': description,
       'creationDate': creationDate,
-      'examDate': examDate
+      'examDate': examDate,
+      'recExam': recExam
     };
   }
 
@@ -51,6 +57,6 @@ class Exam implements BaseModel<Exam> {
 
   @override
   String toString() {
-    return 'Exam{id: $id, weight: $weight, name: $name, description: $description, creationDate: $creationDate, examDate: $examDate}';
+    return 'Exam{id: $id, weight: $weight, classId: $classId, periodYear: $periodYear, name: $name, description: $description, creationDate: $creationDate, examDate: $examDate, recExam: $recExam}';
   }
 }

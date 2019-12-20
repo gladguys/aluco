@@ -1,33 +1,65 @@
-import 'exam_grade_dto.dart';
+import 'period_content.dart';
 
 class StudentGrades {
-  List<ExamGradeDTO> exams;
-  String average;
+  PeriodContent periodOne;
+  PeriodContent periodTwo;
+  PeriodContent periodThree;
+  PeriodContent periodFour;
+  String status;
   String studentName;
+  double average;
 
-  StudentGrades({this.exams, this.average, this.studentName});
+  List<PeriodContent> get allPeriodsContent => [
+        periodOne,
+        periodTwo,
+        periodThree,
+        periodFour,
+      ];
+
+  StudentGrades(
+      {this.periodOne,
+      this.periodTwo,
+      this.periodThree,
+      this.periodFour,
+      this.status,
+      this.studentName,
+      this.average});
 
   StudentGrades.fromJson(Map<String, dynamic> json) {
-    if (json['exams'] != null) {
-      exams = <ExamGradeDTO>[];
-      json['exams'].forEach((dynamic v) => exams.add(ExamGradeDTO.fromJson(v)));
-    }
-    average = json['average']?.toString();
+    periodOne = json['periodOne'] != null
+        ? PeriodContent.fromJson(json['periodOne'])
+        : null;
+    periodTwo = json['periodTwo'] != null
+        ? PeriodContent.fromJson(json['periodTwo'])
+        : null;
+    periodThree = json['periodThree'] != null
+        ? PeriodContent.fromJson(json['periodThree'])
+        : null;
+    periodFour = json['periodFour'] != null
+        ? PeriodContent.fromJson(json['periodFour'])
+        : null;
+    status = json['status'];
     studentName = json['studentName'];
+    average = json['average'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (exams != null) {
-      data['exams'] = exams.map((v) => v.toJson()).toList();
+    if (periodOne != null) {
+      data['periodOne'] = periodOne.toJson();
     }
-    data['average'] = average;
+    if (periodTwo != null) {
+      data['periodTwo'] = periodTwo.toJson();
+    }
+    if (periodThree != null) {
+      data['periodThree'] = periodThree.toJson();
+    }
+    if (periodFour != null) {
+      data['periodFour'] = periodFour.toJson();
+    }
+    data['status'] = status;
     data['studentName'] = studentName;
+    data['average'] = average;
     return data;
-  }
-
-  @override
-  String toString() {
-    return 'StudentGrades{exams: $exams, average: $average, studentName: $studentName}';
   }
 }
