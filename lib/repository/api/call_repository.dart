@@ -23,6 +23,10 @@ class CallRepository implements AbstractCallRepository {
 
   @override
   Future<void> changeStudentCall(StudentCall studentCall) async {
-    await _dio.post<dynamic>(CALL, data: studentCall.toJson());
+    if (studentCall.id != null) {
+      await _dio.post<dynamic>(CALL, data: studentCall.toJson());
+    } else {
+      await _dio.put<dynamic>(CALL, data: studentCall.toJson());
+    }
   }
 }

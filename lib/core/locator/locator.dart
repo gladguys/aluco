@@ -10,28 +10,19 @@ import 'package:aluco/repository/api/exam_repository.dart';
 import 'package:aluco/repository/api/file_upload_repository.dart';
 import 'package:aluco/repository/api/lesson_plan_repository.dart';
 import 'package:aluco/repository/api/student_repository.dart';
-import 'package:aluco/repository/core/abstract_auth_repository.dart';
-import 'package:aluco/repository/core/abstract_call_repository.dart';
-import 'package:aluco/repository/core/abstract_class_repository.dart';
-import 'package:aluco/repository/core/abstract_exam_repository.dart';
-import 'package:aluco/repository/core/abstract_file_upload_repository.dart';
-import 'package:aluco/repository/core/abstract_lesson_repository.dart';
-import 'package:aluco/repository/core/abstract_student_repository.dart';
 import 'package:get_it/get_it.dart';
 
 GetIt G = GetIt.I;
 
 void setupLocator() {
-  G.registerSingleton<AbstractAuthRepository>(AuthRepository());
-  G.registerLazySingleton<AbstractCallRepository>(() => CallRepository());
-  G.registerLazySingleton<AbstractClassRepository>(
+  G.registerSingleton<AuthRepository>(AuthRepository());
+  G.registerLazySingleton<CallRepository>(() => CallRepository());
+  G.registerLazySingleton<ClassRepository>(
       () => ClassRepository(CLASS, Class()));
-  G.registerLazySingleton<AbstractExamRepository>(
-      () => ExamRepository(EXAM, Exam()));
-  G.registerLazySingleton<AbstractFileUploadRepository>(
-      () => FileUploadRepository());
-  G.registerLazySingleton<AbstractLessonPlanRepository>(
+  G.registerLazySingleton<ExamRepository>(() => ExamRepository(EXAM, Exam()));
+  G.registerLazySingleton<FileUploadRepository>(() => FileUploadRepository());
+  G.registerLazySingleton<LessonPlanRepository>(
       () => LessonPlanRepository(LESSON, LessonPlan()));
-  G.registerLazySingleton<AbstractStudentRepository>(
+  G.registerLazySingleton<StudentRepository>(
       () => StudentRepository(STUDENT, Student()));
 }
