@@ -36,8 +36,7 @@ class CallBloc extends BlocBase {
           );
         }
       } else {
-        // TODO quando callsOnDate nao for vazio nem empty tem que adicionar a callsOnDate
-        // os classStudents que nao estiverem lá
+        studentsCalls.addAll(callsOnDate);
       }
       studentsCallController.add(studentsCalls);
     } catch (e) {
