@@ -1,11 +1,11 @@
+import 'package:aluco/core/locator/locator.dart';
 import 'package:aluco/model/class.dart';
-import 'package:aluco/repository/api/API.dart';
 import 'package:aluco/repository/api/class_repository.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ListClassesBloc extends BlocBase {
-  final _repository = ClassRepository(CLASS, Class());
+  final _repository = G<ClassRepository>();
   final _classesController = BehaviorSubject<List<Class>>();
 
   Stream<List<Class>> get classStream => _classesController.stream;
@@ -31,7 +31,7 @@ class ListClassesBloc extends BlocBase {
         classList.add(classSaved);
         _classesController.add(classList);
       }
-    } catch(e) {
+    } catch (e) {
       print(e);
       throw Exception();
     }
@@ -42,7 +42,7 @@ class ListClassesBloc extends BlocBase {
       await _repository.delete(classe.id);
       classList.remove(classe);
       _classesController.add(classList);
-    } catch(e) {
+    } catch (e) {
       print(e);
       throw Exception();
     }

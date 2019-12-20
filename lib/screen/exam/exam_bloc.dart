@@ -1,16 +1,15 @@
-import 'package:aluco/model/class.dart';
+import 'package:aluco/core/locator/locator.dart';
 import 'package:aluco/model/exam.dart';
 import 'package:aluco/model/exam_grade_dto.dart';
 import 'package:aluco/model/student.dart';
-import 'package:aluco/repository/api/API.dart';
 import 'package:aluco/repository/api/class_repository.dart';
 import 'package:aluco/repository/api/exam_repository.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ExamBloc extends BlocBase {
-  final _repository = ExamRepository(EXAM, Exam());
-  final _classRepository = ClassRepository(CLASS, Class());
+  final _repository = G<ExamRepository>();
+  final _classRepository = G<ClassRepository>();
   final _examsController = BehaviorSubject<List<Exam>>();
   final _pickedExamController = BehaviorSubject<Exam>.seeded(null);
 

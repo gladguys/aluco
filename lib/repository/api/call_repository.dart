@@ -4,7 +4,7 @@ import 'package:aluco/repository/dio/dio_builder.dart';
 
 import 'API.dart';
 
-class CallService implements AbstractCallRepository {
+class CallRepository implements AbstractCallRepository {
   final _dio = DioBuilder.getDio();
 
   @override
