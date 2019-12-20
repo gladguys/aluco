@@ -14,14 +14,16 @@ class HomeScreen extends StatelessWidget {
         fontSize: 40,
         hasShadow: false,
       ),
-      actions: kReleaseMode ? <Widget>[
-        Image.asset(
-          'assets/images/user.png',
-          fit: BoxFit.scaleDown,
-          width: 34,
-        ),
-        const SizedBox(width: 12.0),
-      ] : null,
+      actions: kReleaseMode
+          ? <Widget>[
+              Image.asset(
+                'assets/images/user.png',
+                fit: BoxFit.scaleDown,
+                width: 34,
+              ),
+              const SizedBox(width: 12.0),
+            ]
+          : null,
       body: Home(),
     );
   }

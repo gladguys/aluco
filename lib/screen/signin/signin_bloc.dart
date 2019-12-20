@@ -22,7 +22,6 @@ class SigninBloc extends BlocBase {
       signinStateController.add(SigninState.succeeded);
       return signinResult;
     } catch (e) {
-      print(e);
       if (e is DioError) {
         signinStateController.add(SigninState.wrongCredentials);
       } else {

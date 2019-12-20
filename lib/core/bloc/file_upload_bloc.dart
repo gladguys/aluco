@@ -12,7 +12,6 @@ class FileUploadBloc extends BlocBase {
       await _repository.uploadProfileFile(
           file: file, saveFilename: saveFilename);
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }

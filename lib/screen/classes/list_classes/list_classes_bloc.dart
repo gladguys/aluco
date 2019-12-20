@@ -15,7 +15,6 @@ class ListClassesBloc extends BlocBase {
     try {
       _classesController.add(await _repository.getAll());
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }
@@ -32,7 +31,6 @@ class ListClassesBloc extends BlocBase {
         _classesController.add(classList);
       }
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }
@@ -43,7 +41,6 @@ class ListClassesBloc extends BlocBase {
       classList.remove(classe);
       _classesController.add(classList);
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }

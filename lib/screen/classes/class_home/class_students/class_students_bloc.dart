@@ -91,7 +91,6 @@ class ClassStudentsBloc extends BlocBase {
       allStudentsMarkedController.add(allStudentsMarked);
       studentsToAdd.clear();
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }
@@ -109,7 +108,6 @@ class ClassStudentsBloc extends BlocBase {
       allStudentsMarkedListController
           .add(BehaviorSubject<StudentMarked>.seeded(newStudentMarked));
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }

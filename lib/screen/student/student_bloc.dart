@@ -15,7 +15,6 @@ class StudentBloc extends BlocBase {
     try {
       _studentsController.add(await _repository.getAll());
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }
@@ -24,7 +23,6 @@ class StudentBloc extends BlocBase {
     try {
       return _repository.getById(id);
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }
@@ -41,7 +39,6 @@ class StudentBloc extends BlocBase {
         _studentsController.add(studentList);
       }
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }
@@ -52,7 +49,6 @@ class StudentBloc extends BlocBase {
       studentList.remove(student);
       _studentsController.add(studentList);
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }

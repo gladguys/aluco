@@ -30,7 +30,6 @@ class ClassHomeBloc extends BlocBase {
     try {
       classStudentsController.add(await _studentRepository.getAll());
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }
@@ -40,7 +39,6 @@ class ClassHomeBloc extends BlocBase {
       classPlannedLessonsController.add(
           await _lessonRepository.getPlannedLessonsByClass(pickedClass.id));
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }
@@ -58,7 +56,6 @@ class ClassHomeBloc extends BlocBase {
         classPlannedLessonsController.add(classPlannedLessons);
       }
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }
@@ -69,7 +66,6 @@ class ClassHomeBloc extends BlocBase {
       classPlannedLessons.remove(lessonPlan);
       classPlannedLessonsController.add(classPlannedLessons);
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }
@@ -78,7 +74,6 @@ class ClassHomeBloc extends BlocBase {
     try {
       return _lessonRepository.getById(id);
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }
