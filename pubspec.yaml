@@ -43,6 +43,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.7.3
+  flutter_native_splash: ^0.1.9
 
 dependency_overrides:
   intl: ^0.15.8
@@ -53,6 +54,10 @@ flutter_icons:
   image_path: "assets/images/launcher_icon.png"
   adaptive_icon_background: "assets/images/launcher_background.png"
   adaptive_icon_foreground: "assets/images/launcher_icon.png"
+
+flutter_native_splash:
+  image: assets/images/splash_foreground.png
+  color: "fb8c00"
 
 flutter:
   uses-material-design: true
