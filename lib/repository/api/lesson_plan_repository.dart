@@ -3,9 +3,9 @@ import 'package:aluco/repository/core/abstract_lesson_repository.dart';
 import 'package:aluco/repository/core/base_repository.dart';
 import 'package:aluco/repository/dio/dio_builder.dart';
 
-class LessonRepository extends BaseRepository<LessonPlan>
+class LessonPlanRepository extends BaseRepository<LessonPlan>
     implements AbstractLessonPlanRepository {
-  LessonRepository(String basePath, LessonPlan instance)
+  LessonPlanRepository(String basePath, LessonPlan instance)
       : super(basePath, instance);
 
   final _dio = DioBuilder.getDio();
