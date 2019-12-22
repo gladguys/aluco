@@ -7,3 +7,6 @@ const STUDENT = 'students';
 const LESSON = 'lessons';
 const TEACHER = 'teachers';
 const PROFILES = 'profiles';
+const SINGLE_CLASS = 'class';
+const CALL = 'calls';
+const DATE = 'date';

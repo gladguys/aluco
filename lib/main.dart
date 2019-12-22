@@ -1,22 +1,26 @@
 import 'package:alice/alice.dart';
-import 'package:aluco/core/utils/jwt_utils.dart';
-import 'package:aluco/screen/home/home_screen.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:catcher/catcher_plugin.dart';
 import 'package:flutter/material.dart';
-
-import 'package:aluco/screen/signin/signin_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'core/bloc/global_blocs.dart';
+import 'core/error/errors.dart';
+import 'core/locator/locator.dart';
+import 'core/utils/jwt_utils.dart';
+import 'screen/home/home_screen.dart';
+import 'screen/signin/signin_screen.dart';
 import 'theme/main_theme.dart';
 
 SharedPreferences preferences;
 
-Alice alice = Alice(navigatorKey: GlobalKey<NavigatorState>());
+Alice alice = Alice(navigatorKey: Catcher.navigatorKey);
 
 Future<void> main() async {
   await initializePreferences();
-  runApp(MyApp());
+  setupLocator();
+  Catcher(MyApp(), debugConfig: debugOptions, releaseConfig: releaseOptions);
 }
 
 Future<void> initializePreferences() async {
@@ -39,7 +43,7 @@ class MyApp extends StatelessWidget {
         supportedLocales: const <Locale>[
           Locale('pt', 'BR'),
         ],
-        home:  JWTUtils.userAlreadySignedIn() ? HomeScreen() : SigninScreen(),
+        home: JWTUtils.userAlreadySignedIn() ? HomeScreen() : SigninScreen(),
       ),
     );
   }

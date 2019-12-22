@@ -1,7 +1,6 @@
-import 'package:aluco/model/class.dart';
+import 'package:aluco/core/locator/locator.dart';
 import 'package:aluco/model/student.dart';
 import 'package:aluco/model/student_marked.dart';
-import 'package:aluco/repository/api/API.dart';
 import 'package:aluco/repository/api/class_repository.dart';
 import 'package:aluco/repository/api/student_repository.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
@@ -29,8 +28,8 @@ class ClassStudentsBloc extends BlocBase {
   List<Student> get studentsNotInClass => studentsNotInClassController.value;
 
   int classId;
-  final _classRepository = ClassRepository(CLASS, Class());
-  final _studentRepository = StudentRepository(STUDENT, Student());
+  final _classRepository = G<ClassRepository>();
+  final _studentRepository = G<StudentRepository>();
 
   Future<void> initStudents(int classId) async {
     this.classId = classId;
@@ -92,7 +91,6 @@ class ClassStudentsBloc extends BlocBase {
       allStudentsMarkedController.add(allStudentsMarked);
       studentsToAdd.clear();
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }
@@ -110,7 +108,6 @@ class ClassStudentsBloc extends BlocBase {
       allStudentsMarkedListController
           .add(BehaviorSubject<StudentMarked>.seeded(newStudentMarked));
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }

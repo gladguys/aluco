@@ -6,7 +6,6 @@ import 'package:flutter_sujian_select/select_group.dart';
 import 'package:flutter_sujian_select/select_item.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
 import 'package:intl/intl.dart';
-import 'package:numberpicker/numberpicker.dart';
 
 class SaveExamForm extends StatefulWidget {
   SaveExamForm(this._exam);
@@ -130,7 +129,8 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
                       SelectItem(label: '3', value: 3),
                       SelectItem(label: '4', value: 4),
                     ],
-                    onSingleSelect: (periodYear) => _exam.periodYear = periodYear,
+                    onSingleSelect: (periodYear) =>
+                        _exam.periodYear = periodYear,
                   ),
                 ],
               ),
