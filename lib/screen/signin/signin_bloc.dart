@@ -1,7 +1,7 @@
+import 'package:aluco/core/locator/locator.dart';
 import 'package:aluco/core/utils/jwt_utils.dart';
 import 'package:aluco/core/utils/pref_utils.dart';
 import 'package:aluco/repository/api/auth_repository.dart';
-
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:dio/dio.dart';
 import 'package:rxdart/rxdart.dart';
@@ -9,7 +9,7 @@ import 'package:rxdart/rxdart.dart';
 enum SigninState { idle, onGoing, succeeded, failed, wrongCredentials }
 
 class SigninBloc extends BlocBase {
-  final _repository = AuthRepository();
+  final _repository = G<AuthRepository>();
   final signinStateController =
       BehaviorSubject<SigninState>.seeded(SigninState.idle);
   SigninState get signinState => signinStateController.value;
@@ -22,7 +22,6 @@ class SigninBloc extends BlocBase {
       signinStateController.add(SigninState.succeeded);
       return signinResult;
     } catch (e) {
-      print(e);
       if (e is DioError) {
         signinStateController.add(SigninState.wrongCredentials);
       } else {

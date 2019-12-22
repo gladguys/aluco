@@ -1,8 +1,8 @@
+import 'package:aluco/core/locator/locator.dart';
 import 'package:aluco/model/class.dart';
 import 'package:aluco/model/lesson_plan.dart';
 import 'package:aluco/model/student.dart';
-import 'package:aluco/repository/api/API.dart';
-import 'package:aluco/repository/api/lesson_repository.dart';
+import 'package:aluco/repository/api/lesson_plan_repository.dart';
 import 'package:aluco/repository/api/student_repository.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:intl/intl.dart';
@@ -12,8 +12,8 @@ class ClassHomeBloc extends BlocBase {
   final classStudentsController = BehaviorSubject<List<Student>>.seeded([]);
   final classPlannedLessonsController =
       BehaviorSubject<List<LessonPlan>>.seeded([]);
-  final _lessonRepository = LessonRepository(LESSON, LessonPlan());
-  final _studentRepository = StudentRepository(STUDENT, Student());
+  final _lessonRepository = G<LessonPlanRepository>();
+  final _studentRepository = G<StudentRepository>();
   final dateFormat = DateFormat('dd/MM/yyyy');
   Class _class;
 
@@ -30,7 +30,6 @@ class ClassHomeBloc extends BlocBase {
     try {
       classStudentsController.add(await _studentRepository.getAll());
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }
@@ -40,7 +39,6 @@ class ClassHomeBloc extends BlocBase {
       classPlannedLessonsController.add(
           await _lessonRepository.getPlannedLessonsByClass(pickedClass.id));
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }
@@ -58,7 +56,6 @@ class ClassHomeBloc extends BlocBase {
         classPlannedLessonsController.add(classPlannedLessons);
       }
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }
@@ -69,7 +66,6 @@ class ClassHomeBloc extends BlocBase {
       classPlannedLessons.remove(lessonPlan);
       classPlannedLessonsController.add(classPlannedLessons);
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }
@@ -78,7 +74,6 @@ class ClassHomeBloc extends BlocBase {
     try {
       return _lessonRepository.getById(id);
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }
