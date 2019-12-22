@@ -35,6 +35,7 @@ dependencies:
   flutter_masked_text: ^0.8.0
   introduction_screen: ^1.0.7
   connectivity_alert_widget: ^1.0.0
+  ndialog: ^2.0.2+1
   gg_flutter_components:
     git:
       url: git://github.com/rodrigobastosv/gg_flutter_components.git
@@ -43,9 +44,22 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.7.3
+  flutter_native_splash: ^0.1.9
 
 dependency_overrides:
   intl: ^0.15.8
+
+flutter_icons:
+  android: "launcher_icon" 
+  ios: true
+  image_path: "assets/images/launcher_foreground.png"
+  adaptive_icon_background: "assets/images/launcher_background.png"
+  adaptive_icon_foreground: "assets/images/launcher_foreground.png"
+
+flutter_native_splash:
+  image: assets/images/splash_foreground.png
+  color: "fb8c00"
 
 flutter:
   uses-material-design: true
