@@ -15,10 +15,12 @@ class CallBloc extends BlocBase {
   final _callRepository = G<CallRepository>();
   final dateFormat = DateFormat('dd/MM/yyyy');
 
-  Future<void> initializeClassStudents(int classId) async {
+  Future<void> initializeClassStudentsFromDate(
+      int classId, DateTime callDate) async {
+    studentsCallController.add([]);
     final studentsCalls = <StudentCall>[];
     try {
-      final date = dateFormat.format(DateTime.now());
+      final date = dateFormat.format(callDate);
       final callsOnDate =
           await _callRepository.getClassStudentsCallOnDate(classId, date);
 
@@ -30,7 +32,7 @@ class CallBloc extends BlocBase {
             StudentCall(
               classId: classId,
               date: date,
-              status: CallStatus.PRESENTE,
+              status: CallStatus.NENHUMA,
               studentId: student.id,
             ),
           );
@@ -46,7 +48,7 @@ class CallBloc extends BlocBase {
             StudentCall(
               classId: classId,
               date: date,
-              status: CallStatus.PRESENTE,
+              status: CallStatus.NENHUMA,
               studentId: student.id,
             ),
           );

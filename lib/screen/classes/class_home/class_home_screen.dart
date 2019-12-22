@@ -5,8 +5,6 @@ import 'package:aluco/screen/classes/call/call_screen.dart';
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:gg_flutter_components/button/gg_rounded_button.dart';
 
 import 'class_home_actions.dart';
 import 'class_home_bloc.dart';
@@ -54,7 +52,8 @@ class _ClassHomeScreenState extends State<ClassHomeScreen> {
                 context,
                 CallScreen(),
                 () => BlocProvider.getBloc<CallBloc>()
-                    .initializeClassStudents(_bloc.pickedClass.id)),
+                    .initializeClassStudentsFromDate(
+                        _bloc.pickedClass.id, DateTime.now())),
           ),
           const SizedBox(height: 8),
         ],

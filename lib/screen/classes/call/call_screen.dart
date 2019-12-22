@@ -6,7 +6,6 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:gg_flutter_components/form/gg_form_datepicker.dart';
-import 'package:intl/intl.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 import 'call_bloc.dart';
@@ -29,7 +28,6 @@ class _CallScreenState extends State<CallScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final students = _callBloc.studentsCallController.value;
     return ALScaffold(
       title: 'Fazer Chamada',
       subtitle: _classHomeBloc.pickedClass.name,
@@ -41,19 +39,33 @@ class _CallScreenState extends State<CallScreen> {
               Container(
                 width: 210,
                 child: GGFormDatePicker(
-                  format: _callBloc.dateFormat,
-                  labelText: 'Data',
-                  initialDate: DateTime.now(),
-                ),
+                    format: _callBloc.dateFormat,
+                    labelText: 'Data',
+                    initialDate: DateTime.now(),
+                    onChanged: (callDate) {
+                      if (callDate != null) {
+                        _callBloc.initializeClassStudentsFromDate(
+                            _classHomeBloc.pickedClass.id, callDate);
+                      }
+                    }),
               ),
               const SizedBox(height: 16),
-              ListView.separated(
-                padding: const EdgeInsets.only(bottom: 80),
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (_, i) => StudentCallItem(students[i]),
-                separatorBuilder: (_, i) => const SizedBox(height: 8),
-                itemCount: students.length,
+              StreamBuilder<List<StudentCall>>(
+                stream: _callBloc.studentsCallController.stream,
+                builder: (_, snapshot) {
+                  if (snapshot.hasData) {
+                    final students = snapshot.data;
+                    return ListView.separated(
+                      padding: const EdgeInsets.only(bottom: 80),
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (_, i) => StudentCallItem(students[i]),
+                      separatorBuilder: (_, i) => const SizedBox(height: 8),
+                      itemCount: students.length,
+                    );
+                  }
+                  return const CircularProgressIndicator();
+                },
               ),
             ],
           ),

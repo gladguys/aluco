@@ -1,4 +1,4 @@
-enum CallStatus { PRESENTE, FALTA, FALTA_JUSTIFICADA, FERIADO }
+enum CallStatus { PRESENTE, FALTA, FALTA_JUSTIFICADA, FERIADO, NENHUMA }
 
 CallStatus getCallStatusFromString(String callStatusString) {
   switch (callStatusString) {
@@ -10,6 +10,8 @@ CallStatus getCallStatusFromString(String callStatusString) {
       return CallStatus.FALTA_JUSTIFICADA;
     case 'FERIADO':
       return CallStatus.FERIADO;
+    case 'NENHUMA':
+      return CallStatus.NENHUMA;
     default:
       return CallStatus.PRESENTE;
   }
@@ -25,6 +27,8 @@ CallStatus getCallStatusFromInt(int index) {
       return CallStatus.FALTA_JUSTIFICADA;
     case 3:
       return CallStatus.FERIADO;
+    case 4:
+      return CallStatus.NENHUMA;
     default:
       return CallStatus.PRESENTE;
   }
