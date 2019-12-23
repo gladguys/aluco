@@ -31,6 +31,7 @@ class CallBloc extends BlocBase {
           studentsCalls.add(
             StudentCall(
               classId: classId,
+              studentName: student.name,
               date: date,
               status: CallStatus.NENHUMA,
               studentId: student.id,
@@ -47,6 +48,7 @@ class CallBloc extends BlocBase {
           studentsCalls.add(
             StudentCall(
               classId: classId,
+              studentName: student.name,
               date: date,
               status: CallStatus.NENHUMA,
               studentId: student.id,
@@ -78,6 +80,7 @@ class CallBloc extends BlocBase {
           date: copyStudent.date,
           classId: copyStudent.classId,
           id: copyStudent.id);
+      studentsCalls.removeAt(index);
       studentsCalls.insert(index, newStudentCall);
 
       await _callRepository.changeStudentCall(newStudentCall);

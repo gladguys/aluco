@@ -95,9 +95,7 @@ class StudentCallItem extends StatelessWidget {
         ),
         title: Padding(
           padding: const EdgeInsets.only(bottom: 8),
-          child: Text(
-            studentCall.studentId.toString(),
-          ),
+          child: Text(studentCall.studentName ?? ''),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
