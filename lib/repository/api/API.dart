@@ -10,3 +10,6 @@ const PROFILES = 'profiles';
 const SINGLE_CLASS = 'class';
 const CALL = 'calls';
 const DATE = 'date';
+
+const AWS_FILE_BUCKET_URL =
+    'https://profile-photo-aluco.s3.us-east-2.amazonaws.com';
