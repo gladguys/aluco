@@ -8,6 +8,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ndialog/ndialog.dart';
 import 'package:ok_image/ok_image.dart';
 
+import 'al_fallback_user_image.dart';
+
 class ALInfoUserDialog extends StatefulWidget {
   @override
   _ALInfoUserDialogState createState() => _ALInfoUserDialogState();
@@ -86,21 +88,15 @@ class _ALInfoUserDialogState extends State<ALInfoUserDialog> {
     } else {
       final teacherId = PrefUtils.getTeacherId();
       return OKImage(
-        url: '$AWS_FILE_BUCKET_URL/$teacherId..jpg',
+        url: '$AWS_FILE_BUCKET_URL/$teacherId.jpg',
         width: 120,
         height: 120,
         timeout: Duration(seconds: 20),
         fit: BoxFit.contain,
-        errorWidget: (e) => Container(
+        errorWidget: (e) => const ALFallbackUserImage(
+          'assets/images/user120.png',
           width: 120,
           height: 120,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: const AssetImage('assets/images/user120.png'),
-              fit: BoxFit.contain,
-            ),
-          ),
         ),
       );
     }
