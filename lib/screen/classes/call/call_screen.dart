@@ -1,4 +1,5 @@
 import 'package:aluco/enums/call_status.dart';
+import 'package:aluco/model/student_absence.dart';
 import 'package:aluco/model/student_call.dart';
 import 'package:aluco/screen/classes/class_home/class_home_bloc.dart';
 import 'package:aluco/widget/al_scaffold.dart';
@@ -23,6 +24,7 @@ class _CallScreenState extends State<CallScreen> {
   void initState() {
     _callBloc = BlocProvider.getBloc<CallBloc>();
     _classHomeBloc = BlocProvider.getBloc<ClassHomeBloc>();
+    _callBloc.initClassAbsences(_classHomeBloc.pickedClass.id);
     super.initState();
   }
 
@@ -126,7 +128,20 @@ class StudentCallItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                const Text('Faltas: 00'),
+                StreamBuilder<List<StudentAbsence>>(
+                  stream: _callBloc.studentsAbsencesController.stream,
+                  builder: (_, snapshot) {
+                    if (snapshot.hasData && snapshot.data.isNotEmpty) {
+                      print(snapshot.data);
+                      final student = snapshot.data.singleWhere(
+                          (studentAbsence) =>
+                              studentAbsence.studentId ==
+                              studentCall.studentId);
+                      return Text('Faltas: ${student.quantity ?? '0'}');
+                    }
+                    return const Text('Faltas: --');
+                  },
+                ),
                 const SizedBox(width: 4),
                 Icon(
                   FontAwesome5.getIconData(

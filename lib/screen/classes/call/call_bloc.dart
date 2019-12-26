@@ -1,6 +1,7 @@
 import 'package:aluco/core/locator/locator.dart';
 import 'package:aluco/enums/call_status.dart';
 import 'package:aluco/model/student.dart';
+import 'package:aluco/model/student_absence.dart';
 import 'package:aluco/model/student_call.dart';
 import 'package:aluco/repository/api/call_repository.dart';
 import 'package:aluco/repository/api/class_repository.dart';
@@ -11,6 +12,8 @@ import 'package:rxdart/rxdart.dart';
 class CallBloc extends BlocBase {
   final dateController = BehaviorSubject<DateTime>.seeded(DateTime.now());
   final studentsCallController = BehaviorSubject<List<StudentCall>>.seeded([]);
+  final studentsAbsencesController =
+      BehaviorSubject<List<StudentAbsence>>.seeded([]);
   final _classRepository = G<ClassRepository>();
   final _callRepository = G<CallRepository>();
   final dateFormat = DateFormat('dd/MM/yyyy');
@@ -60,6 +63,10 @@ class CallBloc extends BlocBase {
     } catch (e) {
       throw Exception();
     }
+  }
+
+  Future<void> initClassAbsences(int classId) async {
+    studentsAbsencesController.add(await _classRepository.getAbsences(classId));
   }
 
   Future<List<StudentCall>> getClassStudentsCallOnDate(

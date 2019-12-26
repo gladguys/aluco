@@ -1,5 +1,6 @@
 const API_URL = 'http://aluco-test.herokuapp.com/api/';
 const AUTH = 'auth';
+const ABSENCE = 'absences';
 const CLASS = 'classes';
 const EXAM = 'exams';
 const GRADE = 'grades';
