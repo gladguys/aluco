@@ -76,6 +76,7 @@ class CallBloc extends BlocBase {
 
       final newStudentCall = StudentCall(
           studentId: copyStudent.studentId,
+          studentName: copyStudent.studentName,
           status: getCallStatusFromInt(status),
           date: copyStudent.date,
           classId: copyStudent.classId,
