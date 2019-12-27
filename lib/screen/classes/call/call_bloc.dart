@@ -73,9 +73,25 @@ class CallBloc extends BlocBase {
   }
 
   Future<void> initClassAbsences(int classId) async {
+    final classStudents = await _classRepository.getStudentsByClass(classId);
     final absences = await _classRepository.getAbsences(classId);
     for (StudentAbsence studentAbsence in absences) {
       studentAbsencesControllers.add(BehaviorSubject.seeded(studentAbsence));
+    }
+    for (Student student in classStudents) {
+      if (studentAbsencesControllers.indexWhere((studentAbsence) =>
+              studentAbsence.value.studentId == student.id) ==
+          -1) {
+        studentAbsencesControllers.add(
+          BehaviorSubject.seeded(
+            StudentAbsence(
+              quantity: 0,
+              studentId: student.id,
+              classId: classId,
+            ),
+          ),
+        );
+      }
     }
   }
 
