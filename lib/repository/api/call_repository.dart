@@ -1,6 +1,7 @@
 import 'package:aluco/model/student_call.dart';
 import 'package:aluco/repository/core/abstract_call_repository.dart';
 import 'package:aluco/repository/dio/dio_builder.dart';
+import 'package:dio/dio.dart';
 
 import 'API.dart';
 
@@ -21,11 +22,13 @@ class CallRepository implements AbstractCallRepository {
   }
 
   @override
-  Future<void> changeStudentCall(StudentCall studentCall) async {
+  Future<StudentCall> changeStudentCall(StudentCall studentCall) async {
+    Response response;
     if (studentCall.id == null) {
-      await _dio.post<dynamic>(CALL, data: studentCall.toJson());
+      response = await _dio.post<dynamic>(CALL, data: studentCall.toJson());
     } else {
-      await _dio.put<dynamic>(CALL, data: studentCall.toJson());
+      response = await _dio.put<dynamic>(CALL, data: studentCall.toJson());
     }
+    return StudentCall.fromJson(response.data);
   }
 }

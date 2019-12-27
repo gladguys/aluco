@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:aluco/model/class.dart';
 import 'package:aluco/model/student.dart';
+import 'package:aluco/model/student_absence.dart';
 import 'package:aluco/model/student_grades.dart';
-
 import 'package:aluco/repository/api/API.dart';
 import 'package:aluco/repository/core/abstract_class_repository.dart';
 import 'package:aluco/repository/core/base_repository.dart';
@@ -57,6 +57,19 @@ class ClassRepository extends BaseRepository<Class>
       return List.generate(
         response.data.length,
         (int i) => StudentGrades.fromJson(response.data[i]),
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<StudentAbsence>> getAbsences(int classId) async {
+    try {
+      final response = await _dio.get<dynamic>('$basePath/$classId/$ABSENCE');
+      return List.generate(
+        response.data.length,
+        (int i) => StudentAbsence.fromJson(response.data[i]),
       );
     } catch (e) {
       rethrow;
