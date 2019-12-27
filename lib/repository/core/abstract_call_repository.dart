@@ -4,4 +4,5 @@ abstract class AbstractCallRepository {
   Future<List<StudentCall>> getClassStudentsCallOnDate(
       int classId, String date);
   Future<StudentCall> changeStudentCall(StudentCall studentCall);
+  Future<List<StudentCall>> getStudentCalls(int studentId, int classId);
 }
