@@ -12,14 +12,21 @@ import 'package:rxdart/rxdart.dart';
 class CallBloc extends BlocBase {
   final dateController = BehaviorSubject<DateTime>.seeded(DateTime.now());
   final studentsCallController = BehaviorSubject<List<StudentCall>>.seeded([]);
-  final studentsAbsencesController =
-      BehaviorSubject<List<StudentAbsence>>.seeded([]);
+  final studentAbsencesControllers = <BehaviorSubject<StudentAbsence>>[];
+
   final _classRepository = G<ClassRepository>();
   final _callRepository = G<CallRepository>();
   final dateFormat = DateFormat('dd/MM/yyyy');
 
+  BehaviorSubject<StudentAbsence> getStudentAbsence(int studentId) {
+    return studentAbsencesControllers
+        .firstWhere((controller) => controller.value.studentId == studentId);
+  }
+
   Future<void> initializeClassStudentsFromDate(
       int classId, DateTime callDate) async {
+    await initClassAbsences(classId);
+
     studentsCallController.add([]);
     final studentsCalls = <StudentCall>[];
     try {
@@ -66,7 +73,10 @@ class CallBloc extends BlocBase {
   }
 
   Future<void> initClassAbsences(int classId) async {
-    studentsAbsencesController.add(await _classRepository.getAbsences(classId));
+    final absences = await _classRepository.getAbsences(classId);
+    for (StudentAbsence studentAbsence in absences) {
+      studentAbsencesControllers.add(BehaviorSubject.seeded(studentAbsence));
+    }
   }
 
   Future<List<StudentCall>> getClassStudentsCallOnDate(
@@ -79,19 +89,21 @@ class CallBloc extends BlocBase {
       final studentsCalls = studentsCallController.value;
       final index =
           studentsCalls.indexWhere((studentCall) => studentCall == student);
-      final copyStudent = studentsCalls[index];
 
-      final newStudentCall = StudentCall(
-          studentId: copyStudent.studentId,
-          studentName: copyStudent.studentName,
-          status: getCallStatusFromInt(status),
-          date: copyStudent.date,
-          classId: copyStudent.classId,
-          id: copyStudent.id);
-      studentsCalls.removeAt(index);
-      studentsCalls.insert(index, newStudentCall);
+      final studentAbsenceController = getStudentAbsence(student.studentId);
+      final studentAbsence = studentAbsenceController.value;
+      if (student.status == CallStatus.NENHUMA && status == 1) {
+        studentAbsence.quantity = studentAbsence.quantity + 1;
+      } else if (student.status == CallStatus.FALTA && status != 1) {
+        studentAbsence.quantity = studentAbsence.quantity - 1;
+      }
+      studentAbsenceController.add(studentAbsence);
 
-      await _callRepository.changeStudentCall(newStudentCall);
+      studentsCalls[index].status = getCallStatusFromInt(status);
+
+      final returnedStudent =
+          await _callRepository.changeStudentCall(studentsCalls[index]);
+      studentsCalls[index].id = returnedStudent.id;
       studentsCallController.add(studentsCalls);
     } catch (e) {
       rethrow;
