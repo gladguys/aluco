@@ -62,4 +62,9 @@ class StudentGrades {
     data['average'] = average;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'StudentGrades{periodOne: $periodOne, periodTwo: $periodTwo, periodThree: $periodThree, periodFour: $periodFour, status: $status, studentName: $studentName, average: $average}';
+  }
 }

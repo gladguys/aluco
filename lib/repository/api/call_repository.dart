@@ -1,4 +1,6 @@
+import 'package:aluco/model/student_absence.dart';
 import 'package:aluco/model/student_call.dart';
+import 'package:aluco/model/student_grades.dart';
 import 'package:aluco/repository/core/abstract_call_repository.dart';
 import 'package:aluco/repository/dio/dio_builder.dart';
 import 'package:dio/dio.dart';
@@ -43,6 +45,34 @@ class CallRepository implements AbstractCallRepository {
           .get<dynamic>('$CALL/$SINGLE_STUDENT/$studentId?classId=$classId');
       return List.generate(response.data.length,
           (int i) => StudentCall.fromJson(response.data[i]));
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<StudentAbsence> getStudentAbsences(int studentId, int classId) async {
+    try {
+      final response = await _dio
+          .get<dynamic>('$CLASS/$classId/$ABSENCE?studentId=$studentId');
+      if (response.data.isNotEmpty) {
+        return StudentAbsence.fromJson(response.data[0]);
+      }
+      return StudentAbsence(quantity: 0);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<StudentGrades> getStudentGrades(int studentId, int classId) async {
+    try {
+      final response = await _dio
+          .get<dynamic>('$STUDENT/$studentId/$GRADE?classId=$classId');
+      if (response.data.isNotEmpty) {
+        return StudentGrades.fromJson(response.data[0]);
+      }
+      return null;
     } catch (e) {
       rethrow;
     }
