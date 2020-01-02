@@ -40,9 +40,12 @@ class _StudentInfoCenterScreenState extends State<StudentInfoCenterScreen> {
   @override
   void initState() {
     getInfoStudentFuture = _studentRepository.getById(student.id);
-    getStudentCallsFuture = _callRepository.getStudentCalls(student.id, _classHomeBloc.pickedClass.id);
-    getStudentAbsencesFuture = _callRepository.getStudentAbsences(student.id, _classHomeBloc.pickedClass.id);
-    getStudentGradesFuture = _callRepository.getStudentGrades(student.id, _classHomeBloc.pickedClass.id);
+    getStudentCallsFuture = _callRepository.getStudentCalls(
+        student.id, _classHomeBloc.pickedClass.id);
+    getStudentAbsencesFuture = _callRepository.getStudentAbsences(
+        student.id, _classHomeBloc.pickedClass.id);
+    getStudentGradesFuture = _callRepository.getStudentGrades(
+        student.id, _classHomeBloc.pickedClass.id);
     super.initState();
   }
 
@@ -59,56 +62,56 @@ class _StudentInfoCenterScreenState extends State<StudentInfoCenterScreen> {
               future: getInfoStudentFuture,
               builder: (_, snapshotStudent) {
                 if (snapshotStudent.hasData) {
-                  return InfoStudent(snapshotStudent.data);
+                  return ExpansionTile(
+                    title: const Text('Informações Gerais'),
+                    children: <Widget>[
+                      InfoStudent(snapshotStudent.data),
+                      const SizedBox(height: 22),
+                    ],
+                  );
                 }
-                return Center(
-                  child: const CircularProgressIndicator(),
-                );
+                return Container();
               },
             ),
-
-            const SizedBox(height: 22),
-
-            FutureBuilder<StudentAbsence>(
-              future: getStudentAbsencesFuture,
-              builder: (_, snapshotAbsence) {
-                if (snapshotAbsence.hasData) {
-                  return StudentAbsencesQuantity(snapshotAbsence.data);
-                }
-                return Center(
-                  child: const CircularProgressIndicator(),
-                );
-              },
+            ExpansionTile(
+              title: const Text('Faltas'),
+              children: <Widget>[
+                FutureBuilder<StudentAbsence>(
+                  future: getStudentAbsencesFuture,
+                  builder: (_, snapshotAbsence) {
+                    if (snapshotAbsence.hasData) {
+                      return StudentAbsencesQuantity(snapshotAbsence.data);
+                    }
+                    return Container();
+                  },
+                ),
+                const SizedBox(height: 22),
+                FutureBuilder<List<StudentCall>>(
+                  future: getStudentCallsFuture,
+                  builder: (_, snapshotCalls) {
+                    if (snapshotCalls.hasData) {
+                      return StudentCalls(snapshotCalls.data);
+                    }
+                    return Container();
+                  },
+                ),
+              ],
             ),
-
             const SizedBox(height: 22),
-
-            FutureBuilder<List<StudentCall>>(
-              future: getStudentCallsFuture,
-              builder: (_, snapshotCalls) {
-                if (snapshotCalls.hasData) {
-                  return StudentCalls(snapshotCalls.data);
-                }
-                return Center(
-                  child: const CircularProgressIndicator(),
-                );
-              },
-            ),
-
-            const SizedBox(height: 22),
-
             FutureBuilder<StudentGrades>(
               future: getStudentGradesFuture,
               builder: (_, snapshotGrades) {
                 if (snapshotGrades.hasData) {
-                  return StudentGradesList(snapshotGrades.data);
+                  return ExpansionTile(
+                    title: const Text('Notas'),
+                    children: <Widget>[
+                      StudentGradesList(snapshotGrades.data),
+                    ],
+                  );
                 }
-                return Center(
-                  child: const CircularProgressIndicator(),
-                );
+                return Container();
               },
             ),
-
           ],
         ),
       ),

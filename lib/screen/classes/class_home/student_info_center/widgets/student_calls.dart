@@ -146,13 +146,13 @@ class _StudentCallsState extends State<StudentCalls> {
                     '${date.day}',
                     style: (date.weekday == 6 || date.weekday == 7)
                         ? const TextStyle().copyWith(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red[300])
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red[300])
                         : const TextStyle().copyWith(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
                   ),
                 ),
               );
@@ -203,20 +203,20 @@ class _StudentCallsState extends State<StudentCalls> {
                   child: Text(
                     '${date.day}',
                     style: (date.weekday == 6 || date.weekday == 7) &&
-                        _calendarController.isToday(date)
+                            _calendarController.isToday(date)
                         ? const TextStyle().copyWith(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red[300])
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red[300])
                         : (date.weekday == 6 || date.weekday == 7)
-                        ? const TextStyle().copyWith(
-                        fontSize: 14.0, color: Colors.red[300])
-                        : _calendarController.isToday(date)
-                        ? const TextStyle().copyWith(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.bold,
-                    )
-                        : const TextStyle().copyWith(fontSize: 14.0),
+                            ? const TextStyle().copyWith(
+                                fontSize: 14.0, color: Colors.red[300])
+                            : _calendarController.isToday(date)
+                                ? const TextStyle().copyWith(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.bold,
+                                  )
+                                : const TextStyle().copyWith(fontSize: 14.0),
                   ),
                 ),
               );
@@ -230,8 +230,7 @@ class _StudentCallsState extends State<StudentCalls> {
   Map<DateTime, List> _buildCallsMap(List<StudentCall> calls) {
     final Map<DateTime, List> callssMap = {};
     for (StudentCall call in calls) {
-      callssMap.putIfAbsent(
-          dateFormat.parse(call.date), () => <dynamic>['']);
+      callssMap.putIfAbsent(dateFormat.parse(call.date), () => <dynamic>['']);
     }
     return callssMap;
   }
