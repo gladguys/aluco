@@ -1,5 +1,6 @@
 import 'package:aluco/model/student_call.dart';
 import 'package:aluco/screen/classes/class_home/class_home_bloc.dart';
+import 'package:aluco/screen/classes/class_home/class_students/components/add_student_class_button.dart';
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
@@ -53,14 +54,36 @@ class _CallScreenState extends State<CallScreen> {
                 builder: (_, snapshot) {
                   if (snapshot.hasData) {
                     final students = snapshot.data;
-                    return ListView.separated(
-                      padding: const EdgeInsets.only(bottom: 80),
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (_, i) => StudentCallItem(students[i]),
-                      separatorBuilder: (_, i) => const SizedBox(height: 8),
-                      itemCount: students.length,
-                    );
+                    if (students.isNotEmpty) {
+                      return ListView.separated(
+                        padding: const EdgeInsets.only(bottom: 80),
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (_, i) => StudentCallItem(students[i]),
+                        separatorBuilder: (_, i) => const SizedBox(height: 8),
+                        itemCount: students.length,
+                      );
+                    } else {
+                      return Column(
+                        children: const <Widget>[
+                          SizedBox(height: 48),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 40),
+                            child: Text(
+                              'Você ainda não adicionou nenhum aluno a esta turma.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 48),
+                          AddStudentClassButton(isFloating: false),
+                          SizedBox(height: 8),
+                        ],
+                      );
+                    }
                   }
                   return const CircularProgressIndicator();
                 },
