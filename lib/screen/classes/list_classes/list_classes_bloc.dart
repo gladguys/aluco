@@ -13,15 +13,7 @@ class ListClassesBloc extends BlocBase {
 
   Future<void> getAll() async {
     try {
-      final classes = await _repository.getAll();
-      for (Class classe in classes) {
-        final config = await _repository.getClassConfig(classe.id);
-        if (config != null) {
-          classe.maxQntAbsence = config.maxQntAbsence;
-          classe.minimumAverage = config.minimumAverage;
-        }
-      }
-      _classesController.add(classes);
+      _classesController.add(await _repository.getAll());
     } catch (e) {
       print(e);
       throw Exception();
