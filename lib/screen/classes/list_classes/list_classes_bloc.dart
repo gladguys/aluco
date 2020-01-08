@@ -13,8 +13,17 @@ class ListClassesBloc extends BlocBase {
 
   Future<void> getAll() async {
     try {
-      _classesController.add(await _repository.getAll());
+      final classes = await _repository.getAll();
+      for (Class classe in classes) {
+        final config = await _repository.getClassConfig(classe.id);
+        if (config != null) {
+          classe.maxQntAbsence = config.maxQntAbsence;
+          classe.minimumAverage = config.minimumAverage;
+        }
+      }
+      _classesController.add(classes);
     } catch (e) {
+      print(e);
       throw Exception();
     }
   }
@@ -22,6 +31,11 @@ class ListClassesBloc extends BlocBase {
   Future<void> save(Class classe) async {
     try {
       final classSaved = await _repository.save(classe);
+
+      if (classe.id == null) {
+        await _repository.saveClassConfig(classSaved.id, classe);
+      }
+
       if (classe.id == null) {
         classList.add(classSaved);
         _classesController.add(classList);

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:aluco/model/class.dart';
+import 'package:aluco/model/class_config.dart';
 import 'package:aluco/model/student.dart';
 import 'package:aluco/model/student_absence.dart';
 import 'package:aluco/model/student_grades.dart';
@@ -71,6 +72,29 @@ class ClassRepository extends BaseRepository<Class>
         response.data.length,
         (int i) => StudentAbsence.fromJson(response.data[i]),
       );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> saveClassConfig(int classId, Class classe) async {
+    try {
+      await _dio.post<dynamic>('$basePath//$classId/$CONFIG',
+          data: jsonEncode(classe.toJsonConfig()));
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ClassConfig> getClassConfig(int classId) async {
+    try {
+      final response = await _dio.get<dynamic>('$CLASS/$classId/$CONFIG');
+      if (response.data != '') {
+        return ClassConfig.fromJson(response.data);
+      }
+      return null;
     } catch (e) {
       rethrow;
     }
