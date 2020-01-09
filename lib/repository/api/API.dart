@@ -5,6 +5,7 @@ const CLASS = 'classes';
 const EXAM = 'exams';
 const GRADE = 'grades';
 const STUDENT = 'students';
+const SINGLE_STUDENT = 'student';
 const LESSON = 'lessons';
 const TEACHER = 'teachers';
 const PROFILES = 'profiles';
