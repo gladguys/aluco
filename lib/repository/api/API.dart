@@ -11,3 +11,4 @@ const PROFILES = 'profiles';
 const SINGLE_CLASS = 'class';
 const CALL = 'calls';
 const DATE = 'date';
+const CONFIG = 'config';

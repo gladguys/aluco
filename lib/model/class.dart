@@ -4,6 +4,8 @@ class Class implements BaseModel<Class> {
   int id;
   String name;
   String description;
+  double minimumAverage;
+  int maxQntAbsence;
 
   Class();
 
@@ -13,9 +15,9 @@ class Class implements BaseModel<Class> {
   @override
   Class fromJson(Map<String, dynamic> json) {
     return Class()
-        ..id = json['id']
-        ..name = json['name']
-        ..description = json['description'];
+      ..id = json['id']
+      ..name = json['name']
+      ..description = json['description'];
   }
 
   @override
@@ -27,19 +29,24 @@ class Class implements BaseModel<Class> {
     };
   }
 
+  Map<String, dynamic> toJsonConfig() {
+    return <String, dynamic>{
+      'classId': id,
+      'minimumAverage': minimumAverage,
+      'maxQntAbsence': maxQntAbsence
+    };
+  }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is Class &&
-              runtimeType == other.runtimeType &&
-              id == other.id;
+      other is Class && runtimeType == other.runtimeType && id == other.id;
 
   @override
   int get hashCode => id.hashCode;
 
   @override
   String toString() {
-    return 'Class{name: $name, description: $description}';
+    return 'Class{id: $id, name: $name, description: $description, minimumAverage: $minimumAverage, maxQntAbsence: $maxQntAbsence}';
   }
 }

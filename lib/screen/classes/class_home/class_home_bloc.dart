@@ -2,6 +2,7 @@ import 'package:aluco/core/locator/locator.dart';
 import 'package:aluco/model/class.dart';
 import 'package:aluco/model/lesson_plan.dart';
 import 'package:aluco/model/student.dart';
+import 'package:aluco/repository/api/class_repository.dart';
 import 'package:aluco/repository/api/lesson_plan_repository.dart';
 import 'package:aluco/repository/api/student_repository.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
@@ -14,6 +15,7 @@ class ClassHomeBloc extends BlocBase {
       BehaviorSubject<List<LessonPlan>>.seeded([]);
   final _lessonRepository = G<LessonPlanRepository>();
   final _studentRepository = G<StudentRepository>();
+  final _classRepository = G<ClassRepository>();
   final dateFormat = DateFormat('dd/MM/yyyy');
   Class _class;
 
@@ -24,6 +26,17 @@ class ClassHomeBloc extends BlocBase {
 
   void setClass(Class classe) {
     _class = classe;
+    loadClassConfig(_class.id);
+  }
+
+  Future<void> loadClassConfig(int classId) async {
+    try {
+      final config = await _classRepository.getClassConfig(classId);
+      _class.maxQntAbsence = config.maxQntAbsence;
+      _class.minimumAverage = config.minimumAverage;
+    } catch (e) {
+      throw Exception();
+    }
   }
 
   Future<void> initializeClassStudents() async {
