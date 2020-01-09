@@ -53,7 +53,6 @@ class _StudentInfoCenterScreenState extends State<StudentInfoCenterScreen> {
   Widget build(BuildContext context) {
     return ALScaffold(
       title: 'Central do Aluno',
-      subtitle: student.name,
       body: Padding(
         padding: const EdgeInsets.all(14),
         child: ListView(
@@ -62,40 +61,41 @@ class _StudentInfoCenterScreenState extends State<StudentInfoCenterScreen> {
               future: getInfoStudentFuture,
               builder: (_, snapshotStudent) {
                 if (snapshotStudent.hasData) {
-                  return ExpansionTile(
-                    title: const Text('Informações Gerais'),
-                    children: <Widget>[
-                      InfoStudent(snapshotStudent.data),
-                      const SizedBox(height: 22),
-                    ],
-                  );
+                  return InfoStudent(snapshotStudent.data);
                 }
                 return Container();
               },
             ),
-            ExpansionTile(
-              title: const Text('Faltas'),
-              children: <Widget>[
-                FutureBuilder<StudentAbsence>(
-                  future: getStudentAbsencesFuture,
-                  builder: (_, snapshotAbsence) {
-                    if (snapshotAbsence.hasData) {
-                      return StudentAbsencesQuantity(snapshotAbsence.data);
-                    }
-                    return Container();
-                  },
-                ),
-                const SizedBox(height: 22),
-                FutureBuilder<List<StudentCall>>(
-                  future: getStudentCallsFuture,
-                  builder: (_, snapshotCalls) {
-                    if (snapshotCalls.hasData) {
-                      return StudentCalls(snapshotCalls.data);
-                    }
-                    return Container();
-                  },
-                ),
-              ],
+            const SizedBox(height: 24),
+            Material(
+              elevation: 1,
+              clipBehavior: Clip.antiAlias,
+              borderRadius: BorderRadius.circular(8),
+              child: ExpansionTile(
+                title: const Text('Histórico de Faltas'),
+                children: <Widget>[
+                  FutureBuilder<StudentAbsence>(
+                    future: getStudentAbsencesFuture,
+                    builder: (_, snapshotAbsence) {
+                      if (snapshotAbsence.hasData) {
+                        return StudentAbsencesQuantity(snapshotAbsence.data);
+                      }
+                      return Container();
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                  FutureBuilder<List<StudentCall>>(
+                    future: getStudentCallsFuture,
+                    builder: (_, snapshotCalls) {
+                      if (snapshotCalls.hasData) {
+                        return StudentCalls(snapshotCalls.data);
+                      }
+                      return Container();
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                ],
+              ),
             ),
             const SizedBox(height: 22),
             FutureBuilder<StudentGrades>(

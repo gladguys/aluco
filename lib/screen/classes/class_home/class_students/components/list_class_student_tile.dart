@@ -22,7 +22,7 @@ class ListClassStudentTile extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           GGCircleButton(
-            icon: Icons.info_outline,
+            icon: Icons.info,
             colorIcon: Colors.white,
             colorButton: Colors.blue[600],
             onTap: () =>

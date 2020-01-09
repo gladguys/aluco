@@ -11,91 +11,104 @@ class InfoStudent extends StatelessWidget {
     return Column(
       children: <Widget>[
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'Nome',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                student.name ?? '',
-                overflow: TextOverflow.ellipsis,
-              ),
+            Image.asset(
+              'assets/images/user120.png',
+              fit: BoxFit.cover,
+              width: 120,
             ),
           ],
         ),
+        const SizedBox(height: 12),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Text(
+            student.name ?? '',
+            maxLines: 4,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+        const SizedBox(height: 24),
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Responsável',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              'Responsável:',
+              style: TextStyle(fontWeight: FontWeight.w500),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 4),
             Expanded(
               child: Text(
                 student.responsibleName ?? '',
-                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
         ),
+        const SizedBox(height: 4),
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Endereço',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              'Endereço:',
+              style: TextStyle(fontWeight: FontWeight.w500),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 4),
             Expanded(
               child: Text(
                 student.address ?? '',
-                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
         ),
+        const SizedBox(height: 4),
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'E-mail',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              'E-mail:',
+              style: TextStyle(fontWeight: FontWeight.w500),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 4),
             Expanded(
               child: Text(
                 student.email ?? '',
-                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
         ),
+        const SizedBox(height: 4),
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Data de Nascimento',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              'Data de Nascimento:',
+              style: TextStyle(fontWeight: FontWeight.w500),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 4),
             Expanded(
               child: Text(
                 student.dateBirth ?? '',
-                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
         ),
+        const SizedBox(height: 4),
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Gênero',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              'Gênero:',
+              style: TextStyle(fontWeight: FontWeight.w500),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 4),
             Expanded(
               child: Text(
                 student.gender?.toString() ?? '',
-                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
