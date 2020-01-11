@@ -3,11 +3,13 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:catcher/catcher_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/bloc/global_blocs.dart';
 import 'core/error/errors.dart';
 import 'core/locator/locator.dart';
+import 'core/notification/notification_service.dart';
 import 'core/utils/jwt_utils.dart';
 import 'screen/home/home_screen.dart';
 import 'screen/signin/signin_screen.dart';
@@ -15,9 +17,13 @@ import 'theme/main_theme.dart';
 
 SharedPreferences preferences;
 
-Alice alice = Alice(navigatorKey: Catcher.navigatorKey);
+Alice alice =
+    Alice(navigatorKey: Catcher.navigatorKey, showNotification: false);
 
 Future<void> main() async {
+  Get.key = Catcher.navigatorKey;
+  WidgetsFlutterBinding.ensureInitialized();
+  NotificationService.setupLocalNotification();
   await initializePreferences();
   setupLocator();
   Catcher(MyApp(), debugConfig: debugOptions, releaseConfig: releaseOptions);
