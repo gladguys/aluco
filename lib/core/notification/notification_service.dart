@@ -192,6 +192,7 @@ class NotificationService {
       String channelDescription = 'DESCRIPTION',
       Importance importance = Importance.Max,
       Priority priority = Priority.High,
+      @required int id,
       @required String title,
       String body,
       String payload,
@@ -204,7 +205,6 @@ class NotificationService {
       priority: priority,
     );
 
-    final id = _getRandomId();
     await flutterLocalNotificationsPlugin.schedule(
         id, title, body, notificationDate, notificationDetails,
         payload: payload, androidAllowWhileIdle: true);
