@@ -21,6 +21,8 @@ dependencies:
   rxdart: ^0.22.4
   shared_preferences: ^0.5.4
   catcher: ^0.2.7
+  flutter_local_notifications: ^0.8.4+3
+  get: ^1.6.3
 
   # UI
   cupertino_icons: ^0.1.2
