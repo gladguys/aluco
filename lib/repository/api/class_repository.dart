@@ -17,6 +17,20 @@ class ClassRepository extends BaseRepository<Class>
   ClassRepository(String basePath, Class instance) : super(basePath, instance);
 
   @override
+  Future<List<Class>> getAllClassesByTeacher(int teacherId) async {
+    try {
+      final response =
+          await _dio.get<dynamic>('$basePath/$SINGLE_TEACHER/$teacherId');
+      return List.generate(response.data.length, (int i) {
+        final classe = Class();
+        return classe.fromJson(response.data[i]);
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<List<Student>> getStudentsByClass(int classId) async {
     try {
       final response = await _dio.get<dynamic>('$basePath/$classId/$STUDENT');
