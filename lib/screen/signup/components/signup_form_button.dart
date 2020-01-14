@@ -71,6 +71,10 @@ class _SignupFormButtonState extends State<SignupFormButton> {
         if (FormUtils.isValid(widget.signupForm.getForm())) {
           await _bloc.signUpUser(widget.signupForm.data);
           ALRouter.pop(context);
+          GGSnackbar.success(
+            message: 'Usuário criado com sucesso!',
+            context: context,
+          );
         }
       },
     );
