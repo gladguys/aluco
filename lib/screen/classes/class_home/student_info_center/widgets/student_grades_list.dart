@@ -21,16 +21,21 @@ class StudentGradesList extends StatelessWidget {
   }
 
   Widget _buildPeriodGrades(PeriodContent periodContent) {
-    return periodContent.examsPeriod.isNotEmpty ? Column(
-      children: <Widget>[
-        Text('Média do Bimestre: ${periodContent.average}'),
-        ListView.builder(
-          shrinkWrap: true,
-          itemBuilder: (_, i) => ExamTile(periodContent.examsPeriod[i]),
-          itemCount: periodContent.examsPeriod.length,
-        ),
-      ],
-    ) : Container();
+    if (periodContent.examsPeriod != null &&
+        periodContent.examsPeriod.isNotEmpty) {
+      return Column(
+        children: <Widget>[
+          Text('Média do Bimestre: ${periodContent.average}'),
+          ListView.builder(
+            shrinkWrap: true,
+            itemBuilder: (_, i) => ExamTile(periodContent.examsPeriod[i]),
+            itemCount: periodContent.examsPeriod.length,
+          ),
+        ],
+      );
+    } else {
+      return Container();
+    }
   }
 }
 
