@@ -10,11 +10,13 @@ class LoadingInterceptor implements InterceptorsWrapper {
 
   @override
   Future onRequest(RequestOptions options) async {
+    print('onRequest');
     BlocProvider.getBloc<LinearLoadingBloc>().startLoading();
   }
 
   @override
   Future onResponse(Response response) async {
+    print('onResponse');
     BlocProvider.getBloc<LinearLoadingBloc>().finishLoading();
   }
 }

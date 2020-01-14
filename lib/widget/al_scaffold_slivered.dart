@@ -1,9 +1,8 @@
+import 'package:aluco/core/bloc/linear_loading_bloc.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:gg_flutter_components/loading/gg_loading_double_bounce.dart';
-
-import '../core/bloc/loading_bloc.dart';
 
 class ALScaffoldSlivered extends StatelessWidget {
   const ALScaffoldSlivered({
@@ -106,10 +105,11 @@ class ALScaffoldSlivered extends StatelessWidget {
               ),
             );
           }),
-          StreamBuilder<LoadingState>(
-            stream: BlocProvider.getBloc<LoadingBloc>().loadingState,
+          StreamBuilder<bool>(
+            stream: BlocProvider.getBloc<LinearLoadingBloc>().loadingStream,
+            initialData: false,
             builder: (_, snapshot) {
-              if (snapshot.data == LoadingState.loading) {
+              if (snapshot.data) {
                 return SliverFillRemaining(
                     child: const GGLoadingDoubleBounce(size: 20));
               }

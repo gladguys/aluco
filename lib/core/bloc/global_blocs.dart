@@ -9,7 +9,6 @@ import '../../screen/signin/signin_bloc.dart';
 import '../../screen/student/student_bloc.dart';
 import 'file_upload_bloc.dart';
 import 'linear_loading_bloc.dart';
-import 'loading_bloc.dart';
 
 final globalBlocs = [
   Bloc((i) => SigninBloc()),
@@ -19,7 +18,6 @@ final globalBlocs = [
   Bloc((i) => StudentBloc()),
   Bloc((i) => ExamBloc()),
   Bloc((i) => CallBloc()),
-  Bloc((i) => LoadingBloc()),
   Bloc((i) => LinearLoadingBloc()),
   Bloc((i) => FileUploadBloc()),
 ];
