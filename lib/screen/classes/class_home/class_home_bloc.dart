@@ -1,4 +1,5 @@
 import 'package:aluco/core/locator/locator.dart';
+import 'package:aluco/core/notification/notification_service.dart';
 import 'package:aluco/model/class.dart';
 import 'package:aluco/model/lesson_plan.dart';
 import 'package:aluco/model/student.dart';
@@ -60,10 +61,28 @@ class ClassHomeBloc extends BlocBase {
     try {
       lessonPlan.classId = pickedClass.id;
       final lessonPlanSaved = await _lessonRepository.save(lessonPlan);
+      final lessonPlanDate = dateFormat.parse(lessonPlan.lessonDate);
+      final notificationDate = DateTime(
+          lessonPlanDate.year, lessonPlanDate.month, lessonPlanDate.day, 8);
+
       if (lessonPlan.id == null) {
         classPlannedLessons.add(lessonPlanSaved);
         classPlannedLessonsController.add(classPlannedLessons);
+        await NotificationService.scheduleNotification(
+            id: lessonPlanSaved.id,
+            title: lessonPlan.metodology,
+            body: lessonPlan.content,
+            notificationDate: notificationDate,
+            payload: lessonPlanSaved.id.toString());
       } else {
+        await NotificationService.cancelNotification(lessonPlan.id);
+        await NotificationService.scheduleNotification(
+            id: lessonPlanSaved.id,
+            title: lessonPlan.metodology,
+            body: lessonPlan.content,
+            notificationDate: notificationDate,
+            payload: lessonPlanSaved.id.toString());
+
         classPlannedLessons.remove(lessonPlan);
         classPlannedLessons.add(lessonPlanSaved);
         classPlannedLessonsController.add(classPlannedLessons);
