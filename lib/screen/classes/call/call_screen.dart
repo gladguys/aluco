@@ -4,7 +4,9 @@ import 'package:aluco/screen/classes/class_home/class_students/components/add_st
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gg_flutter_components/form/gg_form_datepicker.dart';
+import 'package:gg_flutter_components/gg_flutter_components.dart';
 
 import 'call_bloc.dart';
 import 'widgets/student_call_item.dart';
@@ -14,14 +16,16 @@ class CallScreen extends StatefulWidget {
   _CallScreenState createState() => _CallScreenState();
 }
 
-class _CallScreenState extends State<CallScreen> {
+class _CallScreenState extends State<CallScreen> with GGValidators {
   CallBloc _callBloc;
   ClassHomeBloc _classHomeBloc;
+  GlobalKey<FormState> _formKey;
 
   @override
   void initState() {
     _callBloc = BlocProvider.getBloc<CallBloc>();
     _classHomeBloc = BlocProvider.getBloc<ClassHomeBloc>();
+    _formKey = GlobalKey<FormState>();
     super.initState();
   }
 
@@ -35,18 +39,64 @@ class _CallScreenState extends State<CallScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              Container(
-                width: 210,
-                child: GGFormDatePicker(
-                    format: _callBloc.dateFormat,
-                    labelText: 'Data',
-                    initialDate: DateTime.now(),
-                    onChanged: (callDate) {
-                      if (callDate != null) {
-                        _callBloc.initializeClassStudentsFromDate(
-                            _classHomeBloc.pickedClass.id, callDate);
-                      }
-                    }),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    width: 210,
+                    child: GGFormDatePicker(
+                      format: _callBloc.dateFormat,
+                      labelText: 'Data',
+                      initialDate: DateTime.now(),
+                      onChanged: (callDate) {
+                        if (callDate != null) {
+                          _callBloc.initializeClassStudentsFromDate(
+                              _classHomeBloc.pickedClass.id, callDate);
+                        }
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  RaisedButton(
+                    onPressed: () {
+                      final studentsCall =
+                          _callBloc.studentsCallController.value;
+                      Get.defaultDialog(
+                        title: 'Enviar relatório para email:',
+                        content: Form(
+                          key: _formKey,
+                          child: TextFormField(
+                            validator: requiredEmailValidator,
+                            onSaved: (email) {
+                              Get.back();
+                              print(email);
+                              print(studentsCall);
+                            },
+                            decoration: InputDecoration(
+                              hintText: 'E-mail',
+                              prefixIcon: Icon(Icons.email),
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                        confirm: FlatButton(
+                          child: const Text('Enviar Para'),
+                          onPressed: () {
+                            final form = _formKey.currentState;
+                            if (form.validate()) {
+                              form.save();
+                            }
+                          },
+                        ),
+                        cancel: FlatButton(
+                          child: const Text('Cancelar'),
+                          onPressed: () => Get.back(),
+                        ),
+                      );
+                    },
+                    child: const Text('Enviar'),
+                  ),
+                ],
               ),
               const SizedBox(height: 16),
               StreamBuilder<List<StudentCall>>(
