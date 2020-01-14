@@ -37,7 +37,7 @@ class _GradeBoardScreenState extends State<GradeBoardScreen> {
             case ConnectionState.waiting:
               return const GGLoadingDoubleBounce();
             case ConnectionState.done:
-              return snapshot.hasData
+              return snapshot.data.isNotEmpty
                   ? _list(snapshot.data)
                   : GradeBoardEmptyState();
             default:
