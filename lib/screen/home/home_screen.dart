@@ -1,3 +1,4 @@
+import 'package:aluco/core/utils/global_keys.dart';
 import 'package:aluco/widget/al_logo.dart';
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class HomeScreen extends StatelessWidget {
       ),
       actions: <Widget>[
         Container(
+          key: profileKey,
           width: 32,
           height: 32,
           margin: const EdgeInsets.only(left: 4, right: 12),

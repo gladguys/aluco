@@ -26,6 +26,7 @@ dependencies:
 
   # UI
   cupertino_icons: ^0.1.2
+  tutorial_coach_mark: ^0.3.0
   flutter_icons: ^0.3.1
   datetime_picker_formfield: ^0.4.3
   toggle_switch: ^0.1.4
