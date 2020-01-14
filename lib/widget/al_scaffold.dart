@@ -60,7 +60,6 @@ class ALScaffold extends StatelessWidget {
             stream: BlocProvider.getBloc<LinearLoadingBloc>().loadingStream,
             initialData: false,
             builder: (_, snapshot) {
-              print(snapshot.data);
               return snapshot.data
                   ? Positioned.fill(
                       child: Container(
