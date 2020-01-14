@@ -27,7 +27,6 @@ class CallBloc extends BlocBase {
       int classId, DateTime callDate) async {
     await initClassAbsences(classId);
 
-    studentsCallController.add([]);
     final studentsCalls = <StudentCall>[];
     try {
       final date = dateFormat.format(callDate);
@@ -66,7 +65,7 @@ class CallBloc extends BlocBase {
           );
         }
       }
-      studentsCallController.add(studentsCalls);
+      studentsCallController.value = studentsCalls;
     } catch (e) {
       throw Exception();
     }
