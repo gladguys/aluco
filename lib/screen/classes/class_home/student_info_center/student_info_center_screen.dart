@@ -98,19 +98,25 @@ class _StudentInfoCenterScreenState extends State<StudentInfoCenterScreen> {
               ),
             ),
             const SizedBox(height: 22),
-            FutureBuilder<StudentGrades>(
-              future: getStudentGradesFuture,
-              builder: (_, snapshotGrades) {
-                if (snapshotGrades.hasData) {
-                  return ExpansionTile(
-                    title: const Text('Notas'),
-                    children: <Widget>[
-                      StudentGradesList(snapshotGrades.data),
-                    ],
-                  );
-                }
-                return Container();
-              },
+            Material(
+              elevation: 1,
+              clipBehavior: Clip.antiAlias,
+              borderRadius: BorderRadius.circular(8),
+              child: ExpansionTile(
+                title: const Text('Notas'),
+                children: <Widget>[
+                  FutureBuilder<StudentGrades>(
+                    future: getStudentGradesFuture,
+                    builder: (_, snapshotGrades) {
+                      if (snapshotGrades.hasData) {
+                        return StudentGradesList(snapshotGrades.data);
+                      }
+                      return Container();
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                ],
+              ),
             ),
           ],
         ),
