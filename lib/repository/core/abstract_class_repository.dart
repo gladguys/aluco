@@ -7,6 +7,7 @@ import 'package:aluco/model/student_grades.dart';
 import 'abstract_repository.dart';
 
 abstract class AbstractClassRepository extends AbstractRepository<Class> {
+  Future<List<Class>> getAllClassesByTeacher(int teacherId);
   Future<List<Student>> getStudentsByClass(int classId);
   Future<void> saveClassStudents(int classId, List<Student> students);
   Future<void> saveClassConfig(int classId, Class classe);

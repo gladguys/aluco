@@ -1,4 +1,5 @@
 import 'package:aluco/core/locator/locator.dart';
+import 'package:aluco/core/utils/pref_utils.dart';
 import 'package:aluco/model/class.dart';
 import 'package:aluco/repository/api/class_repository.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
@@ -13,7 +14,9 @@ class ListClassesBloc extends BlocBase {
 
   Future<void> getAll() async {
     try {
-      _classesController.add(await _repository.getAll());
+      final teacherId = PrefUtils.getTeacherId();
+      _classesController
+          .add(await _repository.getAllClassesByTeacher(teacherId));
     } catch (e) {
       print(e);
       throw Exception();
