@@ -1,4 +1,6 @@
-const API_URL = 'http://aluco-test.herokuapp.com/api/';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+final API_URL = DotEnv().env['API_URL'];
 const AUTH = 'auth';
 const ABSENCE = 'absences';
 const CLASS = 'classes';

@@ -2,6 +2,7 @@ import 'package:alice/alice.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:catcher/catcher_plugin.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,6 +22,7 @@ Alice alice =
     Alice(navigatorKey: Catcher.navigatorKey, showNotification: false);
 
 Future<void> main() async {
+  await DotEnv().load('.env');
   Get.key = Catcher.navigatorKey;
   WidgetsFlutterBinding.ensureInitialized();
   NotificationService.setupLocalNotification();

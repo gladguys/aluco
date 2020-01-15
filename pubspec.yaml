@@ -23,6 +23,7 @@ dependencies:
   catcher: ^0.2.7
   flutter_local_notifications: ^0.8.4+3
   get: ^1.6.3
+  flutter_dotenv: ^2.1.0
 
   # UI
   cupertino_icons: ^0.1.2
@@ -67,6 +68,7 @@ flutter_native_splash:
 flutter:
   uses-material-design: true
   assets:
+    - .env
     - assets/images/
   fonts:
     - family: OleoScriptSwashCaps
