@@ -1,4 +1,5 @@
 import 'package:aluco/core/utils/global_keys.dart';
+import 'package:aluco/core/utils/pref_utils.dart';
 import 'package:aluco/widget/al_logo.dart';
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class HomeScreen extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
-              image: const AssetImage('assets/images/user.png'),
+              image: _getProfileImage(PrefUtils.getPhotoUrl()),
               fit: BoxFit.contain,
             ),
           ),
@@ -52,15 +53,14 @@ class HomeScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                            image:
-                                const AssetImage('assets/images/user120.png'),
+                            image: _getProfileImage(PrefUtils.getPhotoUrl()),
                             fit: BoxFit.contain,
                           ),
                         ),
                       ),
                       const SizedBox(height: 16),
-                      const Text(
-                        'Osvaldo Lourenço Filho',
+                      Text(
+                        PrefUtils.getName() ?? '',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 18,
@@ -68,8 +68,8 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      const Text(
-                        'cristianoosvaldo@fortalezaec.com',
+                      Text(
+                        PrefUtils.getEmail() ?? '',
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 14),
                       ),
@@ -93,5 +93,13 @@ class HomeScreen extends StatelessWidget {
       ],
       body: Home(),
     );
+  }
+
+  ImageProvider _getProfileImage(String photoUrl) {
+    if (photoUrl != null) {
+      return NetworkImage(photoUrl);
+    } else {
+      return const AssetImage('assets/images/user120.png');
+    }
   }
 }
