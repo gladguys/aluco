@@ -10,21 +10,15 @@ class PrefUtils {
   }
 
   static Future<void> setUsername(String username) async {
-    print('username: $username');
     await preferences.setString('username', username);
-    print('username: ${preferences.getString('username')}');
   }
 
   static Future<void> setEmail(String email) async {
-    print('email: $email');
     await preferences.setString('email', email);
-    print('email: ${preferences.getString('email')}');
   }
 
   static Future<void> setName(String name) async {
-    print('name: $name');
     await preferences.setString('name', name);
-    print('name: ${preferences.getString('name')}');
   }
 
   static Future<void> setPhotoUrl(String photoUrl) async {
@@ -36,9 +30,7 @@ class PrefUtils {
   }
 
   static Future<void> setTeacherId(int teacherId) async {
-    print('teacherId: $teacherId');
     await preferences.setInt('teacherId', teacherId);
-    print('teacherId: ${preferences.getInt('teacherId')}');
   }
 
   static bool isFirstLoginDone() {
@@ -71,5 +63,9 @@ class PrefUtils {
 
   static String getPhotoUrl() {
     return preferences.getString('photoUrl');
+  }
+
+  static Future<void> clearToken() async {
+    await setToken(null);
   }
 }
