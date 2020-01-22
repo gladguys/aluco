@@ -1,4 +1,5 @@
 const API_URL = 'http://aluco-test.herokuapp.com/api/';
+const S3_BUCKET = 'https://profile-photo-aluco.s3.us-east-2.amazonaws.com';
 const AUTH = 'auth';
 const ABSENCE = 'absences';
 const CLASS = 'classes';
