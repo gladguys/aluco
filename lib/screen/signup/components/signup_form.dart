@@ -10,6 +10,7 @@ class SignupForm extends StatelessWidget with GGValidators {
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController(text: '');
   final _onPickImage = (String url) => _userData['photo_url'] = url;
+  final _emailFN = FocusNode();
   final _passwordFN = FocusNode();
   final _passwordConfirmationFN = FocusNode();
 
@@ -26,9 +27,19 @@ class SignupForm extends StatelessWidget with GGValidators {
             PersonPickImageContainer(onPickImage: _onPickImage),
             FormVerticalSeparator,
             ALSignTextFormField(
+              labelText: 'Nome *',
+              prefixIconData: Icons.perm_identity,
+              validator: emptyValidator,
+              onFieldSubmitted: (String value) =>
+                  FocusScope.of(context).requestFocus(_emailFN),
+              onSaved: (String name) => _userData['name'] = name,
+            ),
+            FormVerticalSeparator,
+            ALSignTextFormField(
               labelText: 'E-mail *',
               prefixIconData: Icons.person,
               validator: emptyValidator,
+              focusNode: _emailFN,
               onFieldSubmitted: (String value) =>
                   FocusScope.of(context).requestFocus(_passwordFN),
               onSaved: (String email) => _userData['email'] = email,
@@ -75,6 +86,7 @@ class SignupForm extends StatelessWidget with GGValidators {
 
   Map<String, String> _getData() {
     return {
+      'name': _userData['name'],
       'email': _userData['email'],
       'password': _userData['password']
     };

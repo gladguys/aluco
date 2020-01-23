@@ -13,6 +13,7 @@ import 'components/home.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print(PrefUtils.getToken());
     return ALScaffold(
       titleWidget: ALLogo(
         color: Theme.of(context).primaryColor,
@@ -77,15 +78,16 @@ class HomeScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 32),
                       OutlineButton(
-                          child: const Text('SAIR'),
-                          color: Colors.red[600],
-                          textColor: Colors.red[600],
-                          borderSide: BorderSide(color: Colors.red[200]),
-                          highlightedBorderColor: Colors.red[300],
-                          onPressed: () {
-                            PrefUtils.clearToken();
-                            Get.offAll(SigninScreen(), (v) => false);
-                          })
+                        child: const Text('SAIR'),
+                        color: Colors.red[600],
+                        textColor: Colors.red[600],
+                        borderSide: BorderSide(color: Colors.red[200]),
+                        highlightedBorderColor: Colors.red[300],
+                        onPressed: () async {
+                          await PrefUtils.clearToken();
+                          Get.offAll(SigninScreen(), (v) => false);
+                        },
+                      ),
                     ],
                   ),
                 ),
