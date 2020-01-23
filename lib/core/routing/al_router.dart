@@ -25,7 +25,7 @@ class ALRouter {
     await _onBeforePush(widget, resolver: resolver);
     final dynamic navigationValue = await Navigator.of(context)
         .pushReplacement<dynamic, dynamic>(
-            CupertinoPageRoute<dynamic>(builder: (_) => widget));
+            MaterialPageRoute<dynamic>(builder: (_) => widget));
     _onAfterPush(widget);
     return navigationValue;
   }
