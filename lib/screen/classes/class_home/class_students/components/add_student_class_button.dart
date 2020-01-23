@@ -1,10 +1,6 @@
-import 'package:aluco/widget/delegate/add_student_class_search_delegate.dart';
 import 'package:aluco/theme/main_theme.dart';
-import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:aluco/widget/delegate/add_student_class_search_delegate.dart';
 import 'package:flutter/material.dart';
-
-import '../../class_home_bloc.dart';
-import '../class_students_bloc.dart';
 
 class AddStudentClassButton extends StatelessWidget {
   const AddStudentClassButton({this.isFloating = true});
@@ -53,8 +49,6 @@ class AddStudentClassButton extends StatelessWidget {
   }
 
   Future<void> _onPressed(BuildContext context) async {
-    final classId = BlocProvider.getBloc<ClassHomeBloc>().pickedClass.id;
-    await BlocProvider.getBloc<ClassStudentsBloc>().initStudents(classId);
     await showSearch(
         context: context, delegate: AddStudentClassSearchDelegate());
   }

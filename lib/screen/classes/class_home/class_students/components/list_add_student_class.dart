@@ -58,8 +58,9 @@ class ListAddStudentClass extends StatelessWidget {
   Future<void> _saveNewStudants(BuildContext context) async {
     await BlocProvider.getBloc<ClassStudentsBloc>().saveNewStudents();
     ALRouter.pop(context);
-    GGSnackbar.success(message: 'Alunos adicionados com sucesso!', context: context);
-    final examId = BlocProvider.getBloc<ExamBloc>().pickedExam.id;
+    GGSnackbar.success(
+        message: 'Alunos adicionados com sucesso!', context: context);
+    final examId = BlocProvider.getBloc<ExamBloc>().pickedExam?.id;
     if (examId != null) {
       await BlocProvider.getBloc<ExamBloc>().getGradesByExam(examId);
     }
