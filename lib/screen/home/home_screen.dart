@@ -13,7 +13,6 @@ import 'components/home.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print(PrefUtils.getToken());
     return ALScaffold(
       titleWidget: ALLogo(
         color: Theme.of(context).primaryColor,

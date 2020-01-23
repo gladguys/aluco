@@ -69,8 +69,6 @@ class _CallScreenState extends State<CallScreen> with GGValidators {
                             validator: requiredEmailValidator,
                             onSaved: (email) {
                               Get.back();
-                              print(email);
-                              print(studentsCall);
                             },
                             decoration: InputDecoration(
                               hintText: 'E-mail',
