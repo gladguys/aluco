@@ -162,6 +162,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  fancy_shimmer_image:
+    dependency: "direct main"
+    description:
+      name: fancy_shimmer_image
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   flushbar:
     dependency: transitive
     description:
@@ -473,6 +480,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.5.4+6"
+  shimmer:
+    dependency: transitive
+    description:
+      name: shimmer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   simple_animations:
     dependency: transitive
     description:
