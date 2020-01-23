@@ -58,7 +58,7 @@ class CallRepository implements AbstractCallRepository {
       if (response.data.isNotEmpty) {
         return StudentAbsence.fromJson(response.data[0]);
       }
-      return StudentAbsence(quantity: 0);
+      return StudentAbsence(qtAbsences: 0);
     } catch (e) {
       rethrow;
     }
