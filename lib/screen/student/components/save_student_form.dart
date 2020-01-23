@@ -179,6 +179,7 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
                 onEditingComplete: () =>
                     FocusScope.of(context).requestFocus(addressFN),
                 textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.phone,
                 onSaved: (responsiblePhone) =>
                     _student.responsiblePhone = responsiblePhone,
               ),
