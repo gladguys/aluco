@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TokenExpiredInterceptor implements InterceptorsWrapper {
+class ErrorInterceptor implements InterceptorsWrapper {
   @override
   Future onError(DioError err) async {
     if (err.response.statusCode == 401) {
@@ -17,6 +17,16 @@ class TokenExpiredInterceptor implements InterceptorsWrapper {
         confirm: RaisedButton(
           onPressed: () => Get.back(),
           color: Colors.orange[600],
+          child: const Text('OK'),
+        ),
+      );
+    } else if (err.response.statusCode == 500) {
+      Get.defaultDialog(
+        content: const Text('Um erro inesperado ocorreu'),
+        title: 'Erro',
+        confirm: RaisedButton(
+          onPressed: () => Get.back(),
+          color: Colors.red,
           child: const Text('OK'),
         ),
       );
