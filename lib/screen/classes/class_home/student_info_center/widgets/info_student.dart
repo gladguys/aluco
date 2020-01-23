@@ -1,3 +1,4 @@
+import 'package:aluco/enums/gender.dart';
 import 'package:aluco/model/student.dart';
 import 'package:flutter/material.dart';
 
@@ -108,12 +109,22 @@ class InfoStudent extends StatelessWidget {
             const SizedBox(width: 4),
             Expanded(
               child: Text(
-                student.gender?.toString() ?? '',
+                _getGender(student.gender) ?? '',
               ),
             ),
           ],
         ),
       ],
     );
+  }
+
+  String _getGender(Gender gender) {
+    if (gender != null) {
+      if (gender == Gender.male) {
+        return 'Masculino';
+      }
+      return 'Feminino';
+    }
+    return null;
   }
 }
