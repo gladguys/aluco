@@ -1,5 +1,7 @@
+import 'package:aluco/core/routing/al_router.dart';
 import 'package:aluco/core/utils/global_keys.dart';
 import 'package:aluco/core/utils/pref_utils.dart';
+import 'package:aluco/screen/signin/signin_screen.dart';
 import 'package:aluco/widget/al_logo.dart';
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +82,9 @@ class HomeScreen extends StatelessWidget {
                         textColor: Colors.red[600],
                         borderSide: BorderSide(color: Colors.red[200]),
                         highlightedBorderColor: Colors.red[300],
-                        onPressed: () {},
+                        onPressed: () {
+                          ALRouter.pushAndReplace(context, SigninScreen());
+                        },
                       )
                     ],
                   ),
