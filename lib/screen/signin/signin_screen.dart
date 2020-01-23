@@ -28,6 +28,9 @@ class _SigninScreenState extends State<SigninScreen> with GGValidators {
       } else if (signinState == SigninState.succeeded) {
         _bloc.signinStateController.add(SigninState.idle);
         GGLoadingBarrier.hide(context);
+      } else if (signinState == SigninState.wrongCredentials ||
+          signinState == SigninState.failed) {
+        GGLoadingBarrier.hide(context);
       }
     });
   }
