@@ -1,8 +1,10 @@
 import 'package:aluco/core/utils/global_keys.dart';
 import 'package:aluco/core/utils/pref_utils.dart';
+import 'package:aluco/screen/signin/signin_screen.dart';
 import 'package:aluco/widget/al_logo.dart';
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gg_flutter_components/dialog/gg_dialog.dart';
 import 'package:ndialog/ndialog.dart';
 
@@ -75,13 +77,15 @@ class HomeScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 32),
                       OutlineButton(
-                        child: const Text('SAIR'),
-                        color: Colors.red[600],
-                        textColor: Colors.red[600],
-                        borderSide: BorderSide(color: Colors.red[200]),
-                        highlightedBorderColor: Colors.red[300],
-                        onPressed: () {},
-                      )
+                          child: const Text('SAIR'),
+                          color: Colors.red[600],
+                          textColor: Colors.red[600],
+                          borderSide: BorderSide(color: Colors.red[200]),
+                          highlightedBorderColor: Colors.red[300],
+                          onPressed: () {
+                            PrefUtils.clearToken();
+                            Get.offAll(SigninScreen(), (v) => false);
+                          })
                     ],
                   ),
                 ),
