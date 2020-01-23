@@ -61,11 +61,13 @@ class StudentCallItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 StreamBuilder<StudentAbsence>(
-                  stream: _callBloc.getStudentAbsence(studentCall.studentId).stream,
+                  stream:
+                      _callBloc.getStudentAbsence(studentCall.studentId).stream,
                   builder: (_, snapshot) {
                     if (snapshot.hasData && snapshot.data != null) {
                       final studentAbsence = snapshot.data;
-                      return Text('Faltas: ${studentAbsence.quantity ?? '0'}');
+                      return Text(
+                          'Faltas: ${studentAbsence.qtAbsences ?? '0'}');
                     }
                     return const Text('Faltas: --');
                   },

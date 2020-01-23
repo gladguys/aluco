@@ -17,9 +17,7 @@ class StudentAbsencesQuantity extends StatelessWidget {
         ),
         const SizedBox(width: 4),
         Expanded(
-          child: Text(
-            studentAbsence.quantity?.toString() ?? '0'
-          ),
+          child: Text(studentAbsence.qtAbsences?.toString() ?? '0'),
         ),
       ],
     );
