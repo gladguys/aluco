@@ -48,7 +48,7 @@ class ExamTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(examsPeriod.examName),
-      trailing: Text(examsPeriod.grade.toStringAsFixed(2)),
+      trailing: Text(examsPeriod.grade?.toStringAsFixed(2) ?? ''),
     );
   }
 }
