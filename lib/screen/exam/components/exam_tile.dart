@@ -21,9 +21,18 @@ class ExamTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(exam.name ?? ''),
-      subtitle: Text(DateFormat('d MMM y', 'pt_br').format(dateFormat.parse(exam.examDate)) ?? ''),
-      onTap: ()  {
+      title: Center(child: Text(exam.name ?? '')),
+      subtitle: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          Text('Bimestre: ${exam.periodYear.toString()}'),
+          Text(
+            DateFormat('d MMM y', 'pt_br')
+                .format(dateFormat.parse(exam.examDate) ?? ''),
+          ),
+        ],
+      ),
+      onTap: () {
         BlocProvider.getBloc<ExamBloc>().pickExam(exam);
         ALRouter.push(context, ExamDetailScreen(exam));
       },
@@ -56,7 +65,8 @@ class ExamActions extends StatelessWidget {
             context,
             GGConfirmDeleteDialog(
               title: 'Remover prova?',
-              onClickYes: () async => BlocProvider.getBloc<ExamBloc>().delete(exam),
+              onClickYes: () async =>
+                  BlocProvider.getBloc<ExamBloc>().delete(exam),
             ),
           ),
         ),

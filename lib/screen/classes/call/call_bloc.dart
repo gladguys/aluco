@@ -84,7 +84,7 @@ class CallBloc extends BlocBase {
         studentAbsencesControllers.add(
           BehaviorSubject.seeded(
             StudentAbsence(
-              quantity: 0,
+              qtAbsences: 0,
               studentId: student.id,
               classId: classId,
             ),
@@ -108,9 +108,9 @@ class CallBloc extends BlocBase {
       final studentAbsenceController = getStudentAbsence(student.studentId);
       final studentAbsence = studentAbsenceController.value;
       if (student.status == CallStatus.NENHUMA && status == 1) {
-        studentAbsence.quantity = studentAbsence.quantity + 1;
+        studentAbsence.qtAbsences = studentAbsence.qtAbsences + 1;
       } else if (student.status == CallStatus.FALTA && status != 1) {
-        studentAbsence.quantity = studentAbsence.quantity - 1;
+        studentAbsence.qtAbsences = studentAbsence.qtAbsences - 1;
       }
       studentAbsenceController.add(studentAbsence);
 

@@ -1,15 +1,17 @@
 class StudentAbsence {
   int id;
   int studentId;
-  int quantity;
+  int qtAbsences;
+  int qtJustifiedAbsences;
   int classId;
 
-  StudentAbsence({this.id, this.studentId, this.quantity, this.classId});
+  StudentAbsence({this.id, this.studentId, this.qtAbsences, this.classId});
 
   StudentAbsence.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     studentId = json['studentId'];
-    quantity = json['quantity'];
+    qtAbsences = json['qtAbsences'];
+    qtJustifiedAbsences = json['qtJustifiedAbsences'];
     classId = json['classId'];
   }
 
@@ -17,7 +19,8 @@ class StudentAbsence {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['studentId'] = studentId;
-    data['quantity'] = quantity;
+    data['qtAbsences'] = qtAbsences;
+    data['qtJustifiedAbsences'] = qtJustifiedAbsences;
     data['classId'] = classId;
     return data;
   }
@@ -34,6 +37,6 @@ class StudentAbsence {
 
   @override
   String toString() {
-    return 'StudentAbsence{id: $id, studentId: $studentId, quantity: $quantity, classId: $classId}';
+    return 'StudentAbsence{id: $id, studentId: $studentId, qtAbsences: $qtAbsences, qtJustifiedAbsences: $qtJustifiedAbsences, classId: $classId}';
   }
 }
