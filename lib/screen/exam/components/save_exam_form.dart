@@ -37,6 +37,7 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
     super.initState();
     _examBloc = BlocProvider.getBloc<ExamBloc>();
     if (widget._exam != null) {
+      print(widget._exam);
       _exam = widget._exam;
       if (_exam.recExam) {
         weightVisible = false;
@@ -81,10 +82,25 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
                 initialDate: _exam.examDate != null
                     ? dateFormat.parse(_exam.examDate)
                     : null,
-                validator: emptyDateTimeValidator,
+                validator: (examDate) {
+                  if (_exam.examDate == null && examDate == null) {
+                    return 'Campo Obrigatório';
+                  }
+                  if (_exam.examDate == null) {
+                    final firstValidation = emptyDateTimeValidator(examDate);
+                    if (firstValidation == null) {
+                      return 'Campo Obrigatório';
+                    } else {
+                      return firstValidation;
+                    }
+                  }
+                  return null;
+                },
                 onChanged: (examDate) {
                   if (examDate != null) {
                     _exam.examDate = dateFormat?.format(examDate);
+                  } else {
+                    _exam.examDate = null;
                   }
                 },
               ),
