@@ -3,13 +3,10 @@ import 'package:aluco/widget/al_sign_textformfield.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
 
-import 'person_pickimage_container.dart';
-
 class SignupForm extends StatelessWidget with GGValidators {
   static final _userData = <String, dynamic>{};
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController(text: '');
-  final _onPickImage = (String url) => _userData['photo_url'] = url;
   final _emailFN = FocusNode();
   final _passwordFN = FocusNode();
   final _passwordConfirmationFN = FocusNode();
@@ -24,8 +21,6 @@ class SignupForm extends StatelessWidget with GGValidators {
         padding: const EdgeInsets.symmetric(horizontal: 2.0),
         child: Column(
           children: <Widget>[
-            PersonPickImageContainer(onPickImage: _onPickImage),
-            FormVerticalSeparator,
             ALSignTextFormField(
               labelText: 'Nome *',
               prefixIconData: Icons.perm_identity,
