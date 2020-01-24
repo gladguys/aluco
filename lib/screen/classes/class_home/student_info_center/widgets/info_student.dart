@@ -39,22 +39,6 @@ class InfoStudent extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Responsável:',
-              style: TextStyle(fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(width: 4),
-            Expanded(
-              child: Text(
-                student.responsibleName ?? '',
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 4),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
               'Endereço:',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
@@ -110,6 +94,38 @@ class InfoStudent extends StatelessWidget {
             Expanded(
               child: Text(
                 _getGender(student.gender) ?? '',
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Responsável:',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(width: 4),
+            Expanded(
+              child: Text(
+                student.responsibleName ?? '',
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Telefone do Responsável:',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(width: 4),
+            Expanded(
+              child: Text(
+                student.responsiblePhone ?? '',
               ),
             ),
           ],
