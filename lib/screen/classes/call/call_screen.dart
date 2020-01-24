@@ -104,6 +104,7 @@ class _CallScreenState extends State<CallScreen> with GGValidators {
                     final students = snapshot.data;
                     if (students.isNotEmpty) {
                       return ListView.separated(
+                        key: UniqueKey(),
                         padding: const EdgeInsets.only(bottom: 80),
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
