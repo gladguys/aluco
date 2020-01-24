@@ -60,7 +60,7 @@ class _SaveLessonPlanFormState extends State<SaveLessonPlanForm>
               GGOutlinedTextFormField(
                 labelText: 'Conteúdo',
                 initialValue: _lessonPlan.content,
-                textInputAction: TextInputAction.done,
+                textInputAction: TextInputAction.newline,
                 onSaved: (content) => _lessonPlan.content = content,
                 minLines: 3,
               ),
@@ -68,7 +68,7 @@ class _SaveLessonPlanFormState extends State<SaveLessonPlanForm>
               GGOutlinedTextFormField(
                 labelText: 'Metodologia',
                 initialValue: _lessonPlan.metodology,
-                textInputAction: TextInputAction.done,
+                textInputAction: TextInputAction.newline,
                 onSaved: (metodology) => _lessonPlan.metodology = metodology,
                 minLines: 3,
               ),
@@ -76,7 +76,7 @@ class _SaveLessonPlanFormState extends State<SaveLessonPlanForm>
               GGOutlinedTextFormField(
                 labelText: 'Atividades de Sala',
                 initialValue: _lessonPlan.classwork,
-                textInputAction: TextInputAction.done,
+                textInputAction: TextInputAction.newline,
                 onSaved: (classwork) => _lessonPlan.classwork = classwork,
                 minLines: 3,
               ),
@@ -84,7 +84,7 @@ class _SaveLessonPlanFormState extends State<SaveLessonPlanForm>
               GGOutlinedTextFormField(
                 labelText: 'Atividades de Casa',
                 initialValue: _lessonPlan.homework,
-                textInputAction: TextInputAction.done,
+                textInputAction: TextInputAction.newline,
                 onSaved: (homework) => _lessonPlan.homework = homework,
                 minLines: 3,
               ),
@@ -92,7 +92,7 @@ class _SaveLessonPlanFormState extends State<SaveLessonPlanForm>
               GGOutlinedTextFormField(
                 labelText: 'Observações/Notas',
                 initialValue: _lessonPlan.notes,
-                textInputAction: TextInputAction.done,
+                textInputAction: TextInputAction.newline,
                 onSaved: (notes) => _lessonPlan.notes = notes,
                 minLines: 3,
               ),
