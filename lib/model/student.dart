@@ -33,7 +33,7 @@ class Student implements BaseModel<Student> {
       ..name = json['name']
       ..email = json['email']
       ..photoUrl = json['photo_url']
-      ..dateBirth = json['date_birth']
+      ..dateBirth = json['dateBirth']
       ..phone = json['phone']
       ..responsibleName = json['responsibleName']
       ..responsiblePhone = json['responsiblePhone']
@@ -66,9 +66,7 @@ class Student implements BaseModel<Student> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is Student &&
-              runtimeType == other.runtimeType &&
-              id == other.id;
+      other is Student && runtimeType == other.runtimeType && id == other.id;
 
   @override
   int get hashCode => id.hashCode;
