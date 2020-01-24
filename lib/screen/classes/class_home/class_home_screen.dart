@@ -39,7 +39,7 @@ class _ClassHomeScreenState extends State<ClassHomeScreen> {
           const SizedBox(height: 60),
           RaisedButton(
             child: Text(
-              'Fazer Chamada',
+              'Registro de Chamadas',
               style: TextStyle(fontSize: 20),
             ),
             padding: const EdgeInsets.symmetric(

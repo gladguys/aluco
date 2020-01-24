@@ -35,14 +35,6 @@ class ClassHomeActions extends StatelessWidget {
               ),
               ALIconTextVerticalButton(
                 icon: FontAwesome5.getIconData(
-                  'history',
-                  weight: IconWeight.Solid,
-                ),
-                text: 'Histórico de Chamadas',
-                route: ListStudentsScreen(),
-              ),
-              ALIconTextVerticalButton(
-                icon: FontAwesome5.getIconData(
                   'clipboard-list',
                   weight: IconWeight.Solid,
                 ),
