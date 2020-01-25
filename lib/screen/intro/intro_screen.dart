@@ -11,16 +11,26 @@ class IntroScreen extends StatelessWidget {
     return IntroductionScreen(
       pages: pages,
       showSkipButton: true,
-      skip: const Text('Skip'),
-      done: const Text('Done', style: TextStyle(fontWeight: FontWeight.w600)),
+      skip: Text(
+        'Pular',
+        style: TextStyle(color: Theme.of(context).primaryColor),
+      ),
+      done: Text(
+        'Vamos lá!',
+        style: TextStyle(
+          fontWeight: FontWeight.w500,
+          color: Theme.of(context).primaryColor,
+        ),
+      ),
       onDone: () async {
         ALRouter.pushAndReplace(context, HomeScreen());
       },
+      globalBackgroundColor: Colors.white,
       dotsDecorator: DotsDecorator(
         size: const Size.square(10.0),
         activeSize: const Size(20.0, 10.0),
         activeColor: Theme.of(context).primaryColor,
-        color: Colors.black26,
+        color: Theme.of(context).primaryColor,
         spacing: const EdgeInsets.symmetric(horizontal: 3.0),
         activeShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25.0),
