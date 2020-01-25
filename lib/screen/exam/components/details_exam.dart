@@ -48,55 +48,55 @@ class DetailsExam extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text(
-                'Peso: ',
-                style: TextStyle(fontWeight: FontWeight.w500),
+              Container(
+                width: 90,
+                child: const Text(
+                  'Aplicação: ',
+                  textAlign: TextAlign.right,
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                ),
               ),
-              Text(exam.weight?.toString() ?? ''),
-              const SizedBox(width: 16),
-              const Text(
-                'Aplicação: ',
-                style: TextStyle(fontWeight: FontWeight.w500),
+              const SizedBox(width: 4),
+              Container(
+                width: 90,
+                child: Text(DateFormat('d MMM y', 'pt_br')
+                        .format(dateFormat.parse(exam.examDate)) ??
+                    ''),
               ),
-              Text(DateFormat('d MMM y', 'pt_br')
-                      .format(dateFormat.parse(exam.examDate)) ??
-                  ''),
             ],
           ),
           const SizedBox(height: 4),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                'Bimestre: ',
-                style: TextStyle(fontWeight: FontWeight.w500),
-              ),
-              Text(exam.periodYear?.toString() ?? ''),
-              const SizedBox(width: 16),
-              const Text(
-                'Recuperação: ',
-                style: TextStyle(fontWeight: FontWeight.w500),
-              ),
-              if (exam.recExam)
-                Icon(
-                  FontAwesome5.getIconData(
-                    'check-circle',
-                    weight: IconWeight.Regular,
-                  ),
-                  color: Colors.green[600],
-                  size: 20,
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Text(
+                  'Bimestre: ',
+                  textAlign: TextAlign.right,
+                  style: TextStyle(fontWeight: FontWeight.w500),
                 ),
-              if (!exam.recExam)
-                Icon(
-                  FontAwesome5.getIconData(
-                    'times-circle',
-                    weight: IconWeight.Regular,
-                  ),
-                  color: Colors.red[600],
-                  size: 20,
+                const SizedBox(width: 4),
+                Text(exam.periodYear?.toString() ?? ''),
+                const SizedBox(width: 16),
+                const Text(
+                  'Peso: ',
+                  textAlign: TextAlign.right,
+                  style: TextStyle(fontWeight: FontWeight.w500),
                 ),
-            ],
+                const SizedBox(width: 4),
+                Text(exam.weight?.toString() ?? ''),
+                const SizedBox(width: 16),
+                const Text(
+                  'Recuperação:',
+                  textAlign: TextAlign.right,
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(width: 4),
+                Text(exam.recExam ? 'Sim' : 'Não'),
+              ],
+            ),
           ),
         ],
       ),

@@ -21,14 +21,34 @@ class ExamTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Center(child: Text(exam.name ?? '')),
+      title: Text(exam.name ?? ''),
       subtitle: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          Text('Bimestre: ${exam.periodYear.toString()}'),
+          const Text(
+            'Bimestre:',
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(width: 4),
+          Text(
+            exam.periodYear.toString(),
+            style: const TextStyle(fontSize: 12),
+          ),
+          const SizedBox(width: 16),
+          const Text(
+            'Aplicação:',
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(width: 4),
           Text(
             DateFormat('d MMM y', 'pt_br')
                 .format(dateFormat.parse(exam.examDate) ?? ''),
+            style: const TextStyle(fontSize: 12),
           ),
         ],
       ),

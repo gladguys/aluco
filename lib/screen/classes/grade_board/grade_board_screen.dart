@@ -59,6 +59,7 @@ class _GradeBoardScreenState extends State<GradeBoardScreen> {
         return Material(
           elevation: 1,
           clipBehavior: Clip.antiAlias,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(8),
           child: ExpansionTile(
             title: Row(

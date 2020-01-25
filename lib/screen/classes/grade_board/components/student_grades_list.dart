@@ -1,5 +1,6 @@
 import 'package:aluco/model/exams_period.dart';
 import 'package:aluco/model/period_content.dart';
+import 'package:aluco/utils/al_number_format.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
@@ -29,10 +30,10 @@ class _StudentGradesListState extends State<StudentGradesList> {
         ToggleSwitch(
           minWidth: 90.0,
           initialLabelIndex: 0,
-          activeBgColor: Colors.redAccent,
+          activeBgColor: Theme.of(context).primaryColor,
           activeTextColor: Colors.white,
-          inactiveBgColor: Colors.grey,
-          inactiveTextColor: Colors.grey[900],
+          inactiveBgColor: Theme.of(context).primaryColor.withOpacity(0.2),
+          inactiveTextColor: Colors.grey[850],
           labels: const [
             'Bimestre 1',
             'Bimestre 2',
@@ -45,9 +46,17 @@ class _StudentGradesListState extends State<StudentGradesList> {
             });
           },
         ),
-        const SizedBox(height: 18),
-        _buildPeriodContent(allPeriodsContent[index].examsPeriod ?? [],
-            allPeriodsContent[index].average),
+        const SizedBox(height: 4),
+        Material(
+          color: Colors.grey[100],
+          clipBehavior: Clip.antiAlias,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+            side: BorderSide(color: Colors.grey[200]),
+          ),
+          child: _buildPeriodContent(allPeriodsContent[index].examsPeriod ?? [],
+              allPeriodsContent[index].average),
+        ),
       ],
     );
   }
@@ -62,14 +71,42 @@ class _StudentGradesListState extends State<StudentGradesList> {
             return ListTile(
               title: Text(allPeriodsContent[index].examsPeriod[i].examName),
               trailing: Text(
-                  allPeriodsContent[index].examsPeriod[i].grade?.toString() ??
-                      'Sem Nota'),
+                ALNumberFormat.formatDoubleWithDecimal(
+                        number: allPeriodsContent[index]
+                            .examsPeriod[i]
+                            .grade
+                            ?.toString()) ??
+                    'Sem Nota',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: allPeriodsContent[index].examsPeriod[i].grade >= 6
+                      ? Colors.green[600]
+                      : Colors.red[600],
+                ),
+              ),
             );
           } else {
-            return ListTile(
-              title: const Text('Média do Bimestre'),
-              trailing: Text(
-                  allPeriodsContent[index].average?.toString() ?? 'Sem Média'),
+            return Material(
+              color: Colors.grey[200],
+              child: ListTile(
+                title: const Text(
+                  'Média do Bimestre',
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                ),
+                trailing: Text(
+                  ALNumberFormat.formatDoubleWithDecimal(
+                          number:
+                              allPeriodsContent[index].average?.toString()) ??
+                      'Sem Média',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: allPeriodsContent[index].average >= 6
+                        ? Colors.green[600]
+                        : Colors.red[600],
+                  ),
+                ),
+              ),
             );
           }
         },
@@ -78,9 +115,13 @@ class _StudentGradesListState extends State<StudentGradesList> {
             : allPeriodsContent[index].examsPeriod.length + 1,
       );
     } else {
-      return const Text(
-        'Não existem provas para este bimestre',
-        style: TextStyle(color: Colors.red),
+      return const Center(
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Text(
+            'Não existem provas para este bimestre',
+          ),
+        ),
       );
     }
   }
