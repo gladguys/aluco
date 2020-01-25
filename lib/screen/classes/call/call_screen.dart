@@ -20,6 +20,7 @@ class _CallScreenState extends State<CallScreen> with GGValidators {
   CallBloc _callBloc;
   ClassHomeBloc _classHomeBloc;
   GlobalKey<FormState> _formKey;
+  DateTime pickedDate;
 
   @override
   void initState() {
@@ -49,6 +50,7 @@ class _CallScreenState extends State<CallScreen> with GGValidators {
                       labelText: 'Data',
                       initialDate: DateTime.now(),
                       onChanged: (callDate) {
+                        pickedDate = callDate;
                         if (callDate != null) {
                           _callBloc.initializeClassStudentsFromDate(
                               _classHomeBloc.pickedClass.id, callDate);
@@ -104,7 +106,7 @@ class _CallScreenState extends State<CallScreen> with GGValidators {
                     final students = snapshot.data;
                     if (students.isNotEmpty) {
                       return ListView.separated(
-                        key: UniqueKey(),
+                        key: Key(pickedDate?.toString()),
                         padding: const EdgeInsets.only(bottom: 80),
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,

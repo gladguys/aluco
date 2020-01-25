@@ -107,7 +107,10 @@ class CallBloc extends BlocBase {
 
       final studentAbsenceController = getStudentAbsence(student.studentId);
       final studentAbsence = studentAbsenceController.value;
-      if (student.status == CallStatus.NENHUMA && status == 1) {
+      if ((student.status == CallStatus.NENHUMA ||
+              student.status == CallStatus.PRESENTE ||
+              student.status == CallStatus.FALTA_JUSTIFICADA) &&
+          status == 1) {
         studentAbsence.qtAbsences = studentAbsence.qtAbsences + 1;
       } else if (student.status == CallStatus.FALTA && status != 1) {
         studentAbsence.qtAbsences = studentAbsence.qtAbsences - 1;
