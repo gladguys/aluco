@@ -1,9 +1,10 @@
+import 'package:aluco/screen/classes/call/call_bloc.dart';
+import 'package:aluco/screen/classes/call/call_screen.dart';
 import 'package:aluco/screen/classes/class_home/class_students/class_students_screen.dart';
 import 'package:aluco/screen/classes/grade_board/grade_board_screen.dart';
 import 'package:aluco/screen/classes/lesson_plan/list_lesson_plan_screen.dart';
 import 'package:aluco/screen/exam/exam_bloc.dart';
 import 'package:aluco/screen/exam/exams_screen.dart';
-import 'package:aluco/screen/student/list_students_screen.dart';
 import 'package:aluco/widget/al_icon_text_vertical_button.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/widgets.dart';
@@ -38,8 +39,13 @@ class ClassHomeActions extends StatelessWidget {
                   'history',
                   weight: IconWeight.Solid,
                 ),
-                text: 'Histórico de Chamadas',
-                route: ListStudentsScreen(),
+                text: 'Chamadas',
+                route: CallScreen(),
+                resolver: () => BlocProvider.getBloc<CallBloc>()
+                    .initializeClassStudentsFromDate(
+                  _classBloc.pickedClass.id,
+                  DateTime.now(),
+                ),
               ),
               ALIconTextVerticalButton(
                 icon: FontAwesome5.getIconData(
