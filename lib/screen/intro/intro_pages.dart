@@ -1,37 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
-import 'profile_image_picker.dart';
-
 final initialPage = PageViewModel(
-  decoration: PageDecoration(pageColor: Colors.grey[100]),
+  image: Padding(
+    padding: const EdgeInsets.fromLTRB(16, 56, 16, 16),
+    child: Material(
+      elevation: 4,
+      clipBehavior: Clip.antiAlias,
+      borderRadius: BorderRadius.circular(16),
+      child: Image.asset(
+        'assets/images/alunos_sliver.jpeg',
+        fit: BoxFit.cover,
+      ),
+    ),
+  ),
   title: '',
-  bodyWidget: const Text(
-      'Aluco é um aplicativo blah blah blah pra fazer bluh blub bluh com os cru cru cru'),
-  image: Image.asset('assets/images/owl.png'),
+  bodyWidget: Center(
+    child: Text(
+      'Gerencie suas turmas com praticidade e simplicidade!',
+      textAlign: TextAlign.center,
+      style: TextStyle(fontSize: 24),
+    ),
+  ),
 );
 
 final profilePhotoPage = PageViewModel(
-  titleWidget: const SizedBox(height: 120),
-  bodyWidget: Column(
-    children: <Widget>[
-      ProfileImagePicker(),
-      const SizedBox(height: 80),
-      const Text(
-          'Você deseja adicionar uma foto sua? Adicionar uma foto sua pode tornar a experiência de uso mais pessoal.'),
-    ],
+  image: Padding(
+    padding: const EdgeInsets.fromLTRB(16, 56, 16, 16),
+    child: Material(
+      elevation: 4,
+      clipBehavior: Clip.antiAlias,
+      borderRadius: BorderRadius.circular(16),
+      child: Image.asset(
+        'assets/images/alunos_chairs_sliver.jpeg',
+        fit: BoxFit.cover,
+      ),
+    ),
+  ),
+  title: '',
+  bodyWidget: Center(
+    child: Text(
+      'Adicione suas turmas, vincule os respectivos alunos, realize as chamadas diárias e as provas da turma...',
+      textAlign: TextAlign.center,
+      style: TextStyle(fontSize: 24),
+    ),
   ),
 );
 
 final helperPage = PageViewModel(
-  title: 'Title of first page',
-  bodyWidget: Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: const [
-      Icon(Icons.edit),
-    ],
+  image: Padding(
+    padding: const EdgeInsets.fromLTRB(16, 56, 16, 16),
+    child: Material(
+      elevation: 4,
+      clipBehavior: Clip.antiAlias,
+      borderRadius: BorderRadius.circular(16),
+      child: Image.asset(
+        'assets/images/turma_sliver.jpeg',
+        fit: BoxFit.cover,
+      ),
+    ),
   ),
-  image: const Center(child: Icon(Icons.android)),
+  title: '',
+  bodyWidget: Center(
+    child: Text(
+      'Envie relatórios para a coordenação da sua escola sempre que necessário!',
+      textAlign: TextAlign.center,
+      style: TextStyle(fontSize: 24),
+    ),
+  ),
 );
 
 final pages = [initialPage, profilePhotoPage, helperPage];
