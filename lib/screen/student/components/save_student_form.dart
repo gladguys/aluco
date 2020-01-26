@@ -1,6 +1,7 @@
 import 'package:aluco/core/utils/form_utils.dart';
 import 'package:aluco/enums/gender.dart' as our_gender;
 import 'package:aluco/model/student.dart';
+import 'package:circular_check_box/circular_check_box.dart';
 import 'package:flutter/material.dart';
 import 'package:gg_flutter_components/form/gg_form_datepicker.dart';
 import 'package:gg_flutter_components/form/gg_outlined_text_form_field.dart';
@@ -43,7 +44,9 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
     if (widget.student != null) {
       _student = widget.student;
     } else {
-      _student = Student()..gender = our_gender.Gender.male;
+      _student = Student()
+        ..gender = our_gender.Gender.male
+        ..aee = false;
     }
   }
 
@@ -83,6 +86,22 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
                 textInputAction: TextInputAction.done,
                 onSaved: (name) => _student.name = name,
                 validator: emptyValidator,
+              ),
+              FormVerticalSeparator,
+              Row(
+                children: <Widget>[
+                  CircularCheckBox(
+                    value: _student.aee,
+                    onChanged: (aee) {
+                      setState(() {
+                        _student.aee = aee;
+                      });
+                      _student.aee = aee;
+                    },
+                    activeColor: Theme.of(context).primaryColor,
+                  ),
+                  const Text('AEE? '),
+                ],
               ),
               FormVerticalSeparator,
               GGFormDatePicker(

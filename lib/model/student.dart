@@ -17,6 +17,7 @@ class Student implements BaseModel<Student> {
   String address;
   String previousSchool;
   String observation;
+  bool aee;
   Gender gender;
 
   Student();
@@ -40,6 +41,7 @@ class Student implements BaseModel<Student> {
       ..address = json['address']
       ..previousSchool = json['previousSchool']
       ..observation = json['observation']
+      ..isAEE = json['isAEE']
       ..gender = json['gender'] == 0 ? Gender.male : Gender.female;
   }
 
@@ -59,6 +61,7 @@ class Student implements BaseModel<Student> {
       'address': address,
       'previousSchool': previousSchool,
       'observation': observation,
+      'isAEE': isAEE,
       'gender': gender.index,
     };
   }
