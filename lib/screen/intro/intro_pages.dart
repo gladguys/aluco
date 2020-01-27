@@ -1,3 +1,4 @@
+import 'package:aluco/screen/intro/profile_image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
@@ -70,4 +71,24 @@ final helperPage = PageViewModel(
   ),
 );
 
-final pages = [initialPage, profilePhotoPage, helperPage];
+final userPhotoPage = PageViewModel(
+  image: Padding(
+    padding: const EdgeInsets.fromLTRB(16, 56, 16, 16),
+    child: Material(
+      elevation: 4,
+      clipBehavior: Clip.antiAlias,
+      borderRadius: BorderRadius.circular(16),
+      child: ProfileImagePicker(),
+    ),
+  ),
+  title: '',
+  bodyWidget: Center(
+    child: Text(
+      'Quase tudo pronto. Se você quiser pode tirar uma foto da sua camera para usarmos como foto do seu perfil.',
+      textAlign: TextAlign.center,
+      style: TextStyle(fontSize: 24),
+    ),
+  ),
+);
+
+final pages = [initialPage, profilePhotoPage, helperPage, userPhotoPage];

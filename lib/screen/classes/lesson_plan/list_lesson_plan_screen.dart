@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:aluco/model/lesson_plan.dart';
 import 'package:aluco/screen/classes/class_home/class_home_bloc.dart';
 import 'package:aluco/widget/al_scaffold.dart';
@@ -7,8 +9,23 @@ import 'package:flutter/material.dart';
 
 import 'components/lessons_plans_calendar.dart';
 
-class ListLessonPlanScreen extends StatelessWidget {
+class ListLessonPlanScreen extends StatefulWidget {
+  @override
+  _ListLessonPlanScreenState createState() => _ListLessonPlanScreenState();
+}
+
+class _ListLessonPlanScreenState extends State<ListLessonPlanScreen> {
   final _bloc = BlocProvider.getBloc<ClassHomeBloc>();
+  Future<LessonPlan> nextLessonsPlanFuture;
+  Future<LessonPlan> lastEditedLessonsPlanFuture;
+
+  @override
+  void initState() {
+    final int classId = _bloc.pickedClass.id;
+    nextLessonsPlanFuture = _bloc.getNextLessonsPlan(classId);
+    lastEditedLessonsPlanFuture = _bloc.getLastEditedLessonsPlan(classId);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +40,25 @@ class ListLessonPlanScreen extends StatelessWidget {
               const SizedBox(height: 8),
               LessonsPlansCalendar(lessonsPlans),
               const SizedBox(height: 8),
+              FutureBuilder<LessonPlan>(
+                future: nextLessonsPlanFuture,
+                builder: (_, snapshot) {
+                  if (snapshot.hasData) {
+                    return Text(snapshot.data.content);
+                  }
+                  return const CircularProgressIndicator();
+                },
+              ),
+              const SizedBox(height: 8),
+              FutureBuilder<LessonPlan>(
+                future: lastEditedLessonsPlanFuture,
+                builder: (_, snapshot) {
+                  if (snapshot.hasData) {
+                    return Text(snapshot.data.content);
+                  }
+                  return const CircularProgressIndicator();
+                },
+              ),
             ],
           ),
         ),
