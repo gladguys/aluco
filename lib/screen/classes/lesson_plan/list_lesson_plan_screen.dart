@@ -6,6 +6,7 @@ import 'package:aluco/widget/al_scaffold.dart';
 import 'package:aluco/widget/al_stream_builder.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import 'components/lessons_plans_calendar.dart';
 
@@ -40,25 +41,71 @@ class _ListLessonPlanScreenState extends State<ListLessonPlanScreen> {
               const SizedBox(height: 8),
               LessonsPlansCalendar(lessonsPlans),
               const SizedBox(height: 8),
-              FutureBuilder<LessonPlan>(
-                future: nextLessonsPlanFuture,
-                builder: (_, snapshot) {
-                  if (snapshot.hasData) {
-                    return Text(snapshot.data.content);
-                  }
-                  return const CircularProgressIndicator();
-                },
-              ),
-              const SizedBox(height: 8),
-              FutureBuilder<LessonPlan>(
-                future: lastEditedLessonsPlanFuture,
-                builder: (_, snapshot) {
-                  if (snapshot.hasData) {
-                    return Text(snapshot.data.content);
-                  }
-                  return const CircularProgressIndicator();
-                },
-              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  FutureBuilder<LessonPlan>(
+                    future: nextLessonsPlanFuture,
+                    builder: (_, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      }
+                      if (snapshot.hasData) {
+                        return Padding(
+                          padding: const EdgeInsets.all(22),
+                          child: Column(
+                            children: <Widget>[
+                              const Text(
+                                'Próximo Plano de Aula',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
+                              Text(snapshot.data.lessonDate),
+                              Text(snapshot.data.content,
+                                  overflow: TextOverflow.ellipsis),
+                            ],
+                          ),
+                        );
+                      } else {
+                        return const Padding(
+                          padding: EdgeInsets.all(22),
+                          child: Text('Nenhum plano de aula cadastrado.'),
+                        );
+                      }
+                    },
+                  ),
+                  FutureBuilder<LessonPlan>(
+                    future: lastEditedLessonsPlanFuture,
+                    builder: (_, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      }
+                      if (snapshot.hasData) {
+                        return Padding(
+                          padding: const EdgeInsets.all(22),
+                          child: Column(
+                            children: <Widget>[
+                              const Text(
+                                'Último Plano de Aula modificado',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
+                              Text(snapshot.data.lessonDate),
+                              Text(snapshot.data.content,
+                                  overflow: TextOverflow.ellipsis),
+                            ],
+                          ),
+                        );
+                      } else {
+                        return const Padding(
+                          padding: EdgeInsets.all(20),
+                          child: Text('Nenhum plano de aula foi modificado.'),
+                        );
+                      }
+                    },
+                  ),
+                ],
+              )
             ],
           ),
         ),
