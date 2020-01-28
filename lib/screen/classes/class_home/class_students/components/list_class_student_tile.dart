@@ -22,8 +22,14 @@ class ListClassStudentTile extends StatelessWidget {
       leading: Icon(
         student.gender == Gender.male ? LineIcons.male : LineIcons.female,
         size: 40,
+        color: student.aee ? Colors.blue : Colors.grey,
       ),
-      title: student.aee ? Text("${student.name} - AEE") : Text(student.name),
+      title: student.aee
+          ? Text(
+              '${student.name} - AEE',
+              style: TextStyle(color: Colors.blue),
+            )
+          : Text(student.name),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
