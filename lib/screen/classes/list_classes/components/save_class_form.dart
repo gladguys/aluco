@@ -2,7 +2,7 @@ import 'package:aluco/core/utils/form_utils.dart';
 import 'package:aluco/model/class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
-import 'package:gg_flutter_components/gg_flutter_components.dart';
+import 'package:gg_flutter_components/validator/gg_validators.dart';
 
 class SaveClassForm extends StatefulWidget {
   SaveClassForm([this.classe]);
@@ -56,6 +56,7 @@ class _SaveClassFormState extends State<SaveClassForm> with GGValidators {
           children: <Widget>[
             GGOutlinedTextFormField(
               labelText: 'Nome',
+              hintText: 'ex: Colégio São João - 5º ano - Tarde - Português',
               initialValue: _class.name,
               onSaved: (name) => _class.name = name,
               validator: (name) => emptyValidator(name.trim()),
@@ -119,5 +120,60 @@ class _SaveClassFormState extends State<SaveClassForm> with GGValidators {
                 _class.maxQntAbsence = int.parse(maxQntAbsence),
             validator: (maxQntAbsence) => emptyValidator(maxQntAbsence.trim()),
           );
+  }
+}
+
+class GGOutlinedTextFormField extends StatelessWidget {
+  const GGOutlinedTextFormField(
+      {@required this.labelText,
+      this.hintText,
+      this.initialValue,
+      this.onSaved,
+      this.validator,
+      this.keyboardType,
+      this.textInputAction,
+      this.focusNode,
+      this.onEditingComplete,
+      this.controller,
+      this.enabled,
+      this.minLines,
+      this.maxLines})
+      : assert(labelText != null && labelText != '');
+
+  final String labelText;
+  final String hintText;
+  final String initialValue;
+  final FormFieldSetter<String> onSaved;
+  final FormFieldValidator<String> validator;
+  final TextInputType keyboardType;
+  final TextInputAction textInputAction;
+  final FocusNode focusNode;
+  final VoidCallback onEditingComplete;
+  final bool enabled;
+  final int minLines;
+  final int maxLines;
+  final TextEditingController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      onSaved: onSaved,
+      enabled: enabled,
+      controller: controller,
+      validator: validator,
+      onEditingComplete: onEditingComplete,
+      keyboardType: keyboardType,
+      textInputAction: textInputAction,
+      focusNode: focusNode,
+      decoration: InputDecoration(
+        labelText: labelText,
+        hintText: hintText ?? '',
+        hintMaxLines: 2,
+        border: OutlineInputBorder(),
+      ),
+      initialValue: initialValue,
+      minLines: minLines,
+      maxLines: maxLines,
+    );
   }
 }

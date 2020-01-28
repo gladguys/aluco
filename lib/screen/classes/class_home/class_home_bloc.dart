@@ -110,6 +110,22 @@ class ClassHomeBloc extends BlocBase {
     }
   }
 
+  Future<LessonPlan> getNextLessonsPlan(int id) async {
+    try {
+      return _lessonRepository.getNextLessonsPlan(id);
+    } catch (e) {
+      throw Exception();
+    }
+  }
+
+  Future<LessonPlan> getLastEditedLessonsPlan(int id) async {
+    try {
+      return _lessonRepository.getLastEditedLessonsPlan(id);
+    } catch (e) {
+      throw Exception();
+    }
+  }
+
   LessonPlan getLessonPlanFromDate(DateTime date) {
     return classPlannedLessons.firstWhere(
         (lesson) => lesson.lessonDate == dateFormat.format(date),
