@@ -70,6 +70,7 @@ class _CallScreenState extends State<CallScreen> with GGValidators {
                           child: TextFormField(
                             validator: requiredEmailValidator,
                             onSaved: (email) {
+                              _callBloc.sendDailyCall(_classHomeBloc.pickedClass.id, email);
                               Get.back();
                             },
                             decoration: InputDecoration(

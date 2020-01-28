@@ -38,6 +38,18 @@ class CallRepository implements AbstractCallRepository {
     }
   }
 
+   @override
+  Future<void> sendDailyCalls(int classId, String email) async {
+    Response response;
+    try {
+        response = await _dio.get<dynamic>('$REPORT/dailyabsence/class/$classId?email=$email');
+        return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+
   @override
   Future<List<StudentCall>> getStudentCalls(int studentId, int classId) async {
     try {
