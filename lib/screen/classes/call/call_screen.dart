@@ -81,7 +81,7 @@ class _CallScreenState extends State<CallScreen> with GGValidators {
                           ),
                         ),
                         confirm: FlatButton(
-                          child: const Text('Enviar Para'),
+                          child: const Text('Enviar'),
                           onPressed: () {
                             final form = _formKey.currentState;
                             if (form.validate()) {
