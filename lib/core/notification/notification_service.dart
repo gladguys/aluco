@@ -4,7 +4,6 @@ import 'package:aluco/core/locator/locator.dart';
 import 'package:aluco/core/utils/jwt_utils.dart';
 import 'package:aluco/repository/api/lesson_plan_repository.dart';
 import 'package:aluco/screen/classes/lesson_plan/save_lesson_plan_screen.dart';
-import 'package:aluco/screen/home/home_screen.dart';
 import 'package:aluco/screen/signin/signin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -36,12 +35,11 @@ class NotificationService {
       final lessonPlan = await _lessonRepository.getById(int.parse(payload));
       final lessonPlanDate = dateFormat.parse(lessonPlan.lessonDate);
       if (JWTUtils.userAlreadySignedIn()) {
-        Get.to(HomeScreen());
+        Get.to(
+            SaveLessonPlanScreen(lessonPlan: lessonPlan, date: lessonPlanDate));
       } else {
         Get.to(SigninScreen());
       }
-      Get.to(
-          SaveLessonPlanScreen(lessonPlan: lessonPlan, date: lessonPlanDate));
     }
   }
 
