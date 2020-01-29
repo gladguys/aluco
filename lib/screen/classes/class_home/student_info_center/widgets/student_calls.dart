@@ -1,3 +1,4 @@
+import 'package:aluco/enums/call_status.dart';
 import 'package:aluco/model/student_call.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -247,18 +248,29 @@ class _StudentCallsState extends State<StudentCalls> {
   Map<DateTime, List> _buildCallsMap(List<StudentCall> calls) {
     final Map<DateTime, List> callssMap = {};
     for (StudentCall call in calls) {
-      callssMap.putIfAbsent(dateFormat.parse(call.date), () => <dynamic>['']);
+      callssMap.putIfAbsent(
+          dateFormat.parse(call.date), () => <dynamic>[call.status]);
     }
     return callssMap;
   }
 
+  Color getDayColorByStatus(CallStatus status) {
+    if (status == CallStatus.PRESENTE) {
+      return Colors.green;
+    } else if (status == CallStatus.FALTA_JUSTIFICADA) {
+      return Colors.yellow;
+    }
+    return Colors.red;
+  }
+
   Widget _buildEventsMarker(DateTime date, List events) {
+    print(events);
     return Container(
       margin: const EdgeInsets.all(4.0),
       width: 40,
       height: 40,
       decoration: BoxDecoration(
-        color: Colors.red[300],
+        color: getDayColorByStatus(events[0]),
         border: _calendarController.isSelected(date)
             ? Border.all(width: 2, color: Colors.orange[600])
             : null,
