@@ -51,6 +51,7 @@ class _CallScreenState extends State<CallScreen> with GGValidators {
                       labelText: 'Data',
                       initialDate: DateTime.now(),
                       onChanged: (callDate) {
+                        _callBloc.dateController.add(callDate);
                         pickedDate = callDate;
                         if (callDate != null) {
                           _callBloc.initializeClassStudentsFromDate(
@@ -60,47 +61,64 @@ class _CallScreenState extends State<CallScreen> with GGValidators {
                     ),
                   ),
                   const SizedBox(width: 16),
-                  RaisedButton(
-                    onPressed: () {
-                      Get.defaultDialog(
-                        title: 'Enviar relatório para email:',
-                        content: Form(
-                          key: _formKey,
-                          child: TextFormField(
-                            validator: requiredEmailValidator,
-                            onSaved: (email) async {
-                              await _callBloc.sendDailyCall(
-                                  _classHomeBloc.pickedClass.id, email);
-                              Get.back();
-                              GGSnackbar.success(
-                                message: 'Notas enviadas com sucesso!',
-                                context: context,
-                              );
-                            },
-                            decoration: InputDecoration(
-                              hintText: 'E-mail',
-                              prefixIcon: Icon(Icons.email),
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                        ),
-                        confirm: FlatButton(
-                          child: const Text('Enviar'),
-                          onPressed: () {
-                            final form = _formKey.currentState;
-                            if (form.validate()) {
-                              form.save();
-                            }
-                          },
-                        ),
-                        cancel: FlatButton(
-                          child: const Text('Cancelar'),
-                          onPressed: () => Get.back(),
-                        ),
-                      );
-                    },
-                    child: const Text('Enviar'),
-                  ),
+                  StreamBuilder<DateTime>(
+                      stream: _callBloc.dateController.stream,
+                      initialData: DateTime.now(),
+                      builder: (_, snapshot) {
+                        if (snapshot.data == null) {
+                          return const SizedBox();
+                        }
+                        return snapshot.data
+                                        .difference(DateTime.now())
+                                        .inHours <
+                                    24 &&
+                                _callBloc.dateController.value.day ==
+                                    DateTime.now().day
+                            ? RaisedButton(
+                                onPressed: () {
+                                  Get.defaultDialog(
+                                    title: 'Enviar relatório para email:',
+                                    content: Form(
+                                      key: _formKey,
+                                      child: TextFormField(
+                                        validator: requiredEmailValidator,
+                                        onSaved: (email) async {
+                                          await _callBloc.sendDailyCall(
+                                              _classHomeBloc.pickedClass.id,
+                                              email);
+                                          Get.back();
+                                          GGSnackbar.success(
+                                            message:
+                                                'Notas enviadas com sucesso!',
+                                            context: context,
+                                          );
+                                        },
+                                        decoration: InputDecoration(
+                                          hintText: 'E-mail',
+                                          prefixIcon: Icon(Icons.email),
+                                          border: OutlineInputBorder(),
+                                        ),
+                                      ),
+                                    ),
+                                    confirm: FlatButton(
+                                      child: const Text('Enviar'),
+                                      onPressed: () {
+                                        final form = _formKey.currentState;
+                                        if (form.validate()) {
+                                          form.save();
+                                        }
+                                      },
+                                    ),
+                                    cancel: FlatButton(
+                                      child: const Text('Cancelar'),
+                                      onPressed: () => Get.back(),
+                                    ),
+                                  );
+                                },
+                                child: const Text('Enviar'),
+                              )
+                            : const SizedBox();
+                      }),
                 ],
               ),
               const SizedBox(height: 16),
