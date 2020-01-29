@@ -115,31 +115,39 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
                 final studentsGrades = snapshot.data;
 
                 for (ExamGradeDTO examGrade in studentsGrades) {
-                  final gradeController = MaskedTextController(
-                    mask: '0,00',
-                    text: ALNumberFormat.convertToDefaultDecimal(
-                      examGrade.grade?.toStringAsFixed(2),
-                    ),
-                  );
+                  MaskedTextController gradeController;
+                  if (examGrade.grade == 10.0) {
+                    gradeController = MaskedTextController(
+                      mask: '00,00',
+                      text: '10.0',
+                    );
+                  } else {
+                    gradeController = MaskedTextController(
+                      mask: '0,00',
+                      text: ALNumberFormat.convertToDefaultDecimal(
+                        examGrade.grade?.toStringAsFixed(2),
+                      ),
+                    );
 
-                  gradeController.beforeChange =
-                      (String previous, String next) {
-                    if (next.length == 4) {
-                      gradeController.updateMask('0,00');
-                    } else if (next.length == 5) {
-                      gradeController.updateMask('00,00');
+                    gradeController.beforeChange =
+                        (String previous, String next) {
+                      if (next.length == 4) {
+                        gradeController.updateMask('0,00');
+                      } else if (next.length == 5) {
+                        gradeController.updateMask('00,00');
 
-                      final double nextNumber = double.parse(
-                          ALNumberFormat.convertToDefaultDecimal(next));
-                      if (nextNumber < 0 || nextNumber > 10) {
-                        gradeController.updateText(previous);
-                        return false;
+                        final double nextNumber = double.parse(
+                            ALNumberFormat.convertToDefaultDecimal(next));
+                        print(nextNumber);
+                        if (nextNumber < 0 || nextNumber > 10) {
+                          gradeController.updateText(previous);
+                          return false;
+                        }
                       }
-                    }
 
-                    return true;
-                  };
-
+                      return true;
+                    };
+                  }
                   _gradeControllerList.add(gradeController);
                 }
 
