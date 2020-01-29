@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gg_flutter_components/form/gg_form_datepicker.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
+import 'package:gg_flutter_components/gg_snackbar.dart';
 
 import 'call_bloc.dart';
 import 'widgets/student_call_item.dart';
@@ -61,17 +62,20 @@ class _CallScreenState extends State<CallScreen> with GGValidators {
                   const SizedBox(width: 16),
                   RaisedButton(
                     onPressed: () {
-                      final studentsCall =
-                          _callBloc.studentsCallController.value;
                       Get.defaultDialog(
                         title: 'Enviar relatório para email:',
                         content: Form(
                           key: _formKey,
                           child: TextFormField(
                             validator: requiredEmailValidator,
-                            onSaved: (email) {
-                              _callBloc.sendDailyCall(_classHomeBloc.pickedClass.id, email);
+                            onSaved: (email) async {
+                              await _callBloc.sendDailyCall(
+                                  _classHomeBloc.pickedClass.id, email);
                               Get.back();
+                              GGSnackbar.success(
+                                message: 'Notas enviadas com sucesso!',
+                                context: context,
+                              );
                             },
                             decoration: InputDecoration(
                               hintText: 'E-mail',

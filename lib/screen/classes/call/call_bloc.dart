@@ -99,9 +99,8 @@ class CallBloc extends BlocBase {
     return _callRepository.getClassStudentsCallOnDate(classId, date);
   }
 
-    Future<List<StudentCall>> sendDailyCall(
-      int classId, String email) {
-    return _callRepository.sendDailyCalls(classId, email);
+  Future<void> sendDailyCall(int classId, String email) async {
+    await _callRepository.sendDailyCalls(classId, email);
   }
 
   Future<void> handleStudentCallChanged(StudentCall student, int status) async {
