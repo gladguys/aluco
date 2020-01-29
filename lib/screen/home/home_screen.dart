@@ -1,16 +1,44 @@
 import 'package:aluco/core/utils/global_keys.dart';
 import 'package:aluco/core/utils/pref_utils.dart';
+import 'package:aluco/main.dart';
+import 'package:aluco/model/lesson_plan.dart';
+import 'package:aluco/screen/classes/lesson_plan/save_lesson_plan_screen.dart';
 import 'package:aluco/screen/signin/signin_screen.dart';
 import 'package:aluco/widget/al_logo.dart';
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gg_flutter_components/dialog/gg_dialog.dart';
+import 'package:intl/intl.dart';
 import 'package:ndialog/ndialog.dart';
 
 import 'components/home.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({this.lessonPlan});
+
+  final LessonPlan lessonPlan;
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final dateFormat = DateFormat('dd/MM/yyyy');
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (notificationAppLaunchDetails.didNotificationLaunchApp) {
+        Get.to(SaveLessonPlanScreen(
+            lessonPlanId: int.parse(notificationAppLaunchDetails.payload)));
+      } else if (widget.lessonPlan != null) {
+        Get.to(SaveLessonPlanScreen(lessonPlanId: widget.lessonPlan.id));
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ALScaffold(
