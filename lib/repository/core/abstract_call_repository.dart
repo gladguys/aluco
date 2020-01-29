@@ -9,4 +9,5 @@ abstract class AbstractCallRepository {
   Future<List<StudentCall>> getStudentCalls(int studentId, int classId);
   Future<StudentAbsence> getStudentAbsences(int studentId, int classId);
   Future<StudentGrades> getStudentGrades(int studentId, int classId);
+  Future<void> sendDailyCalls(int classId, String email);
 }
