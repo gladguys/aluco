@@ -71,15 +71,17 @@ class _StudentGradesListState extends State<StudentGradesList> {
             return ListTile(
               title: Text(allPeriodsContent[index].examsPeriod[i].examName),
               trailing: Text(
-                ALNumberFormat.formatDoubleWithDecimal(
+                allPeriodsContent[index].examsPeriod[i].grade != null
+                    ? ALNumberFormat.formatDoubleWithDecimal(
                         number: allPeriodsContent[index]
                             .examsPeriod[i]
                             .grade
-                            ?.toString()) ??
-                    'Sem Nota',
+                            .toString())
+                    : 'Sem Nota',
                 style: TextStyle(
                   fontSize: 16,
-                  color: allPeriodsContent[index].examsPeriod[i].grade >= 6
+                  color: allPeriodsContent[index].examsPeriod[i].grade != null && 
+                          allPeriodsContent[index].examsPeriod[i].grade >= 6
                       ? Colors.green[600]
                       : Colors.red[600],
                 ),
