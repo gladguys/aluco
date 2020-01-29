@@ -69,19 +69,32 @@ class _StudentGradesListState extends State<StudentGradesList> {
         itemBuilder: (_, i) {
           if (i < allPeriodsContent[index].examsPeriod.length) {
             return ListTile(
-              title: Text(allPeriodsContent[index].examsPeriod[i].examName),
+              title: Row(
+                children: <Widget>[
+                  Text(
+                    allPeriodsContent[index].examsPeriod[i].examName,
+                    style: TextStyle(
+                        color: allPeriodsContent[index].examsPeriod[i].recExam
+                            ? Colors.lightBlue
+                            : Colors.black),
+                  ),
+                ],
+              ),
               trailing: Text(
-                ALNumberFormat.formatDoubleWithDecimal(
+                allPeriodsContent[index].examsPeriod[i].grade != null
+                    ? ALNumberFormat.formatDoubleWithDecimal(
                         number: allPeriodsContent[index]
                             .examsPeriod[i]
                             .grade
-                            ?.toString()) ??
-                    'Sem Nota',
+                            .toString())
+                    : 'Sem Nota',
                 style: TextStyle(
                   fontSize: 16,
-                  color: allPeriodsContent[index].examsPeriod[i].grade >= 6
-                      ? Colors.green[600]
-                      : Colors.red[600],
+                  color: allPeriodsContent[index].examsPeriod[i].grade == null
+                      ? Colors.grey
+                      : (allPeriodsContent[index].examsPeriod[i].grade >= 6
+                          ? Colors.green[600]
+                          : Colors.red[600]),
                 ),
               ),
             );
@@ -94,16 +107,18 @@ class _StudentGradesListState extends State<StudentGradesList> {
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
                 trailing: Text(
-                  ALNumberFormat.formatDoubleWithDecimal(
-                          number:
-                              allPeriodsContent[index].average?.toString()) ??
-                      'Sem Média',
+                  allPeriodsContent[index].average != null
+                      ? ALNumberFormat.formatDoubleWithDecimal(
+                          number: allPeriodsContent[index].average.toString())
+                      : 'Sem Média',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    color: allPeriodsContent[index].average >= 6
-                        ? Colors.green[600]
-                        : Colors.red[600],
+                    color: allPeriodsContent[index].average == null
+                        ? Colors.grey
+                        : allPeriodsContent[index].average >= 6
+                            ? Colors.green[600]
+                            : Colors.red[600],
                   ),
                 ),
               ),
