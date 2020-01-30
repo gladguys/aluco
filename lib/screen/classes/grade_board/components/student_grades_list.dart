@@ -27,24 +27,27 @@ class _StudentGradesListState extends State<StudentGradesList> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        ToggleSwitch(
-          minWidth: 90.0,
-          initialLabelIndex: 0,
-          activeBgColor: Theme.of(context).primaryColor,
-          activeTextColor: Colors.white,
-          inactiveBgColor: Theme.of(context).primaryColor.withOpacity(0.2),
-          inactiveTextColor: Colors.grey[850],
-          labels: const [
-            'Bimestre 1',
-            'Bimestre 2',
-            'Bimestre 3',
-            'Bimestre 4'
-          ],
-          onToggle: (pickedIndex) {
-            setState(() {
-              index = pickedIndex;
-            });
-          },
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: ToggleSwitch(
+            minWidth: 90.0,
+            initialLabelIndex: 0,
+            activeBgColor: Theme.of(context).primaryColor,
+            activeTextColor: Colors.white,
+            inactiveBgColor: Theme.of(context).primaryColor.withOpacity(0.2),
+            inactiveTextColor: Colors.grey[850],
+            labels: const [
+              'Bimestre 1',
+              'Bimestre 2',
+              'Bimestre 3',
+              'Bimestre 4'
+            ],
+            onToggle: (pickedIndex) {
+              setState(() {
+                index = pickedIndex;
+              });
+            },
+          ),
         ),
         const SizedBox(height: 4),
         Material(
@@ -87,7 +90,7 @@ class _StudentGradesListState extends State<StudentGradesList> {
                             .examsPeriod[i]
                             .grade
                             .toString())
-                    : 'Sem Nota',
+                    : 'Sem nota',
                 style: TextStyle(
                   fontSize: 16,
                   color: allPeriodsContent[index].examsPeriod[i].grade == null
@@ -110,7 +113,7 @@ class _StudentGradesListState extends State<StudentGradesList> {
                   allPeriodsContent[index].average != null
                       ? ALNumberFormat.formatDoubleWithDecimal(
                           number: allPeriodsContent[index].average.toString())
-                      : 'Sem Média',
+                      : 'Sem média',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
