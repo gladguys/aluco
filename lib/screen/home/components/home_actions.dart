@@ -79,7 +79,7 @@ class _HomeActionsState extends State<HomeActions> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Ações relativas a turmas',
+                    'Gerenciamento de turmas',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -88,7 +88,7 @@ class _HomeActionsState extends State<HomeActions> {
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0),
                     child: Text(
-                      'Aqui você pode criar novas turmas, além de realizar todas as ações relacionadas com uma turma, como bla bla bla',
+                      'Aqui você pode criar e editar novas turmas, além de vincular os alunos às suas respectivas turmas.',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -113,7 +113,7 @@ class _HomeActionsState extends State<HomeActions> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Ações relativas a estudantes',
+                    'Gerenciamento de alunos',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -122,7 +122,7 @@ class _HomeActionsState extends State<HomeActions> {
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0),
                     child: Text(
-                      'Tudo relacionado a estudantes ogowkpowkpf',
+                      'Cadastre os alunos das escolas que você ensina.',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),

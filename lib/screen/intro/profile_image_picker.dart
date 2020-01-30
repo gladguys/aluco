@@ -23,12 +23,22 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
           _image = file;
         });
         final teacherId = PrefUtils.getTeacherId();
-        await _bloc.uploadProfileFile(file: _image, saveFilename: '$teacherId.jpg');
+        await _bloc.uploadProfileFile(
+            file: _image, saveFilename: '$teacherId.jpg');
       },
-      child: _image != null ? Image.file(_image) : Icon(
-        Icons.person_pin,
-        size: 80,
-      ),
+      child: _image != null
+          ? Image.file(_image)
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  Icons.camera_alt,
+                  size: 120,
+                  color: Colors.orange[600],
+                ),
+                const Text('Toque aqui para adicionar sua foto de perfil.')
+              ],
+            ),
     );
   }
 }
