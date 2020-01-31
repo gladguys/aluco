@@ -28,7 +28,7 @@ class InfoStudent extends StatelessWidget {
             student.name ?? '',
             maxLines: 4,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
@@ -38,7 +38,7 @@ class InfoStudent extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
+            const Text(
               'Endereço:',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
@@ -54,7 +54,7 @@ class InfoStudent extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
+            const Text(
               'E-mail:',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
@@ -70,7 +70,7 @@ class InfoStudent extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
+            const Text(
               'Data de Nascimento:',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
@@ -86,7 +86,7 @@ class InfoStudent extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
+            const Text(
               'Gênero:',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
@@ -102,7 +102,7 @@ class InfoStudent extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
+            const Text(
               'Responsável:',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
@@ -118,7 +118,7 @@ class InfoStudent extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
+            const Text(
               'Telefone do Responsável:',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),

@@ -18,9 +18,7 @@ class IntroScreen extends StatelessWidget {
           color: Theme.of(context).primaryColor,
         ),
       ),
-      onDone: () async {
-        ALRouter.pushAndReplace(context, HomeScreen());
-      },
+      onDone: () async => ALRouter.pushAndReplace(context, const HomeScreen()),
       globalBackgroundColor: Colors.white,
       dotsDecorator: DotsDecorator(
         size: const Size.square(10.0),

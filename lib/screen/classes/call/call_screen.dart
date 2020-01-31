@@ -96,7 +96,7 @@ class _CallScreenState extends State<CallScreen> with GGValidators {
                                         decoration: InputDecoration(
                                           hintText: 'E-mail',
                                           prefixIcon: Icon(Icons.email),
-                                          border: OutlineInputBorder(),
+                                          border: const OutlineInputBorder(),
                                         ),
                                       ),
                                     ),

@@ -11,7 +11,7 @@ class StudentAbsencesQuantity extends StatelessWidget {
     return Row(
       children: <Widget>[
         const SizedBox(width: 16),
-        Text(
+        const Text(
           'Quantidade de Faltas:',
           style: TextStyle(fontWeight: FontWeight.w500),
         ),

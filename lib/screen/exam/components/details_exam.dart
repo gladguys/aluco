@@ -1,6 +1,5 @@
 import 'package:aluco/model/exam.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 
 class DetailsExam extends StatelessWidget {

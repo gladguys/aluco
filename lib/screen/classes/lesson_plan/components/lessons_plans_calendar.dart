@@ -54,7 +54,7 @@ class _LessonsPlansCalendarState extends State<LessonsPlansCalendar> {
             headerPadding: null,
             formatButtonTextStyle: TextStyle(color: Colors.grey[600]),
             formatButtonDecoration: BoxDecoration(
-              border: Border(
+              border: const Border(
                 top: BorderSide(color: Colors.grey),
                 bottom: BorderSide(color: Colors.grey),
                 left: BorderSide(color: Colors.grey),

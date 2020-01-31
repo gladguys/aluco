@@ -82,7 +82,7 @@ class ALScaffoldSlivered extends StatelessWidget {
                             color: Colors.orange,
                             shadows: isExpandingMedium
                                 ? <BoxShadow>[
-                                    BoxShadow(offset: const Offset(0, 1)),
+                                    const BoxShadow(offset: Offset(0, 1)),
                                   ]
                                 : null,
                           ),
@@ -110,8 +110,8 @@ class ALScaffoldSlivered extends StatelessWidget {
             stream: BlocProvider.getBloc<LoadingBloc>().loadingState,
             builder: (_, snapshot) {
               if (snapshot.data == LoadingState.loading) {
-                return SliverFillRemaining(
-                    child: const GGLoadingDoubleBounce(size: 20));
+                return const SliverFillRemaining(
+                    child: GGLoadingDoubleBounce(size: 20));
               }
               return body;
             },

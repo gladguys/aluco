@@ -129,27 +129,28 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
                 ],
               ),
               FormVerticalSeparator,
-              weightVisible
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const Text('Peso da Prova: '),
-                        SelectGroup<int>(
-                          index: _exam.weight - 1,
-                          selectColor: Theme.of(context).primaryColor,
-                          borderColor: Theme.of(context).primaryColor,
-                          padding: const EdgeInsets.all(16),
-                          space: const EdgeInsets.symmetric(horizontal: 4),
-                          items: <SelectItem<int>>[
-                            SelectItem(label: '1', value: 1),
-                            SelectItem(label: '2', value: 2),
-                            SelectItem(label: '3', value: 3),
-                          ],
-                          onSingleSelect: (int value) => _exam.weight = value,
-                        ),
+              if (weightVisible)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const Text('Peso da Prova: '),
+                    SelectGroup<int>(
+                      index: _exam.weight - 1,
+                      selectColor: Theme.of(context).primaryColor,
+                      borderColor: Theme.of(context).primaryColor,
+                      padding: const EdgeInsets.all(16),
+                      space: const EdgeInsets.symmetric(horizontal: 4),
+                      items: <SelectItem<int>>[
+                        SelectItem(label: '1', value: 1),
+                        SelectItem(label: '2', value: 2),
+                        SelectItem(label: '3', value: 3),
                       ],
-                    )
-                  : const SizedBox(),
+                      onSingleSelect: (int value) => _exam.weight = value,
+                    ),
+                  ],
+                )
+              else
+                const SizedBox(),
               FormVerticalSeparator,
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

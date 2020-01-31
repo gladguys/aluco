@@ -25,7 +25,8 @@ class StudentTile extends StatelessWidget {
         _student.gender == Gender.male ? LineIcons.male : LineIcons.female,
         size: 40,
       ),
-      title: _student.aee ? Text("${_student.name} - AEE") : Text(_student.name),
+      title:
+          _student.aee ? Text('${_student.name} - AEE') : Text(_student.name),
       subtitle: _student.email != null
           ? (_student.registrationNumber.isNotEmpty
               ? Text('Matrícula: ${_student.registrationNumber}')

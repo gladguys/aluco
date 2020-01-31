@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           child: FlatButton(
             padding: const EdgeInsets.all(0),
-            shape: CircleBorder(),
+            shape: const CircleBorder(),
             highlightColor: Colors.white10,
             splashColor: Colors.white30,
             onPressed: () {
@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text(
                         PrefUtils.getName() ?? '',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                         ),
@@ -101,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text(
                         PrefUtils.getEmail() ?? '',
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 14),
+                        style: const TextStyle(fontSize: 14),
                       ),
                       const SizedBox(height: 32),
                       OutlineButton(

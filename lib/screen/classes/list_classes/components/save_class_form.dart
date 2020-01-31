@@ -169,7 +169,7 @@ class GGOutlinedTextFormField extends StatelessWidget {
         labelText: labelText,
         hintText: hintText ?? '',
         hintMaxLines: 2,
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
       ),
       initialValue: initialValue,
       minLines: minLines,

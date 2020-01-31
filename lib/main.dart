@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp> {
 
   Widget getHomeWidget() {
     if (JWTUtils.userAlreadySignedIn()) {
-      return HomeScreen();
+      return const HomeScreen();
     } else {
       return SigninScreen();
     }
