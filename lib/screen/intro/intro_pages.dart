@@ -75,6 +75,7 @@ final userPhotoPage = PageViewModel(
   image: Padding(
     padding: const EdgeInsets.fromLTRB(16, 56, 16, 16),
     child: Material(
+      color: Colors.grey[200],
       elevation: 4,
       clipBehavior: Clip.antiAlias,
       borderRadius: BorderRadius.circular(16),
@@ -84,7 +85,7 @@ final userPhotoPage = PageViewModel(
   title: '',
   bodyWidget: Center(
     child: Text(
-      'Quase tudo pronto. Se você quiser pode tirar uma foto da sua camera para usarmos como foto do seu perfil.',
+      'Quase tudo pronto. Se você quiser, toque no card acima para tirar uma foto da sua câmera para usarmos como foto do seu perfil.',
       textAlign: TextAlign.center,
       style: TextStyle(fontSize: 24),
     ),

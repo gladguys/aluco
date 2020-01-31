@@ -10,11 +10,7 @@ class IntroScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return IntroductionScreen(
       pages: pages,
-      showSkipButton: true,
-      skip: Text(
-        'Pular',
-        style: TextStyle(color: Theme.of(context).primaryColor),
-      ),
+      showSkipButton: false,
       done: Text(
         'Vamos lá!',
         style: TextStyle(
