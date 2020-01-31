@@ -31,7 +31,7 @@ class _StudentCallsState extends State<StudentCalls> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Material(
-        color: Colors.white,
+        color: Colors.grey[100],
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
@@ -256,11 +256,11 @@ class _StudentCallsState extends State<StudentCalls> {
 
   Color getDayColorByStatus(CallStatus status) {
     if (status == CallStatus.PRESENTE) {
-      return Colors.green;
+      return Colors.green[200];
     } else if (status == CallStatus.FALTA_JUSTIFICADA) {
-      return Colors.yellow;
+      return Colors.yellow[200];
     }
-    return Colors.red;
+    return Colors.red[200];
   }
 
   Widget _buildEventsMarker(DateTime date, List events) {
@@ -280,11 +280,11 @@ class _StudentCallsState extends State<StudentCalls> {
             : <BoxShadow>[
                 BoxShadow(
                   offset: const Offset(0, 1),
-                  color: Colors.orange[300],
+                  color: getDayColorByStatus(events[0]),
                 ),
                 BoxShadow(
                   offset: const Offset(0, -0.1),
-                  color: Colors.orange[200],
+                  color: getDayColorByStatus(events[0]),
                 )
               ],
       ),
