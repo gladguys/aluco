@@ -52,7 +52,7 @@ class _StudentGradesListState extends State<StudentGradesList> {
         ),
         const SizedBox(height: 4),
         Material(
-          color: Colors.grey[100],
+          color: Colors.grey[50],
           clipBehavior: Clip.antiAlias,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
@@ -121,11 +121,16 @@ class ExamTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(
-        examsPeriod.examName,
-        style: TextStyle(
-          color: examsPeriod.recExam ? Colors.lightBlue : Colors.black,
-        ),
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          if (examsPeriod.recExam)
+            const Text(
+              'Recuperação',
+              style: TextStyle(fontSize: 9),
+            ),
+          Text(examsPeriod.examName),
+        ],
       ),
       trailing: Text(
         examsPeriod.grade != null

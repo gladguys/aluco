@@ -51,7 +51,7 @@ class _StudentGradesListState extends State<StudentGradesList> {
         ),
         const SizedBox(height: 4),
         Material(
-          color: Colors.grey[100],
+          color: Colors.grey[50],
           clipBehavior: Clip.antiAlias,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
@@ -72,14 +72,16 @@ class _StudentGradesListState extends State<StudentGradesList> {
         itemBuilder: (_, i) {
           if (i < allPeriodsContent[index].examsPeriod.length) {
             return ListTile(
-              title: Row(
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  if (allPeriodsContent[index].examsPeriod[i].recExam)
+                    const Text(
+                      'Recuperação',
+                      style: TextStyle(fontSize: 9),
+                    ),
                   Text(
-                    allPeriodsContent[index].examsPeriod[i].examName,
-                    style: TextStyle(
-                        color: allPeriodsContent[index].examsPeriod[i].recExam
-                            ? Colors.lightBlue
-                            : Colors.black),
+                    allPeriodsContent[index].examsPeriod[i].examName
                   ),
                 ],
               ),
