@@ -42,11 +42,9 @@ class _ListLessonPlanScreenState extends State<ListLessonPlanScreen> {
               LessonsPlansCalendar(lessonsPlans),
               const SizedBox(height: 8),
               Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Card(
-                    child: Container(
-                      width: 320,
+                  Center(
+                    child: Card(
                       child: FutureBuilder<LessonPlan>(
                         future: nextLessonsPlanFuture,
                         builder: (_, snapshot) {
@@ -56,63 +54,107 @@ class _ListLessonPlanScreenState extends State<ListLessonPlanScreen> {
                           }
                           if (snapshot.hasData) {
                             return Padding(
-                              padding: const EdgeInsets.all(22),
+                              padding: const EdgeInsets.all(12),
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  const Text(
-                                    'Próximo Plano de Aula',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
+                                  Row(
+                                    children: <Widget>[
+                                      const Text(
+                                        'Próximo plano:',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        snapshot.data.lessonDate,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Text(snapshot.data.lessonDate),
-                                  Text(snapshot.data.content,
-                                      overflow: TextOverflow.ellipsis),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    snapshot.data.content,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 4,
+                                  )
                                 ],
                               ),
                             );
                           } else {
-                            return const Padding(
-                              padding: EdgeInsets.all(22),
-                              child: Text('Nenhum plano de aula cadastrado.'),
+                            return const Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(12),
+                                child: Text(
+                                  'Nenhum plano de aula cadastrado.',
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
                             );
                           }
                         },
                       ),
                     ),
                   ),
-                  Card(
-                    child: FutureBuilder<LessonPlan>(
-                      future: lastEditedLessonsPlanFuture,
-                      builder: (_, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const CircularProgressIndicator();
-                        }
-                        if (snapshot.hasData) {
-                          return Padding(
-                            padding: const EdgeInsets.all(22),
-                            child: Column(
-                              children: <Widget>[
-                                const Text(
-                                  'Último Plano de Aula modificado',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
+                  Center(
+                    child: Card(
+                      child: FutureBuilder<LessonPlan>(
+                        future: lastEditedLessonsPlanFuture,
+                        builder: (_, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const CircularProgressIndicator();
+                          }
+                          if (snapshot.hasData) {
+                            return Padding(
+                              padding: const EdgeInsets.all(12),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      const Text(
+                                        'Último plano modificado:',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        snapshot.data.lessonDate,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    snapshot.data.content,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 4,
+                                  ),
+                                ],
+                              ),
+                            );
+                          } else {
+                            return const Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(12),
+                                child: Text(
+                                  'Nenhum plano de aula foi modificado.',
+                                  textAlign: TextAlign.center,
                                 ),
-                                Text(snapshot.data.lessonDate),
-                                Text(snapshot.data.content,
-                                    overflow: TextOverflow.ellipsis),
-                              ],
-                            ),
-                          );
-                        } else {
-                          return const Padding(
-                            padding: EdgeInsets.all(20),
-                            child: Text('Nenhum plano de aula foi modificado.'),
-                          );
-                        }
-                      },
+                              ),
+                            );
+                          }
+                        },
+                      ),
                     ),
                   ),
                 ],

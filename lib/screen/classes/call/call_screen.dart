@@ -1,9 +1,11 @@
 import 'package:aluco/model/student_call.dart';
 import 'package:aluco/screen/classes/class_home/class_home_bloc.dart';
 import 'package:aluco/screen/classes/class_home/class_students/components/add_student_class_button.dart';
+import 'package:aluco/theme/main_theme.dart';
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:get/get.dart';
 import 'package:gg_flutter_components/form/gg_form_datepicker.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
@@ -42,10 +44,10 @@ class _CallScreenState extends State<CallScreen> with GGValidators {
           child: Column(
             children: <Widget>[
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    width: 210,
+                    width: 205,
                     child: GGFormDatePicker(
                       format: _callBloc.dateFormat,
                       labelText: 'Data',
@@ -60,7 +62,7 @@ class _CallScreenState extends State<CallScreen> with GGValidators {
                       },
                     ),
                   ),
-                  const SizedBox(width: 16),
+                  const SizedBox(width: 8),
                   StreamBuilder<DateTime>(
                       stream: _callBloc.dateController.stream,
                       initialData: DateTime.now(),
@@ -74,7 +76,21 @@ class _CallScreenState extends State<CallScreen> with GGValidators {
                                     24 &&
                                 _callBloc.dateController.value.day ==
                                     DateTime.now().day
-                            ? RaisedButton(
+                            ? OutlineButton.icon(
+                                icon: Icon(
+                                  FontAwesome5.getIconData(
+                                    'paper-plane',
+                                    weight: IconWeight.Solid,
+                                  ),
+                                  size: 16,
+                                ),
+                                label: const Text('Enviar \npor email'),
+                                color: theme.primaryColor,
+                                textColor: theme.primaryColorDark,
+                                highlightedBorderColor: theme.primaryColor,
+                                borderSide:
+                                    BorderSide(color: theme.primaryColor),
+                                padding: const EdgeInsets.all(8),
                                 onPressed: () {
                                   Get.defaultDialog(
                                     title: 'Enviar relatório para email:',
@@ -115,52 +131,55 @@ class _CallScreenState extends State<CallScreen> with GGValidators {
                                     ),
                                   );
                                 },
-                                child: const Text('Enviar'),
                               )
                             : const SizedBox();
                       }),
                 ],
               ),
               const SizedBox(height: 16),
-              StreamBuilder<List<StudentCall>>(
-                stream: _callBloc.studentsCallController.stream,
-                builder: (_, snapshot) {
-                  if (snapshot.hasData) {
-                    final students = snapshot.data;
-                    if (students.isNotEmpty) {
-                      return ListView.separated(
-                        key: Key(pickedDate?.toString()),
-                        padding: const EdgeInsets.only(bottom: 80),
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (_, i) => StudentCallItem(students[i]),
-                        separatorBuilder: (_, i) => const SizedBox(height: 8),
-                        itemCount: students.length,
-                      );
-                    } else {
-                      return Column(
-                        children: const <Widget>[
-                          SizedBox(height: 48),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 40),
-                            child: Text(
-                              'Você ainda não adicionou nenhum aluno a esta turma.',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 2),
+                child: StreamBuilder<List<StudentCall>>(
+                  stream: _callBloc.studentsCallController.stream,
+                  builder: (_, snapshot) {
+                    if (snapshot.hasData) {
+                      final students = snapshot.data;
+                      if (students.isNotEmpty) {
+                        return ListView.separated(
+                          key: Key(pickedDate?.toString()),
+                          padding: const EdgeInsets.only(bottom: 80),
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (_, i) =>
+                              StudentCallItem(students[i], i),
+                          separatorBuilder: (_, i) => const SizedBox(height: 8),
+                          itemCount: students.length,
+                        );
+                      } else {
+                        return Column(
+                          children: const <Widget>[
+                            SizedBox(height: 48),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 40),
+                              child: Text(
+                                'Você ainda não adicionou nenhum aluno a esta turma.',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(height: 48),
-                          AddStudentClassButton(isFloating: false),
-                          SizedBox(height: 8),
-                        ],
-                      );
+                            SizedBox(height: 48),
+                            AddStudentClassButton(isFloating: false),
+                            SizedBox(height: 8),
+                          ],
+                        );
+                      }
                     }
-                  }
-                  return const CircularProgressIndicator();
-                },
+                    return const CircularProgressIndicator();
+                  },
+                ),
               ),
             ],
           ),

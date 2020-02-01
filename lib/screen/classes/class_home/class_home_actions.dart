@@ -36,7 +36,7 @@ class ClassHomeActions extends StatelessWidget {
               ),
               ALIconTextVerticalButton(
                 icon: FontAwesome5.getIconData(
-                  'history',
+                  'clipboard-check',
                   weight: IconWeight.Solid,
                 ),
                 text: 'Chamadas',
