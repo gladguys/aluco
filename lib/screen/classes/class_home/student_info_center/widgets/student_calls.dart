@@ -28,8 +28,9 @@ class _StudentCallsState extends State<StudentCalls> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
+      width: 400,
       child: Material(
         color: Colors.grey[100],
         clipBehavior: Clip.antiAlias,

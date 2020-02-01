@@ -57,8 +57,9 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
         key: _formKey,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Wrap(
+            spacing: 16,
+            runSpacing: 16,
             children: <Widget>[
               GGOutlinedTextFormField(
                 labelText: 'Nome *',
@@ -67,17 +68,17 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
                 onSaved: (name) => _exam.name = name,
                 validator: emptyValidator,
               ),
-              FormVerticalSeparator,
               GGOutlinedTextFormField(
                 labelText: 'Descrição *',
+                width: 400,
                 initialValue: _exam.description,
                 textInputAction: TextInputAction.done,
                 onSaved: (description) => _exam.description = description,
                 validator: emptyValidator,
               ),
-              FormVerticalSeparator,
               GGFormDatePicker(
                 labelText: 'Data da Prova *',
+                width: 240,
                 format: dateFormat,
                 initialDate: _exam.examDate != null
                     ? dateFormat.parse(_exam.examDate)
@@ -104,31 +105,33 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
                   }
                 },
               ),
-              FormVerticalSeparator,
-              Row(
-                children: <Widget>[
-                  CircularCheckBox(
-                    value: _exam.recExam,
-                    onChanged: (isRecExam) {
-                      _exam.recExam = isRecExam;
-                      if (isRecExam) {
-                        checkIfCanSetRecover();
-                      } else {
-                        setState(() {
-                          _exam.recExam = isRecExam;
-                          weightVisible = !isRecExam;
-                          if (isRecExam) {
-                            _exam.weight = 1;
-                          }
-                        });
-                      }
-                    },
-                    activeColor: Theme.of(context).primaryColor,
-                  ),
-                  const Text('Recuperação? '),
-                ],
+              Container(
+                height: 60,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    CircularCheckBox(
+                      value: _exam.recExam,
+                      onChanged: (isRecExam) {
+                        _exam.recExam = isRecExam;
+                        if (isRecExam) {
+                          checkIfCanSetRecover();
+                        } else {
+                          setState(() {
+                            _exam.recExam = isRecExam;
+                            weightVisible = !isRecExam;
+                            if (isRecExam) {
+                              _exam.weight = 1;
+                            }
+                          });
+                        }
+                      },
+                      activeColor: Theme.of(context).primaryColor,
+                    ),
+                    const Text('Recuperação? '),
+                  ],
+                ),
               ),
-              FormVerticalSeparator,
               if (weightVisible)
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,7 +154,6 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
                 )
               else
                 const SizedBox(),
-              FormVerticalSeparator,
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[

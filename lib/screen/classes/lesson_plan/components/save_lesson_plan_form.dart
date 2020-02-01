@@ -43,8 +43,9 @@ class _SaveLessonPlanFormState extends State<SaveLessonPlanForm>
         key: _formKey,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Wrap(
+            spacing: 16,
+            runSpacing: 16,
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -56,41 +57,41 @@ class _SaveLessonPlanFormState extends State<SaveLessonPlanForm>
                   Text('${_lessonPlan.lessonDate}'),
                 ],
               ),
-              FormVerticalSeparator,
               GGOutlinedTextFormField(
                 labelText: 'Conteúdo',
+                width: 400,
                 initialValue: _lessonPlan.content,
                 textInputAction: TextInputAction.newline,
                 onSaved: (content) => _lessonPlan.content = content,
                 minLines: 3,
               ),
-              FormVerticalSeparator,
               GGOutlinedTextFormField(
                 labelText: 'Metodologia',
+                width: 400,
                 initialValue: _lessonPlan.metodology,
                 textInputAction: TextInputAction.newline,
                 onSaved: (metodology) => _lessonPlan.metodology = metodology,
                 minLines: 3,
               ),
-              FormVerticalSeparator,
               GGOutlinedTextFormField(
                 labelText: 'Atividades de Sala',
+                width: 400,
                 initialValue: _lessonPlan.classwork,
                 textInputAction: TextInputAction.newline,
                 onSaved: (classwork) => _lessonPlan.classwork = classwork,
                 minLines: 3,
               ),
-              FormVerticalSeparator,
               GGOutlinedTextFormField(
                 labelText: 'Atividades de Casa',
+                width: 400,
                 initialValue: _lessonPlan.homework,
                 textInputAction: TextInputAction.newline,
                 onSaved: (homework) => _lessonPlan.homework = homework,
                 minLines: 3,
               ),
-              FormVerticalSeparator,
               GGOutlinedTextFormField(
                 labelText: 'Observações/Notas',
+                width: 400,
                 initialValue: _lessonPlan.notes,
                 textInputAction: TextInputAction.newline,
                 onSaved: (notes) => _lessonPlan.notes = notes,

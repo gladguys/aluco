@@ -50,15 +50,19 @@ class _StudentGradesListState extends State<StudentGradesList> {
           ),
         ),
         const SizedBox(height: 4),
-        Material(
-          color: Colors.grey[50],
-          clipBehavior: Clip.antiAlias,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-            side: BorderSide(color: Colors.grey[200]),
+        ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 500),
+          child: Material(
+            color: Colors.grey[50],
+            clipBehavior: Clip.antiAlias,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+              side: BorderSide(color: Colors.grey[200]),
+            ),
+            child: _buildPeriodContent(
+                allPeriodsContent[index].examsPeriod ?? [],
+                allPeriodsContent[index].average),
           ),
-          child: _buildPeriodContent(allPeriodsContent[index].examsPeriod ?? [],
-              allPeriodsContent[index].average),
         ),
       ],
     );
@@ -80,9 +84,7 @@ class _StudentGradesListState extends State<StudentGradesList> {
                       'Recuperação',
                       style: TextStyle(fontSize: 9),
                     ),
-                  Text(
-                    allPeriodsContent[index].examsPeriod[i].examName
-                  ),
+                  Text(allPeriodsContent[index].examsPeriod[i].examName),
                 ],
               ),
               trailing: Text(

@@ -52,22 +52,24 @@ class _SaveClassFormState extends State<SaveClassForm> with GGValidators {
       key: _formKey,
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
+        child: Wrap(
+          spacing: 16,
+          runSpacing: 16,
           children: <Widget>[
             GGOutlinedTextFormField(
               labelText: 'Nome',
+              width: 400,
               hintText: 'ex: Colégio São João - 5º ano - Tarde - Português',
               initialValue: _class.name,
               onSaved: (name) => _class.name = name,
               validator: (name) => emptyValidator(name.trim()),
             ),
-            FormVerticalSeparator,
             GGOutlinedTextFormField(
               labelText: 'Descrição',
+              width: 400,
               initialValue: _class.description,
               onSaved: (description) => _class.description = description,
             ),
-            FormVerticalSeparator,
             Row(
               children: <Widget>[
                 Expanded(
@@ -126,6 +128,7 @@ class _SaveClassFormState extends State<SaveClassForm> with GGValidators {
 class GGOutlinedTextFormField extends StatelessWidget {
   const GGOutlinedTextFormField(
       {@required this.labelText,
+      this.width = 300,
       this.hintText,
       this.initialValue,
       this.onSaved,
@@ -141,6 +144,7 @@ class GGOutlinedTextFormField extends StatelessWidget {
       : assert(labelText != null && labelText != '');
 
   final String labelText;
+  final double width;
   final String hintText;
   final String initialValue;
   final FormFieldSetter<String> onSaved;
@@ -156,24 +160,27 @@ class GGOutlinedTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      onSaved: onSaved,
-      enabled: enabled,
-      controller: controller,
-      validator: validator,
-      onEditingComplete: onEditingComplete,
-      keyboardType: keyboardType,
-      textInputAction: textInputAction,
-      focusNode: focusNode,
-      decoration: InputDecoration(
-        labelText: labelText,
-        hintText: hintText ?? '',
-        hintMaxLines: 2,
-        border: const OutlineInputBorder(),
+    return Container(
+      width: width,
+      child: TextFormField(
+        onSaved: onSaved,
+        enabled: enabled,
+        controller: controller,
+        validator: validator,
+        onEditingComplete: onEditingComplete,
+        keyboardType: keyboardType,
+        textInputAction: textInputAction,
+        focusNode: focusNode,
+        decoration: InputDecoration(
+          labelText: labelText,
+          hintText: hintText ?? '',
+          hintMaxLines: 2,
+          border: const OutlineInputBorder(),
+        ),
+        initialValue: initialValue,
+        minLines: minLines,
+        maxLines: maxLines,
       ),
-      initialValue: initialValue,
-      minLines: minLines,
-      maxLines: maxLines,
     );
   }
 }
