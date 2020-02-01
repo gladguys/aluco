@@ -28,7 +28,7 @@ class _SaveClassScreenState extends State<SaveClassScreen> {
   Widget build(BuildContext context) {
     return ALScaffold(
       title: widget.classe == null ? 'Adicionar Turma' : 'Editar Turma',
-      body: Center(
+      body: Container(
         child: _saveClassForm,
       ),
       floatingActionButton: FloatingActionButton.extended(

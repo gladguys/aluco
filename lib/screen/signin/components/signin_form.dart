@@ -25,6 +25,7 @@ class SigninForm extends StatelessWidget with GGValidators {
             ALSignTextFormField(
               labelText: 'E-mail',
               prefixIconData: Icons.person,
+              width: 320,
               controller: _usernameController,
               validator: emptyValidator,
               onFieldSubmitted: (String value) =>
@@ -35,6 +36,7 @@ class SigninForm extends StatelessWidget with GGValidators {
             ALSignTextFormField(
               labelText: 'Senha',
               prefixIconData: Icons.vpn_key,
+              width: 320,
               obscureText: true,
               textInputAction: TextInputAction.done,
               controller: _passwordController,

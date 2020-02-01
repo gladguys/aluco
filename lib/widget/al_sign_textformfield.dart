@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ALSignTextFormField extends StatelessWidget {
   const ALSignTextFormField({
+    this.width,
     this.labelText,
     this.prefixIconData,
     this.controller,
@@ -13,6 +14,7 @@ class ALSignTextFormField extends StatelessWidget {
     this.onSaved,
   });
 
+  final double width;
   final String labelText;
   final IconData prefixIconData;
   final TextEditingController controller;
@@ -29,8 +31,9 @@ class ALSignTextFormField extends StatelessWidget {
       elevation: 2,
       clipBehavior: Clip.antiAlias,
       borderRadius: BorderRadius.circular(12.0),
-      child: Padding(
+      child: Container(
         padding: const EdgeInsets.symmetric(vertical: 4.0),
+        width: width,
         child: TextFormField(
           controller: controller,
           decoration: InputDecoration(
