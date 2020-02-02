@@ -111,11 +111,11 @@ class _SaveClassFormState extends State<SaveClassForm> with GGValidators {
   Widget _buildMaxQntAbsence() {
     return _class.id != null
         ? Text(
-            'Máximo de Faltas: ${_class.maxQntAbsence}',
+            'Máx. Faltas: ${_class.maxQntAbsence}',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           )
         : GGOutlinedTextFormField(
-            labelText: 'Máximo de Faltas',
+            labelText: 'Máx. Faltas',
             keyboardType: TextInputType.number,
             controller: maxQntAbsenceController,
             onSaved: (maxQntAbsence) =>
