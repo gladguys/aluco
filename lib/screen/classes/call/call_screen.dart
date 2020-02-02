@@ -3,12 +3,12 @@ import 'package:aluco/screen/classes/class_home/class_home_bloc.dart';
 import 'package:aluco/screen/classes/class_home/class_students/components/add_student_class_button.dart';
 import 'package:aluco/theme/main_theme.dart';
 import 'package:aluco/widget/al_scaffold.dart';
+import 'package:aluco/widget/gg_form_date_picker.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:get/get.dart';
-import 'package:gg_flutter_components/form/gg_form_datepicker.dart';
-import 'package:gg_flutter_components/gg_flutter_components.dart';
+import 'package:gg_flutter_components/validator/gg_validators.dart';
 import 'package:gg_flutter_components/gg_snackbar.dart';
 
 import 'call_bloc.dart';

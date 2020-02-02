@@ -1,7 +1,7 @@
-import 'package:aluco/core/utils/form_utils.dart';
 import 'package:aluco/model/lesson_plan.dart';
+import 'package:aluco/widget/gg_outlined_text_form_field.dart';
 import 'package:flutter/material.dart';
-import 'package:gg_flutter_components/gg_flutter_components.dart';
+import 'package:gg_flutter_components/validator/gg_validators.dart';
 import 'package:intl/intl.dart';
 
 class SaveLessonPlanForm extends StatefulWidget {
