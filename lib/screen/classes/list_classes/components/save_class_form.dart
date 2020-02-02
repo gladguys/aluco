@@ -1,5 +1,5 @@
-import 'package:aluco/core/utils/form_utils.dart';
 import 'package:aluco/model/class.dart';
+import 'package:aluco/widget/gg_outlined_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:gg_flutter_components/validator/gg_validators.dart';
@@ -122,65 +122,5 @@ class _SaveClassFormState extends State<SaveClassForm> with GGValidators {
                 _class.maxQntAbsence = int.parse(maxQntAbsence),
             validator: (maxQntAbsence) => emptyValidator(maxQntAbsence.trim()),
           );
-  }
-}
-
-class GGOutlinedTextFormField extends StatelessWidget {
-  const GGOutlinedTextFormField(
-      {@required this.labelText,
-      this.width = 300,
-      this.hintText,
-      this.initialValue,
-      this.onSaved,
-      this.validator,
-      this.keyboardType,
-      this.textInputAction,
-      this.focusNode,
-      this.onEditingComplete,
-      this.controller,
-      this.enabled,
-      this.minLines,
-      this.maxLines})
-      : assert(labelText != null && labelText != '');
-
-  final String labelText;
-  final double width;
-  final String hintText;
-  final String initialValue;
-  final FormFieldSetter<String> onSaved;
-  final FormFieldValidator<String> validator;
-  final TextInputType keyboardType;
-  final TextInputAction textInputAction;
-  final FocusNode focusNode;
-  final VoidCallback onEditingComplete;
-  final bool enabled;
-  final int minLines;
-  final int maxLines;
-  final TextEditingController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      child: TextFormField(
-        onSaved: onSaved,
-        enabled: enabled,
-        controller: controller,
-        validator: validator,
-        onEditingComplete: onEditingComplete,
-        keyboardType: keyboardType,
-        textInputAction: textInputAction,
-        focusNode: focusNode,
-        decoration: InputDecoration(
-          labelText: labelText,
-          hintText: hintText ?? '',
-          hintMaxLines: 2,
-          border: const OutlineInputBorder(),
-        ),
-        initialValue: initialValue,
-        minLines: minLines,
-        maxLines: maxLines,
-      ),
-    );
   }
 }
