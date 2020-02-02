@@ -63,7 +63,7 @@ class ClassHomeBloc extends BlocBase {
       final lessonPlanSaved = await _lessonRepository.save(lessonPlan);
       final lessonPlanDate = dateFormat.parse(lessonPlan.lessonDate);
       final notificationDate = DateTime(
-          lessonPlanDate.year, lessonPlanDate.month, lessonPlanDate.day, 8);
+          lessonPlanDate.year, lessonPlanDate.month, lessonPlanDate.day, 6);
 
       if (lessonPlan.id == null) {
         classPlannedLessons.add(lessonPlanSaved);
