@@ -16,3 +16,4 @@ const CALL = 'calls';
 const DATE = 'date';
 const CONFIG = 'config';
 const REPORT = 'report';
+const NUMBER_CALLS = 'number-calls';
