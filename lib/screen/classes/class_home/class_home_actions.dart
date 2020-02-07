@@ -1,3 +1,4 @@
+import 'package:aluco/model/class.dart';
 import 'package:aluco/screen/classes/call/call_bloc.dart';
 import 'package:aluco/screen/classes/call/call_screen.dart';
 import 'package:aluco/screen/classes/class_home/class_students/class_students_screen.dart';
@@ -14,6 +15,8 @@ import 'class_home_bloc.dart';
 
 class ClassHomeActions extends StatelessWidget {
   final _classBloc = BlocProvider.getBloc<ClassHomeBloc>();
+
+  Class get classe => _classBloc.pickedClass;
 
   @override
   Widget build(BuildContext context) {
@@ -34,27 +37,33 @@ class ClassHomeActions extends StatelessWidget {
                 text: 'Alunos da Turma',
                 route: ClassStudentsScreen(),
               ),
-              ALIconTextVerticalButton(
-                icon: FontAwesome5.getIconData(
-                  'history',
-                  weight: IconWeight.Solid,
-                ),
-                text: 'Chamadas',
-                route: CallScreen(),
-                resolver: () => BlocProvider.getBloc<CallBloc>()
-                    .initializeClassStudentsFromDate(
-                  _classBloc.pickedClass.id,
-                  DateTime.now(),
-                ),
-              ),
-              ALIconTextVerticalButton(
-                icon: FontAwesome5.getIconData(
-                  'clipboard-list',
-                  weight: IconWeight.Solid,
-                ),
-                text: 'Quadro de Notas',
-                route: GradeBoardScreen(),
-              ),
+              if (classe.classStatus == ClassStatus.started)
+                ALIconTextVerticalButton(
+                  icon: FontAwesome5.getIconData(
+                    'history',
+                    weight: IconWeight.Solid,
+                  ),
+                  text: 'Chamadas',
+                  route: CallScreen(),
+                  resolver: () => BlocProvider.getBloc<CallBloc>()
+                      .initializeClassStudentsFromDate(
+                    _classBloc.pickedClass.id,
+                    DateTime.now(),
+                  ),
+                )
+              else
+                const SizedBox.shrink(),
+              if (classe.classStatus == ClassStatus.started)
+                ALIconTextVerticalButton(
+                  icon: FontAwesome5.getIconData(
+                    'clipboard-list',
+                    weight: IconWeight.Solid,
+                  ),
+                  text: 'Quadro de Notas',
+                  route: GradeBoardScreen(),
+                )
+              else
+                const SizedBox.shrink(),
               ALIconTextVerticalButton(
                 icon: FontAwesome5.getIconData(
                   'book',

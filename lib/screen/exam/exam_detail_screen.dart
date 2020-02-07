@@ -138,7 +138,7 @@ class _ExamDetailScreenState extends State<ExamDetailScreen> {
 
                         final double nextNumber = double.parse(
                             ALNumberFormat.convertToDefaultDecimal(next));
-                        print(nextNumber);
+
                         if (nextNumber < 0 || nextNumber > 10) {
                           gradeController.updateText(previous);
                           return false;

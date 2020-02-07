@@ -26,7 +26,6 @@ class ListClassesBloc extends BlocBase {
   Future<void> save(Class classe) async {
     try {
       final classSaved = await _repository.save(classe);
-
       if (classe.id == null) {
         await _repository.saveClassConfig(classSaved.id, classe);
       }
@@ -40,6 +39,7 @@ class ListClassesBloc extends BlocBase {
         _classesController.add(classList);
       }
     } catch (e) {
+      print(e);
       throw Exception();
     }
   }

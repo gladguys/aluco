@@ -1,23 +1,36 @@
 import 'base_model.dart';
 
+enum ClassStatus { created, started, closed }
+
 class Class implements BaseModel<Class> {
   int id;
   String name;
   String description;
   double minimumAverage;
   int maxQntAbsence;
+  ClassStatus classStatus;
 
   Class();
 
   @override
   int getId() => id;
 
+  ClassStatus getClassStatus(String s) {
+    if (s == 'CREATED') {
+      return ClassStatus.created;
+    } else if (s == 'STARTED') {
+      return ClassStatus.started;
+    }
+    return ClassStatus.closed;
+  }
+
   @override
   Class fromJson(Map<String, dynamic> json) {
     return Class()
       ..id = json['id']
       ..name = json['name']
-      ..description = json['description'];
+      ..description = json['description']
+      ..classStatus = getClassStatus(json['classStatus'] ?? 'CREATED');
   }
 
   @override
@@ -25,7 +38,8 @@ class Class implements BaseModel<Class> {
     return <String, dynamic>{
       'id': id,
       'name': name,
-      'description': description
+      'description': description,
+      'classStatus': classStatus?.index ?? 0,
     };
   }
 
@@ -47,6 +61,6 @@ class Class implements BaseModel<Class> {
 
   @override
   String toString() {
-    return 'Class{id: $id, name: $name, description: $description, minimumAverage: $minimumAverage, maxQntAbsence: $maxQntAbsence}';
+    return 'Class{id: $id, name: $name, description: $description, minimumAverage: $minimumAverage, maxQntAbsence: $maxQntAbsence, classStatus: $classStatus}';
   }
 }
