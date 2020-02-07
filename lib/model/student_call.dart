@@ -5,6 +5,7 @@ class StudentCall {
   int studentId;
   String studentName;
   int classId;
+  int numberCall;
   CallStatus status;
   String date;
 
@@ -21,6 +22,7 @@ class StudentCall {
     studentId = json['studentId'];
     studentName = json['studentName'];
     classId = json['classId'];
+    numberCall = json['numberCall'];
     status = getCallStatusFromString(json['status']);
     date = json['date'];
   }
@@ -31,6 +33,7 @@ class StudentCall {
     data['studentId'] = studentId;
     data['studentName'] = studentName;
     data['classId'] = classId;
+    data['numberCall'] = numberCall;
     data['status'] = getIntFromCallStatus(status);
     data['date'] = date;
     return data;
@@ -48,6 +51,6 @@ class StudentCall {
 
   @override
   String toString() {
-    return 'StudentCall{id: $id, studentId: $studentId, studentName: $studentName, classId: $classId, status: $status, date: $date}';
+    return 'StudentCall{id: $id, studentId: $studentId, studentName: $studentName, classId: $classId, status: $status, date: $date, numberCall: $numberCall}';
   }
 }

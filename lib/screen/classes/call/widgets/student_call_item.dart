@@ -27,6 +27,7 @@ class StudentCallItem extends StatelessWidget {
           vertical: 8,
           horizontal: 12,
         ),
+        leading: Text(studentCall.numberCall?.toString() ?? 'S/N'),
         title: Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: Text(studentCall.studentName ?? ''),

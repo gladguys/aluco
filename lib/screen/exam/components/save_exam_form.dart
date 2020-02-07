@@ -37,7 +37,6 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
     super.initState();
     _examBloc = BlocProvider.getBloc<ExamBloc>();
     if (widget._exam != null) {
-      print(widget._exam);
       _exam = widget._exam;
       if (_exam.recExam) {
         weightVisible = false;
