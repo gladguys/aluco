@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sujian_select/select_group.dart';
 import 'package:flutter_sujian_select/select_item.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
-import 'package:gg_flutter_components/gg_snackbar.dart';
 import 'package:intl/intl.dart';
 
 class SaveExamForm extends StatefulWidget {
@@ -110,17 +109,13 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
                     value: _exam.recExam,
                     onChanged: (isRecExam) {
                       _exam.recExam = isRecExam;
-                      if (isRecExam) {
-                        checkIfCanSetRecover();
-                      } else {
-                        setState(() {
-                          _exam.recExam = isRecExam;
-                          weightVisible = !isRecExam;
-                          if (isRecExam) {
-                            _exam.weight = 1;
-                          }
-                        });
-                      }
+                      setState(() {
+                        _exam.recExam = isRecExam;
+                        weightVisible = !isRecExam;
+                        if (isRecExam) {
+                          _exam.weight = 1;
+                        }
+                      });
                     },
                     activeColor: Theme.of(context).primaryColor,
                   ),
@@ -128,27 +123,29 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
                 ],
               ),
               FormVerticalSeparator,
-              weightVisible
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const Text('Peso da Prova: '),
-                        SelectGroup<int>(
-                          index: _exam.weight - 1,
-                          selectColor: Theme.of(context).primaryColor,
-                          borderColor: Theme.of(context).primaryColor,
-                          padding: const EdgeInsets.all(16),
-                          space: const EdgeInsets.symmetric(horizontal: 4),
-                          items: <SelectItem<int>>[
-                            SelectItem(label: '1', value: 1),
-                            SelectItem(label: '2', value: 2),
-                            SelectItem(label: '3', value: 3),
-                          ],
-                          onSingleSelect: (int value) => _exam.weight = value,
-                        ),
+              if (weightVisible)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // ignore: prefer_if_elements_to_conditional_expressions
+                  children: <Widget>[
+                    const Text('Peso da Prova: '),
+                    SelectGroup<int>(
+                      index: _exam.weight - 1,
+                      selectColor: Theme.of(context).primaryColor,
+                      borderColor: Theme.of(context).primaryColor,
+                      padding: const EdgeInsets.all(16),
+                      space: const EdgeInsets.symmetric(horizontal: 4),
+                      items: <SelectItem<int>>[
+                        SelectItem(label: '1', value: 1),
+                        SelectItem(label: '2', value: 2),
+                        SelectItem(label: '3', value: 3),
                       ],
-                    )
-                  : const SizedBox(),
+                      onSingleSelect: (int value) => _exam.weight = value,
+                    ),
+                  ],
+                )
+              else
+                const SizedBox(),
               FormVerticalSeparator,
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,8 +164,9 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
                       SelectItem(label: '4', value: 4),
                     ],
                     onSingleSelect: (periodYear) {
-                      _exam.periodYear = periodYear;
-                      checkIfCanSetRecover(fromPeriod: true);
+                      setState(() {
+                        _exam.periodYear = periodYear;
+                      });
                     },
                   ),
                 ],
@@ -178,29 +176,6 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
         ),
       ),
     );
-  }
-
-  void checkIfCanSetRecover({bool fromPeriod = false}) {
-    final selectedPeriod = _exam.periodYear;
-    final examsBySelectedPeriod =
-        _getExamsByPeriod(_examBloc.examsList, selectedPeriod);
-    final hasAnyExamRecover = hasAnyRecover(examsBySelectedPeriod);
-    if (hasAnyExamRecover && _exam.recExam) {
-      GGSnackbar.warning(
-          context: context,
-          message:
-              'Já existe uma prova de recuperação criada para este bimestre');
-      setState(() {
-        _exam.recExam = false;
-        weightVisible = true;
-      });
-    } else if (!fromPeriod) {
-      setState(() {
-        _exam.recExam = true;
-        weightVisible = false;
-        _exam.weight = 1;
-      });
-    }
   }
 
   List<Exam> _getExamsByPeriod(List<Exam> exams, int period) {
