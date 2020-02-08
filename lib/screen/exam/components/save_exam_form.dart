@@ -109,17 +109,13 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
                       value: _exam.recExam,
                       onChanged: (isRecExam) {
                         _exam.recExam = isRecExam;
-                        if (isRecExam) {
-                          checkIfCanSetRecover();
-                        } else {
-                          setState(() {
-                            _exam.recExam = isRecExam;
-                            weightVisible = !isRecExam;
-                            if (isRecExam) {
-                              _exam.weight = 1;
-                            }
-                          });
-                        }
+                        setState(() {
+                          _exam.recExam = isRecExam;
+                          weightVisible = !isRecExam;
+                          if (isRecExam) {
+                            _exam.weight = 1;
+                          }
+                        });
                       },
                       activeColor: Theme.of(context).primaryColor,
                     ),
