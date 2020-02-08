@@ -1,5 +1,5 @@
-import 'package:aluco/core/utils/form_utils.dart';
 import 'package:aluco/model/class.dart';
+import 'package:aluco/widget/gg_outlined_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:gg_flutter_components/validator/gg_validators.dart';
@@ -52,22 +52,24 @@ class _SaveClassFormState extends State<SaveClassForm> with GGValidators {
       key: _formKey,
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
+        child: Wrap(
+          spacing: 16,
+          runSpacing: 16,
           children: <Widget>[
             GGOutlinedTextFormField(
               labelText: 'Nome',
+              width: 400,
               hintText: 'ex: Colégio São João - 5º ano - Tarde - Português',
               initialValue: _class.name,
               onSaved: (name) => _class.name = name,
               validator: (name) => emptyValidator(name.trim()),
             ),
-            FormVerticalSeparator,
             GGOutlinedTextFormField(
               labelText: 'Descrição',
+              width: 400,
               initialValue: _class.description,
               onSaved: (description) => _class.description = description,
             ),
-            FormVerticalSeparator,
             Row(
               children: <Widget>[
                 Expanded(
@@ -109,71 +111,16 @@ class _SaveClassFormState extends State<SaveClassForm> with GGValidators {
   Widget _buildMaxQntAbsence() {
     return _class.id != null
         ? Text(
-            'Máximo de Faltas: ${_class.maxQntAbsence}',
+            'Máx. Faltas: ${_class.maxQntAbsence}',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           )
         : GGOutlinedTextFormField(
-            labelText: 'Máximo de Faltas',
+            labelText: 'Máx. Faltas',
             keyboardType: TextInputType.number,
             controller: maxQntAbsenceController,
             onSaved: (maxQntAbsence) =>
                 _class.maxQntAbsence = int.parse(maxQntAbsence),
             validator: (maxQntAbsence) => emptyValidator(maxQntAbsence.trim()),
           );
-  }
-}
-
-class GGOutlinedTextFormField extends StatelessWidget {
-  const GGOutlinedTextFormField(
-      {@required this.labelText,
-      this.hintText,
-      this.initialValue,
-      this.onSaved,
-      this.validator,
-      this.keyboardType,
-      this.textInputAction,
-      this.focusNode,
-      this.onEditingComplete,
-      this.controller,
-      this.enabled,
-      this.minLines,
-      this.maxLines})
-      : assert(labelText != null && labelText != '');
-
-  final String labelText;
-  final String hintText;
-  final String initialValue;
-  final FormFieldSetter<String> onSaved;
-  final FormFieldValidator<String> validator;
-  final TextInputType keyboardType;
-  final TextInputAction textInputAction;
-  final FocusNode focusNode;
-  final VoidCallback onEditingComplete;
-  final bool enabled;
-  final int minLines;
-  final int maxLines;
-  final TextEditingController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      onSaved: onSaved,
-      enabled: enabled,
-      controller: controller,
-      validator: validator,
-      onEditingComplete: onEditingComplete,
-      keyboardType: keyboardType,
-      textInputAction: textInputAction,
-      focusNode: focusNode,
-      decoration: InputDecoration(
-        labelText: labelText,
-        hintText: hintText ?? '',
-        hintMaxLines: 2,
-        border: OutlineInputBorder(),
-      ),
-      initialValue: initialValue,
-      minLines: minLines,
-      maxLines: maxLines,
-    );
   }
 }

@@ -1,14 +1,17 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:aluco/core/locator/locator.dart';
 import 'package:aluco/core/utils/jwt_utils.dart';
 import 'package:aluco/repository/api/lesson_plan_repository.dart';
-import 'package:aluco/screen/classes/lesson_plan/save_lesson_plan_screen.dart';
+import 'package:aluco/screen/home/home_screen.dart';
 import 'package:aluco/screen/signin/signin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+
+import '../../main.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class NotificationService {
@@ -33,10 +36,9 @@ class NotificationService {
     if (payload != null) {
       print('notification payload: ' + payload);
       final lessonPlan = await _lessonRepository.getById(int.parse(payload));
-      final lessonPlanDate = dateFormat.parse(lessonPlan.lessonDate);
+      preferences.setString('lessonPlan', jsonEncode(lessonPlan.toJson()));
       if (JWTUtils.userAlreadySignedIn()) {
-        Get.to(
-            SaveLessonPlanScreen(lessonPlan: lessonPlan, date: lessonPlanDate));
+        Get.to(HomeScreen(lessonPlan: lessonPlan));
       } else {
         Get.to(SigninScreen());
       }

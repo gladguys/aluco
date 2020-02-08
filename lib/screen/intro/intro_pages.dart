@@ -16,7 +16,7 @@ final initialPage = PageViewModel(
     ),
   ),
   title: '',
-  bodyWidget: Center(
+  bodyWidget: const Center(
     child: Text(
       'Gerencie suas turmas com praticidade e simplicidade!',
       textAlign: TextAlign.center,
@@ -39,7 +39,7 @@ final profilePhotoPage = PageViewModel(
     ),
   ),
   title: '',
-  bodyWidget: Center(
+  bodyWidget: const Center(
     child: Text(
       'Adicione suas turmas, vincule os respectivos alunos, realize as chamadas diárias e as provas da turma...',
       textAlign: TextAlign.center,
@@ -62,7 +62,7 @@ final helperPage = PageViewModel(
     ),
   ),
   title: '',
-  bodyWidget: Center(
+  bodyWidget: const Center(
     child: Text(
       'Envie relatórios para a coordenação da sua escola sempre que necessário!',
       textAlign: TextAlign.center,
@@ -75,6 +75,7 @@ final userPhotoPage = PageViewModel(
   image: Padding(
     padding: const EdgeInsets.fromLTRB(16, 56, 16, 16),
     child: Material(
+      color: Colors.grey[200],
       elevation: 4,
       clipBehavior: Clip.antiAlias,
       borderRadius: BorderRadius.circular(16),
@@ -82,9 +83,9 @@ final userPhotoPage = PageViewModel(
     ),
   ),
   title: '',
-  bodyWidget: Center(
+  bodyWidget: const Center(
     child: Text(
-      'Quase tudo pronto. Se você quiser pode tirar uma foto da sua camera para usarmos como foto do seu perfil.',
+      'Quase tudo pronto. Se você quiser, toque no card acima para tirar uma foto da sua câmera para usarmos como foto do seu perfil.',
       textAlign: TextAlign.center,
       style: TextStyle(fontSize: 24),
     ),

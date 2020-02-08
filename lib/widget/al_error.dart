@@ -5,8 +5,8 @@ class ALError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: const Text('DEU MUITO RUIM'),
+    return const Center(
+      child: Text('DEU MUITO RUIM'),
     );
   }
 }

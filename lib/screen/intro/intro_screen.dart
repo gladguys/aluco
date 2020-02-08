@@ -10,11 +10,7 @@ class IntroScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return IntroductionScreen(
       pages: pages,
-      showSkipButton: true,
-      skip: Text(
-        'Pular',
-        style: TextStyle(color: Theme.of(context).primaryColor),
-      ),
+      showSkipButton: false,
       done: Text(
         'Vamos lá!',
         style: TextStyle(
@@ -22,9 +18,7 @@ class IntroScreen extends StatelessWidget {
           color: Theme.of(context).primaryColor,
         ),
       ),
-      onDone: () async {
-        ALRouter.pushAndReplace(context, HomeScreen());
-      },
+      onDone: () async => ALRouter.pushAndReplace(context, const HomeScreen()),
       globalBackgroundColor: Colors.white,
       dotsDecorator: DotsDecorator(
         size: const Size.square(10.0),

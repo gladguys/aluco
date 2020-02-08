@@ -40,7 +40,7 @@ class ClassHomeActions extends StatelessWidget {
               if (classe.classStatus == ClassStatus.started)
                 ALIconTextVerticalButton(
                   icon: FontAwesome5.getIconData(
-                    'history',
+                    'clipboard-check',
                     weight: IconWeight.Solid,
                   ),
                   text: 'Chamadas',

@@ -40,8 +40,9 @@ class _LessonsPlansCalendarState extends State<LessonsPlansCalendar> {
         borderRadius: BorderRadius.circular(8),
         side: BorderSide(color: Colors.grey[300]),
       ),
-      child: Padding(
+      child: Container(
         padding: const EdgeInsets.only(bottom: 4),
+        width: 360,
         child: TableCalendar(
           calendarController: _calendarController,
           locale: 'pt_BR',
@@ -54,7 +55,7 @@ class _LessonsPlansCalendarState extends State<LessonsPlansCalendar> {
             headerPadding: null,
             formatButtonTextStyle: TextStyle(color: Colors.grey[600]),
             formatButtonDecoration: BoxDecoration(
-              border: Border(
+              border: const Border(
                 top: BorderSide(color: Colors.grey),
                 bottom: BorderSide(color: Colors.grey),
                 left: BorderSide(color: Colors.grey),

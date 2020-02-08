@@ -32,7 +32,7 @@ class LessonPlanRepository extends BaseRepository<LessonPlan>
   Future<LessonPlan> getLastEditedLessonsPlan(int classId) async {
     try {
       final response = await _dio
-          .get<dynamic>('$basePath/$SINGLE_CLASS/$classId/next-lesson');
+          .get<dynamic>('$basePath/$SINGLE_CLASS/$classId/latest-edited');
       if (response.data != null) {
         final instance = LessonPlan();
         return instance.fromJson(response.data);
@@ -47,7 +47,7 @@ class LessonPlanRepository extends BaseRepository<LessonPlan>
   Future<LessonPlan> getNextLessonsPlan(int classId) async {
     try {
       final response = await _dio
-          .get<dynamic>('$basePath/$SINGLE_CLASS/$classId/latest-edited');
+          .get<dynamic>('$basePath/$SINGLE_CLASS/$classId/next-lesson');
       if (response.data != null) {
         final instance = LessonPlan();
         return instance.fromJson(response.data);

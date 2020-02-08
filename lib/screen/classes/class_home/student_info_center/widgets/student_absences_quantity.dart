@@ -9,16 +9,15 @@ class StudentAbsencesQuantity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         const SizedBox(width: 16),
-        Text(
+        const Text(
           'Quantidade de Faltas:',
           style: TextStyle(fontWeight: FontWeight.w500),
         ),
         const SizedBox(width: 4),
-        Expanded(
-          child: Text(studentAbsence.qtAbsences?.toString() ?? '0'),
-        ),
+        Text(studentAbsence.qtAbsences?.toString() ?? '0'),
       ],
     );
   }

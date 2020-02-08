@@ -1,11 +1,10 @@
-import 'package:aluco/core/utils/form_utils.dart';
 import 'package:aluco/enums/gender.dart' as our_gender;
 import 'package:aluco/model/student.dart';
+import 'package:aluco/widget/gg_form_date_picker.dart';
+import 'package:aluco/widget/gg_outlined_text_form_field.dart';
 import 'package:circular_check_box/circular_check_box.dart';
 import 'package:flutter/material.dart';
-import 'package:gg_flutter_components/form/gg_form_datepicker.dart';
-import 'package:gg_flutter_components/form/gg_outlined_text_form_field.dart';
-import 'package:gg_flutter_components/gg_flutter_components.dart';
+import 'package:gg_flutter_components/validator/gg_validators.dart';
 import 'package:intl/intl.dart';
 
 class SaveStudentForm extends StatefulWidget {
@@ -57,8 +56,9 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
         key: _formKey,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Wrap(
+            spacing: 16,
+            runSpacing: 16,
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -70,42 +70,45 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
                   ),
                 ],
               ),
-              FormVerticalSeparatorMedium,
               GGOutlinedTextFormField(
                 labelText: 'Matrícula *',
+                width: 150,
                 initialValue: _student.registrationNumber,
                 textInputAction: TextInputAction.done,
                 onSaved: (registrationNumber) =>
                     _student.registrationNumber = registrationNumber,
                 validator: emptyValidator,
               ),
-              FormVerticalSeparator,
               GGOutlinedTextFormField(
                 labelText: 'Nome Completo *',
+                width: 300,
                 initialValue: _student.name,
                 textInputAction: TextInputAction.done,
                 onSaved: (name) => _student.name = name,
                 validator: emptyValidator,
               ),
-              FormVerticalSeparator,
-              Row(
-                children: <Widget>[
-                  CircularCheckBox(
-                    value: _student.aee,
-                    onChanged: (aee) {
-                      setState(() {
+              Container(
+                height: 60,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    CircularCheckBox(
+                      value: _student.aee,
+                      onChanged: (aee) {
+                        setState(() {
+                          _student.aee = aee;
+                        });
                         _student.aee = aee;
-                      });
-                      _student.aee = aee;
-                    },
-                    activeColor: Theme.of(context).primaryColor,
-                  ),
-                  const Text('AEE? '),
-                ],
+                      },
+                      activeColor: Theme.of(context).primaryColor,
+                    ),
+                    const Text('AEE? '),
+                  ],
+                ),
               ),
-              FormVerticalSeparator,
               GGFormDatePicker(
                 labelText: 'Data de Nascimento',
+                width: 280,
                 format: dateFormat,
                 focusNode: birthDateFN,
                 initialDate: _student.dateBirth != null
@@ -117,48 +120,52 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
                   }
                 },
               ),
-              FormVerticalSeparator,
-              // const Text('Sexo'),
               Wrap(
+                spacing: 8,
                 children: <Widget>[
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Radio(
-                        groupValue: _student.gender,
-                        value: our_gender.Gender.male,
-                        activeColor: Theme.of(context).primaryColor,
-                        onChanged: (Object object) {
-                          setState(() {
-                            _student.gender = our_gender.Gender.male;
-                          });
-                        },
-                      ),
-                      const Text('Masculino'),
-                    ],
+                  Container(
+                    height: 60,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Radio(
+                          groupValue: _student.gender,
+                          value: our_gender.Gender.male,
+                          activeColor: Theme.of(context).primaryColor,
+                          onChanged: (Object object) {
+                            setState(() {
+                              _student.gender = our_gender.Gender.male;
+                            });
+                          },
+                        ),
+                        const Text('Masculino'),
+                      ],
+                    ),
                   ),
-                  const SizedBox(width: 8),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Radio(
-                        groupValue: _student.gender,
-                        value: our_gender.Gender.female,
-                        activeColor: Theme.of(context).primaryColor,
-                        onChanged: (Object object) {
-                          setState(() {
-                            _student.gender = our_gender.Gender.female;
-                          });
-                        },
-                      ),
-                      const Text('Feminino'),
-                    ],
+                  Container(
+                    height: 60,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Radio(
+                          groupValue: _student.gender,
+                          value: our_gender.Gender.female,
+                          activeColor: Theme.of(context).primaryColor,
+                          onChanged: (Object object) {
+                            setState(() {
+                              _student.gender = our_gender.Gender.female;
+                            });
+                          },
+                        ),
+                        const Text('Feminino'),
+                      ],
+                    ),
                   ),
                 ],
               ),
-              FormVerticalSeparator,
               GGOutlinedTextFormField(
                 labelText: 'Telefone',
+                width: 150,
                 initialValue: _student.phone,
                 focusNode: phoneFN,
                 onEditingComplete: () =>
@@ -167,9 +174,9 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
                 keyboardType: TextInputType.phone,
                 onSaved: (phone) => _student.phone = phone,
               ),
-              FormVerticalSeparator,
               GGOutlinedTextFormField(
                 labelText: 'E-mail',
+                width: 300,
                 initialValue: _student.email,
                 focusNode: emailFN,
                 onEditingComplete: () =>
@@ -179,9 +186,9 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
                 validator: emailValidator,
                 onSaved: (email) => _student.email = email,
               ),
-              FormVerticalSeparator,
               GGOutlinedTextFormField(
                 labelText: 'Nome do Responsável',
+                width: 300,
                 initialValue: _student.responsibleName,
                 focusNode: responsibleNameFN,
                 onEditingComplete: () =>
@@ -190,9 +197,9 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
                 onSaved: (responsibleName) =>
                     _student.responsibleName = responsibleName,
               ),
-              FormVerticalSeparator,
               GGOutlinedTextFormField(
                 labelText: 'Telefone do Responsável',
+                width: 230,
                 initialValue: _student.responsiblePhone,
                 focusNode: responsiblePhoneFN,
                 onEditingComplete: () =>
@@ -202,9 +209,9 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
                 onSaved: (responsiblePhone) =>
                     _student.responsiblePhone = responsiblePhone,
               ),
-              FormVerticalSeparator,
               GGOutlinedTextFormField(
                 labelText: 'Endereço Completo',
+                width: 400,
                 initialValue: _student.address,
                 focusNode: addressFN,
                 onEditingComplete: () =>
@@ -212,9 +219,9 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
                 textInputAction: TextInputAction.next,
                 onSaved: (address) => _student.address = address,
               ),
-              FormVerticalSeparator,
               GGOutlinedTextFormField(
                 labelText: 'Escola Anterior',
+                width: 400,
                 initialValue: _student.previousSchool,
                 focusNode: previousSchooleFN,
                 onEditingComplete: () =>
@@ -223,9 +230,9 @@ class _SaveStudentFormState extends State<SaveStudentForm> with GGValidators {
                 onSaved: (previousSchool) =>
                     _student.previousSchool = previousSchool,
               ),
-              FormVerticalSeparator,
               GGOutlinedTextFormField(
                 labelText: 'Observação',
+                width: 400,
                 initialValue: _student.observation,
                 focusNode: observationFN,
                 textInputAction: TextInputAction.done,

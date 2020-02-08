@@ -22,8 +22,8 @@ class ALLogo extends StatelessWidget {
         color: color,
         shadows: hasShadow
             ? [
-                BoxShadow(
-                  offset: const Offset(0, 1),
+                const BoxShadow(
+                  offset: Offset(0, 1),
                   color: Colors.grey,
                 ),
               ]

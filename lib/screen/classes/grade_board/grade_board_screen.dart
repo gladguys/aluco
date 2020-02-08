@@ -57,10 +57,13 @@ class _GradeBoardScreenState extends State<GradeBoardScreen> {
       itemCount: studentsGrades.length,
       itemBuilder: (_, i) {
         return Material(
+          color: Colors.white,
           elevation: 1,
           clipBehavior: Clip.antiAlias,
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+            side: BorderSide(color: Colors.grey[200]),
+          ),
           child: ExpansionTile(
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

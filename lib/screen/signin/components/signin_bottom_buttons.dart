@@ -9,8 +9,8 @@ class SigninBottomButtons extends StatelessWidget {
       padding: const EdgeInsets.all(2.0),
       child: Wrap(
         alignment: WrapAlignment.center,
-        spacing: 50.0,
-        runSpacing: 8.0,
+        direction: Axis.vertical,
+        spacing: 8.0,
         children: <Widget>[
           CreateAccountButton(),
           SigninWithGoogleButton(),
