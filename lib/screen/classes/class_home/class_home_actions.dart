@@ -7,11 +7,15 @@ import 'package:aluco/screen/classes/grade_board/grade_board_screen.dart';
 import 'package:aluco/screen/classes/lesson_plan/list_lesson_plan_screen.dart';
 import 'package:aluco/screen/exam/exam_bloc.dart';
 import 'package:aluco/screen/exam/exams_screen.dart';
+import 'package:aluco/theme/main_theme.dart';
 import 'package:aluco/widget/al_icon_text_vertical_button.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:gg_flutter_components/dialog/gg_basic_yn_dialog.dart';
+import 'package:gg_flutter_components/dialog/gg_confirm_delete_dialog.dart';
+import 'package:gg_flutter_components/dialog/gg_dialog.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
 
 import 'class_home_bloc.dart';
@@ -41,9 +45,13 @@ class ClassHomeActions extends StatelessWidget {
                 route: ClassStudentsScreen(),
               ),
               GGIconLabelContainer(
-                icon: FontAwesome5.getIconData(
-                  'clipboard-check',
-                  weight: IconWeight.Solid,
+                icon: Icon(
+                  FontAwesome5.getIconData(
+                    'clipboard-check',
+                    weight: IconWeight.Solid,
+                  ),
+                  size: 48,
+                  color: theme.accentColor,
                 ),
                 text: Padding(
                   padding: const EdgeInsets.only(top: 2),
@@ -65,38 +73,16 @@ class ClassHomeActions extends StatelessWidget {
                 onTap: () async {
                   if (_classBloc.pickedClass.classStatus ==
                       ClassStatus.created) {
-                    showDialog<dynamic>(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                        title: Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.warning,
-                              color: Colors.yellow,
-                            ),
-                            const SizedBox(
-                              width: 12,
-                            ),
-                            const Text('Classe não iniciada'),
-                          ],
-                        ),
-                        content: const Text(
-                          'Ao entrar na tela de Chamadas serão definidos os números de chamadas de todos os alunos da turma em ordem alfabética. Novos alunos adicionados a turma posteriormente a esse ação irão para o fim da lista de chamadas. Deseja prosseguir?',
-                        ),
-                        actions: <Widget>[
-                          FlatButton(
-                            child: const Text('Não'),
-                            onPressed: () => Navigator.of(context).pop(),
-                          ),
-                          FlatButton(
-                            child: const Text('Prosseguir'),
-                            onPressed: () async {
-                              await _classBloc.initializeClass(classe.id);
-                              Navigator.of(context).pop();
-                              gotoCallScreen(context);
-                            },
-                          ),
-                        ],
+                    GGDialog.show(
+                      context,
+                      GGBasicYNDialog(
+                        title: 'Atenção',
+                        text: 'Se continuar, serão definidos os números de chamadas de todos os alunos da turma em ordem alfabética. Novos alunos adicionados a turma posteriormente a esse ação irão para o fim da lista de chamadas. Deseja prosseguir?',
+                        onClickYes: () async {
+                          await _classBloc.initializeClass(classe.id);
+                          Navigator.of(context).pop();
+                          gotoCallScreen(context);
+                        },
                       ),
                     );
                   } else {
