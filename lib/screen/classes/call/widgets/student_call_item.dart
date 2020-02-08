@@ -31,10 +31,11 @@ class StudentCallItem extends StatelessWidget {
           vertical: 8,
           horizontal: 12,
         ),
-        leading: Text(studentCall.numberCall?.toString() ?? 'S/N'),
         title: Padding(
           padding: const EdgeInsets.only(bottom: 8),
-          child: Text((index+1).toString() +'. '+studentCall.studentName ?? ''),
+          child: Text(studentCall.numberCall != null 
+            ? (studentCall.numberCall.toString() +'. '+ studentCall.studentName ?? '')
+            : studentCall.studentName ?? ''),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
