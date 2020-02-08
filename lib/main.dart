@@ -25,6 +25,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   NotificationService.setupLocalNotification();
   await initializePreferences();
+  final pref = await SharedPreferences.getInstance();
   setupLocator();
   Catcher(MyApp(), debugConfig: debugOptions, releaseConfig: releaseOptions);
 }

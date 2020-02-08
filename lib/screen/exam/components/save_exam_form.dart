@@ -1,7 +1,5 @@
 import 'package:aluco/core/utils/form_utils.dart';
 import 'package:aluco/model/exam.dart';
-import 'package:aluco/screen/exam/exam_bloc.dart';
-import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:circular_check_box/circular_check_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sujian_select/select_group.dart';
@@ -24,7 +22,6 @@ class SaveExamForm extends StatefulWidget {
 }
 
 class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
-  ExamBloc _examBloc;
   final _formKey = GlobalKey<FormState>();
   final dateFormat = DateFormat('dd/MM/yyyy');
   bool weightVisible = true;
@@ -34,7 +31,6 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
   @override
   void initState() {
     super.initState();
-    _examBloc = BlocProvider.getBloc<ExamBloc>();
     if (widget._exam != null) {
       _exam = widget._exam;
       if (_exam.recExam) {
@@ -176,11 +172,6 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
         ),
       ),
     );
-  }
-
-  List<Exam> _getExamsByPeriod(List<Exam> exams, int period) {
-    final periodExams = exams.where((exam) => exam.periodYear == period);
-    return periodExams.isNotEmpty ? periodExams.toList() : [];
   }
 
   bool hasAnyRecover(List<Exam> exams) {

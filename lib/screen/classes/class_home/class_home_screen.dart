@@ -2,7 +2,6 @@ import 'package:aluco/model/class.dart';
 import 'package:aluco/widget/al_scaffold.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
-import 'package:gg_flutter_components/gg_snackbar.dart';
 
 import 'class_home_actions.dart';
 import 'class_home_bloc.dart';
@@ -36,24 +35,6 @@ class _ClassHomeScreenState extends State<ClassHomeScreen> {
         children: <Widget>[
           const SizedBox(height: 24),
           ClassHomeActions(),
-          const SizedBox(height: 12),
-          if (classe.classStatus == ClassStatus.created)
-            Container(
-              child: RaisedButton(
-                child: const Text('Iniciar Turma'),
-                onPressed: () async {
-                  await _bloc.initializeClass(classe.id);
-                  GGSnackbar.success(
-                    message: 'Classe iniciada com sucesso!',
-                    context: context,
-                  );
-                  setState(() {});
-                  print(_bloc.pickedClass.classStatus);
-                },
-              ),
-            )
-          else
-            const SizedBox.shrink(),
         ],
       ),
     );

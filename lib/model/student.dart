@@ -19,6 +19,7 @@ class Student implements BaseModel<Student> {
   String observation;
   bool aee;
   Gender gender;
+  int numberCall;
 
   Student();
 
@@ -42,6 +43,7 @@ class Student implements BaseModel<Student> {
       ..previousSchool = json['previousSchool']
       ..observation = json['observation']
       ..aee = json['aee']
+      ..numberCall = json['numberCall']
       ..gender = json['gender'] == 0 ? Gender.male : Gender.female;
   }
 
@@ -61,6 +63,7 @@ class Student implements BaseModel<Student> {
       'address': address,
       'previousSchool': previousSchool,
       'observation': observation,
+      'numberCall': numberCall,
       'aee': aee,
       'gender': gender.index,
     };
@@ -76,6 +79,6 @@ class Student implements BaseModel<Student> {
 
   @override
   String toString() {
-    return 'Student{id: $id, teacherId: $teacherId, registrationNumber: $registrationNumber, name: $name, email: $email, photoUrl: $photoUrl, dateBirth: $dateBirth, phone: $phone, responsibleName: $responsibleName, responsiblePhone: $responsiblePhone, address: $address, previousSchool: $previousSchool, observation: $observation, gender: $gender}';
+    return 'Student{id: $id, numberCall: $numberCall, teacherId: $teacherId, registrationNumber: $registrationNumber, name: $name, email: $email, photoUrl: $photoUrl, dateBirth: $dateBirth, phone: $phone, responsibleName: $responsibleName, responsiblePhone: $responsiblePhone, address: $address, previousSchool: $previousSchool, observation: $observation, gender: $gender}';
   }
 }

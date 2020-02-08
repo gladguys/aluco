@@ -264,7 +264,6 @@ class _StudentCallsState extends State<StudentCalls> {
   }
 
   Widget _buildEventsMarker(DateTime date, List events) {
-    print(events);
     return Container(
       margin: const EdgeInsets.all(4.0),
       width: 40,

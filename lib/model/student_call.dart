@@ -15,6 +15,7 @@ class StudentCall {
       this.studentName,
       this.classId,
       this.status,
+      this.numberCall,
       this.date});
 
   StudentCall.fromJson(Map<String, dynamic> json) {
