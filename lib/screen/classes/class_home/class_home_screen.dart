@@ -18,6 +18,8 @@ class ClassHomeScreen extends StatefulWidget {
 class _ClassHomeScreenState extends State<ClassHomeScreen> {
   ClassHomeBloc _bloc;
 
+  Class get classe => widget._class;
+
   @override
   void initState() {
     _bloc = BlocProvider.getBloc<ClassHomeBloc>()..setClass(widget._class);

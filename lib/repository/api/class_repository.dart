@@ -21,6 +21,7 @@ class ClassRepository extends BaseRepository<Class>
     try {
       final response =
           await _dio.get<dynamic>('$basePath/$SINGLE_TEACHER/$teacherId');
+
       return List.generate(response.data.length, (int i) {
         final classe = Class();
         return classe.fromJson(response.data[i]);
@@ -109,6 +110,14 @@ class ClassRepository extends BaseRepository<Class>
         return ClassConfig.fromJson(response.data);
       }
       return null;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> initializeClass(int classId) async {
+    try {
+      await _dio.post<dynamic>('$CLASS/$classId/$NUMBER_CALLS');
     } catch (e) {
       rethrow;
     }

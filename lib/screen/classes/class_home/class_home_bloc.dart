@@ -36,6 +36,7 @@ class ClassHomeBloc extends BlocBase {
       _class.maxQntAbsence = config.maxQntAbsence;
       _class.minimumAverage = config.minimumAverage;
     } catch (e) {
+      print(e);
       throw Exception();
     }
   }
@@ -130,6 +131,15 @@ class ClassHomeBloc extends BlocBase {
     return classPlannedLessons.firstWhere(
         (lesson) => lesson.lessonDate == dateFormat.format(date),
         orElse: () => null);
+  }
+
+  Future<void> initializeClass(int classId) async {
+    try {
+      await _classRepository.initializeClass(classId);
+      _class.classStatus = ClassStatus.started;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   void cleanBloc() {

@@ -1,14 +1,11 @@
 import 'package:aluco/model/exam.dart';
-import 'package:aluco/screen/exam/exam_bloc.dart';
 import 'package:aluco/widget/gg_form_date_picker.dart';
 import 'package:aluco/widget/gg_outlined_text_form_field.dart';
-import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:circular_check_box/circular_check_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sujian_select/select_group.dart';
 import 'package:flutter_sujian_select/select_item.dart';
 import 'package:gg_flutter_components/validator/gg_validators.dart';
-import 'package:gg_flutter_components/gg_snackbar.dart';
 import 'package:intl/intl.dart';
 
 class SaveExamForm extends StatefulWidget {
@@ -26,7 +23,6 @@ class SaveExamForm extends StatefulWidget {
 }
 
 class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
-  ExamBloc _examBloc;
   final _formKey = GlobalKey<FormState>();
   final dateFormat = DateFormat('dd/MM/yyyy');
   bool weightVisible = true;
@@ -36,9 +32,7 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
   @override
   void initState() {
     super.initState();
-    _examBloc = BlocProvider.getBloc<ExamBloc>();
     if (widget._exam != null) {
-      print(widget._exam);
       _exam = widget._exam;
       if (_exam.recExam) {
         weightVisible = false;
@@ -115,17 +109,13 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
                       value: _exam.recExam,
                       onChanged: (isRecExam) {
                         _exam.recExam = isRecExam;
-                        if (isRecExam) {
-                          checkIfCanSetRecover();
-                        } else {
-                          setState(() {
-                            _exam.recExam = isRecExam;
-                            weightVisible = !isRecExam;
-                            if (isRecExam) {
-                              _exam.weight = 1;
-                            }
-                          });
-                        }
+                        setState(() {
+                          _exam.recExam = isRecExam;
+                          weightVisible = !isRecExam;
+                          if (isRecExam) {
+                            _exam.weight = 1;
+                          }
+                        });
                       },
                       activeColor: Theme.of(context).primaryColor,
                     ),
@@ -172,8 +162,9 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
                       SelectItem(label: '4', value: 4),
                     ],
                     onSingleSelect: (periodYear) {
-                      _exam.periodYear = periodYear;
-                      checkIfCanSetRecover(fromPeriod: true);
+                      setState(() {
+                        _exam.periodYear = periodYear;
+                      });
                     },
                   ),
                 ],
@@ -183,34 +174,6 @@ class _SaveExamFormState extends State<SaveExamForm> with GGValidators {
         ),
       ),
     );
-  }
-
-  void checkIfCanSetRecover({bool fromPeriod = false}) {
-    final selectedPeriod = _exam.periodYear;
-    final examsBySelectedPeriod =
-        _getExamsByPeriod(_examBloc.examsList, selectedPeriod);
-    final hasAnyExamRecover = hasAnyRecover(examsBySelectedPeriod);
-    if (hasAnyExamRecover && _exam.recExam) {
-      GGSnackbar.warning(
-          context: context,
-          message:
-              'Já existe uma prova de recuperação criada para este bimestre');
-      setState(() {
-        _exam.recExam = false;
-        weightVisible = true;
-      });
-    } else if (!fromPeriod) {
-      setState(() {
-        _exam.recExam = true;
-        weightVisible = false;
-        _exam.weight = 1;
-      });
-    }
-  }
-
-  List<Exam> _getExamsByPeriod(List<Exam> exams, int period) {
-    final periodExams = exams.where((exam) => exam.periodYear == period);
-    return periodExams.isNotEmpty ? periodExams.toList() : [];
   }
 
   bool hasAnyRecover(List<Exam> exams) {

@@ -2,6 +2,7 @@ import 'package:aluco/core/routing/al_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gg_flutter_components/gg_flutter_components.dart';
+import 'package:gg_flutter_components/gg_snackbar.dart';
 
 class ALIconTextVerticalButton extends StatelessWidget {
   const ALIconTextVerticalButton({
@@ -9,12 +10,16 @@ class ALIconTextVerticalButton extends StatelessWidget {
     this.text,
     this.route,
     this.resolver,
+    this.condition = true,
+    this.message,
   });
 
   final IconData icon;
   final String text;
   final Widget route;
   final Function resolver;
+  final bool condition;
+  final String message;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +48,13 @@ class ALIconTextVerticalButton extends StatelessWidget {
       backgroundColor: Colors.white,
       borderWidth: 1,
       withShadow: true,
-      onTap: () async => ALRouter.pushWithResolver(context, route, resolver),
+      onTap: () async {
+        if (condition) {
+          ALRouter.pushWithResolver(context, route, resolver);
+        } else {
+          GGSnackbar.warning(message: message, context: context);
+        }
+      },
     );
   }
 }

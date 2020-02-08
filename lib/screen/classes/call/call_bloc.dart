@@ -32,19 +32,17 @@ class CallBloc extends BlocBase {
       final date = dateFormat.format(callDate);
       final callsOnDate =
           await _callRepository.getClassStudentsCallOnDate(classId, date);
-
       final classStudents = await _classRepository.getStudentsByClass(classId);
-
       if (callsOnDate == null || callsOnDate.isEmpty) {
         for (Student student in classStudents) {
           studentsCalls.add(
             StudentCall(
-              classId: classId,
-              studentName: student.name,
-              date: date,
-              status: CallStatus.NENHUMA,
-              studentId: student.id,
-            ),
+                classId: classId,
+                studentName: student.name,
+                date: date,
+                status: CallStatus.NENHUMA,
+                studentId: student.id,
+                numberCall: student.numberCall),
           );
         }
       } else {
