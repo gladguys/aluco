@@ -42,7 +42,8 @@ class _SigninScreenState extends State<SigninScreen> with GGValidators {
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: ExactAssetImage('assets/images/teacherBackground.jpeg'),
+            image:
+                const ExactAssetImage('assets/images/teacherBackground.jpeg'),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
               Theme.of(context).primaryColor,

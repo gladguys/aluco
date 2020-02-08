@@ -9,9 +9,10 @@ import 'package:toggle_switch/toggle_switch.dart';
 import '../call_bloc.dart';
 
 class StudentCallItem extends StatelessWidget {
-  StudentCallItem(this.studentCall);
+  StudentCallItem(this.studentCall, this.index);
 
   final StudentCall studentCall;
+  final int index;
   final CallBloc _callBloc = BlocProvider.getBloc<CallBloc>();
 
   @override
@@ -21,7 +22,10 @@ class StudentCallItem extends StatelessWidget {
       color: Colors.white,
       elevation: 1,
       clipBehavior: Clip.antiAlias,
-      borderRadius: BorderRadius.circular(8),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: BorderSide(color: Colors.grey[200]),
+      ),
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(
           vertical: 8,
@@ -30,7 +34,7 @@ class StudentCallItem extends StatelessWidget {
         leading: Text(studentCall.numberCall?.toString() ?? 'S/N'),
         title: Padding(
           padding: const EdgeInsets.only(bottom: 8),
-          child: Text(studentCall.studentName ?? ''),
+          child: Text((index+1).toString() +'. '+studentCall.studentName ?? ''),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

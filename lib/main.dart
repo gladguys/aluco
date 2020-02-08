@@ -2,6 +2,7 @@ import 'package:alice/alice.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:catcher/catcher_plugin.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,6 +21,8 @@ SharedPreferences preferences;
 Alice alice =
     Alice(navigatorKey: Catcher.navigatorKey, showNotification: false);
 
+NotificationAppLaunchDetails notificationAppLaunchDetails;
+
 Future<void> main() async {
   Get.key = Catcher.navigatorKey;
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +30,8 @@ Future<void> main() async {
   await initializePreferences();
   final pref = await SharedPreferences.getInstance();
   setupLocator();
+  notificationAppLaunchDetails =
+      await NotificationService.getNotificationAppLaunchDetails();
   Catcher(MyApp(), debugConfig: debugOptions, releaseConfig: releaseOptions);
 }
 
@@ -34,7 +39,12 @@ Future<void> initializePreferences() async {
   preferences = await SharedPreferences.getInstance();
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -50,8 +60,16 @@ class MyApp extends StatelessWidget {
         supportedLocales: const <Locale>[
           Locale('pt', 'BR'),
         ],
-        home: JWTUtils.userAlreadySignedIn() ? HomeScreen() : SigninScreen(),
+        home: getHomeWidget(),
       ),
     );
+  }
+
+  Widget getHomeWidget() {
+    if (JWTUtils.userAlreadySignedIn()) {
+      return const HomeScreen();
+    } else {
+      return SigninScreen();
+    }
   }
 }

@@ -67,57 +67,85 @@ class _StudentInfoCenterScreenState extends State<StudentInfoCenterScreen> {
               },
             ),
             const SizedBox(height: 24),
-            Material(
-              elevation: 1,
-              clipBehavior: Clip.antiAlias,
-              borderRadius: BorderRadius.circular(8),
-              child: ExpansionTile(
-                title: const Text('Histórico de Faltas'),
-                children: <Widget>[
-                  FutureBuilder<StudentAbsence>(
-                    future: getStudentAbsencesFuture,
-                    builder: (_, snapshotAbsence) {
-                      if (snapshotAbsence.hasData) {
-                        return StudentAbsencesQuantity(snapshotAbsence.data);
-                      }
-                      return Container();
-                    },
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 2),
+              child: Material(
+                color: Colors.white,
+                elevation: 1,
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  side: BorderSide(color: Colors.grey[200]),
+                ),
+                child: ExpansionTile(
+                  title: const Text(
+                    'Histórico de Faltas',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                  const SizedBox(height: 8),
-                  FutureBuilder<List<StudentCall>>(
-                    future: getStudentCallsFuture,
-                    builder: (_, snapshotCalls) {
-                      if (snapshotCalls.hasData) {
-                        return StudentCalls(snapshotCalls.data);
-                      }
-                      return Container();
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                ],
+                  children: <Widget>[
+                    FutureBuilder<StudentAbsence>(
+                      future: getStudentAbsencesFuture,
+                      builder: (_, snapshotAbsence) {
+                        if (snapshotAbsence.hasData) {
+                          return StudentAbsencesQuantity(snapshotAbsence.data);
+                        }
+                        return Container();
+                      },
+                    ),
+                    const SizedBox(height: 8),
+                    FutureBuilder<List<StudentCall>>(
+                      future: getStudentCallsFuture,
+                      builder: (_, snapshotCalls) {
+                        if (snapshotCalls.hasData) {
+                          return StudentCalls(snapshotCalls.data);
+                        }
+                        return Container();
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                  ],
+                ),
               ),
             ),
-            const SizedBox(height: 22),
-            Material(
-              elevation: 1,
-              clipBehavior: Clip.antiAlias,
-              borderRadius: BorderRadius.circular(8),
-              child: ExpansionTile(
-                title: const Text('Notas'),
-                children: <Widget>[
-                  FutureBuilder<StudentGrades>(
-                    future: getStudentGradesFuture,
-                    builder: (_, snapshotGrades) {
-                      if (snapshotGrades.hasData) {
-                        return StudentGradesList(snapshotGrades.data);
-                      }
-                      return Container();
-                    },
+            const SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 2),
+              child: Material(
+                color: Colors.white,
+                elevation: 1,
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  side: BorderSide(color: Colors.grey[200]),
+                ),
+                child: ExpansionTile(
+                  title: const Text(
+                    'Notas',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                  const SizedBox(height: 8),
-                ],
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: FutureBuilder<StudentGrades>(
+                        future: getStudentGradesFuture,
+                        builder: (_, snapshotGrades) {
+                          if (snapshotGrades.hasData) {
+                            return StudentGradesList(snapshotGrades.data);
+                          }
+                          return Container();
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                  ],
+                ),
               ),
             ),
+            const SizedBox(height: 8),
           ],
         ),
       ),

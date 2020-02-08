@@ -32,7 +32,8 @@ class AuthRepository implements AbstractAuthRepository {
       await _dio.post<dynamic>(TEACHER, data: jsonEncode(userData));
       return <String, dynamic>{
         'email': userData['email'],
-        'password': userData['password']
+        'password': userData['password'],
+        'name': userData['name'],
       };
     } catch (e) {
       rethrow;

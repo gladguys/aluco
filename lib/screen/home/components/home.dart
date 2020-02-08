@@ -7,7 +7,7 @@ class Home extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: ExactAssetImage('assets/images/owl.png'),
+          image: const ExactAssetImage('assets/images/owl.png'),
           fit: BoxFit.contain,
           alignment: Alignment.bottomCenter,
           colorFilter: ColorFilter.mode(

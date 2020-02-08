@@ -41,13 +41,9 @@ class ClassHomeActions extends StatelessWidget {
                 route: ClassStudentsScreen(),
               ),
               GGIconLabelContainer(
-                icon: Icon(
-                  FontAwesome5.getIconData(
-                    'history',
-                    weight: IconWeight.Solid,
-                  ),
-                  size: 48,
-                  color: Theme.of(context).accentColor,
+                icon: FontAwesome5.getIconData(
+                  'clipboard-check',
+                  weight: IconWeight.Solid,
                 ),
                 text: Padding(
                   padding: const EdgeInsets.only(top: 2),

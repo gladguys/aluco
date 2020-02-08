@@ -1,21 +1,68 @@
 import 'package:aluco/model/exams_period.dart';
 import 'package:aluco/model/period_content.dart';
 import 'package:aluco/model/student_grades.dart';
+import 'package:aluco/utils/al_number_format.dart';
 import 'package:flutter/material.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
-class StudentGradesList extends StatelessWidget {
+class StudentGradesList extends StatefulWidget {
   const StudentGradesList(this.studentGrades);
 
   final StudentGrades studentGrades;
 
   @override
+  _StudentGradesListState createState() => _StudentGradesListState();
+}
+
+class _StudentGradesListState extends State<StudentGradesList> {
+  int index;
+  StudentGrades get studentGrades => widget.studentGrades;
+
+  @override
+  void initState() {
+    index = 0;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        _buildPeriodGrades(studentGrades.periodOne),
-        _buildPeriodGrades(studentGrades.periodTwo),
-        _buildPeriodGrades(studentGrades.periodThree),
-        _buildPeriodGrades(studentGrades.periodFour),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: ToggleSwitch(
+            minWidth: 90.0,
+            initialLabelIndex: 0,
+            activeBgColor: Theme.of(context).primaryColor,
+            activeTextColor: Colors.white,
+            inactiveBgColor: Theme.of(context).primaryColor.withOpacity(0.2),
+            inactiveTextColor: Colors.grey[850],
+            labels: const [
+              'Bimestre 1',
+              'Bimestre 2',
+              'Bimestre 3',
+              'Bimestre 4'
+            ],
+            onToggle: (pickedIndex) {
+              setState(() {
+                index = pickedIndex;
+              });
+            },
+          ),
+        ),
+        const SizedBox(height: 4),
+        ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 500),
+          child: Material(
+            color: Colors.grey[50],
+            clipBehavior: Clip.antiAlias,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+              side: BorderSide(color: Colors.grey[200]),
+            ),
+            child: _buildPeriodGrades(studentGrades.allPeriodsContent[index]),
+          ),
+        ),
       ],
     );
   }
@@ -25,16 +72,46 @@ class StudentGradesList extends StatelessWidget {
         periodContent.examsPeriod.isNotEmpty) {
       return Column(
         children: <Widget>[
-          Text('Média do Bimestre: ${periodContent.average}'),
           ListView.builder(
             shrinkWrap: true,
             itemBuilder: (_, i) => ExamTile(periodContent.examsPeriod[i]),
             itemCount: periodContent.examsPeriod.length,
           ),
+          Material(
+            color: Colors.grey[200],
+            child: ListTile(
+              title: const Text(
+                'Média do Bimestre:',
+                style: TextStyle(fontWeight: FontWeight.w500),
+              ),
+              trailing: Text(
+                periodContent.average != null
+                    ? ALNumberFormat.formatDoubleWithDecimal(
+                        number: periodContent.average.toString())
+                    : 'Sem média',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: periodContent.average == null
+                      ? Colors.grey
+                      : periodContent.average >= 6
+                          ? Colors.green[600]
+                          : Colors.red[600],
+                ),
+              ),
+            ),
+          ),
         ],
       );
     } else {
-      return Container();
+      return const Center(
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Text(
+            'Não existem provas para este bimestre',
+          ),
+        ),
+      );
     }
   }
 }
@@ -47,8 +124,29 @@ class ExamTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(examsPeriod.examName),
-      trailing: Text(examsPeriod.grade?.toStringAsFixed(2) ?? ''),
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          if (examsPeriod.recExam)
+            const Text(
+              'Recuperação',
+              style: TextStyle(fontSize: 9),
+            ),
+          Text(examsPeriod.examName),
+        ],
+      ),
+      trailing: Text(
+        examsPeriod.grade != null
+            ? ALNumberFormat.formatDoubleWithDecimal(
+                number: examsPeriod.grade.toString())
+            : 'Sem nota',
+        style: TextStyle(
+          fontSize: 16,
+          color: examsPeriod.grade == null
+              ? Colors.grey
+              : (examsPeriod.grade >= 6 ? Colors.green[600] : Colors.red[600]),
+        ),
+      ),
     );
   }
 }

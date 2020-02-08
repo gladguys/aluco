@@ -65,7 +65,7 @@ class _SigninFormButtonState extends State<SigninFormButton> {
           if (loggedUserData != null) {
             await _bloc.storeJWTInfo(loggedUserData);
             if (PrefUtils.isFirstLoginDone()) {
-              ALRouter.pushAndReplace(context, HomeScreen());
+              ALRouter.pushAndReplace(context, const HomeScreen());
             } else {
               ALRouter.pushAndReplace(context, IntroScreen());
             }

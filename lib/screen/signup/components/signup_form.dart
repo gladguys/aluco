@@ -24,6 +24,7 @@ class SignupForm extends StatelessWidget with GGValidators {
             ALSignTextFormField(
               labelText: 'Nome *',
               prefixIconData: Icons.perm_identity,
+              width: 320,
               validator: emptyValidator,
               onFieldSubmitted: (String value) =>
                   FocusScope.of(context).requestFocus(_emailFN),
@@ -33,6 +34,7 @@ class SignupForm extends StatelessWidget with GGValidators {
             ALSignTextFormField(
               labelText: 'E-mail *',
               prefixIconData: Icons.person,
+              width: 320,
               validator: emptyValidator,
               focusNode: _emailFN,
               onFieldSubmitted: (String value) =>
@@ -43,6 +45,7 @@ class SignupForm extends StatelessWidget with GGValidators {
             ALSignTextFormField(
               labelText: 'Senha *',
               prefixIconData: Icons.vpn_key,
+              width: 320,
               obscureText: true,
               controller: _passwordController,
               focusNode: _passwordFN,
@@ -55,6 +58,7 @@ class SignupForm extends StatelessWidget with GGValidators {
             ALSignTextFormField(
               labelText: 'Confirme a senha *',
               prefixIconData: Icons.vpn_key,
+              width: 320,
               obscureText: true,
               textInputAction: TextInputAction.done,
               focusNode: _passwordConfirmationFN,

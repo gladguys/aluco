@@ -43,7 +43,7 @@ class _HomeActionsState extends State<HomeActions> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
+                children: const <Widget>[
                   Text(
                     'Informações do Usuário',
                     style: TextStyle(
@@ -52,7 +52,7 @@ class _HomeActionsState extends State<HomeActions> {
                         fontSize: 20.0),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
+                    padding: EdgeInsets.only(top: 10.0),
                     child: Text(
                       'Clicando aqui você tem informações do seu usuário e pode deslogar do app',
                       style: TextStyle(color: Colors.white),
@@ -77,18 +77,18 @@ class _HomeActionsState extends State<HomeActions> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
+                children: const <Widget>[
                   Text(
-                    'Ações relativas a turmas',
+                    'Gerenciamento de turmas',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                         fontSize: 20.0),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
+                    padding: EdgeInsets.only(top: 10.0),
                     child: Text(
-                      'Aqui você pode criar novas turmas, além de realizar todas as ações relacionadas com uma turma, como bla bla bla',
+                      'Aqui você pode criar e editar novas turmas, além de vincular os alunos às suas respectivas turmas.',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -111,18 +111,18 @@ class _HomeActionsState extends State<HomeActions> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
+                children: const <Widget>[
                   Text(
-                    'Ações relativas a estudantes',
+                    'Gerenciamento de alunos',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                         fontSize: 20.0),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
+                    padding: EdgeInsets.only(top: 10.0),
                     child: Text(
-                      'Tudo relacionado a estudantes ogowkpowkpf',
+                      'Cadastre os alunos das escolas que você ensina.',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -141,7 +141,7 @@ class _HomeActionsState extends State<HomeActions> {
       targets: targets,
       colorShadow: Colors.orange[600],
       textSkip: 'Pular',
-      textStyleSkip: TextStyle(fontSize: 22, color: Colors.white),
+      textStyleSkip: const TextStyle(fontSize: 22, color: Colors.white),
       paddingFocus: 10,
       finish: () async {
         await BlocProvider.getBloc<SigninBloc>().markFirstLoginDone();

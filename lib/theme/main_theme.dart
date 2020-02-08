@@ -29,7 +29,7 @@ final theme = ThemeData(
   inputDecorationTheme: InputDecorationTheme(
     labelStyle: TextStyle(color: Colors.orange[800]),
     filled: true,
-    fillColor: Colors.white,
+    fillColor: Colors.grey[200],
     border: UnderlineInputBorder(
       borderSide: BorderSide(
         color: Colors.orange[600],
